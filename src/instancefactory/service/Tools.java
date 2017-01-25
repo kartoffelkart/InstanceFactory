@@ -14,13 +14,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author Sonja Schäfer <sonja_schaefer@gmx.de>
  */
 public class Tools {
+    
+   
 
-    int getBudgetOfTheFirstNodes(ArrayList<Boolean> boughtList) {
-        int budget = 0;
-        return budget;
-    }
-
-    ArrayList<Integer> getRandomIntArray(int min, int max, Integer size) {
+    public ArrayList<Integer> getRandomIntArray(int min, int max, int size) {
         ArrayList<Integer> randomIntArrayList = new ArrayList<>();
         int it = 0;
         while (it < size) {
@@ -30,4 +27,19 @@ public class Tools {
         }
         return randomIntArrayList;
     }
+
+    public String getChoice(int unionProbability, int leftJoinProbability, int rightJoinProbability) {
+
+        ArrayList<Integer> numbers = getRandomIntArray(1, 100, 1);
+        if (numbers.get(0) < unionProbability) {
+            return "union";
+        } else {
+            if (numbers.get(0) < (unionProbability + leftJoinProbability)) {
+                return "leftJoin";
+            } else {
+                return "rightJoin";
+            }
+        }
+    }
+
 }
