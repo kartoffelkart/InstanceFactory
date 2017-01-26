@@ -23,7 +23,7 @@ public class InstanceFactory {
         ArrayList<Integer> randomIntArrayList = tool.getRandomIntArray(1, 100, 10);
         System.out.println(randomIntArrayList.toString());
 
-        String choice = tool.getChoice(10, 10, 80);
+        String choice = tool.getChoice(10, 20, 70);
         System.out.println(choice);
 
     }
