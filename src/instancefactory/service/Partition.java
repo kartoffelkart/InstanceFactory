@@ -14,9 +14,9 @@ import java.util.Iterator;
  */
 public class Partition {
 
-    private ArrayList<ArrayList<Integer>> arrayList;
+    public ArrayList<ArrayList<Integer>> arrayList;
 
-    private ArrayList<Integer> sortedSells;
+    public ArrayList<Integer> sortedSells;
     private ArrayList<Integer> allreadyBought;
 
     private ArrayList<Integer> budgetOfSetUptoIndex;
@@ -27,6 +27,7 @@ public class Partition {
 
         int position = arrayList.indexOf(sortedSells.get(index));
         newBought = arrayList.get(position);
+        newBought.remove(0);
         newBought.removeAll(allreadyBought);
         int sumNewBoughts = 0;
         Iterator it = newBought.iterator();

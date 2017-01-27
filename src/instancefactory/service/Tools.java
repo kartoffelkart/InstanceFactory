@@ -14,8 +14,6 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author Sonja Schäfer <sonja_schaefer@gmx.de>
  */
 public class Tools {
-    
-   
 
     public ArrayList<Integer> getRandomIntArray(int min, int max, int size) {
         ArrayList<Integer> randomIntArrayList = new ArrayList<>();
@@ -40,6 +38,46 @@ public class Tools {
                 return "rightJoin";
             }
         }
+    }
+
+    ArrayList<Integer> makeSortedSellsJoin(ArrayList<Integer> s1, ArrayList<Integer> s2) {
+        ArrayList<Integer> s = new ArrayList<>();
+        s.addAll(s2);
+        s.addAll(s1);
+        return s;
+
+    }
+
+    ArrayList<Integer> makeSortedSellsUnion(ArrayList<Integer> s1, ArrayList<Integer> s2) {
+        ArrayList<Integer> s = new ArrayList<>();
+
+    }
+
+    ArrayList<ArrayList<Integer>> makeArrayListJoin(ArrayList<ArrayList<Integer>> a1, ArrayList<ArrayList<Integer>> a2) {
+        ArrayList<ArrayList<Integer>> a = new ArrayList<>();
+        a.addAll(a1);
+        Iterator ita1 = a1.iterator();
+        Iterator ita2 = a2.iterator();
+
+        while (ita1.hasNext()) {
+            while (ita2.hasNext())  {
+                ((ArrayList<Integer>) ita1).add(((ArrayList<Integer>)ita2).get(0));
+
+            }
+        }
+        
+        return a;
+
+    }
+
+    Partition makePartitionUnion(Partition p1, Partition p2) {
+        Partition p = new Partition();
+
+        p.arrayList = p1.arrayList;
+        p.arrayList.addAll(p2.arrayList);
+
+        p.sortedSells =;
+        return p;
     }
 
 }
