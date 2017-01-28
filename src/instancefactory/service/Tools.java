@@ -48,9 +48,16 @@ public class Tools {
 
     }
 
-    ArrayList<Integer> makeSortedSellsUnion(ArrayList<Integer> s1, ArrayList<Integer> s2) {
+    ArrayList<Integer> makeSortedSellsUnion(Partition p1, Partition p2) {
         ArrayList<Integer> s = new ArrayList<>();
-
+        for (int i = 0; i < p1.sortedSells.size(); i++) {
+            if (p1.setBudgetOfSetUptoIndex(i) > 0) {
+                for (int j = 0; j < p1.sortedSells.size(); j++) {
+                    if (p2.setBudgetOfSetUptoIndex(j) > 0) {//if boughts von Set kleiner als Boughts von anderem dann Set hinzufügen}}}
+                    }
+                }
+            }
+        }
     }
 
     ArrayList<ArrayList<Integer>> makeArrayListJoin(ArrayList<ArrayList<Integer>> a1, ArrayList<ArrayList<Integer>> a2) {
@@ -60,24 +67,43 @@ public class Tools {
         Iterator ita2 = a2.iterator();
 
         while (ita1.hasNext()) {
-            while (ita2.hasNext())  {
-                ((ArrayList<Integer>) ita1).add(((ArrayList<Integer>)ita2).get(0));
+            ArrayList<Integer> allreadyJoinedBoughts = new ArrayList<>(); // kein Nullpinter oder?
+            while (ita2.hasNext()) {
+
+                ArrayList<Integer> toLink = new ArrayList<>();
+                toLink.addAll((ArrayList<Integer>) ita2);
+                toLink.remove(0); //erster Eintrag ist ein Sell
+                toLink.removeAll(allreadyJoinedBoughts); //verändere ich hier die Originale ???
+                allreadyJoinedBoughts.addAll(toLink);
+                ((ArrayList<Integer>) ita1).addAll(toLink);
 
             }
         }
-        
+
         return a;
 
+    }
+
+    ArrayList<ArrayList<Integer>> makeArrayListUnion(ArrayList<ArrayList<Integer>> a1, ArrayList<ArrayList<Integer>> a2) {
+        ArrayList<ArrayList<Integer>> a = new ArrayList<>();
+        a.addAll(a1);
+        a.addAll(a2);
+        return a;
     }
 
     Partition makePartitionUnion(Partition p1, Partition p2) {
         Partition p = new Partition();
 
-        p.arrayList = p1.arrayList;
-        p.arrayList.addAll(p2.arrayList);
-
-        p.sortedSells =;
+        p.arrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);
+        p.sortedSells = makeSortedSellsUnion(p1, p2);
         return p;
     }
 
+    Partition makePartitionJoin(Partition p1, Partition p2) {
+        Partition p = new Partition();
+
+        p.arrayList = makeArrayListJoin(p1.arrayList, p2.arrayList);
+        p.sortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);
+        return p;
+    }
 }

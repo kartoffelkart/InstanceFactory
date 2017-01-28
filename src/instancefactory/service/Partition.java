@@ -17,9 +17,9 @@ public class Partition {
     public ArrayList<ArrayList<Integer>> arrayList;
 
     public ArrayList<Integer> sortedSells;
-    private ArrayList<Integer> allreadyBought;
+    public ArrayList<Integer> allreadyBought;
 
-    private ArrayList<Integer> budgetOfSetUptoIndex;
+    public ArrayList<Integer> budgetOfSetUptoIndex;
 
     public void setBudgetOfSetUptoIndex(int index) {
         int budget = 0;
