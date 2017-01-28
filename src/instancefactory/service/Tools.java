@@ -50,14 +50,66 @@ public class Tools {
 
     ArrayList<Integer> makeSortedSellsUnion(Partition p1, Partition p2) {
         ArrayList<Integer> s = new ArrayList<>();
-        for (int i = 0; i < p1.sortedSells.size(); i++) {
-            if (p1.setBudgetOfSetUptoIndex(i) > 0) {
-                for (int j = 0; j < p1.sortedSells.size(); j++) {
-                    if (p2.setBudgetOfSetUptoIndex(j) > 0) {//if boughts von Set kleiner als Boughts von anderem dann Set hinzufügen}}}
+        ArrayList<Integer> s1Rest = new ArrayList<>();
+        ArrayList<Integer> s2Rest = new ArrayList<>();
+        s1Rest.addAll(p1.sortedSells);
+        s2Rest.addAll(p2.sortedSells);
+        ArrayList<Integer> PositiveSetsP1= new ArrayList<>();
+        ArrayList<Integer> PositiveSetsP2= new ArrayList<>();
+        ArrayList<Integer> PositiveSetsBoughtsP1= new ArrayList<>();
+        ArrayList<Integer> PositiveSetsBoughtsP2= new ArrayList<>();
+
+        int i = 0;
+        int j = 0;
+        int x =0;
+        int y =0;
+        while (i < s1Rest.size()) {
+            p1.setBudgetandBoughtsOfSetUptoIndex(i);
+            i++;
+            if (p1.budgetandBoughtsOfSetUptoIndex.get(i).get(0) > 0) {
+                PositiveSetsP1.add(i);
+                for(int k =0;!(k>i);k++){p1.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);}
+            }}
+        while (j < s2Rest.size()) {
+            p2.setBudgetandBoughtsOfSetUptoIndex(j);
+            j++;
+            if (p2.budgetandBoughtsOfSetUptoIndex.get(j).get(0) > 0) {
+                PositiveSetsP2.add(j);
+                for(int k =0;!(k>j);k++){p2.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);}
+            }}
+                //if boughts von Set1 kleiner als Boughts von anderem dann Set hinzufügen}}}
+
+                        //alle in budget von p1 of up to index wird 0 gesetzt
+//                        sonst 
+//                                alle in budget von p1 of up to index wird 0 gesetzt
+//                                nicht in nächste while Schleife springen
+                while (x < PositiveSetsP1.size()) {
+                    while (y < PositiveSetsP2.size()) {
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    p2.setBudgetOfSetUptoIndex(j);
+                    j++;
+                    if (p2.budgetOfSetUptoIndex.get(j) > 0) {
+                    //if boughts von Set2 kleiner als Boughts von anderem dann Set hinzufügen}}}
+
+                        //alle in budget von p2 of up to index wird 0 gesetzt
+//                        sonst 
+//                                alle in budget von p1 of up to index wird 0 gesetzt
+//                                raus aus dieser for schleife 
+                        {
+
+                        }
                     }
                 }
             }
         }
+
+        //hier passiert jetzt noch was mit den RestArraysSells
     }
 
     ArrayList<ArrayList<Integer>> makeArrayListJoin(ArrayList<ArrayList<Integer>> a1, ArrayList<ArrayList<Integer>> a2) {

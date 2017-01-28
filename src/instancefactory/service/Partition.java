@@ -19,10 +19,11 @@ public class Partition {
     public ArrayList<Integer> sortedSells;
     public ArrayList<Integer> allreadyBought;
 
-    public ArrayList<Integer> budgetOfSetUptoIndex;
+    public ArrayList<ArrayList<Integer>> budgetandBoughtsOfSetUptoIndex;
 
-    public void setBudgetOfSetUptoIndex(int index) {
+    public void setBudgetandBoughtsOfSetUptoIndex(int index) {
         int budget = 0;
+
         ArrayList<Integer> newBought;
 
         int position = arrayList.indexOf(sortedSells.get(index));
@@ -35,9 +36,18 @@ public class Partition {
 
             sumNewBoughts = sumNewBoughts + ((Integer) it.next());
         }
+        if (index > 0) {
+            budget = budgetandBoughtsOfSetUptoIndex.get(index - 1).get(0) + sortedSells.get(index) - sumNewBoughts;
 
-        budget = budgetOfSetUptoIndex.get(index - 1) + sortedSells.get(index) - sumNewBoughts;
-        budgetOfSetUptoIndex.set(index, budget);
+        } else {
+            budget = sortedSells.get(index) - sumNewBoughts;
+        }
+        ArrayList<Integer> newEintrag = new ArrayList<>();
+        newEintrag.add(budget);
+        newEintrag.add(sumNewBoughts);
+
+        budgetandBoughtsOfSetUptoIndex.set(index, newEintrag);
+
     }
 
 }
