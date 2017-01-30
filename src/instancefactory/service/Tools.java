@@ -54,62 +54,71 @@ public class Tools {
         ArrayList<Integer> s2Rest = new ArrayList<>();
         s1Rest.addAll(p1.sortedSells);
         s2Rest.addAll(p2.sortedSells);
-        ArrayList<Integer> PositiveSetsP1= new ArrayList<>();
-        ArrayList<Integer> PositiveSetsP2= new ArrayList<>();
-        ArrayList<Integer> PositiveSetsBoughtsP1= new ArrayList<>();
-        ArrayList<Integer> PositiveSetsBoughtsP2= new ArrayList<>();
+        ArrayList<Integer> PositiveSetsP1 = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsP2 = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsBoughtsP1 = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsBoughtsP2 = new ArrayList<>();
 
         int i = 0;
         int j = 0;
-        int x =0;
-        int y =0;
+        int x = 0;
+        int y = 0;
         while (i < s1Rest.size()) {
             p1.setBudgetandBoughtsOfSetUptoIndex(i);
+            ArrayList<Integer> budgetAndBoughts = p1.budgetandBoughtsOfSetUptoIndex.get(i);
             i++;
-            if (p1.budgetandBoughtsOfSetUptoIndex.get(i).get(0) > 0) {
+            if (budgetAndBoughts.get(0) > 0) {
                 PositiveSetsP1.add(i);
-                for(int k =0;!(k>i);k++){p1.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);}
-            }}
+                PositiveSetsBoughtsP1.add(budgetAndBoughts.get(1));
+                for (int k = 0; !(k > i); k++) {
+                    p1.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);
+                }
+            }
+        }
         while (j < s2Rest.size()) {
             p2.setBudgetandBoughtsOfSetUptoIndex(j);
+            ArrayList<Integer> budgetAndBoughts = p2.budgetandBoughtsOfSetUptoIndex.get(i);
+
             j++;
-            if (p2.budgetandBoughtsOfSetUptoIndex.get(j).get(0) > 0) {
+            if (budgetAndBoughts.get(0) > 0) {
                 PositiveSetsP2.add(j);
-                for(int k =0;!(k>j);k++){p2.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);}
-            }}
-                //if boughts von Set1 kleiner als Boughts von anderem dann Set hinzufügen}}}
-
-                        //alle in budget von p1 of up to index wird 0 gesetzt
-//                        sonst 
-//                                alle in budget von p1 of up to index wird 0 gesetzt
-//                                nicht in nächste while Schleife springen
-                while (x < PositiveSetsP1.size()) {
-                    while (y < PositiveSetsP2.size()) {
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    p2.setBudgetOfSetUptoIndex(j);
-                    j++;
-                    if (p2.budgetOfSetUptoIndex.get(j) > 0) {
-                    //if boughts von Set2 kleiner als Boughts von anderem dann Set hinzufügen}}}
-
-                        //alle in budget von p2 of up to index wird 0 gesetzt
-//                        sonst 
-//                                alle in budget von p1 of up to index wird 0 gesetzt
-//                                raus aus dieser for schleife 
-                        {
-
-                        }
-                    }
+                PositiveSetsBoughtsP2.add(budgetAndBoughts.get(1));
+                for (int k = 0; !(k > j); k++) {
+                    p2.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);
                 }
             }
         }
 
-        //hier passiert jetzt noch was mit den RestArraysSells
+//        
+//        Iterator it1 = PositiveSetsP1.iterator();
+//                 Iterator it2 = PositiveSetsP2.iterator();
+//                 
+        while (!PositiveSetsP1.isEmpty() && !PositiveSetsP2.isEmpty()) {
+
+            int countP1 = 0;
+            int countP2 = 0;
+            if (PositiveSetsBoughtsP1.get(0) < PositiveSetsBoughtsP2.get(0)) {
+                while (!(countP1 > PositiveSetsP1.get(0))) {
+                    s.add(s1Rest.get(0));
+                    s1Rest.remove(0);
+
+                }
+                PositiveSetsP1.remove(0);
+            } else {
+                while (!(countP2 > PositiveSetsP2.get(0))) {
+                    s.add(s2Rest.get(0));
+                    s2Rest.remove(0);
+
+                }
+                PositiveSetsP2.remove(0);
+            }
+
+        }
+        s.addAll(s1Rest);
+        s.addAll(s2Rest);
+
+        return s;
+
     }
 
     ArrayList<ArrayList<Integer>> makeArrayListJoin(ArrayList<ArrayList<Integer>> a1, ArrayList<ArrayList<Integer>> a2) {
