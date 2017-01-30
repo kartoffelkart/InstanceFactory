@@ -40,6 +40,59 @@ public class Tools {
         }
     }
 
+    public String getCoin(int boughtProbability, int saleProbability) {
+
+        ArrayList<Integer> numbers = getRandomIntArray(1, 100, 1);
+        if (numbers.get(0) < boughtProbability) {
+            return "bought";
+        } else {
+            return "sell";
+        }
+    }
+
+    public Partition getRandomPartitionDueToProbality(ArrayList<Partition> partitions) {
+        Partition partition = new Partition();
+
+        int sum = 0;
+
+        for (int y = 0; (y < partitions.size()); y++) {
+
+            ArrayList<Integer> numbers = getRandomIntArray(1, 100, 1);
+            if (numbers.get(0) < sum + partitions.get(y).probability) {
+                partition = partitions.get(y);
+
+            } else {
+                y++;
+                sum = sum + partitions.get(y).probability;
+
+            }
+        }
+        return partition;
+    }
+
+    public Partition makePartition(Partition p1, Partition p2) {
+        Partition partition = new Partition();
+        String choice = this.getChoice(10, 20, 70);
+        System.out.println(choice);
+        if (choice.equals("union")) {
+            partition = makePartitionUnion(p1, p2);
+
+        } else {
+            if (choice.equals("rightJoin")) {
+                partition = makePartitionJoin(p1, p2);
+
+            } else {
+                if (choice.equals("leftJoin")) {
+                    partition = makePartitionJoin(p2, p1);
+
+                } else {
+                    System.err.println("error");
+                }
+            }
+        }
+        return partition;
+    }
+
     ArrayList<Integer> makeSortedSellsJoin(ArrayList<Integer> s1, ArrayList<Integer> s2) {
         ArrayList<Integer> s = new ArrayList<>();
         s.addAll(s2);

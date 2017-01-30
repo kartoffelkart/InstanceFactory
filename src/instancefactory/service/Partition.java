@@ -21,6 +21,8 @@ public class Partition {
 
     public ArrayList<ArrayList<Integer>> budgetandBoughtsOfSetUptoIndex;
 
+    public int probability;
+
     public void setBudgetandBoughtsOfSetUptoIndex(int index) {
         int budget = 0;
 
@@ -50,4 +52,7 @@ public class Partition {
 
     }
 
+    public void print() {
+        System.out.println(sortedSells.toString());
+    }
 }
