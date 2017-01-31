@@ -15,6 +15,63 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Tools {
 
+    public ArrayList<Partition> makeBasicPartitions() {
+
+        ArrayList<Integer> randomIntArrayList = this.getRandomIntArray(1, 100, 10);
+        System.out.println(randomIntArrayList.toString());
+
+        ArrayList<Partition> partitions = new ArrayList<>();
+//        String choice = this.getChoice(10, 20, 70);
+//        System.out.println(choice);
+
+        Partition partition1 = new Partition();
+        ArrayList<Integer> l = new ArrayList<>();
+        l.add(randomIntArrayList.get(0));
+        randomIntArrayList.remove(0);
+        partition1.arrayList.add(l);
+        partitions.add(partition1);
+
+        while (!randomIntArrayList.isEmpty()) {
+            if (this.getCoin(50, 50).equals("sell")) {
+
+                System.err.println("sell");
+
+                Partition partition = new Partition();
+                ArrayList<Integer> m = new ArrayList<>();
+                m.add(randomIntArrayList.get(0));
+                randomIntArrayList.remove(0);
+                partition.arrayList.set(0, m);
+                partitions.add(partition);
+
+            } else {
+                partitions.get(partitions.size() - 1).arrayList.get(0).add(randomIntArrayList.get(0));
+                randomIntArrayList.remove(0);
+            }
+        }
+        return partitions;
+    }
+
+    public void buildPartitionAndMerge(ArrayList<Partition> partitions) {
+
+        while (partitions.size() > 1) {
+            Partition partition = new Partition();
+            Partition partitionA = new Partition();
+            Partition partitionB = new Partition();
+
+            partitionA = this.getRandomPartitionDueToProbality(partitions);
+
+            partitionB = this.getRandomPartitionDueToProbality(partitions);
+            while (partitionA == partitionB) {
+                partitionB = this.getRandomPartitionDueToProbality(partitions);
+            }
+            partition = this.makePartition(partitionA, partitionB);
+            partitions.set(partitions.indexOf(partitionA), partition);
+            partitions.remove(partitionB);
+
+            partitions.get(0).print();
+        }
+    }
+
     public ArrayList<Integer> getRandomIntArray(int min, int max, int size) {
         ArrayList<Integer> randomIntArrayList = new ArrayList<>();
         int it = 0;

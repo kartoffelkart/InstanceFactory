@@ -22,7 +22,14 @@ public class Partition {
     public ArrayList<ArrayList<Integer>> budgetandBoughtsOfSetUptoIndex;
 
     public int probability;
+    //_________________________________________________________________________
 
+    //KONSTRUKTOR
+    public Partition() {
+        ArrayList<Integer> array = new ArrayList<>();
+        arrayList = new ArrayList<ArrayList<Integer>>();
+    }
+//_____________________________________________________________________________
     public void setBudgetandBoughtsOfSetUptoIndex(int index) {
         int budget = 0;
 
@@ -39,7 +46,8 @@ public class Partition {
             sumNewBoughts = sumNewBoughts + ((Integer) it.next());
         }
         if (index > 0) {
-            budget = budgetandBoughtsOfSetUptoIndex.get(index - 1).get(0) + sortedSells.get(index) - sumNewBoughts;
+            budget = budgetandBoughtsOfSetUptoIndex.get(index - 1).get(0) 
+                    + sortedSells.get(index) - sumNewBoughts;
 
         } else {
             budget = sortedSells.get(index) - sumNewBoughts;
