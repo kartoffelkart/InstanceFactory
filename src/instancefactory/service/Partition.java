@@ -30,6 +30,7 @@ public class Partition {
         arrayList = new ArrayList<ArrayList<Integer>>();
     }
 //_____________________________________________________________________________
+
     public void setBudgetandBoughtsOfSetUptoIndex(int index) {
         int budget = 0;
 
@@ -46,7 +47,7 @@ public class Partition {
             sumNewBoughts = sumNewBoughts + ((Integer) it.next());
         }
         if (index > 0) {
-            budget = budgetandBoughtsOfSetUptoIndex.get(index - 1).get(0) 
+            budget = budgetandBoughtsOfSetUptoIndex.get(index - 1).get(0)
                     + sortedSells.get(index) - sumNewBoughts;
 
         } else {
@@ -60,7 +61,14 @@ public class Partition {
 
     }
 
-    public void print() {
-        System.out.println(sortedSells.toString());
+    @Override
+    public String toString() {
+        String ret = new String();
+        Iterator it = arrayList.iterator();
+        while (it.hasNext()) {
+            ret = ret.concat(((ArrayList<Integer>) it.next()).toString());
+            ret=ret.concat(" nächste elementare Partition: ");
+        }
+        return ret;
     }
 }

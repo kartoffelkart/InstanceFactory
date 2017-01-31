@@ -8,7 +8,7 @@ package instancefactory;
 import instancefactory.service.Partition;
 import instancefactory.service.Tools;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  *
@@ -25,7 +25,11 @@ public class InstanceFactory {
 
         ArrayList<Partition> partitions = new ArrayList<>();
         partitions = tool.makeBasicPartitions();
-        partitions.toString();
+        Iterator it = partitions.iterator();
+        while (it.hasNext()) {
+            ((Partition)it.next()).toString();
+        }
+        System.out.println(partitions.toString());
 //        tool.buildPartitionAndMerge(partitions);
 
     }

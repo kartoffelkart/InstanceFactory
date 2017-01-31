@@ -34,13 +34,13 @@ public class Tools {
         while (!randomIntArrayList.isEmpty()) {
             if (this.getCoin(50, 50).equals("sell")) {
 
-                System.err.println("sell");
+                System.out.println("sell");
 
                 Partition partition = new Partition();
                 ArrayList<Integer> m = new ArrayList<>();
                 m.add(randomIntArrayList.get(0));
                 randomIntArrayList.remove(0);
-                partition.arrayList.set(0, m);
+                partition.arrayList.add(m);
                 partitions.add(partition);
 
             } else {
@@ -68,7 +68,7 @@ public class Tools {
             partitions.set(partitions.indexOf(partitionA), partition);
             partitions.remove(partitionB);
 
-            partitions.get(0).print();
+            partitions.get(0).toString();
         }
     }
 
