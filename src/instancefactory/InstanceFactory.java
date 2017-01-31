@@ -27,10 +27,10 @@ public class InstanceFactory {
         partitions = tool.makeBasicPartitions();
         Iterator it = partitions.iterator();
         while (it.hasNext()) {
-            ((Partition)it.next()).toString();
+            System.out.println("elementare Partition: "+((Partition)it.next()).toString()+"\n");
         }
-        System.out.println(partitions.toString());
-//        tool.buildPartitionAndMerge(partitions);
+    //    System.out.println(partitions.toString());
+  //      tool.buildPartitionAndMerge(partitions);
 
     }
 }

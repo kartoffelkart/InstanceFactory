@@ -274,7 +274,7 @@ public class Tools {
         Partition p = new Partition();
 
         p.arrayList = makeArrayListJoin(p1.arrayList, p2.arrayList);
-        p.sortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);
+        p.sortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);//p2.sorted sells null
         return p;
     }
 }

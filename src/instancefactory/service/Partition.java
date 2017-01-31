@@ -66,8 +66,9 @@ public class Partition {
         String ret = new String();
         Iterator it = arrayList.iterator();
         while (it.hasNext()) {
-            ret = ret.concat(((ArrayList<Integer>) it.next()).toString());
-            ret=ret.concat(" nächste elementare Partition: ");
+            ret = ret.concat(" nächster Sell mit seinen Boughts: ");
+            ret = ret.concat(((ArrayList<Integer>) it.next()).toString()+"\n");
+
         }
         return ret;
     }
