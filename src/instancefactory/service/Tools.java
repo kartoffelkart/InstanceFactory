@@ -26,9 +26,11 @@ public class Tools {
 
         Partition partition1 = new Partition();
         ArrayList<Integer> l = new ArrayList<>();
-        l.add(randomIntArrayList.get(0));
+        int rand = randomIntArrayList.get(0);
+        l.add(rand);
         randomIntArrayList.remove(0);
         partition1.arrayList.add(l);
+        partition1.sortedSells.add(rand);
         partitions.add(partition1);
 
         while (!randomIntArrayList.isEmpty()) {
@@ -38,9 +40,13 @@ public class Tools {
 
                 Partition partition = new Partition();
                 ArrayList<Integer> m = new ArrayList<>();
-                m.add(randomIntArrayList.get(0));
+                int rando = randomIntArrayList.get(0);
+                m.add(rando);
                 randomIntArrayList.remove(0);
+
                 partition.arrayList.add(m);
+                partition.sortedSells.add(rando);
+
                 partitions.add(partition);
 
             } else {
@@ -59,16 +65,19 @@ public class Tools {
             Partition partitionB = new Partition();
 
             partitionA = this.getRandomPartitionDueToProbality(partitions);
+            System.out.println("partitionA: " + partitionA.toString() + "\n");
 
             partitionB = this.getRandomPartitionDueToProbality(partitions);
+            System.out.println("partitionB: " + partitionB.toString() + "\n");
+
             while (partitionA == partitionB) {
                 partitionB = this.getRandomPartitionDueToProbality(partitions);
             }
-            partition = this.makePartition(partitionA, partitionB);
-            partitions.set(partitions.indexOf(partitionA), partition);
+            partition = this.makePartition(partitionA, partitionB);//size 0 ???
+            int ind = partitions.indexOf(partitionA);
+            partitions.set(ind, partition);//ind -1
             partitions.remove(partitionB);
 
-            partitions.get(0).toString();
         }
     }
 
@@ -109,17 +118,21 @@ public class Tools {
 
     public Partition getRandomPartitionDueToProbality(ArrayList<Partition> partitions) {
         Partition partition = new Partition();
-
+        int sumProb = 0;
+        for (int y = 0; (y < partitions.size()); y++) {
+            sumProb = sumProb + partitions.get(y).probability;
+        }
         int sum = 0;
 
         for (int y = 0; (y < partitions.size()); y++) {
 
-            ArrayList<Integer> numbers = getRandomIntArray(1, 100, 1);
-            if (numbers.get(0) < sum + partitions.get(y).probability) {
+            ArrayList<Integer> numbers = getRandomIntArray(1, sumProb, 1);//Wieso geht kein einfacher Integer
+            Integer number = numbers.get(0);
+            if (number < sum + partitions.get(y).probability) {
                 partition = partitions.get(y);
-
+                break;
             } else {
-                y++;
+
                 sum = sum + partitions.get(y).probability;
 
             }
@@ -234,21 +247,38 @@ public class Tools {
     ArrayList<ArrayList<Integer>> makeArrayListJoin(ArrayList<ArrayList<Integer>> a1, ArrayList<ArrayList<Integer>> a2) {
         ArrayList<ArrayList<Integer>> a = new ArrayList<>();
         a.addAll(a1);
-        Iterator ita1 = a1.iterator();
+
         Iterator ita2 = a2.iterator();
+        ArrayList<Integer> toLink = new ArrayList<>();
+        while (ita2.hasNext()) {
+//die Boughts vom nächsten Eintrag aus A2 die noch nicht verlinkt wurden
+
+            toLink.addAll((ArrayList<Integer>) ita2.next());
+            toLink.remove(0);
+
+        }
+        Iterator ita1 = a1.iterator();
 
         while (ita1.hasNext()) {
-            ArrayList<Integer> allreadyJoinedBoughts = new ArrayList<>(); // kein Nullpinter oder?
-            while (ita2.hasNext()) {
+            ArrayList<Integer> itera1 = ((ArrayList<Integer>) ita1.next());
+            itera1.addAll(toLink);
 
-                ArrayList<Integer> toLink = new ArrayList<>();
-                toLink.addAll((ArrayList<Integer>) ita2);
-                toLink.remove(0); //erster Eintrag ist ein Sell
-                toLink.removeAll(allreadyJoinedBoughts); //verändere ich hier die Originale ???
-                allreadyJoinedBoughts.addAll(toLink);
-                ((ArrayList<Integer>) ita1).addAll(toLink);
-
-            }
+//
+//        ArrayList<Integer> allreadyJoinedBoughts = new ArrayList<>(); // kein Nullpinter oder?
+//        while (ita2.hasNext()) {
+////die Boughts vom nächsten Eintrag aus A2 die noch nicht verlinkt wurden
+//            ArrayList<Integer> toLink = new ArrayList<>();
+//            toLink.addAll((ArrayList<Integer>) ita2.next());
+//            toLink.remove(0);
+//            toLink.removeAll(allreadyJoinedBoughts);
+//            allreadyJoinedBoughts.addAll(toLink);
+//
+//        }
+//        Iterator ita1 = a1.iterator();
+//
+//        while (ita1.hasNext()) {
+//            ArrayList<Integer> itera1 = ((ArrayList<Integer>) ita1.next());
+//            itera1.addAll(toLink);
         }
 
         return a;

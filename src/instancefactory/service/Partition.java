@@ -28,6 +28,8 @@ public class Partition {
     public Partition() {
         ArrayList<Integer> array = new ArrayList<>();
         arrayList = new ArrayList<ArrayList<Integer>>();
+        probability=1;
+        sortedSells=new ArrayList<>();
     }
 //_____________________________________________________________________________
 

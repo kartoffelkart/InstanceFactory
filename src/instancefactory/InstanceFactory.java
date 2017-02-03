@@ -22,15 +22,16 @@ public class InstanceFactory {
     private static Tools tool = new Tools();
 
     public static void main(String[] args) {
-
+   
+        
         ArrayList<Partition> partitions = new ArrayList<>();
         partitions = tool.makeBasicPartitions();
         Iterator it = partitions.iterator();
         while (it.hasNext()) {
-            System.out.println("elementare Partition: "+((Partition)it.next()).toString()+"\n");
+            System.out.println("elementare Partition: " + ((Partition) it.next()).toString() + "\n");
         }
-    //    System.out.println(partitions.toString());
-  //      tool.buildPartitionAndMerge(partitions);
+
+        tool.buildPartitionAndMerge(partitions);
 
     }
 }
