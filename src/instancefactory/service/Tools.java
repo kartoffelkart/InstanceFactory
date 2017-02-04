@@ -6,7 +6,9 @@
 package instancefactory.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -122,21 +124,22 @@ public class Tools {
         for (int y = 0; (y < partitions.size()); y++) {
             sumProb = sumProb + partitions.get(y).probability;
         }
-        int sum = 0;
+        Integer sum = 0;
 
         for (int y = 0; (y < partitions.size()); y++) {
 
             ArrayList<Integer> numbers = getRandomIntArray(1, sumProb, 1);//Wieso geht kein einfacher Integer
             Integer number = numbers.get(0);
-            if (number < sum + partitions.get(y).probability) {
+            System.out.println(number.toString() + "<");
+            sum = sum + partitions.get(y).probability;
+            System.out.println(sum.toString());
+            
+            if (number < sum+1) {
                 partition = partitions.get(y);
                 break;
-            } else {
-
-                sum = sum + partitions.get(y).probability;
-
             }
         }
+
         return partition;
     }
 
@@ -194,13 +197,13 @@ public class Tools {
                 PositiveSetsP1.add(i);
                 PositiveSetsBoughtsP1.add(budgetAndBoughts.get(1));
                 for (int k = 0; !(k > i); k++) {
-                    p1.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);
+                    p1.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
                 }
             }
         }
         while (j < s2Rest.size()) {
             p2.setBudgetandBoughtsOfSetUptoIndex(j);
-            ArrayList<Integer> budgetAndBoughts = p2.budgetandBoughtsOfSetUptoIndex.get(i);
+            ArrayList<Integer> budgetAndBoughts = p2.budgetandBoughtsOfSetUptoIndex.get(j);
 
             j++;
             if (budgetAndBoughts.get(0) > 0) {
@@ -262,7 +265,12 @@ public class Tools {
         while (ita1.hasNext()) {
             ArrayList<Integer> itera1 = ((ArrayList<Integer>) ita1.next());
             itera1.addAll(toLink);
-
+            Set<Integer> hs = new HashSet<>();
+            Integer first = itera1.get(0);
+            hs.addAll(itera1);
+            itera1.clear();
+            itera1.add(first);
+            itera1.addAll(hs);
 //
 //        ArrayList<Integer> allreadyJoinedBoughts = new ArrayList<>(); // kein Nullpinter oder?
 //        while (ita2.hasNext()) {
