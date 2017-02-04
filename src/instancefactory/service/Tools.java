@@ -63,12 +63,12 @@ public class Tools {
 
         while (partitions.size() > 1) {
             Partition partition = new Partition();
-            Partition partitionA = new Partition();
-            Partition partitionB = new Partition();
 
+            Partition partitionA = new Partition();
             partitionA = this.getRandomPartitionDueToProbality(partitions);
             System.out.println("partitionA: " + partitionA.toString() + "\n");
 
+            Partition partitionB = new Partition();
             partitionB = this.getRandomPartitionDueToProbality(partitions);
             System.out.println("partitionB: " + partitionB.toString() + "\n");
 
@@ -133,8 +133,8 @@ public class Tools {
             System.out.println(number.toString() + "<");
             sum = sum + partitions.get(y).probability;
             System.out.println(sum.toString());
-            
-            if (number < sum+1) {
+
+            if (number < sum + 1) {
                 partition = partitions.get(y);
                 break;
             }
@@ -145,7 +145,7 @@ public class Tools {
 
     public Partition makePartition(Partition p1, Partition p2) {
         Partition partition = new Partition();
-        String choice = this.getChoice(10, 20, 70);
+        String choice = this.getChoice(33, 33, 34);
         System.out.println(choice);
         if (choice.equals("union")) {
             partition = makePartitionUnion(p1, p2);
@@ -175,37 +175,42 @@ public class Tools {
     }
 
     ArrayList<Integer> makeSortedSellsUnion(Partition p1, Partition p2) {
-        ArrayList<Integer> s = new ArrayList<>();
+
+        ArrayList<Integer> newSortedSells = new ArrayList<>();
+
         ArrayList<Integer> s1Rest = new ArrayList<>();
-        ArrayList<Integer> s2Rest = new ArrayList<>();
         s1Rest.addAll(p1.sortedSells);
+        ArrayList<Integer> s2Rest = new ArrayList<>();
         s2Rest.addAll(p2.sortedSells);
+
         ArrayList<Integer> PositiveSetsP1 = new ArrayList<>();
         ArrayList<Integer> PositiveSetsP2 = new ArrayList<>();
         ArrayList<Integer> PositiveSetsBoughtsP1 = new ArrayList<>();
         ArrayList<Integer> PositiveSetsBoughtsP2 = new ArrayList<>();
 
-        int i = 0;
-        int j = 0;
         int x = 0;
         int y = 0;
-        while (i < s1Rest.size()) {
+        // traversiere durch alle SortedSells P1
+        for (int i = 0; i < s1Rest.size(); i++) {
+            // berechne budget bis i
             p1.setBudgetandBoughtsOfSetUptoIndex(i);
-            ArrayList<Integer> budgetAndBoughts = p1.budgetandBoughtsOfSetUptoIndex.get(i);
-            i++;
-            if (budgetAndBoughts.get(0) > 0) {
+            // hole Budget aus Tabelle
+            ArrayList<Integer> budgetAndBoughtsEintrag = p1.budgetandBoughtsOfSetUptoIndex.get(i);
+            System.out.println(budgetAndBoughtsEintrag.toString());
+            if (budgetAndBoughtsEintrag.get(0) > 0) {
                 PositiveSetsP1.add(i);
-                PositiveSetsBoughtsP1.add(budgetAndBoughts.get(1));
+                PositiveSetsBoughtsP1.add(budgetAndBoughtsEintrag.get(1));//hier ist doch boughts noch nicht initializiert
                 for (int k = 0; !(k > i); k++) {
+                    //hier will ich alle vorher zurücksetzten budget aber eigentlich auch bought,oder?????
                     p1.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
                 }
             }
+
         }
-        while (j < s2Rest.size()) {
+        for (int j = 0; j < s2Rest.size(); j++) {
             p2.setBudgetandBoughtsOfSetUptoIndex(j);
             ArrayList<Integer> budgetAndBoughts = p2.budgetandBoughtsOfSetUptoIndex.get(j);
 
-            j++;
             if (budgetAndBoughts.get(0) > 0) {
                 PositiveSetsP2.add(j);
                 PositiveSetsBoughtsP2.add(budgetAndBoughts.get(1));
@@ -214,6 +219,10 @@ public class Tools {
                 }
             }
         }
+        System.out.println("PositiveSetsP1: "+PositiveSetsP1.toString());//[] ist richtig
+        System.out.println("PositiveSetsP2: "+PositiveSetsP2.toString());//[0]ist richtig
+        System.out.println("PositiveSetsBoughtsP1: "+PositiveSetsBoughtsP1.toString());//[]ist richtig
+        System.out.println("PositiveSetsBoughtsP2: "+PositiveSetsBoughtsP2.toString());//[0]ist richtig
 
 //        
 //        Iterator it1 = PositiveSetsP1.iterator();
@@ -225,14 +234,14 @@ public class Tools {
             int countP2 = 0;
             if (PositiveSetsBoughtsP1.get(0) < PositiveSetsBoughtsP2.get(0)) {
                 while (!(countP1 > PositiveSetsP1.get(0))) {
-                    s.add(s1Rest.get(0));
+                    newSortedSells.add(s1Rest.get(0));
                     s1Rest.remove(0);
 
                 }
                 PositiveSetsP1.remove(0);
             } else {
                 while (!(countP2 > PositiveSetsP2.get(0))) {
-                    s.add(s2Rest.get(0));
+                    newSortedSells.add(s2Rest.get(0));
                     s2Rest.remove(0);
 
                 }
@@ -240,10 +249,16 @@ public class Tools {
             }
 
         }
-        s.addAll(s1Rest);
-        s.addAll(s2Rest);
-
-        return s;
+        
+        
+        //-----------Eigentlich wird jetzt noch unterschieden ob max von min von...
+        
+        newSortedSells.addAll(s1Rest);
+        newSortedSells.addAll(s2Rest);
+        System.out.println("newSortedSells: "+newSortedSells.toString());
+        //--------------
+        
+        return newSortedSells;
 
     }
 
