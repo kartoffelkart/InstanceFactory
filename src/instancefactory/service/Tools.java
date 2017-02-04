@@ -219,10 +219,10 @@ public class Tools {
                 }
             }
         }
-        System.out.println("PositiveSetsP1: "+PositiveSetsP1.toString());//[] ist richtig
-        System.out.println("PositiveSetsP2: "+PositiveSetsP2.toString());//[0]ist richtig
-        System.out.println("PositiveSetsBoughtsP1: "+PositiveSetsBoughtsP1.toString());//[]ist richtig
-        System.out.println("PositiveSetsBoughtsP2: "+PositiveSetsBoughtsP2.toString());//[0]ist richtig
+        System.out.println("PositiveSetsP1: " + PositiveSetsP1.toString());//[] ist richtig
+        System.out.println("PositiveSetsP2: " + PositiveSetsP2.toString());//[0]ist richtig
+        System.out.println("PositiveSetsBoughtsP1: " + PositiveSetsBoughtsP1.toString());//[]ist richtig
+        System.out.println("PositiveSetsBoughtsP2: " + PositiveSetsBoughtsP2.toString());//[0]ist richtig
 
 //        
 //        Iterator it1 = PositiveSetsP1.iterator();
@@ -241,7 +241,7 @@ public class Tools {
                 PositiveSetsP1.remove(0);
             } else {
                 while (!(countP2 > PositiveSetsP2.get(0))) {
-                    newSortedSells.add(s2Rest.get(0));
+                    newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
                     s2Rest.remove(0);
 
                 }
@@ -249,29 +249,29 @@ public class Tools {
             }
 
         }
-        
-        
+
         //-----------Eigentlich wird jetzt noch unterschieden ob max von min von...
-        
         newSortedSells.addAll(s1Rest);
         newSortedSells.addAll(s2Rest);
-        System.out.println("newSortedSells: "+newSortedSells.toString());
+        System.out.println("newSortedSells: " + newSortedSells.toString());
         //--------------
-        
+
         return newSortedSells;
 
     }
 
     ArrayList<ArrayList<Integer>> makeArrayListJoin(ArrayList<ArrayList<Integer>> a1, ArrayList<ArrayList<Integer>> a2) {
-        ArrayList<ArrayList<Integer>> a = new ArrayList<>();
-        a.addAll(a1);
+        ArrayList<ArrayList<Integer>> aa2 = new ArrayList<>();
+        aa2.addAll(a1);
+
+        ArrayList<Integer> toLink = new ArrayList<>();
 
         Iterator ita2 = a2.iterator();
-        ArrayList<Integer> toLink = new ArrayList<>();
         while (ita2.hasNext()) {
 //die Boughts vom nächsten Eintrag aus A2 die noch nicht verlinkt wurden
 
             toLink.addAll((ArrayList<Integer>) ita2.next());
+            
             toLink.remove(0);
 
         }
@@ -304,7 +304,7 @@ public class Tools {
 //            itera1.addAll(toLink);
         }
 
-        return a;
+        return aa2;
 
     }
 
