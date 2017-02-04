@@ -193,7 +193,7 @@ public class Tools {
             p1.setBudgetandBoughtsOfSetUptoIndex(i);
             ArrayList<Integer> budgetAndBoughts = p1.budgetandBoughtsOfSetUptoIndex.get(i);
             i++;
-            if (budgetAndBoughts.get(0) > 0) {
+            if (budgetAndBoughts.get(0) > 0) { //wenn Budget positiv ist
                 PositiveSetsP1.add(i);
                 PositiveSetsBoughtsP1.add(budgetAndBoughts.get(1));
                 for (int k = 0; !(k > i); k++) {
