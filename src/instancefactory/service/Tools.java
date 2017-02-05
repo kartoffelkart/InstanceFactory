@@ -234,7 +234,7 @@ public class Tools {
             int countP2 = 0;
             if (PositiveSetsBoughtsP1.get(0) < PositiveSetsBoughtsP2.get(0)) {
                 while (!(countP1 > PositiveSetsP1.get(0))) {
-                    newSortedSells.add(s1Rest.get(0));
+                    newSortedSells.add(s1Rest.get(0));//index 0 size 0
                     s1Rest.remove(0);
 
                 }
@@ -261,31 +261,29 @@ public class Tools {
     }
 
     ArrayList<ArrayList<Integer>> makeArrayListJoin(ArrayList<ArrayList<Integer>> a1, ArrayList<ArrayList<Integer>> a2) {
-        ArrayList<ArrayList<Integer>> aa2 = new ArrayList<>();
-        aa2.addAll(a1);
 
+        ArrayList<ArrayList<Integer>> a = new ArrayList<>();
+        a.addAll(a1);
         ArrayList<Integer> toLink = new ArrayList<>();
 
         Iterator ita2 = a2.iterator();
+
         while (ita2.hasNext()) {
 //die Boughts vom nächsten Eintrag aus A2 die noch nicht verlinkt wurden
-
-            toLink.addAll((ArrayList<Integer>) ita2.next());
-            
-            toLink.remove(0);
+            ArrayList<Integer> tempo = (ArrayList<Integer>) ita2.next();
+            tempo.remove(0);
+            toLink.addAll(tempo);
+            Set<Integer> hs = new HashSet<>();
+            hs.addAll(toLink);
+            toLink.addAll(hs);
 
         }
         Iterator ita1 = a1.iterator();
 
         while (ita1.hasNext()) {
-            ArrayList<Integer> itera1 = ((ArrayList<Integer>) ita1.next());
-            itera1.addAll(toLink);
-            Set<Integer> hs = new HashSet<>();
-            Integer first = itera1.get(0);
-            hs.addAll(itera1);
-            itera1.clear();
-            itera1.add(first);
-            itera1.addAll(hs);
+            ArrayList<Integer> nextitera1 = ((ArrayList<Integer>) ita1.next());
+            nextitera1.addAll(toLink);
+
 //
 //        ArrayList<Integer> allreadyJoinedBoughts = new ArrayList<>(); // kein Nullpinter oder?
 //        while (ita2.hasNext()) {
@@ -304,7 +302,7 @@ public class Tools {
 //            itera1.addAll(toLink);
         }
 
-        return aa2;
+        return a;
 
     }
 

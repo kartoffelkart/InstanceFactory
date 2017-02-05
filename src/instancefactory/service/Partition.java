@@ -40,7 +40,7 @@ public class Partition {
         Integer position = 0;
 
         for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i).get(0) == sortedSells.get(index)) {
+            if (arrayList.get(i).get(0) == sortedSells.get(index)) {//irgendwann ist hier Nullpointer, bei index?
 
                 position = i;
             }
