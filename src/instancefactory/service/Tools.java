@@ -6,8 +6,10 @@
 package instancefactory.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -19,41 +21,45 @@ public class Tools {
 
     public ArrayList<Partition> makeBasicPartitions() {
 
-        ArrayList<Integer> randomIntArrayList = this.getRandomIntArray(1, 100, 10);
-        System.out.println(randomIntArrayList.toString());
+//        ArrayList<Integer> randomIntArrayList = this.getRandomIntArray(1, 100, 10);
+//        System.out.println(randomIntArrayList.toString());
+        ArrayList<Integer> randomIntArrayList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
         ArrayList<Partition> partitions = new ArrayList<>();
-//        String choice = this.getChoice(10, 20, 70);
-//        System.out.println(choice);
 
         Partition partition1 = new Partition();
-        ArrayList<Integer> l = new ArrayList<>();
         int rand = randomIntArrayList.get(0);
-        l.add(rand);
         randomIntArrayList.remove(0);
+        ArrayList<Integer> l = new ArrayList<>();
+        l.add(rand);
+
         partition1.arrayList.add(l);
         partition1.sortedSells.add(rand);
         partitions.add(partition1);
 
         while (!randomIntArrayList.isEmpty()) {
-            if (this.getCoin(50, 50).equals("sell")) {
+            Integer toogle = 0;
 
+//            if (this.getCoin(50, 50).equals("sell")) {
+            if (toogle.equals(1)) {
                 System.out.println("sell");
 
                 Partition partition = new Partition();
-                ArrayList<Integer> m = new ArrayList<>();
+
                 int rando = randomIntArrayList.get(0);
-                m.add(rando);
                 randomIntArrayList.remove(0);
+                ArrayList<Integer> m = new ArrayList<>();
+                m.add(rando);
 
                 partition.arrayList.add(m);
                 partition.sortedSells.add(rando);
 
                 partitions.add(partition);
-
+                toogle--;
             } else {
                 partitions.get(partitions.size() - 1).arrayList.get(0).add(randomIntArrayList.get(0));
                 randomIntArrayList.remove(0);
+                toogle++;
             }
         }
         return partitions;
@@ -145,7 +151,22 @@ public class Tools {
 
     public Partition makePartition(Partition p1, Partition p2) {
         Partition partition = new Partition();
-        String choice = this.getChoice(33, 33, 34);
+//        String choice = this.getChoice(33, 33, 34)
+        String choice = new String();
+
+        Integer toogle = 0;
+        if (toogle.equals(0)) {
+            choice = "union";
+            toogle++;
+        }
+        if (toogle.equals(1)) {
+            choice = "leftJoin";
+            toogle++;
+        }
+        if (toogle.equals(2)) {
+            choice = "rightJoin";
+            toogle = toogle - 2;
+        }
         System.out.println(choice);
         if (choice.equals("union")) {
             partition = makePartitionUnion(p1, p2);
