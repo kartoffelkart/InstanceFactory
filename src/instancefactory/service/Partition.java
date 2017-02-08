@@ -13,14 +13,14 @@ import java.util.Iterator;
  * @author Sonja Schäfer <sonja_schaefer@gmx.de>
  */
 public class Partition {
-
+    
     public ArrayList<ArrayList<Integer>> arrayList;
-
+    
     public ArrayList<Integer> sortedSells;
     public ArrayList<Integer> allreadyBought = new ArrayList<>();
-
+    
     public ArrayList<ArrayList<Integer>> budgetandBoughtsOfSetUptoIndex = new ArrayList();
-
+    
     public int probability;
     //_________________________________________________________________________
 
@@ -36,9 +36,9 @@ public class Partition {
     public void setBudgetandBoughtsOfSetUptoIndex(int index) {
         int budget = 0;
         int sumNewBoughts = 0;
-        ArrayList<Integer> newBought;
+        ArrayList<Integer> newBought = new ArrayList<>();
         Integer position = 0;
-
+        
         for (int i = 0; i < arrayList.size(); i++) {
             if (arrayList.get(i).get(0) == sortedSells.get(index)) {//irgendwann ist hier Nullpointer, bei index?
 
@@ -46,20 +46,21 @@ public class Partition {
             }
         }
 //if (position==null) würde ja gerne prüfen ob das initialisiert wurde
-        newBought = arrayList.get(position);
+        newBought.addAll(arrayList.get(position));
         newBought.remove(0);
         newBought.removeAll(allreadyBought);
-
+        allreadyBought.addAll(newBought);
+        
         Iterator it = newBought.iterator();
         while (it.hasNext()) {
-
+            
             sumNewBoughts = sumNewBoughts + ((Integer) it.next());
         }
-
+        
         if (index > 0) {
             budget = budgetandBoughtsOfSetUptoIndex.get(index - 1).get(0)
                     + sortedSells.get(index) - sumNewBoughts;
-
+            
         } else {
             budget = sortedSells.get(index) - sumNewBoughts;
         }
@@ -71,9 +72,9 @@ public class Partition {
         } else {
             System.err.println("Error");
         }
-
+        
     }
-
+    
     @Override
     public String toString() {
         String ret = new String();
@@ -81,7 +82,7 @@ public class Partition {
         while (it.hasNext()) {
             ret = ret.concat(" nächster Sell mit seinen Boughts: ");
             ret = ret.concat(((ArrayList<Integer>) it.next()).toString() + "\n");
-
+            
         }
         return ret;
     }

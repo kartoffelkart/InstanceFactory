@@ -163,14 +163,16 @@ public class Tools {
         if (toogle.equals(0)) {
             choice = "union";
             toogle++;
-        }
-        if (toogle.equals(1)) {
-            choice = "leftJoin";
-            toogle++;
-        }
-        if (toogle.equals(2)) {
-            choice = "rightJoin";
-            toogle = toogle - 2;
+        } else {
+            if (toogle.equals(1)) {
+                choice = "leftJoin";
+                toogle++;
+            } else {
+                if (toogle.equals(2)) {
+                    choice = "rightJoin";
+                    toogle = toogle - 2;
+                }
+            }
         }
         System.out.println(choice);
         if (choice.equals("union")) {
@@ -345,7 +347,7 @@ public class Tools {
     Partition makePartitionUnion(Partition p1, Partition p2) {
         Partition p = new Partition();
 
-        p.arrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);
+        p.arrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
         p.sortedSells = makeSortedSellsUnion(p1, p2);
         return p;
     }
