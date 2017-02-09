@@ -153,13 +153,13 @@ public class Tools {
 
         return partition;
     }
-
+ Integer toogle = 0;
     public Partition makePartition(Partition p1, Partition p2) {
         Partition partition = new Partition();
 //        String choice = this.getChoice(33, 33, 34)
-        String choice = new String();
+        String choice = new String("");
 
-        Integer toogle = 0;
+       
         if (toogle.equals(0)) {
             choice = "union";
             toogle++;
@@ -188,6 +188,7 @@ public class Tools {
 
                 } else {
                     System.err.println("error");
+                    
                 }
             }
         }
@@ -357,7 +358,7 @@ public class Tools {
 
         p.arrayList = makeArrayListJoin(p1.arrayList, p2.arrayList);
         p.sortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);//p2.sorted sells null
-        System.out.println(p.toString());
+//        System.out.println(p.toString());
         return p;
     }
 }
