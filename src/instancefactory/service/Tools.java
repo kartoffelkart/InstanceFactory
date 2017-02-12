@@ -21,9 +21,9 @@ public class Tools {
 
     public ArrayList<Partition> makeBasicPartitions() {
 
-//        ArrayList<Integer> randomIntArrayList = this.getRandomIntArray(1, 100, 10);
-//        System.out.println(randomIntArrayList.toString());
-        ArrayList<Integer> randomIntArrayList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        ArrayList<Integer> randomIntArrayList = this.getRandomIntArray(1, 100, 10);
+        System.out.println(randomIntArrayList.toString());
+//        ArrayList<Integer> randomIntArrayList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
         ArrayList<Partition> partitions = new ArrayList<>();
 
@@ -156,12 +156,12 @@ public class Tools {
  Integer toogle = 0;
     public Partition makePartition(Partition p1, Partition p2) {
         Partition partition = new Partition();
-//        String choice = this.getChoice(33, 33, 34)
+//        String choice = this.getChoice(33, 33, 34);
         String choice = new String("");
 
        
         if (toogle.equals(0)) {
-            choice = "union";
+            choice = "rightJoin";
             toogle++;
         } else {
             if (toogle.equals(1)) {
@@ -169,7 +169,7 @@ public class Tools {
                 toogle++;
             } else {
                 if (toogle.equals(2)) {
-                    choice = "rightJoin";
+                    choice = "union";
                     toogle = toogle - 2;
                 }
             }
