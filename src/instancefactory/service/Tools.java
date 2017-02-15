@@ -7,7 +7,7 @@ package instancefactory.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import  java.util.HashSet;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -153,13 +153,13 @@ public class Tools {
 
         return partition;
     }
- Integer toogle = 0;
+    Integer toogle = 0;
+
     public Partition makePartition(Partition p1, Partition p2) {
         Partition partition = new Partition();
 //        String choice = this.getChoice(33, 33, 34);
         String choice = new String("");
 
-       
         if (toogle.equals(0)) {
             choice = "rightJoin";
             toogle++;
@@ -188,7 +188,7 @@ public class Tools {
 
                 } else {
                     System.err.println("error");
-                    
+
                 }
             }
         }
@@ -203,78 +203,87 @@ public class Tools {
 
     }
 
+    void fillPositiveSetsAndPositiveSetsBoughts(Partition p, ArrayList<Integer> PositiveSetsP, ArrayList<Integer> PositiveSetsBoughtsP) {
+        ArrayList<Integer> s1Rest = new ArrayList<>();
+        s1Rest.addAll(p.sortedSells);
+        System.out.println("S1Rest: " + s1Rest.toString());
+        for (int i = 0; i < s1Rest.size(); i++) {
+            // berechne budget bis i
+            p.setBudgetandBoughtsOfSetUptoIndex(i);
+
+            //drucken
+            System.out.println("Budget and Bought: " + p.budgetandBoughtsOfSetUptoIndex.get(i).toString());
+            //sobald es größer als Null ist
+            if (p.budgetandBoughtsOfSetUptoIndex.get(i).get(0) > 0) {
+                PositiveSetsP.add(i);
+                PositiveSetsBoughtsP.add(p.budgetandBoughtsOfSetUptoIndex.get(i).get(1));
+
+                System.out.println("PositiveSetsP: " + PositiveSetsP.toString());//[] ist richtig
+                System.out.println("PositiveSetsBoughtsP: " + PositiveSetsBoughtsP.toString());//[0]ist richtig
+
+                //hier will ich alle vorher zurücksetzten budget aber eigentlich auch bought,oder?????
+                for (int k = 0; k < i + 1; k++) {
+
+                    p.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
+                    p.budgetandBoughtsOfSetUptoIndex.get(k).set(1, 0);
+                }
+            }
+
+        }
+    }
+
     ArrayList<Integer> makeSortedSellsUnion(Partition p1, Partition p2) {
 
         ArrayList<Integer> newSortedSells = new ArrayList<>();
 
         ArrayList<Integer> s1Rest = new ArrayList<>();
         s1Rest.addAll(p1.sortedSells);
+
         ArrayList<Integer> s2Rest = new ArrayList<>();
         s2Rest.addAll(p2.sortedSells);
 
         ArrayList<Integer> PositiveSetsP1 = new ArrayList<>();
+
         ArrayList<Integer> PositiveSetsP2 = new ArrayList<>();
+
         ArrayList<Integer> PositiveSetsBoughtsP1 = new ArrayList<>();
+
         ArrayList<Integer> PositiveSetsBoughtsP2 = new ArrayList<>();
 
-        int x = 0;
-        int y = 0;
-        // traversiere durch alle SortedSells P1
-        for (int i = 0; i < s1Rest.size(); i++) {
-            // berechne budget bis i
-            p1.setBudgetandBoughtsOfSetUptoIndex(i);
-            // hole Budget aus Tabelle
-            ArrayList<Integer> budgetAndBoughtsEintrag = p1.budgetandBoughtsOfSetUptoIndex.get(i);
-            System.out.println(budgetAndBoughtsEintrag.toString());
-            if (budgetAndBoughtsEintrag.get(0) > 0) {
-                PositiveSetsP1.add(i);
-                PositiveSetsBoughtsP1.add(budgetAndBoughtsEintrag.get(1));//hier ist doch boughts noch nicht initializiert
-                for (int k = 0; !(k > i); k++) {
-                    //hier will ich alle vorher zurücksetzten budget aber eigentlich auch bought,oder?????
-                    p1.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
-                }
-            }
-
-        }
-        for (int j = 0; j < s2Rest.size(); j++) {
-            p2.setBudgetandBoughtsOfSetUptoIndex(j);
-            ArrayList<Integer> budgetAndBoughts = p2.budgetandBoughtsOfSetUptoIndex.get(j);
-
-            if (budgetAndBoughts.get(0) > 0) {
-                PositiveSetsP2.add(j);
-                PositiveSetsBoughtsP2.add(budgetAndBoughts.get(1));
-                for (int k = 0; !(k > j); k++) {
-                    p2.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);
-                }
-            }
-        }
+        fillPositiveSetsAndPositiveSetsBoughts(p1, PositiveSetsP1, PositiveSetsBoughtsP1);
         System.out.println("PositiveSetsP1: " + PositiveSetsP1.toString());//[] ist richtig
-        System.out.println("PositiveSetsP2: " + PositiveSetsP2.toString());//[0]ist richtig
         System.out.println("PositiveSetsBoughtsP1: " + PositiveSetsBoughtsP1.toString());//[]ist richtig
+
+        fillPositiveSetsAndPositiveSetsBoughts(p2, PositiveSetsP2, PositiveSetsBoughtsP2);
+
+        System.out.println("PositiveSetsP2: " + PositiveSetsP2.toString());//[0]ist richtig
         System.out.println("PositiveSetsBoughtsP2: " + PositiveSetsBoughtsP2.toString());//[0]ist richtig
 
 //        
 //        Iterator it1 = PositiveSetsP1.iterator();
 //                 Iterator it2 = PositiveSetsP2.iterator();
 //                 
-        while (!PositiveSetsP1.isEmpty() && !PositiveSetsP2.isEmpty()) {
+        while ((!PositiveSetsP1.isEmpty()) && (!PositiveSetsP2.isEmpty())) {
 
-            int countP1 = 0;
-            int countP2 = 0;
             if (PositiveSetsBoughtsP1.get(0) < PositiveSetsBoughtsP2.get(0)) {
-                while (!(countP1 > PositiveSetsP1.get(0))) {
+                for (int countP1 = 0; countP1 < PositiveSetsP1.get(0) + 1; countP1++) {
                     newSortedSells.add(s1Rest.get(0));//index 0 size 0
                     s1Rest.remove(0);
+                    System.out.println("S1Rest: " + s1Rest.toString());
 
                 }
                 PositiveSetsP1.remove(0);
+                PositiveSetsBoughtsP1.remove(0);
             } else {
-                while (!(countP2 > PositiveSetsP2.get(0))) {
+                for (int countP2 = 0; countP2 < PositiveSetsP2.get(0) + 1; countP2++) {
                     newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
                     s2Rest.remove(0);
+                    System.out.println("S2Rest: " + s2Rest.toString());
 
                 }
                 PositiveSetsP2.remove(0);
+                PositiveSetsBoughtsP2.remove(0);
+
             }
 
         }
