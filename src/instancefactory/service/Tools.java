@@ -203,7 +203,7 @@ public class Tools {
 
     }
 
-    void fillPositiveSetsAndPositiveSetsBoughts(Partition p, ArrayList<MyInteger> PositiveSetsP, ArrayList<MyInteger> PositiveSetsBoughtsP) {
+    void fillPositiveSetsAndPositiveSetsBoughts(Partition p, ArrayList<Integer> PositiveSetsP, ArrayList<MyInteger> PositiveSetsBoughtsP) {
         ArrayList<MyInteger> s1Rest = new ArrayList<>();
         s1Rest.addAll(p.sortedSells);
         System.out.println("S1Rest: " + s1Rest.toString());
@@ -214,7 +214,7 @@ public class Tools {
             //drucken
             System.out.println("Budget and Bought: " + p.budgetandBoughtsOfSetUptoIndex.get(i).toString());
             //sobald es größer als Null ist
-            if (p.budgetandBoughtsOfSetUptoIndex.get(i).get(0).i > 0) {
+            if (p.budgetandBoughtsOfSetUptoIndex.get(i).get(0) > 0) {
                 PositiveSetsP.add(i);
                 PositiveSetsBoughtsP.add(p.budgetandBoughtsOfSetUptoIndex.get(i).get(1));
 
