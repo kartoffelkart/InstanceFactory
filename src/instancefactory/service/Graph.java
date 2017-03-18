@@ -13,5 +13,5 @@ import java.util.ArrayList;
  * @author Sonja Schäfer <sonja_schaefer@gmx.de>
  */
 public class Graph {
-     public ArrayList<ArrayList<Integer>> arrayList;
+     public ArrayList<ArrayList<MyInteger>> arrayList;
 }

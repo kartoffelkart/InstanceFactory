@@ -14,7 +14,12 @@ public class MyInteger {
     /**
      *
      */
-    public Integer i;
+    public final Integer i;
+
+    public MyInteger() {
+        this.i = null;
+        System.err.println("MyInteger wurde nicht gesetzt");
+    }
 
     public MyInteger(Integer i) {
         this.i = i;
