@@ -25,4 +25,9 @@ public class MyInteger {
         this.i = i;
     }
 
+    @Override
+    public String toString() {
+        return  i.toString() ;
+    }
+
 }

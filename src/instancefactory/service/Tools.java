@@ -203,7 +203,7 @@ public class Tools {
 
     }
 
-    void fillPositiveSetsAndPositiveSetsBoughts(Partition p, ArrayList<Integer> PositiveSetsP, ArrayList<MyInteger> PositiveSetsBoughtsP) {
+    void fillPositiveSetsAndPositiveSetsBoughts(Partition p, ArrayList<Integer> PositiveSetsP, ArrayList<Integer> PositiveSetsBoughtsP) {
         ArrayList<MyInteger> s1Rest = new ArrayList<>();
         s1Rest.addAll(p.sortedSells);
         System.out.println("S1Rest: " + s1Rest.toString());
@@ -242,13 +242,13 @@ public class Tools {
         ArrayList<MyInteger> s2Rest = new ArrayList<>();
         s2Rest.addAll(p2.sortedSells);
 
-        ArrayList<MyInteger> PositiveSetsP1 = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsP1 = new ArrayList<>();
 
-        ArrayList<MyInteger> PositiveSetsP2 = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsP2 = new ArrayList<>();
 
-        ArrayList<MyInteger> PositiveSetsBoughtsP1 = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsBoughtsP1 = new ArrayList<>();
 
-        ArrayList<MyInteger> PositiveSetsBoughtsP2 = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsBoughtsP2 = new ArrayList<>();
 
         fillPositiveSetsAndPositiveSetsBoughts(p1, PositiveSetsP1, PositiveSetsBoughtsP1);
         System.out.println("PositiveSetsP1: " + PositiveSetsP1.toString());//[] ist richtig
