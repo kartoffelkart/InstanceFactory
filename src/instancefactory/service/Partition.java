@@ -10,7 +10,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author Sonja Schäfer <sonja_schaefer@gmx.de>
+ * @author Sonja Schäfer sonja_schaefer@gmx.de
  */
 public class Partition {
 
@@ -32,7 +32,7 @@ public class Partition {
         sortedSells = new ArrayList<>();
     }
 //_____________________________________________________________________________
-
+  
     public void setBudgetandBoughtsOfSetUptoIndex(int index) {
         int budget = 0;
         int sumNewBoughts = 0;

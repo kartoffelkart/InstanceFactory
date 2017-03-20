@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Sonja Schäfer <sonja_schaefer@gmx.de>
+ * @author Sonja Schäfer sonja_schaefer@gmx.de
  */
 public class Graph {
      public ArrayList<ArrayList<MyInteger>> arrayList;

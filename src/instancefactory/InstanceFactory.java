@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author Sonja Schäfer <sonja_schaefer@gmx.de>
+ * @author Sonja Schäfer sonja_schaefer@gmx.de
  */
 public class InstanceFactory {
 

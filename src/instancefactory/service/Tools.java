@@ -15,10 +15,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
- * @author Sonja Schäfer <sonja_schaefer@gmx.de>
+ * @author Sonja Schäfer sonja_schaefer@gmx.de
  */
 public class Tools {
-
+    /**
+     *
+     * 
+     * @return ArrayList<Partition>
+     */
     public ArrayList<Partition> makeBasicPartitions() {
 
         ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 10);
@@ -63,7 +67,11 @@ public class Tools {
         }
         return partitions;
     }
-
+  /**
+     *
+     * @ param partitions
+     * 
+     */
     public void buildPartitionAndMerge(ArrayList<Partition> partitions) {
 
         while (partitions.size() > 1) {
@@ -93,7 +101,11 @@ public class Tools {
 
         }
     }
-
+  /**
+     *
+     * @ param min, max, size
+     * @return ArrayList<MyInteger>
+     */
     public ArrayList<MyInteger> getRandomIntArray(int min, int max, int size) {
         ArrayList<MyInteger> randomIntArrayList = new ArrayList<>();
         int it = 0;
@@ -104,7 +116,11 @@ public class Tools {
         }
         return randomIntArrayList;
     }
-
+  /**
+     *
+     * @ param unionProbability, leftJoinProbability, rightJoinProbability
+     * @return String
+     */
     public String getChoice(int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
         ArrayList<MyInteger> numbers = getRandomIntArray(1, 100, 1);
@@ -118,7 +134,11 @@ public class Tools {
             }
         }
     }
-
+  /**
+     *
+     * @ param boughtProbability, saleProbability
+     * @return String
+     */
     public String getCoin(int boughtProbability, int saleProbability) {
 
         ArrayList<MyInteger> numbers = getRandomIntArray(1, 100, 1);
@@ -128,7 +148,11 @@ public class Tools {
             return "sell";
         }
     }
-
+  /**
+     *
+     * @ param partitions
+     * @return Partition
+     */
     public Partition getRandomPartitionDueToProbality(ArrayList<Partition> partitions) {
         Partition partition = new Partition();
         int sumProb = 0;
@@ -154,7 +178,11 @@ public class Tools {
         return partition;
     }
     Integer toogle = 0;
-
+  /**
+     *
+     * @ param p1, p2
+     * @return Partition
+     */
     public Partition makePartition(Partition p1, Partition p2) {
         Partition partition = new Partition();
 //        String choice = this.getChoice(33, 33, 34);
@@ -194,7 +222,11 @@ public class Tools {
         }
         return partition;
     }
-
+  /**
+     *
+     * @ param s1, s2
+     * @return ArrayList<MyInteger>
+     */
     ArrayList<MyInteger> makeSortedSellsJoin(ArrayList<MyInteger> s1, ArrayList<MyInteger> s2) {
         ArrayList<MyInteger> s = new ArrayList<>();
         s.addAll(s2);
@@ -346,7 +378,7 @@ public class Tools {
         return a;
 
     }
-
+ 
     ArrayList<ArrayList<MyInteger>> makeArrayListUnion(ArrayList<ArrayList<MyInteger>> a1, ArrayList<ArrayList<MyInteger>> a2) {
         ArrayList<ArrayList<MyInteger>> a = new ArrayList<>();
         a.addAll(a1);
@@ -361,7 +393,7 @@ public class Tools {
         p.sortedSells = makeSortedSellsUnion(p1, p2);
         return p;
     }
-
+ 
     Partition makePartitionJoin(Partition p1, Partition p2) {
         Partition p = new Partition();
 

@@ -7,7 +7,7 @@ package instancefactory.service;
 
 /**
  *
- * @author Sonja Schäfer <sonja_schaefer@gmx.de>
+ * @author Sonja Schäfer sonja_schaefer@gmx.de
  */
 public class MyInteger {
 
