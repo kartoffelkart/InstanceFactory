@@ -32,42 +32,78 @@ public class Partition {
         sortedSells = new ArrayList<>();
     }
 //_____________________________________________________________________________
-  
+
+    /**
+     * füllt budgetandBoughtsOfSetUptoIndex rekursiv aus den Werten von Index-1
+     * wenn ein positive minimal Set gefunden ist, werden alle Einträge bis zu
+     * diesem Index auf 0 gesetzt, damit die neuen Sets gelten wenn das andere
+     * schon abgarbeitet ist
+     *
+     * @param index Index für den die Werte gerade dynamisch in die Tabelle
+     * eingetragen werden
+     */
     public void setBudgetandBoughtsOfSetUptoIndex(int index) {
+        /**
+         * Budget Variable um sie in budgetandBoughtsOfSetUptoIndex zu speichern
+         */
         int budget = 0;
-        int sumNewBoughts = 0;
+        /**
+         * Summe Boughts Variable um sie in budgetandBoughtsOfSetUptoIndex zu
+         * speichern
+         */
+        int sumBoughts = 0;
+        /**
+         * Variable für die neu getätigten Boughts
+         */
         ArrayList<MyInteger> newBought = new ArrayList<>();
+
+        // --------------hier finden wir die position des Integerobjekts, das in SortedSells bei Index steht in der Adjazensliste
         Integer position = 0;
 
         for (int i = 0; i < arrayList.size(); i++) {
+            //für jeden sell 
             if (arrayList.get(i).get(0) == sortedSells.get(index)) {//irgendwann ist hier Nullpointer, bei index?
 
                 position = i;
             }
         }
+        //--------------------------------------------------------------------------------------------------------------------
 //if (position==null) würde ja gerne prüfen ob das initialisiert wurde
-        newBought.addAll(arrayList.get(position));
+        newBought.addAll(arrayList.get(position)); //hier holen wir alle für den Sell benötigten Boughts
         newBought.remove(0);
-        newBought.removeAll(allreadyBought);
-        allreadyBought.addAll(newBought);
-
-        Iterator it = newBought.iterator();
-        while (it.hasNext()) {
-
-            sumNewBoughts = sumNewBoughts + ((MyInteger) it.next()).i;
-        }
+        newBought.removeAll(allreadyBought);//hier entfernen wir alle, die schon gekauft waren
+        allreadyBought.addAll(newBought);//hier vermerken wir die neu gekauften boughts als gekauft
+// berechnet die Summe von Boughts------------------------------
 
         if (index > 0) {
+            sumBoughts = budgetandBoughtsOfSetUptoIndex.get(index - 1).get(1);
+            Iterator it = newBought.iterator();
+            while (it.hasNext()) {
+
+                sumBoughts = sumBoughts + ((MyInteger) it.next()).i;
+
+            }
+        } else {
+
+            Iterator it = newBought.iterator();
+            while (it.hasNext()) {
+
+                sumBoughts = sumBoughts + ((MyInteger) it.next()).i;
+            }
+        }
+//-----------------------------------------------------hier wird Budget und SumBoughts rekursiv aus den Werten von Index-1 berechnet
+        if (index > 0) {
             budget = budgetandBoughtsOfSetUptoIndex.get(index - 1).get(0)
-                    + sortedSells.get(index).i - sumNewBoughts;
+                    + sortedSells.get(index).i - sumBoughts;
 
         } else {
-            budget = sortedSells.get(index).i - sumNewBoughts;
+            budget = sortedSells.get(index).i - sumBoughts;
         }
+        //hier wird ein neuer Eintrag daraus generiert
         ArrayList<Integer> newEintrag = new ArrayList<>();
 
         newEintrag.add(budget);
-        newEintrag.add(sumNewBoughts);
+        newEintrag.add(sumBoughts);
         if (budgetandBoughtsOfSetUptoIndex.size() == index) {
             budgetandBoughtsOfSetUptoIndex.add(index, newEintrag);
         } else {
