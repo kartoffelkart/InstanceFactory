@@ -114,7 +114,7 @@ public class Tools {
      * @param min linkes Intervallende der MyInteger
      * @param max rechtes Intervallende der MyInteger
      * @param size Größe des Arrays
-     * @return ArrayList MyInteger zufälliger Array von MyInteger Objekten
+     * @return zufälliger Array von MyInteger Objekten
      */
     public ArrayList<MyInteger> getRandomIntArray(int min, int max, int size) {
         ArrayList<MyInteger> randomIntArrayList = new ArrayList<>();
@@ -134,7 +134,7 @@ public class Tools {
      * @param unionProbability Warscheinlichkeit von union in Prozent
      * @param leftJoinProbability Warscheinlichkeit von leftJoin in Prozent
      * @param rightJoinProbability Warscheinlichkeit von rightJoin in Prozent
-     * @return String union oder leftJoin oder rightJoin
+     * @return union oder leftJoin oder rightJoin
      */
     public String getChoice(int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
@@ -156,7 +156,7 @@ public class Tools {
      *
      * @param boughtProbability Warscheinlichkeit von Bought in Prozent
      * @param saleProbability Warscheinlichkeit von Sell in Prozent
-     * @return String Bought oder Sell
+     * @return Bought oder Sell
      */
     public String getCoin(int boughtProbability, int saleProbability) {
 
@@ -207,8 +207,8 @@ public class Tools {
      *
      * @param p1 Zufällige Partition die jetzt mit einer anderen gemergt wird
      * @param p2 Zufällige Partition die jetzt mit einer anderen gemergt wird
-     * @return Partition Die Partition, die aus dem Merge der Eingabe
-     * Partitionen entstanden ist
+     * @return Die Partition, die aus dem Merge der Eingabe Partitionen
+     * entstanden ist
      */
     public Partition makePartition(Partition p1, Partition p2) {
         Partition partition = new Partition();
@@ -256,8 +256,7 @@ public class Tools {
      *
      * @param s1 Sorted Sells der Partition 1
      * @param s2 Sorted Sells der Partition 2
-     * @return ArrayList MyInteger konkatenierte SortedSells die aus dem Join
-     * hervorgegangen sind
+     * @return konkatenierte SortedSells die aus dem Join hervorgegangen sind
      */
     public ArrayList<MyInteger> makeSortedSellsJoin(ArrayList<MyInteger> s1, ArrayList<MyInteger> s2) {
         ArrayList<MyInteger> s = new ArrayList<>();
@@ -321,13 +320,10 @@ public class Tools {
      * macht neue SortedSells (Reihenfolge der Boughts) indem es die SortedSells
      * der Partitionen UNION mergt
      *
-     *
-     *
-     *
      * @param p1 Zufällige Partition,deren SortedSells UNION gemergt wird
      * @param p2 Zufällige Partition,deren SortedSells UNION gemergt wird
-     * @return ArrayListMyInteger SortedSells, die aus dem UNION Merge der
-     * SortedSells der Eingabe Partitionen entstanden ist
+     * @return SortedSells, die aus dem UNION Merge der SortedSells der Eingabe
+     * Partitionen entstanden ist
      */
     public ArrayList<MyInteger> makeSortedSellsUnion(Partition p1, Partition p2) {
 
@@ -404,9 +400,9 @@ public class Tools {
      * gejoint, a1 wird in a2 reingejoint, das heißt a2 muss vor a1 abgearbeitet
      * serden
      *
-     * @param a1
-     * @param a2
-     * @return ArrayList von ArrayList von MyInteger
+     * @param a1 Adjazensliste a1
+     * @param a2 Adjazensliste a2
+     * @return gejointe Adjazensliste a1 in a2
      */
     public ArrayList<ArrayList<MyInteger>> makeArrayListJoin(ArrayList<ArrayList<MyInteger>> a1, ArrayList<ArrayList<MyInteger>> a2) {
 
@@ -465,7 +461,7 @@ public class Tools {
      * wird
      * @param p2 Zufällige Partition die jetzt mit einer anderen UNION gemergt
      * wird
-     * @return Partition Die Partition, die aus dem UNION Merge der Eingabe
+     * @return Die Partition, die aus dem UNION Merge der Eingabe
      * Partitionen entstanden ist
      */
     public Partition makePartitionUnion(Partition p1, Partition p2) {
@@ -484,7 +480,7 @@ public class Tools {
      * wird
      * @param a2 Adjazensliste (graph) die jetzt mit einer anderen UNION gemergt
      * wird
-     * @return a Adjazensliste (Graph), die aus dem UNION Merge der Eingabe
+     * @return  Adjazensliste (Graph), die aus dem UNION Merge der Eingabe
      * Adjazenslisten (Graphen) entstanden ist
      */
     public ArrayList<ArrayList<MyInteger>> makeArrayListUnion(ArrayList<ArrayList<MyInteger>> a1, ArrayList<ArrayList<MyInteger>> a2) {
@@ -505,7 +501,7 @@ public class Tools {
      * JOIN gemergt wird
      * @param p2 Zufällige Partition, die (deren Boughts) jetzt mit einer
      * anderen JOIN gemergt wird
-     * @return Partition Die Partition, die aus dem UNION Merge der Eingabe
+     * @return Die Partition, die aus dem UNION Merge der Eingabe
      * Partitionen entstanden ist
      */
     public Partition makePartitionJoin(Partition p1, Partition p2) {
