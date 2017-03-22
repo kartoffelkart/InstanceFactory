@@ -19,7 +19,7 @@ public class Partition {
     public ArrayList<MyInteger> sortedSells;
     public ArrayList<MyInteger> allreadyBought = new ArrayList<>();
 
-    public ArrayList<ArrayList<Integer>> budgetandBoughtsOfSetUptoIndex = new ArrayList();
+    public ArrayList<ArrayList<Integer>> budgetandBoughtsOfSetOfIndex = new ArrayList();
 
     public int probability;
     //_________________________________________________________________________
@@ -34,21 +34,19 @@ public class Partition {
 //_____________________________________________________________________________
 
     /**
-     * füllt budgetandBoughtsOfSetUptoIndex rekursiv aus den Werten von Index-1
-     * wenn ein positive minimal Set gefunden ist, werden alle Einträge bis zu
-     * diesem Index auf 0 gesetzt, damit die neuen Sets gelten wenn das andere
-     * schon abgarbeitet ist
+     * füllt die lange Liste dert budgetandBoughtsOfSetOfIndex rekursiv aus den Werten von Index-1
+     * 
      *
      * @param index Index für den die Werte gerade dynamisch in die Tabelle
      * eingetragen werden
      */
-    public void setBudgetandBoughtsOfSetUptoIndex(int index) {
+    public void setBudgetandBoughtsOfSetOfIndex(int index) {
         /**
-         * Budget Variable um sie in budgetandBoughtsOfSetUptoIndex zu speichern
+         * Budget Variable um sie in budgetandBoughtsOfSetOfIndex zu speichern
          */
         int budget = 0;
         /**
-         * Summe Boughts Variable um sie in budgetandBoughtsOfSetUptoIndex zu
+         * Summe Boughts Variable um sie in budgetandBoughtsOfSetOfIndex zu
          * speichern
          */
         int sumBoughts = 0;
@@ -76,7 +74,7 @@ public class Partition {
 // berechnet die Summe von Boughts------------------------------
 
         if (index > 0) {
-            sumBoughts = budgetandBoughtsOfSetUptoIndex.get(index - 1).get(1);
+            sumBoughts = budgetandBoughtsOfSetOfIndex.get(index - 1).get(1);
             Iterator it = newBought.iterator();
             while (it.hasNext()) {
 
@@ -93,7 +91,7 @@ public class Partition {
         }
 //-----------------------------------------------------hier wird Budget und SumBoughts rekursiv aus den Werten von Index-1 berechnet
         if (index > 0) {
-            budget = budgetandBoughtsOfSetUptoIndex.get(index - 1).get(0)
+            budget = budgetandBoughtsOfSetOfIndex.get(index - 1).get(0)
                     + sortedSells.get(index).i - sumBoughts;
 
         } else {
@@ -104,8 +102,11 @@ public class Partition {
 
         newEintrag.add(budget);
         newEintrag.add(sumBoughts);
-        if (budgetandBoughtsOfSetUptoIndex.size() == index) {
-            budgetandBoughtsOfSetUptoIndex.add(index, newEintrag);
+        if (budgetandBoughtsOfSetOfIndex.size() == index) {
+            budgetandBoughtsOfSetOfIndex.add(index, newEintrag);
+             //drucken
+            
+            System.out.println("Budget and Bought: " + budgetandBoughtsOfSetOfIndex.get(index).toString());
         } else {
             System.err.println("Error");
         }

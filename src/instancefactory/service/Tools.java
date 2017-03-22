@@ -108,6 +108,14 @@ public class Tools {
         }
     }
 
+    /**
+     * hier wird ein zufälliger Array von MyInteger Objekten erzeugt
+     *
+     * @param min linkes Intervallende der MyInteger
+     * @param max rechtes Intervallende der MyInteger
+     * @param size Größe des Arrays
+     * @return ArrayList MyInteger zufälliger Array von MyInteger Objekten
+     */
     public ArrayList<MyInteger> getRandomIntArray(int min, int max, int size) {
         ArrayList<MyInteger> randomIntArrayList = new ArrayList<>();
         int it = 0;
@@ -119,6 +127,15 @@ public class Tools {
         return randomIntArrayList;
     }
 
+    /**
+     * hier wird nach bestimmeten Kriterien der Warscheinlichkeit union oder
+     * leftJoin oder rightJoin gewählt
+     *
+     * @param unionProbability Warscheinlichkeit von union in Prozent
+     * @param leftJoinProbability Warscheinlichkeit von leftJoin in Prozent
+     * @param rightJoinProbability Warscheinlichkeit von rightJoin in Prozent
+     * @return String union oder leftJoin oder rightJoin
+     */
     public String getChoice(int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
         ArrayList<MyInteger> numbers = getRandomIntArray(1, 100, 1);
@@ -133,6 +150,14 @@ public class Tools {
         }
     }
 
+    /**
+     * hier wird nach bestimmeten Kriterien der Warscheinlichkeit bought oder
+     * sell gewählt
+     *
+     * @param boughtProbability Warscheinlichkeit von Bought in Prozent
+     * @param saleProbability Warscheinlichkeit von Sell in Prozent
+     * @return String Bought oder Sell
+     */
     public String getCoin(int boughtProbability, int saleProbability) {
 
         ArrayList<MyInteger> numbers = getRandomIntArray(1, 100, 1);
@@ -147,8 +172,8 @@ public class Tools {
      * @see buildPartitionAndMerge
      * @param partitions Die aktuellen Partitionen aus denen jetzt eine nach
      * bestimmten Kriterien der Warscheinlichkeit ausgewählt wird
-     * @return Partition nach bestimmten Kriterien der Warscheinlichkeit
-     * zufällige ausgewählte Partition
+     * @return 'random' Partition, die nach bestimmten Kriterien der
+     * Warscheinlichkeit zufällige ausgewählt wurde
      */
     public Partition getRandomPartitionDueToProbality(ArrayList<Partition> partitions) {
         Partition partition = new Partition();
@@ -225,6 +250,15 @@ public class Tools {
         return partition;
     }
 
+    /**
+     * hier werden die SortedSells s1 und s2 gejoint, s1 wird in s2 reingejoint,
+     * das heißt s2 und dann wird s1 angehängt
+     *
+     * @param s1 Sorted Sells der Partition 1
+     * @param s2 Sorted Sells der Partition 2
+     * @return ArrayList MyInteger konkatenierte SortedSells die aus dem Join
+     * hervorgegangen sind
+     */
     public ArrayList<MyInteger> makeSortedSellsJoin(ArrayList<MyInteger> s1, ArrayList<MyInteger> s2) {
         ArrayList<MyInteger> s = new ArrayList<>();
         s.addAll(s2);
@@ -234,8 +268,11 @@ public class Tools {
     }
 
     /**
-     * füllt die Liste von Indizes von rechten Intervallgrenzen von PositiveSets
-     * und die Liste der aufsummierten Boughts für die PositiveSets
+     * füllt die kurze Liste von Indizes von rechten Intervallgrenzen von
+     * PositiveSets und die kurze Liste der aufsummierten Boughts für die
+     * PositiveSets, wenn ein positive minimal Set gefunden ist, werden alle
+     * Einträge von budgetandBoughtsOfSetOfIndex bis zu diesem Index auf 0
+     * gesetzt,und
      *
      * @param p Partition
      * @param PositiveSetsP PositiveSets die wir für diesen UNION Merge der
@@ -259,14 +296,12 @@ public class Tools {
         for (int i = 0; i < s1Rest.size(); i++) {
             // berechne budget bis i
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
-            p.setBudgetandBoughtsOfSetUptoIndex(i);
+            p.setBudgetandBoughtsOfSetOfIndex(i);
 
-            //drucken
-            System.out.println("Budget and Bought: " + p.budgetandBoughtsOfSetUptoIndex.get(i).toString());
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsP und PositiveSetsPSumBoughts gespeichert
-            if (p.budgetandBoughtsOfSetUptoIndex.get(i).get(0) > 0) {
+            if (p.budgetandBoughtsOfSetOfIndex.get(i).get(0) > 0) {
                 PositiveSetsP.add(i);
-                PositiveSetsPSumBoughts.add(p.budgetandBoughtsOfSetUptoIndex.get(i).get(1));
+                PositiveSetsPSumBoughts.add(p.budgetandBoughtsOfSetOfIndex.get(i).get(1));
 
                 System.out.println("PositiveSetsP: " + PositiveSetsP.toString());//[] ist richtig
                 System.out.println("PositiveSetsPSumBoughts: " + PositiveSetsPSumBoughts.toString());//[0]ist richtig
@@ -274,8 +309,8 @@ public class Tools {
                 //hier will ich alle vorher zurücksetzten budget aber eigentlich auch bought
                 for (int k = 0; k < i + 1; k++) {
 
-                    p.budgetandBoughtsOfSetUptoIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
-                    p.budgetandBoughtsOfSetUptoIndex.get(k).set(1, 0);
+                    p.budgetandBoughtsOfSetOfIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
+                    p.budgetandBoughtsOfSetOfIndex.get(k).set(1, 0);
                 }
             }
 
@@ -364,6 +399,15 @@ public class Tools {
 
     }
 
+    /**
+     * hier werden die Adjazenslisten a1 und a2 zu einer neue Adjazensliste
+     * gejoint, a1 wird in a2 reingejoint, das heißt a2 muss vor a1 abgearbeitet
+     * serden
+     *
+     * @param a1
+     * @param a2
+     * @return ArrayList von ArrayList von MyInteger
+     */
     public ArrayList<ArrayList<MyInteger>> makeArrayListJoin(ArrayList<ArrayList<MyInteger>> a1, ArrayList<ArrayList<MyInteger>> a2) {
 
         ArrayList<ArrayList<MyInteger>> a = new ArrayList<>();
@@ -416,10 +460,6 @@ public class Tools {
     /**
      * macht eine neue Partition, die aus dem UNION Merge der Eingabe
      * Partitionen entstanden ist
-     *
-     *
-     *
-     *
      *
      * @param p1 Zufällige Partition die jetzt mit einer anderen UNION gemergt
      * wird
