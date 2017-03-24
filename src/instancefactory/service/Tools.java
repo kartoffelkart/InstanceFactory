@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Tools {
 
     /**
-     *
+     * hier wird ein Array von BasisPartitionen erstellt
      *
      * @return ArrayList of Partition
      */
@@ -43,7 +43,7 @@ public class Tools {
         partitions.add(partition1);
         Integer toogle = 0;
         while (!randomIntArrayList.isEmpty()) {
-
+//NOTE: muss wieder einkommentiert weren
 //            if (this.getCoin(50, 50).equals("sell")) {
             if (toogle.equals(1)) {
                 System.out.println("sell");
@@ -114,7 +114,8 @@ public class Tools {
      * @param min linkes Intervallende der MyInteger
      * @param max rechtes Intervallende der MyInteger
      * @param size Größe des Arrays
-     * @return zufälliger Array von MyInteger Objekten
+     * @return zufälliger Array der Länge size von MyInteger Objekten zwischen
+     * min und max
      */
     public ArrayList<MyInteger> getRandomIntArray(int min, int max, int size) {
         ArrayList<MyInteger> randomIntArrayList = new ArrayList<>();
@@ -337,55 +338,56 @@ public class Tools {
         /**
          * Liste von Indizes von rechten Intervallgrenzen von PositiveSets
          */
-        ArrayList<Integer> PositiveSetsP1Tabelle = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsP1Indizes = new ArrayList<>();
 
-        ArrayList<Integer> PositiveSetsP2Tabelle = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsP2Indizes = new ArrayList<>();
         /**
          * Liste der aufsummierten Boughts für die PositiveSets
          */
-        ArrayList<Integer> PositiveSetsP1TabelleSumBoughts = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsP1IndizesSumBoughts = new ArrayList<>();
 
-        ArrayList<Integer> PositiveSetsP2TabelleSumBoughts = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsP2IndizesSumBoughts = new ArrayList<>();
 
-        fillPositiveSetsAndPositiveSetsBoughts(p1, PositiveSetsP1Tabelle, PositiveSetsP1TabelleSumBoughts);
-        System.out.println("PositiveSetsP1Tabelle: " + PositiveSetsP1Tabelle.toString());//[] ist richtig
-        System.out.println("PositiveSetsP1TabelleSumBoughts: " + PositiveSetsP1TabelleSumBoughts.toString());//[]ist richtig
+        fillPositiveSetsAndPositiveSetsBoughts(p1, PositiveSetsP1Indizes, PositiveSetsP1IndizesSumBoughts);
+        System.out.println("PositiveSetsP1Indizes: " + PositiveSetsP1Indizes.toString());//[] ist richtig
+        System.out.println("PositiveSetsP1IndizesSumBoughts: " + PositiveSetsP1IndizesSumBoughts.toString());//[]ist richtig
 
-        fillPositiveSetsAndPositiveSetsBoughts(p2, PositiveSetsP2Tabelle, PositiveSetsP2TabelleSumBoughts);
+        fillPositiveSetsAndPositiveSetsBoughts(p2, PositiveSetsP2Indizes, PositiveSetsP2IndizesSumBoughts);
 
-        System.out.println("PositiveSetsP2Tabelle: " + PositiveSetsP2Tabelle.toString());//[0]ist richtig
-        System.out.println("PositiveSetsP2TabelleSumBoughts: " + PositiveSetsP2TabelleSumBoughts.toString());//[0]ist richtig
+        System.out.println("PositiveSetsP2Indizes: " + PositiveSetsP2Indizes.toString());//[0]ist richtig
+        System.out.println("PositiveSetsP2IndizesSumBoughts: " + PositiveSetsP2IndizesSumBoughts.toString());//[0]ist richtig
 
 //        
-//        Iterator it1 = PositiveSetsP1Tabelle.iterator();
-//                 Iterator it2 = PositiveSetsP2Tabelle.iterator();
-//                 
-        while ((!PositiveSetsP1Tabelle.isEmpty()) && (!PositiveSetsP2Tabelle.isEmpty())) {
+//        Iterator it1 = PositiveSetsP1Indizes.iterator();
+//                 Iterator it2 = PositiveSetsP2Indizes.iterator();
+//          
+        //jetzt wird gemergt
+        while ((!PositiveSetsP1Indizes.isEmpty()) && (!PositiveSetsP2Indizes.isEmpty())) {
 
-            if (PositiveSetsP1TabelleSumBoughts.get(0) < PositiveSetsP2TabelleSumBoughts.get(0)) {
-                for (int countP1 = 0; countP1 < PositiveSetsP1Tabelle.get(0) + 1; countP1++) {
+            if (PositiveSetsP1IndizesSumBoughts.get(0) < PositiveSetsP2IndizesSumBoughts.get(0)) {
+                for (int countP1 = 0; countP1 < PositiveSetsP1Indizes.get(0) + 1; countP1++) {
                     newSortedSells.add(s1Rest.get(0));//index 0 size 0
                     s1Rest.remove(0);
                     System.out.println("S1Rest: " + s1Rest.toString());
 
                 }
-                PositiveSetsP1Tabelle.remove(0);
-                PositiveSetsP1TabelleSumBoughts.remove(0);
+                PositiveSetsP1Indizes.remove(0);
+                PositiveSetsP1IndizesSumBoughts.remove(0);
             } else {
-                for (int countP2 = 0; countP2 < PositiveSetsP2Tabelle.get(0) + 1; countP2++) {
+                for (int countP2 = 0; countP2 < PositiveSetsP2Indizes.get(0) + 1; countP2++) {
                     newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
                     s2Rest.remove(0);
                     System.out.println("S2Rest: " + s2Rest.toString());
 
                 }
-                PositiveSetsP2Tabelle.remove(0);
-                PositiveSetsP2TabelleSumBoughts.remove(0);
+                PositiveSetsP2Indizes.remove(0);
+                PositiveSetsP2IndizesSumBoughts.remove(0);
 
             }
 
         }
 
-        //-----------Eigentlich wird jetzt noch unterschieden ob max von min von...
+        // TODO: Eigentlich wird jetzt noch unterschieden ob max von min von...
         newSortedSells.addAll(s1Rest);
         newSortedSells.addAll(s2Rest);
         System.out.println("newSortedSells: " + newSortedSells.toString());
@@ -461,8 +463,8 @@ public class Tools {
      * wird
      * @param p2 Zufällige Partition die jetzt mit einer anderen UNION gemergt
      * wird
-     * @return Die Partition, die aus dem UNION Merge der Eingabe
-     * Partitionen entstanden ist
+     * @return Die Partition, die aus dem UNION Merge der Eingabe Partitionen
+     * entstanden ist
      */
     public Partition makePartitionUnion(Partition p1, Partition p2) {
         Partition p = new Partition();
@@ -476,12 +478,10 @@ public class Tools {
      * macht eine neue Adjazensliste die, indem es die Adjazenslisten a1 und a2
      * konkateniert
      *
-     * @param a1 Adjazensliste (graph) die jetzt mit einer anderen UNION gemergt
-     * wird
-     * @param a2 Adjazensliste (graph) die jetzt mit einer anderen UNION gemergt
-     * wird
-     * @return  Adjazensliste (Graph), die aus dem UNION Merge der Eingabe
-     * Adjazenslisten (Graphen) entstanden ist
+     * @param a1 Adjazensliste (graph) wird
+     * @param a2 Adjazensliste (graph) wird
+     * @return Adjazensliste (Graph), die aus dem UNION Merge (der
+     * Konkatenation) der Eingabe Adjazenslisten (Graphen) entstanden ist
      */
     public ArrayList<ArrayList<MyInteger>> makeArrayListUnion(ArrayList<ArrayList<MyInteger>> a1, ArrayList<ArrayList<MyInteger>> a2) {
         ArrayList<ArrayList<MyInteger>> a = new ArrayList<>();
@@ -501,8 +501,8 @@ public class Tools {
      * JOIN gemergt wird
      * @param p2 Zufällige Partition, die (deren Boughts) jetzt mit einer
      * anderen JOIN gemergt wird
-     * @return Die Partition, die aus dem UNION Merge der Eingabe
-     * Partitionen entstanden ist
+     * @return Die Partition, die aus dem UNION Merge der Eingabe Partitionen
+     * entstanden ist
      */
     public Partition makePartitionJoin(Partition p1, Partition p2) {
         Partition p = new Partition();
