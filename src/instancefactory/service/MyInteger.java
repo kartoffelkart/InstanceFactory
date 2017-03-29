@@ -15,6 +15,7 @@ public class MyInteger {
      *
      */
     public final Integer i;
+    public Integer budget;
 
     public MyInteger() {
         this.i = null;
@@ -27,7 +28,7 @@ public class MyInteger {
 
     @Override
     public String toString() {
-        return  i.toString() ;
+        return i.toString();
     }
 
 }

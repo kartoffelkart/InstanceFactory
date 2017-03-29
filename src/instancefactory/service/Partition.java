@@ -95,7 +95,7 @@ public class Partition {
                     + sortedSells.get(index).i - sumBoughts;
 
         } else {
-            budget = sortedSells.get(index).i - sumBoughts;
+            budget = sortedSells.get(index).i - sumBoughts;//BUDGET???????????????????
         }
         //hier wird ein neuer Eintrag daraus generiert
         ArrayList<Integer> newEintrag = new ArrayList<>();
