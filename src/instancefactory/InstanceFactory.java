@@ -36,7 +36,7 @@ public class InstanceFactory {
             System.out.println("elementare Partition: " + ((Partition) it.next()).toString() + "\n");
         }
 
-        tool.buildPartitionAndMerge(partitions);
+        tool.buildInstance(partitions);
         instance = partitions.get(0);
 //        for (int j = 0; j < instance.arrayList.size(); j++) {
 //

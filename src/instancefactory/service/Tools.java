@@ -84,7 +84,7 @@ public class Tools {
      * Schritt zweier daraus zufällig gewählter Partitioen
      *
      */
-    public void buildPartitionAndMerge(ArrayList<Partition> partitions) {
+    public void buildInstance(ArrayList<Partition> partitions) {
 
         while (partitions.size() > 1) {
             Partition partition = new Partition();
@@ -176,7 +176,7 @@ public class Tools {
     }
 
     /**
-     * @see buildPartitionAndMerge
+     * @see buildInstance
      * @param partitions Die aktuellen Partitionen aus denen jetzt eine nach
      * bestimmten Kriterien der Warscheinlichkeit ausgewählt wird
      * @return 'random' Partition, die nach bestimmten Kriterien der
@@ -273,6 +273,13 @@ public class Tools {
 
     }
 
+    public Integer makeBudgetJoin(Partition b1, Partition b2) {
+        Integer budget = Integer.min(b2.budget, b2.balance + b1.budget);
+
+        return budget;
+
+    }
+
     /**
      * füllt die kurze Liste von Indizes von rechten Intervallgrenzen von
      * PositiveSets und die kurze Liste der aufsummierten Boughts für die
@@ -286,7 +293,7 @@ public class Tools {
      * @param PositiveSetsPSumBoughts Summe der Boughts die wir für die
      * PositiveSets brauchen
      */
-    public void fillPositiveSetsAndPositiveSetsBoughts(Partition p, ArrayList<Integer> PositiveSetsP, ArrayList<Integer> PositiveSetsPSumBoughts) {
+    public void fillPositiveSetsAndPositiveSetsBoughts(Partition p, ArrayList<Integer> budgets, ArrayList<Integer> balances, ArrayList<Integer> PositiveSetsP, ArrayList<Integer> PositiveSetsPSumBoughts) {
         /**
          * wir wollen die PositiveSets Indizes und die benötigten Einkaufssummen
          */
@@ -308,7 +315,8 @@ public class Tools {
             if (p.balanceandBoughtsOfSetOfIndex.get(i).get(0) > 0) {
                 PositiveSetsP.add(i);
                 PositiveSetsPSumBoughts.add(p.balanceandBoughtsOfSetOfIndex.get(i).get(1));
-
+                budgets.add(p.balanceandBoughtsOfSetOfIndex.get(i).get(2));
+                balances.add(p.balanceandBoughtsOfSetOfIndex.get(i).get(0));
                 System.out.println("PositiveSetsP: " + PositiveSetsP.toString());//[] ist richtig
                 System.out.println("PositiveSetsPSumBoughts: " + PositiveSetsPSumBoughts.toString());//[0]ist richtig
 
@@ -317,6 +325,7 @@ public class Tools {
 
                     p.balanceandBoughtsOfSetOfIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
                     p.balanceandBoughtsOfSetOfIndex.get(k).set(1, 0);
+                    p.balanceandBoughtsOfSetOfIndex.get(k).set(2, 0);
                 }
             }
 
@@ -332,7 +341,9 @@ public class Tools {
      * @return SortedSells, die aus dem UNION Merge der SortedSells der Eingabe
      * Partitionen entstanden ist
      */
-    public ArrayList<MyInteger> makeSortedSellsUnion(Partition p1, Partition p2) {
+    public void makeSortedSellsUnionAndBudgetAndBalance(Partition p, Partition p1, Partition p2) {
+        ArrayList<Integer> budgets = new ArrayList<>();
+        ArrayList<Integer> balances = new ArrayList<>();
 
         ArrayList<MyInteger> newSortedSells = new ArrayList<>();
 
@@ -354,11 +365,11 @@ public class Tools {
 
         ArrayList<Integer> PositiveSetsP2IndizesSumBoughts = new ArrayList<>();
 
-        fillPositiveSetsAndPositiveSetsBoughts(p1, PositiveSetsP1Indizes, PositiveSetsP1IndizesSumBoughts);
+        fillPositiveSetsAndPositiveSetsBoughts(p1, budgets, balances, PositiveSetsP1Indizes, PositiveSetsP1IndizesSumBoughts);
         System.out.println("PositiveSetsP1Indizes: " + PositiveSetsP1Indizes.toString());//[] ist richtig
         System.out.println("PositiveSetsP1IndizesSumBoughts: " + PositiveSetsP1IndizesSumBoughts.toString());//[]ist richtig
 
-        fillPositiveSetsAndPositiveSetsBoughts(p2, PositiveSetsP2Indizes, PositiveSetsP2IndizesSumBoughts);
+        fillPositiveSetsAndPositiveSetsBoughts(p2, budgets, balances, PositiveSetsP2Indizes, PositiveSetsP2IndizesSumBoughts);
 
         System.out.println("PositiveSetsP2Indizes: " + PositiveSetsP2Indizes.toString());//[0]ist richtig
         System.out.println("PositiveSetsP2IndizesSumBoughts: " + PositiveSetsP2IndizesSumBoughts.toString());//[0]ist richtig
@@ -377,8 +388,12 @@ public class Tools {
                     System.out.println("S1Rest: " + s1Rest.toString());
 
                 }
+                // TODO : prüfen  min aus altem Budget und Summe aus Bilanz und neuem Budget
+                p.budget = Integer.min(p.balance + p1.balanceandBoughtsOfSetOfIndex.get(PositiveSetsP1Indizes.get(0)).get(2), p.budget);
+                p.balance = p.balance + p1.balanceandBoughtsOfSetOfIndex.get(PositiveSetsP1Indizes.get(0)).get(0);
+
                 PositiveSetsP1Indizes.remove(0);
-                PositiveSetsP1IndizesSumBoughts.remove(0);
+                PositiveSetsP1IndizesSumBoughts.remove(0);//Wieso???
             } else {
                 for (int countP2 = 0; countP2 < PositiveSetsP2Indizes.get(0) + 1; countP2++) {
                     newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
@@ -386,6 +401,9 @@ public class Tools {
                     System.out.println("S2Rest: " + s2Rest.toString());
 
                 }
+                // TODO : prüfen  min aus altem Budget und Summe aus Bilanz und neuem Budget
+                p.budget = Integer.min(p.balance + p2.balanceandBoughtsOfSetOfIndex.get(PositiveSetsP2Indizes.get(0)).get(2), p.budget);
+                p.balance = p.balance + p2.balanceandBoughtsOfSetOfIndex.get(PositiveSetsP2Indizes.get(0)).get(0);
                 PositiveSetsP2Indizes.remove(0);
                 PositiveSetsP2IndizesSumBoughts.remove(0);
 
@@ -394,12 +412,31 @@ public class Tools {
         }
 
         // TODO: Eigentlich wird jetzt noch unterschieden ob max von min von...
-        newSortedSells.addAll(s1Rest);
-        newSortedSells.addAll(s2Rest);
+        Integer budget2 = p2.balanceandBoughtsOfSetOfIndex.get(p2.balanceandBoughtsOfSetOfIndex.size() - 1).get(2);
+        Integer budget1 = p1.balanceandBoughtsOfSetOfIndex.get(p1.balanceandBoughtsOfSetOfIndex.size() - 1).get(2);
+        Integer balance1 = p1.balanceandBoughtsOfSetOfIndex.get(p2.balanceandBoughtsOfSetOfIndex.size() - 1).get(0);;
+        Integer balance2 = p2.balanceandBoughtsOfSetOfIndex.get(p2.balanceandBoughtsOfSetOfIndex.size() - 1).get(0);
+
+        if (Integer.max(budget2, balance2 + budget1) > Integer.max(budget1, balance1 + budget2)) {
+            newSortedSells.addAll(s1Rest);
+            p.budget = Integer.min(p.balance + budget1, p.budget);
+            p.balance = p.balance + balance1;
+            newSortedSells.addAll(s2Rest);
+            p.budget = Integer.min(p.balance + budget2, p.budget);
+            p.balance = p.balance + balance2;
+        } else {
+            newSortedSells.addAll(s2Rest);
+            p.budget = Integer.min(p.balance + budget2, p.budget);
+            p.balance = p.balance + balance2;
+            newSortedSells.addAll(s1Rest);
+            p.budget = Integer.min(p.balance + budget1, p.budget);
+            p.balance = p.balance + balance1;
+        }
+
         System.out.println("newSortedSells: " + newSortedSells.toString());
         //--------------
 
-        return newSortedSells;
+        p.sortedSells = newSortedSells;
 
     }
 
@@ -476,7 +513,8 @@ public class Tools {
         Partition p = new Partition();
 
         p.arrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
-        p.sortedSells = makeSortedSellsUnion(p1, p2);
+        makeSortedSellsUnionAndBudgetAndBalance(p, p1, p2);
+
         return p;
     }
 
@@ -515,6 +553,7 @@ public class Tools {
 
         p.arrayList = makeArrayListJoin(p1.arrayList, p2.arrayList);
         p.sortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);//p2.sorted sells null
+        p.budget = makeBudgetJoin(p1, p2);
 //        System.out.println(p.toString());
         return p;
     }
