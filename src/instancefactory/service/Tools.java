@@ -31,15 +31,17 @@ public class Tools {
 //        ArrayList<MyInteger> randomIntArrayList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
         ArrayList<Partition> partitions = new ArrayList<>();
+        MyInteger currentRandom;
 
         Partition partition1 = new Partition();
-        MyInteger rand = randomIntArrayList.get(0);
+        currentRandom = randomIntArrayList.get(0);
         randomIntArrayList.remove(0);
         ArrayList<MyInteger> l = new ArrayList<>();
-        l.add(rand);
+        l.add(currentRandom);
 
         partition1.arrayList.add(l);
-        partition1.sortedSells.add(rand);
+        partition1.sortedSells.add(currentRandom);
+        partition1.budget = currentRandom.i;
         partitions.add(partition1);
         Integer toogle = 0;
         while (!randomIntArrayList.isEmpty()) {
@@ -50,18 +52,22 @@ public class Tools {
 
                 Partition partition = new Partition();
 
-                MyInteger rando = randomIntArrayList.get(0);
+                currentRandom = randomIntArrayList.get(0);
                 randomIntArrayList.remove(0);
                 ArrayList<MyInteger> m = new ArrayList<>();
-                m.add(rando);
+                m.add(currentRandom);
 
                 partition.arrayList.add(m);
-                partition.sortedSells.add(rando);
+                partition.sortedSells.add(currentRandom);
+                partition.budget = currentRandom.i;
 
                 partitions.add(partition);
                 toogle--;
             } else {
-                partitions.get(partitions.size() - 1).arrayList.get(0).add(randomIntArrayList.get(0));
+                currentRandom = randomIntArrayList.get(0);
+                partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
+                partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
+
                 randomIntArrayList.remove(0);
                 toogle++;
             }
