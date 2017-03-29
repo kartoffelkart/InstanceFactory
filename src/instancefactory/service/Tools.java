@@ -271,7 +271,7 @@ public class Tools {
      * füllt die kurze Liste von Indizes von rechten Intervallgrenzen von
      * PositiveSets und die kurze Liste der aufsummierten Boughts für die
      * PositiveSets, wenn ein positive minimal Set gefunden ist, werden alle
-     * Einträge von budgetandBoughtsOfSetOfIndex bis zu diesem Index auf 0
+     * Einträge von balanceandBoughtsOfSetOfIndex bis zu diesem Index auf 0
      * gesetzt,und
      *
      * @param p Partition
@@ -294,23 +294,23 @@ public class Tools {
         s1Rest.addAll(p.sortedSells);
         System.out.println("S1Rest: " + s1Rest.toString());
         for (int i = 0; i < s1Rest.size(); i++) {
-            // berechne budget bis i
+            // berechne balance bis i
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
-            p.setBudgetandBoughtsOfSetOfIndex(i);
+            p.setbalanceandBoughtsOfSetOfIndex(i);
 
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsP und PositiveSetsPSumBoughts gespeichert
-            if (p.budgetandBoughtsOfSetOfIndex.get(i).get(0) > 0) {
+            if (p.balanceandBoughtsOfSetOfIndex.get(i).get(0) > 0) {
                 PositiveSetsP.add(i);
-                PositiveSetsPSumBoughts.add(p.budgetandBoughtsOfSetOfIndex.get(i).get(1));
+                PositiveSetsPSumBoughts.add(p.balanceandBoughtsOfSetOfIndex.get(i).get(1));
 
                 System.out.println("PositiveSetsP: " + PositiveSetsP.toString());//[] ist richtig
                 System.out.println("PositiveSetsPSumBoughts: " + PositiveSetsPSumBoughts.toString());//[0]ist richtig
 
-                //hier will ich alle vorher zurücksetzten budget aber eigentlich auch bought
+                //hier will ich alle vorher zurücksetzten balance aber eigentlich auch bought
                 for (int k = 0; k < i + 1; k++) {
 
-                    p.budgetandBoughtsOfSetOfIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
-                    p.budgetandBoughtsOfSetOfIndex.get(k).set(1, 0);
+                    p.balanceandBoughtsOfSetOfIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
+                    p.balanceandBoughtsOfSetOfIndex.get(k).set(1, 0);
                 }
             }
 

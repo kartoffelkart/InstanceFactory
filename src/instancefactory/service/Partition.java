@@ -19,7 +19,7 @@ public class Partition {
     public ArrayList<MyInteger> sortedSells;
     public ArrayList<MyInteger> allreadyBought = new ArrayList<>();
 
-    public ArrayList<ArrayList<Integer>> budgetandBoughtsOfSetOfIndex = new ArrayList();
+    public ArrayList<ArrayList<Integer>> balanceandBoughtsOfSetOfIndex = new ArrayList();
 
     public int probability;
     //_________________________________________________________________________
@@ -34,19 +34,19 @@ public class Partition {
 //_____________________________________________________________________________
 
     /**
-     * füllt die lange Liste dert budgetandBoughtsOfSetOfIndex rekursiv aus den Werten von Index-1
+     * füllt die lange Liste dert balanceandBoughtsOfSetOfIndex rekursiv aus den Werten von Index-1
      * 
      *
      * @param index Index für den die Werte gerade dynamisch in die Tabelle
      * eingetragen werden
      */
-    public void setBudgetandBoughtsOfSetOfIndex(int index) {
+    public void setbalanceandBoughtsOfSetOfIndex(int index) {
         /**
-         * Budget Variable um sie in budgetandBoughtsOfSetOfIndex zu speichern
+         * balance Variable um sie in balanceandBoughtsOfSetOfIndex zu speichern
          */
-        int budget = 0;
+        int balance = 0;
         /**
-         * Summe Boughts Variable um sie in budgetandBoughtsOfSetOfIndex zu
+         * Summe Boughts Variable um sie in balanceandBoughtsOfSetOfIndex zu
          * speichern
          */
         int sumBoughts = 0;
@@ -74,7 +74,7 @@ public class Partition {
 // berechnet die Summe von Boughts------------------------------
 
         if (index > 0) {
-            sumBoughts = budgetandBoughtsOfSetOfIndex.get(index - 1).get(1);
+            sumBoughts = balanceandBoughtsOfSetOfIndex.get(index - 1).get(1);
             Iterator it = newBought.iterator();
             while (it.hasNext()) {
 
@@ -89,24 +89,24 @@ public class Partition {
                 sumBoughts = sumBoughts + ((MyInteger) it.next()).i;
             }
         }
-//-----------------------------------------------------hier wird Budget und SumBoughts rekursiv aus den Werten von Index-1 berechnet
+//-----------------------------------------------------hier wird balance und SumBoughts rekursiv aus den Werten von Index-1 berechnet
         if (index > 0) {
-            budget = budgetandBoughtsOfSetOfIndex.get(index - 1).get(0)
+            balance = balanceandBoughtsOfSetOfIndex.get(index - 1).get(0)
                     + sortedSells.get(index).i - sumBoughts;
 
         } else {
-            budget = sortedSells.get(index).i - sumBoughts;//BUDGET???????????????????
+            balance = sortedSells.get(index).i - sumBoughts;//balance???????????????????
         }
         //hier wird ein neuer Eintrag daraus generiert
         ArrayList<Integer> newEintrag = new ArrayList<>();
 
-        newEintrag.add(budget);
+        newEintrag.add(balance);
         newEintrag.add(sumBoughts);
-        if (budgetandBoughtsOfSetOfIndex.size() == index) {
-            budgetandBoughtsOfSetOfIndex.add(index, newEintrag);
+        if (balanceandBoughtsOfSetOfIndex.size() == index) {
+            balanceandBoughtsOfSetOfIndex.add(index, newEintrag);
              //drucken
             
-            System.out.println("Budget and Bought: " + budgetandBoughtsOfSetOfIndex.get(index).toString());
+            System.out.println("balance and Bought: " + balanceandBoughtsOfSetOfIndex.get(index).toString());
         } else {
             System.err.println("Error");
         }

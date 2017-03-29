@@ -24,11 +24,11 @@ public class InstanceFactory {
 
     public static void main(String[] args) {
 
-        Integer budget = 0;
+        Integer balance = 0;
         ArrayList<Partition> partitions = new ArrayList<>();
         Partition instance;
-//        ArrayList<Integer> budgets = new ArrayList<>();
-//        Integer budgetOfInstance ;
+//        ArrayList<Integer> balances = new ArrayList<>();
+//        Integer balanceOfInstance ;
 
         partitions = tool.makeBasicPartitions();
         Iterator it = partitions.iterator();
@@ -41,10 +41,10 @@ public class InstanceFactory {
 //        for (int j = 0; j < instance.arrayList.size(); j++) {
 //
 //            for (int i = 0; i < instance.arrayList.get(0).size(); i++) {
-//                budget = budget + instance.arrayList.get(0).get(i).i;
+//                balance = balance + instance.arrayList.get(0).get(i).i;
 //            }
-//            budgets.set(j, budget);
+//            balances.set(j, balance);
 //        }
-//        budgetOfInstance= budgets.get(budgets.size()-1);
+//        balanceOfInstance= balances.get(balances.size()-1);
     }
 }
