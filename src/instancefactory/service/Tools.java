@@ -309,7 +309,7 @@ public class Tools {
         for (int i = 0; i < s1Rest.size(); i++) {
             // berechne balance bis i
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
-            p.setbalanceandBoughtsOfSetOfIndex(i);
+            p.setBalanceBoughtsBudgetOfSetUpToIndex(i);
 
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsP und PositiveSetsPSumBoughts gespeichert
             if (p.balanceandBoughtsOfSetOfIndex.get(i).get(0) > 0) {
