@@ -107,7 +107,7 @@ public class Partition {
                     - sumNewBoughts);
 
         } else {
-            balance = sumNewBoughts;
+            budget = sumNewBoughts;
         }
         //hier wird ein neuer Eintrag daraus generiert
         ArrayList<Integer> newEintrag = new ArrayList<>();
@@ -120,7 +120,7 @@ public class Partition {
             balanceBoughtsBudgetOfSetUpToIndex.add(index, newEintrag);
              //drucken
 
-            System.out.println("balance and Bought: " + balanceBoughtsBudgetOfSetUpToIndex.get(index).toString());
+            System.out.println("Balance, Bought, Budget: " + balanceBoughtsBudgetOfSetUpToIndex.get(index).toString());
         } else {
             System.err.println("Error");
         }

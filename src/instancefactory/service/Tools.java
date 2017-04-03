@@ -27,7 +27,7 @@ public class Tools {
     public ArrayList<Partition> makeBasicPartitions() {
 //        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray(5);
 
-        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 10, 5);
+        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
         System.out.println(randomIntArrayList.toString());
 //        ArrayList<MyInteger> randomIntArrayList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
@@ -46,11 +46,20 @@ public class Tools {
         partition1.balance = currentRandom.i;
 
         partitions.add(partition1);
-        Integer toogle = 0;
+//        //ein Bought wird immer hinzugefügt:
+//         currentRandom = randomIntArrayList.get(0);
+//                partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
+//                partitions.get(partitions.size() - 1).balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
+//                partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
+//                randomIntArrayList.remove(0);
+//        
+        //-------------------------------------
+                
+//        Integer toogle = 0;
         while (!randomIntArrayList.isEmpty()) {
 //NOTE: muss wieder einkommentiert weren
-//            if (this.getCoin(50, 50).equals("sell")) {
-            if (toogle.equals(1)) {
+           if (this.getCoin(50, 50).equals("sell")) {
+//            if (toogle.equals(1)) {
                 System.out.println("sell");
 
                 Partition partition = new Partition();
@@ -66,7 +75,7 @@ public class Tools {
                 partition.balance = currentRandom.i;
 
                 partitions.add(partition);
-                toogle--;
+//                toogle--;
             } else {
 
                 currentRandom = randomIntArrayList.get(0);
@@ -75,7 +84,7 @@ public class Tools {
                 partitions.get(partitions.size() - 1).balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
                 partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
                 randomIntArrayList.remove(0);
-                toogle++;
+//                toogle++;
             }
         }
         return partitions;
