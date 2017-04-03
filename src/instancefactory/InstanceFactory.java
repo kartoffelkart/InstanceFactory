@@ -38,6 +38,9 @@ public class InstanceFactory {
 
         tool.buildInstance(partitions);
         instance = partitions.get(0);
+        System.out.println("Balance: "+instance.balance);
+        System.out.println("Budget: "+instance.budget);
+        
 //        for (int j = 0; j < instance.arrayList.size(); j++) {
 //
 //            for (int i = 0; i < instance.arrayList.get(0).size(); i++) {

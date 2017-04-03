@@ -19,7 +19,7 @@ public class Partition {
     public ArrayList<MyInteger> sortedSells;
     public ArrayList<MyInteger> allreadyBought = new ArrayList<>();
 
-    public ArrayList<ArrayList<Integer>> balanceandBoughtsOfSetOfIndex = new ArrayList();
+    public ArrayList<ArrayList<Integer>> balanceBoughtsBudgetOfSetUpToIndex = new ArrayList();
 
     public int probability;
     public int budget;
@@ -36,7 +36,7 @@ public class Partition {
 //_____________________________________________________________________________
 
     /**
-     * füllt die lange Liste dert balanceandBoughtsOfSetOfIndex rekursiv aus den
+     * füllt die lange Liste dert balanceBoughtsBudgetOfSetUpToIndex rekursiv aus den
      * Werten von Index-1
      *
      *
@@ -45,12 +45,12 @@ public class Partition {
      */
     public void setBalanceBoughtsBudgetOfSetUpToIndex(int index) {
         /**
-         * balance Variable um sie in balanceandBoughtsOfSetOfIndex zu speichern
+         * balance Variable um sie in balanceBoughtsBudgetOfSetUpToIndex zu speichern
          */
         int balance = 0;
         int budget = 0;
         /**
-         * Summe Boughts Variable um sie in balanceandBoughtsOfSetOfIndex zu
+         * Summe Boughts Variable um sie in balanceBoughtsBudgetOfSetUpToIndex zu
          * speichern
          */
         int sumNewBoughts = 0;
@@ -78,7 +78,7 @@ public class Partition {
 // berechnet die Summe von Boughts------------------------------
 
         if (index > 0) {
-            sumNewBoughts = balanceandBoughtsOfSetOfIndex.get(index - 1).get(1);
+            sumNewBoughts = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(1);
             Iterator it = newBought.iterator();
             while (it.hasNext()) {
 
@@ -95,7 +95,7 @@ public class Partition {
         }
 //-----------------------------------------------------hier wird balance rekursiv aus den Werten von Index-1 berechnet
         if (index > 0) {
-            balance = balanceandBoughtsOfSetOfIndex.get(index - 1).get(0)
+            balance = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(0)
                     + sortedSells.get(index).i - sumNewBoughts;
 
         } else {
@@ -103,7 +103,7 @@ public class Partition {
         }
         //-----------------------------------------------------hier wird budget  rekursiv aus den Werten von Index-1 berechnet
         if (index > 0) {
-            budget = Integer.min(balanceandBoughtsOfSetOfIndex.get(index - 1).get(2), balanceandBoughtsOfSetOfIndex.get(index - 1).get(2)
+            budget = Integer.min(balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2), balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2)
                     - sumNewBoughts);
 
         } else {
@@ -116,11 +116,11 @@ public class Partition {
         newEintrag.add(balance);
         newEintrag.add(sumNewBoughts);
         
-        if (balanceandBoughtsOfSetOfIndex.size() == index) {
-            balanceandBoughtsOfSetOfIndex.add(index, newEintrag);
+        if (balanceBoughtsBudgetOfSetUpToIndex.size() == index) {
+            balanceBoughtsBudgetOfSetUpToIndex.add(index, newEintrag);
              //drucken
 
-            System.out.println("balance and Bought: " + balanceandBoughtsOfSetOfIndex.get(index).toString());
+            System.out.println("balance and Bought: " + balanceBoughtsBudgetOfSetUpToIndex.get(index).toString());
         } else {
             System.err.println("Error");
         }

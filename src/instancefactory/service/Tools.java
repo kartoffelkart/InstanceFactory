@@ -26,7 +26,7 @@ public class Tools {
      */
     public ArrayList<Partition> makeBasicPartitions() {
 
-        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 10);
+        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray(5);
         System.out.println(randomIntArrayList.toString());
 //        ArrayList<MyInteger> randomIntArrayList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
@@ -133,7 +133,16 @@ public class Tools {
         }
         return randomIntArrayList;
     }
-
+public ArrayList<MyInteger> getDeterministicIntArray( int size) {
+        ArrayList<MyInteger> deterministicIntArrayList = new ArrayList<>();
+        int it = 0;
+        while (it < size) {
+            MyInteger te = new MyInteger(it+1);
+            deterministicIntArrayList.add(te);
+            it++;
+        }
+        return deterministicIntArrayList;
+    }
     /**
      * hier wird nach bestimmeten Kriterien der Warscheinlichkeit union oder
      * leftJoin oder rightJoin gewählt
@@ -284,16 +293,16 @@ public class Tools {
      * füllt die kurze Liste von Indizes von rechten Intervallgrenzen von
      * PositiveSets und die kurze Liste der aufsummierten Boughts für die
      * PositiveSets, wenn ein positive minimal Set gefunden ist, werden alle
-     * Einträge von balanceandBoughtsOfSetOfIndex bis zu diesem Index auf 0
+     * Einträge von balanceBoughtsBudgetOfSetUpToIndex bis zu diesem Index auf 0
      * gesetzt,und
      *
      * @param p Partition
-     * @param PositiveSetsP PositiveSets die wir für diesen UNION Merge der
+     * @param PositiveSetsPIndizes PositiveSets die wir für diesen UNION Merge der
      * SortedSells bracuhen
-     * @param PositiveSetsPSumBoughts Summe der Boughts die wir für die
+     * @param PositiveSetsPIndizesSumBoughts Summe der Boughts die wir für die
      * PositiveSets brauchen
      */
-    public void fillPositiveSetsAndPositiveSetsBoughts(Partition p, ArrayList<Integer> budgets, ArrayList<Integer> balances, ArrayList<Integer> PositiveSetsP, ArrayList<Integer> PositiveSetsPSumBoughts) {
+    public void fillPositiveSetsAndPositiveSetsBoughts(Partition p, ArrayList<Integer> budgets, ArrayList<Integer> balances, ArrayList<Integer> PositiveSetsPIndizes, ArrayList<Integer> PositiveSetsPIndizesSumBoughts) {
         /**
          * wir wollen die PositiveSets Indizes und die benötigten Einkaufssummen
          */
@@ -311,21 +320,21 @@ public class Tools {
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
             p.setBalanceBoughtsBudgetOfSetUpToIndex(i);
 
-            //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsP und PositiveSetsPSumBoughts gespeichert
-            if (p.balanceandBoughtsOfSetOfIndex.get(i).get(0) > 0) {
-                PositiveSetsP.add(i);
-                PositiveSetsPSumBoughts.add(p.balanceandBoughtsOfSetOfIndex.get(i).get(1));
-                budgets.add(p.balanceandBoughtsOfSetOfIndex.get(i).get(2));
-                balances.add(p.balanceandBoughtsOfSetOfIndex.get(i).get(0));
-                System.out.println("PositiveSetsP: " + PositiveSetsP.toString());//[] ist richtig
-                System.out.println("PositiveSetsPSumBoughts: " + PositiveSetsPSumBoughts.toString());//[0]ist richtig
+            //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsPIndizes und PositiveSetsPIndizesSumBoughts gespeichert
+            if (p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0) > 0) {
+                PositiveSetsPIndizes.add(i);
+                PositiveSetsPIndizesSumBoughts.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(1));
+                budgets.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(2));
+                balances.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0));
+                System.out.println("PositiveSetsPIndizes: " + PositiveSetsPIndizes.toString());//[] ist richtig
+                System.out.println("PositiveSetsPIndizesSumBoughts: " + PositiveSetsPIndizesSumBoughts.toString());//[0]ist richtig
 
                 //hier will ich alle vorher zurücksetzten balance aber eigentlich auch bought
                 for (int k = 0; k < i + 1; k++) {
 
-                    p.balanceandBoughtsOfSetOfIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
-                    p.balanceandBoughtsOfSetOfIndex.get(k).set(1, 0);
-                    p.balanceandBoughtsOfSetOfIndex.get(k).set(2, 0);
+                    p.balanceBoughtsBudgetOfSetUpToIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
+                    p.balanceBoughtsBudgetOfSetUpToIndex.get(k).set(1, 0);
+                    p.balanceBoughtsBudgetOfSetUpToIndex.get(k).set(2, 0);
                 }
             }
 
@@ -355,67 +364,67 @@ public class Tools {
         /**
          * Liste von Indizes von rechten Intervallgrenzen von PositiveSets
          */
-        ArrayList<Integer> PositiveSetsP1Indizes = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsPIndizes1Indizes = new ArrayList<>();
 
-        ArrayList<Integer> PositiveSetsP2Indizes = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsPIndizes2Indizes = new ArrayList<>();
         /**
          * Liste der aufsummierten Boughts für die PositiveSets
          */
-        ArrayList<Integer> PositiveSetsP1IndizesSumBoughts = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsPIndizes1IndizesSumBoughts = new ArrayList<>();
 
-        ArrayList<Integer> PositiveSetsP2IndizesSumBoughts = new ArrayList<>();
+        ArrayList<Integer> PositiveSetsPIndizes2IndizesSumBoughts = new ArrayList<>();
 
-        fillPositiveSetsAndPositiveSetsBoughts(p1, budgets, balances, PositiveSetsP1Indizes, PositiveSetsP1IndizesSumBoughts);
-        System.out.println("PositiveSetsP1Indizes: " + PositiveSetsP1Indizes.toString());//[] ist richtig
-        System.out.println("PositiveSetsP1IndizesSumBoughts: " + PositiveSetsP1IndizesSumBoughts.toString());//[]ist richtig
+        fillPositiveSetsAndPositiveSetsBoughts(p1, budgets, balances, PositiveSetsPIndizes1Indizes, PositiveSetsPIndizes1IndizesSumBoughts);
+        System.out.println("PositiveSetsPIndizes1Indizes: " + PositiveSetsPIndizes1Indizes.toString());//[] ist richtig
+        System.out.println("PositiveSetsPIndizes1IndizesSumBoughts: " + PositiveSetsPIndizes1IndizesSumBoughts.toString());//[]ist richtig
 
-        fillPositiveSetsAndPositiveSetsBoughts(p2, budgets, balances, PositiveSetsP2Indizes, PositiveSetsP2IndizesSumBoughts);
+        fillPositiveSetsAndPositiveSetsBoughts(p2, budgets, balances, PositiveSetsPIndizes2Indizes, PositiveSetsPIndizes2IndizesSumBoughts);
 
-        System.out.println("PositiveSetsP2Indizes: " + PositiveSetsP2Indizes.toString());//[0]ist richtig
-        System.out.println("PositiveSetsP2IndizesSumBoughts: " + PositiveSetsP2IndizesSumBoughts.toString());//[0]ist richtig
+        System.out.println("PositiveSetsPIndizes2Indizes: " + PositiveSetsPIndizes2Indizes.toString());//[0]ist richtig
+        System.out.println("PositiveSetsPIndizes2IndizesSumBoughts: " + PositiveSetsPIndizes2IndizesSumBoughts.toString());//[0]ist richtig
 
 //        
-//        Iterator it1 = PositiveSetsP1Indizes.iterator();
-//                 Iterator it2 = PositiveSetsP2Indizes.iterator();
+//        Iterator it1 = PositiveSetsPIndizes1Indizes.iterator();
+//                 Iterator it2 = PositiveSetsPIndizes2Indizes.iterator();
 //          
         //jetzt wird gemergt
-        while ((!PositiveSetsP1Indizes.isEmpty()) && (!PositiveSetsP2Indizes.isEmpty())) {
+        while ((!PositiveSetsPIndizes1Indizes.isEmpty()) && (!PositiveSetsPIndizes2Indizes.isEmpty())) {
 
-            if (PositiveSetsP1IndizesSumBoughts.get(0) < PositiveSetsP2IndizesSumBoughts.get(0)) {
-                for (int countP1 = 0; countP1 < PositiveSetsP1Indizes.get(0) + 1; countP1++) {
+            if (PositiveSetsPIndizes1IndizesSumBoughts.get(0) < PositiveSetsPIndizes2IndizesSumBoughts.get(0)) {
+                for (int countP1 = 0; countP1 < PositiveSetsPIndizes1Indizes.get(0) + 1; countP1++) {
                     newSortedSells.add(s1Rest.get(0));//index 0 size 0
                     s1Rest.remove(0);
                     System.out.println("S1Rest: " + s1Rest.toString());
 
                 }
                 // TODO : prüfen  min aus altem Budget und Summe aus Bilanz und neuem Budget
-                p.budget = Integer.min(p.balance + p1.balanceandBoughtsOfSetOfIndex.get(PositiveSetsP1Indizes.get(0)).get(2), p.budget);
-                p.balance = p.balance + p1.balanceandBoughtsOfSetOfIndex.get(PositiveSetsP1Indizes.get(0)).get(0);
+                p.budget = Integer.min(p.balance + p1.balanceBoughtsBudgetOfSetUpToIndex.get(PositiveSetsPIndizes1Indizes.get(0)).get(2), p.budget);
+                p.balance = p.balance + p1.balanceBoughtsBudgetOfSetUpToIndex.get(PositiveSetsPIndizes1Indizes.get(0)).get(0);
 
-                PositiveSetsP1Indizes.remove(0);
-                PositiveSetsP1IndizesSumBoughts.remove(0);//Wieso???
+                PositiveSetsPIndizes1Indizes.remove(0);
+                PositiveSetsPIndizes1IndizesSumBoughts.remove(0);//Wieso???
             } else {
-                for (int countP2 = 0; countP2 < PositiveSetsP2Indizes.get(0) + 1; countP2++) {
+                for (int countP2 = 0; countP2 < PositiveSetsPIndizes2Indizes.get(0) + 1; countP2++) {
                     newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
                     s2Rest.remove(0);
                     System.out.println("S2Rest: " + s2Rest.toString());
 
                 }
                 // TODO : prüfen  min aus altem Budget und Summe aus Bilanz und neuem Budget
-                p.budget = Integer.min(p.balance + p2.balanceandBoughtsOfSetOfIndex.get(PositiveSetsP2Indizes.get(0)).get(2), p.budget);
-                p.balance = p.balance + p2.balanceandBoughtsOfSetOfIndex.get(PositiveSetsP2Indizes.get(0)).get(0);
-                PositiveSetsP2Indizes.remove(0);
-                PositiveSetsP2IndizesSumBoughts.remove(0);
+                p.budget = Integer.min(p.balance + p2.balanceBoughtsBudgetOfSetUpToIndex.get(PositiveSetsPIndizes2Indizes.get(0)).get(2), p.budget);
+                p.balance = p.balance + p2.balanceBoughtsBudgetOfSetUpToIndex.get(PositiveSetsPIndizes2Indizes.get(0)).get(0);
+                PositiveSetsPIndizes2Indizes.remove(0);
+                PositiveSetsPIndizes2IndizesSumBoughts.remove(0);
 
             }
 
         }
 
         // TODO: Eigentlich wird jetzt noch unterschieden ob max von min von...
-        Integer budget2 = p2.balanceandBoughtsOfSetOfIndex.get(p2.balanceandBoughtsOfSetOfIndex.size() - 1).get(2);
-        Integer budget1 = p1.balanceandBoughtsOfSetOfIndex.get(p1.balanceandBoughtsOfSetOfIndex.size() - 1).get(2);
-        Integer balance1 = p1.balanceandBoughtsOfSetOfIndex.get(p2.balanceandBoughtsOfSetOfIndex.size() - 1).get(0);;
-        Integer balance2 = p2.balanceandBoughtsOfSetOfIndex.get(p2.balanceandBoughtsOfSetOfIndex.size() - 1).get(0);
+        Integer budget2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(2);
+        Integer budget1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(2);
+        Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(0);;
+        Integer balance2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(0);
 
         if (Integer.max(budget2, balance2 + budget1) > Integer.max(budget1, balance1 + budget2)) {
             newSortedSells.addAll(s1Rest);
