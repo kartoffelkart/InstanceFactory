@@ -25,8 +25,9 @@ public class Tools {
      * @return ArrayList of Partition
      */
     public ArrayList<Partition> makeBasicPartitions() {
+//        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray(5);
 
-        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray(5);
+        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 10, 5);
         System.out.println(randomIntArrayList.toString());
 //        ArrayList<MyInteger> randomIntArrayList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
@@ -41,7 +42,9 @@ public class Tools {
 
         partition1.arrayList.add(l);
         partition1.sortedSells.add(currentRandom);
-        partition1.budget = currentRandom.i;
+
+        partition1.balance = currentRandom.i;
+
         partitions.add(partition1);
         Integer toogle = 0;
         while (!randomIntArrayList.isEmpty()) {
@@ -59,15 +62,18 @@ public class Tools {
 
                 partition.arrayList.add(m);
                 partition.sortedSells.add(currentRandom);
-                partition.budget = currentRandom.i;
+
+                partition.balance = currentRandom.i;
 
                 partitions.add(partition);
                 toogle--;
             } else {
-                currentRandom = randomIntArrayList.get(0);
-                partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
-                partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
 
+                currentRandom = randomIntArrayList.get(0);
+
+                partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
+                partitions.get(partitions.size() - 1).balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
+                partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
                 randomIntArrayList.remove(0);
                 toogle++;
             }
@@ -133,16 +139,18 @@ public class Tools {
         }
         return randomIntArrayList;
     }
-public ArrayList<MyInteger> getDeterministicIntArray( int size) {
+
+    public ArrayList<MyInteger> getDeterministicIntArray(int size) {
         ArrayList<MyInteger> deterministicIntArrayList = new ArrayList<>();
         int it = 0;
         while (it < size) {
-            MyInteger te = new MyInteger(it+1);
+            MyInteger te = new MyInteger(it + 5);
             deterministicIntArrayList.add(te);
             it++;
         }
         return deterministicIntArrayList;
     }
+
     /**
      * hier wird nach bestimmeten Kriterien der Warscheinlichkeit union oder
      * leftJoin oder rightJoin gewählt
@@ -289,6 +297,13 @@ public ArrayList<MyInteger> getDeterministicIntArray( int size) {
 
     }
 
+    public Integer makeBalanceJoin(Partition b1, Partition b2) {
+        Integer balance = b1.balance + b2.balance;
+
+        return balance;
+
+    }
+
     /**
      * füllt die kurze Liste von Indizes von rechten Intervallgrenzen von
      * PositiveSets und die kurze Liste der aufsummierten Boughts für die
@@ -297,8 +312,8 @@ public ArrayList<MyInteger> getDeterministicIntArray( int size) {
      * gesetzt,und
      *
      * @param p Partition
-     * @param PositiveSetsPIndizes PositiveSets die wir für diesen UNION Merge der
-     * SortedSells bracuhen
+     * @param PositiveSetsPIndizes PositiveSets die wir für diesen UNION Merge
+     * der SortedSells bracuhen
      * @param PositiveSetsPIndizesSumBoughts Summe der Boughts die wir für die
      * PositiveSets brauchen
      */
@@ -563,6 +578,7 @@ public ArrayList<MyInteger> getDeterministicIntArray( int size) {
         p.arrayList = makeArrayListJoin(p1.arrayList, p2.arrayList);
         p.sortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);//p2.sorted sells null
         p.budget = makeBudgetJoin(p1, p2);
+        p.balance = makeBalanceJoin(p1, p2);
 //        System.out.println(p.toString());
         return p;
     }
