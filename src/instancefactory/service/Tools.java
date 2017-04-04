@@ -30,7 +30,7 @@ public class Tools {
 
         ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
         System.out.println(randomIntArrayList.toString());
-         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten");
+         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
         try {
 //            file.mkdirs();
             file.createNewFile();
@@ -67,7 +67,7 @@ public class Tools {
         partitions.add(partition1);
 
 //        Integer toogle = 0;
-        while (!randomIntArrayList.isEmpty()) {
+        while (randomIntArrayList.size()>1) { //der letzte wird eventuel abgeschnitten
 //NOTE: muss wieder einkommentiert weren
             if (this.getCoin(50, 50).equals("sell")) {
 //            if (toogle.equals(1)) {
@@ -367,7 +367,7 @@ public class Tools {
                 if (PositiveSetsPIndizes.size() < 1) {
                     PositiveSetsPIndizes.add(i);
                 } else {
-                    PositiveSetsPIndizes.add(i - PositiveSetsPIndizes.get(PositiveSetsPIndizes.size() - 1));
+                    PositiveSetsPIndizes.add((i - PositiveSetsPIndizes.get(PositiveSetsPIndizes.size() - 1))/*da wir den Index bei 0 beginnen lassen*/-1);
                 }
                 PositiveSetsPIndizesSumBoughts.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(1));
                 budgets.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(2));
