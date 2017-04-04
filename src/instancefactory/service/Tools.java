@@ -30,15 +30,15 @@ public class Tools {
 
         ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
         System.out.println(randomIntArrayList.toString());
-         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
+         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten");
         try {
-            file.mkdirs();
+//            file.mkdirs();
             file.createNewFile();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
         try {
-            PrintWriter pr = new PrintWriter("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten");
+            PrintWriter pr = new PrintWriter(file);
 
             for (int i = 0; i < randomIntArrayList.size(); i++) {
                 pr.println(randomIntArrayList.get(i).i);
