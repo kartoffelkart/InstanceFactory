@@ -7,6 +7,7 @@ package instancefactory;
 
 import instancefactory.service.Partition;
 import instancefactory.service.Tools;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -40,7 +41,7 @@ public class InstanceFactory {
         instance = partitions.get(0);
         System.out.println("Balance: "+instance.balance);
         System.out.println("Budget: "+instance.budget);
-        
+       
 //        for (int j = 0; j < instance.arrayList.size(); j++) {
 //
 //            for (int i = 0; i < instance.arrayList.get(0).size(); i++) {

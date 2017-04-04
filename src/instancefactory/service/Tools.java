@@ -5,6 +5,7 @@
  */
 package instancefactory.service;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -29,6 +30,17 @@ public class Tools {
 
         ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
         System.out.println(randomIntArrayList.toString());
+        try {
+            PrintWriter pr = new PrintWriter("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten");
+
+            for (int i = 0; i < randomIntArrayList.size(); i++) {
+                pr.println(randomIntArrayList.get(i).i);
+            }
+            pr.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("No such file exists.");
+        }
 //        ArrayList<MyInteger> randomIntArrayList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
         ArrayList<Partition> partitions = new ArrayList<>();
