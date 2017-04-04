@@ -5,12 +5,12 @@
  */
 package instancefactory.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -30,6 +30,13 @@ public class Tools {
 
         ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
         System.out.println(randomIntArrayList.toString());
+         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
+        try {
+            file.mkdirs();
+            file.createNewFile();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
         try {
             PrintWriter pr = new PrintWriter("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten");
 

@@ -32,23 +32,16 @@ public class InstanceFactory {
 //        Integer balanceOfInstance ;
 
         partitions = tool.makeBasicPartitions();
-        Iterator it = partitions.iterator();
-        while (it.hasNext()) {
-            System.out.println("elementare Partition: " + ((Partition) it.next()).toString() + "\n");
-        }
-
-        tool.buildInstance(partitions);
-        instance = partitions.get(0);
-        System.out.println("Balance: "+instance.balance);
-        System.out.println("Budget: "+instance.budget);
-       
-//        for (int j = 0; j < instance.arrayList.size(); j++) {
-//
-//            for (int i = 0; i < instance.arrayList.get(0).size(); i++) {
-//                balance = balance + instance.arrayList.get(0).get(i).i;
-//            }
-//            balances.set(j, balance);
+//        Iterator it = partitions.iterator();
+//        while (it.hasNext()) {
+//            System.out.println("elementare Partition: " + ((Partition) it.next()).toString() + "\n");
 //        }
-//        balanceOfInstance= balances.get(balances.size()-1);
+//
+//        tool.buildInstance(partitions);
+//        instance = partitions.get(0);
+//        System.out.println("Balance: "+instance.balance);
+//        System.out.println("Budget: "+instance.budget);
+//       
+
     }
 }
