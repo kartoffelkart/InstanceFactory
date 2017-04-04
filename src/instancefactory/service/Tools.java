@@ -46,22 +46,21 @@ public class Tools {
         partition1.balance = currentRandom.i;
 
         partitions.add(partition1);
-//        //ein Bought wird immer hinzugefügt:
-//         currentRandom = randomIntArrayList.get(0);
-//                partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
-//                partitions.get(partitions.size() - 1).balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
-//                partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
-//                randomIntArrayList.remove(0);
-//        
-        //-------------------------------------
-                
+
 //        Integer toogle = 0;
         while (!randomIntArrayList.isEmpty()) {
 //NOTE: muss wieder einkommentiert weren
-           if (this.getCoin(50, 50).equals("sell")) {
+            if (this.getCoin(50, 50).equals("sell")) {
 //            if (toogle.equals(1)) {
                 System.out.println("sell");
+                //ein Bought wird immer hinzugefügt:
+                currentRandom = randomIntArrayList.get(0);
+                partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
+                partitions.get(partitions.size() - 1).balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
+                partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
+                randomIntArrayList.remove(0);
 
+                //-------------------------------------
                 Partition partition = new Partition();
 
                 currentRandom = randomIntArrayList.get(0);
@@ -346,7 +345,11 @@ public class Tools {
 
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsPIndizes und PositiveSetsPIndizesSumBoughts gespeichert
             if (p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0) > 0) {
-                PositiveSetsPIndizes.add(i);
+                if (PositiveSetsPIndizes.size() < 1) {
+                    PositiveSetsPIndizes.add(i);
+                } else {
+                    PositiveSetsPIndizes.add(i - PositiveSetsPIndizes.get(PositiveSetsPIndizes.size() - 1));
+                }
                 PositiveSetsPIndizesSumBoughts.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(1));
                 budgets.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(2));
                 balances.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0));

@@ -22,8 +22,8 @@ public class Partition {
     public ArrayList<ArrayList<Integer>> balanceBoughtsBudgetOfSetUpToIndex = new ArrayList();
 
     public int probability;
-    public int budget;
-    public int balance;
+    public int budget=0;
+    public int balance=0;
     //_________________________________________________________________________
 
     //KONSTRUKTOR
