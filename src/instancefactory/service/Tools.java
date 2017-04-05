@@ -434,7 +434,7 @@ public class Tools {
         while ((!p1.positiveSetsPLengths.isEmpty()) && (!p2.positiveSetsPLengths.isEmpty())) {
 
             if (p1.positiveSetsPLengthsSumBoughts.get(0) < p2.positiveSetsPLengthsSumBoughts.get(0)) {
-                for (int countP1 = 0; countP1 < p1.positiveSetsPLengths.get(0) + 1; countP1++) {
+                for (int countP1 = 0; countP1 < p1.positiveSetsPLengths.get(0); countP1++) {
                     newSortedSells.add(s1Rest.get(0));//index 0 size 0
                     s1Rest.remove(0);
                     System.out.println("S1Rest: " + s1Rest.toString());
