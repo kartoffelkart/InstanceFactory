@@ -17,13 +17,31 @@ public class Partition {
     public ArrayList<ArrayList<MyInteger>> arrayList;
 
     public ArrayList<MyInteger> sortedSells;
+    
+    /**
+     * Liste der Anzahl an Sells PositiveSets
+     */
+    public ArrayList<Integer> positiveSetsPLengths;
+    /**
+     * Liste der aufsummierten Boughts für die PositiveSets
+     */
+    public ArrayList<Integer> positiveSetsPLengthsSumBoughts;
+    /**
+     * Liste der Budgets für die PositiveSets
+     */
+    public ArrayList<Integer> positiveSetsBudgets;
+    /**
+     * Liste der Balances für die PositiveSets
+     */
+    public ArrayList<Integer> positiveSetsBalances;
+    
     public ArrayList<MyInteger> allreadyBought = new ArrayList<>();
 
     public ArrayList<ArrayList<Integer>> balanceBoughtsBudgetOfSetUpToIndex = new ArrayList();
 
     public int probability;
-    public int budget=0;
-    public int balance=0;
+    public int budget = 0;
+    public int balance = 0;
     //_________________________________________________________________________
 
     //KONSTRUKTOR
@@ -32,12 +50,16 @@ public class Partition {
         arrayList = new ArrayList<ArrayList<MyInteger>>();
         probability = 1;
         sortedSells = new ArrayList<>();
+        positiveSetsPLengths = new ArrayList<>();
+        positiveSetsPLengthsSumBoughts = new ArrayList<>();
+        positiveSetsBudgets = new ArrayList<>();
+        positiveSetsBalances = new ArrayList<>();
     }
 //_____________________________________________________________________________
 
     /**
-     * füllt die lange Liste dert balanceBoughtsBudgetOfSetUpToIndex rekursiv aus den
-     * Werten von Index-1
+     * füllt die lange Liste dert balanceBoughtsBudgetOfSetUpToIndex rekursiv
+     * aus den Werten von Index-1
      *
      *
      * @param index Index für den die Werte gerade dynamisch in die Tabelle
@@ -45,13 +67,14 @@ public class Partition {
      */
     public void setBalanceBoughtsBudgetOfSetUpToIndex(int index) {
         /**
-         * balance Variable um sie in balanceBoughtsBudgetOfSetUpToIndex zu speichern
+         * balance Variable um sie in balanceBoughtsBudgetOfSetUpToIndex zu
+         * speichern
          */
         int balance = 0;
         int budget = 0;
         /**
-         * Summe Boughts Variable um sie in balanceBoughtsBudgetOfSetUpToIndex zu
-         * speichern
+         * Summe Boughts Variable um sie in balanceBoughtsBudgetOfSetUpToIndex
+         * zu speichern
          */
         int sumNewBoughts = 0;
         /**
@@ -111,14 +134,14 @@ public class Partition {
         }
         //hier wird ein neuer Eintrag daraus generiert
         ArrayList<Integer> newEintrag = new ArrayList<>();
-        
+
         newEintrag.add(budget);
         newEintrag.add(balance);
         newEintrag.add(sumNewBoughts);
-        
+
         if (balanceBoughtsBudgetOfSetUpToIndex.size() == index) {
             balanceBoughtsBudgetOfSetUpToIndex.add(index, newEintrag);
-             //drucken
+            //drucken
 
             System.out.println("Balance, Bought, Budget: " + balanceBoughtsBudgetOfSetUpToIndex.get(index).toString());
         } else {
