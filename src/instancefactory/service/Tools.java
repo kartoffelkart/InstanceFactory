@@ -386,6 +386,16 @@ public class Tools {
         }
     }
 
+    public void BudgetAndBalanceAfterNewPositiveSet(Partition p, Partition p1) {
+        p.budget = Integer.min(p.budget, p.balance + p1.positiveSetsBudgets.get(0));//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+        p.balance = p.balance + p1.positiveSetsBalances.get(0);//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
+        p1.positiveSetsPLengths.remove(0);
+        p1.positiveSetsBudgets.remove(0);
+        p1.positiveSetsBalances.remove(0);
+        p1.positiveSetsPLengthsSumBoughts.remove(0);
+
+    }
+
     /**
      * macht neue SortedSells (Reihenfolge der Boughts) indem es die SortedSells
      * der Partitionen UNION mergt
@@ -430,24 +440,16 @@ public class Tools {
                     System.out.println("S1Rest: " + s1Rest.toString());
 
                 }
-                // TODO : prüfen  min aus altem Budget und Summe aus Bilanz und neuem Budget
-                p.budget = Integer.min(p.balance + p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2), p.budget);
-                p.balance = p.balance + p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
+                BudgetAndBalanceAfterNewPositiveSet(p, p1);
 
-                p1.positiveSetsPLengths.remove(0);
-                p1.positiveSetsPLengthsSumBoughts.remove(0);//Wieso???
             } else {
-                for (int countP2 = 0; countP2 < p2.positiveSetsPLengths.get(0) + 1; countP2++) {
+                for (int countP2 = 0; countP2 < p2.positiveSetsPLengths.get(0); countP2++) {
                     newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
                     s2Rest.remove(0);
                     System.out.println("S2Rest: " + s2Rest.toString());
 
                 }
-                // TODO : prüfen  min aus altem Budget und Summe aus Bilanz und neuem Budget
-                p.budget = Integer.min(p.balance + p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(2), p.budget);
-                p.balance = p.balance + p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(0);
-                p2.positiveSetsPLengths.remove(0);
-                p2.positiveSetsPLengthsSumBoughts.remove(0);
+                BudgetAndBalanceAfterNewPositiveSet(p, p2);
 
             }
 
