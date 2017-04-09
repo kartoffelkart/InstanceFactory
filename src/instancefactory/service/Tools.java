@@ -604,9 +604,48 @@ public class Tools {
 //        System.out.println(p.toString());
         return p;
     }
-    public void out(Partition p,ArrayList<MyInteger> ordering) {
+
+    public Integer getBudget(Partition p, ArrayList<MyInteger> ordering) {
+        Integer budget = 0;
         ArrayList<MyInteger> allready = new ArrayList<>();
-      //  File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
+        //  File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
+
+        ArrayList<Integer> werte = new ArrayList<>();
+        werte.add(0, 0);
+
+        Integer newValue;
+        //temp weil ich nur die ersten einräge der adjazenslisten brauche um IndexOf zu machen
+        ArrayList<MyInteger> temp = new ArrayList<>();
+        for (int k = 0; k < ordering.size(); k++) {
+            temp.add((p.arrayList.get(k)).get(0));
+        }
+
+        for (int i = 0; i < ordering.size(); i++) {
+            Integer currentIndexInArrayList = temp.indexOf(ordering.get(i));//indexOf kann ich nicht verwenden ich suche in arraylists und will mitt den ersten einträgen vergleichen 
+            ArrayList<MyInteger> newB = new ArrayList<>();
+            newB.addAll(p.arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
+            newB.remove(0);
+            System.out.println("newB    :   " + newB);
+            newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
+            allready.addAll(newB);
+            System.out.println("newB ohne Allready   :   " + newB);
+            for (int j = 0; j < newB.size(); j++) {
+                newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
+                werte.add(newValue);
+                if (newValue < budget) {
+                    budget = newValue;
+                }
+            }
+            newValue = werte.get(werte.size() - 1) + ordering.get(i).i;
+            werte.add(newValue);
+
+        }
+        return budget;
+    }
+
+    public void out(Partition p, ArrayList<MyInteger> ordering) {
+        ArrayList<MyInteger> allready = new ArrayList<>();
+        //  File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
         File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
         try {
 //            file.mkdirs();
@@ -632,10 +671,10 @@ public class Tools {
                 ArrayList<MyInteger> newB = new ArrayList<>();
                 newB.addAll(p.arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
                 newB.remove(0);
-                System.out.println("newB    :   "+newB);
+                System.out.println("newB    :   " + newB);
                 newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
                 allready.addAll(newB);
-                 System.out.println("newB ohne Allready   :   "+newB);
+                System.out.println("newB ohne Allready   :   " + newB);
                 for (int j = 0; j < newB.size(); j++) {
                     newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
                     werte.add(newValue);
@@ -651,5 +690,27 @@ public class Tools {
             System.out.println("No such file exists.");
         }
         System.out.println("Werte: " + werte);
+    }
+
+    public ArrayList<MyInteger> function(Partition p, ArrayList<MyInteger> ordering) {
+        Integer highestMinimalBudget = getBudget(p, ordering);
+        for (int i = 0; i < ordering.size(); i++) {
+            for (int j = i + 1; i < ordering.size(); i++) {
+                ArrayList<MyInteger> newOrdering = swap(i, j, ordering);
+
+                if (getBudget(p, newOrdering) > highestMinimalBudget) {
+                    ordering = swap(i, j, ordering);
+                }
+            }
+        }
+        return ordering;
+    }
+
+    public ArrayList<MyInteger> swap(int i, int j, ArrayList<MyInteger> ordering) {
+        MyInteger temp = new MyInteger();
+        temp = ordering.get(i);
+        ordering.set(i, ordering.get(j));
+        ordering.set(j, temp);
+        return ordering;
     }
 }
