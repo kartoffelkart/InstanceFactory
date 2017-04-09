@@ -30,7 +30,9 @@ public class Tools {
 
         ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
         System.out.println(randomIntArrayList.toString());
-        File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
+//        File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
+        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
+
         try {
 //            file.mkdirs();
             file.createNewFile();
@@ -601,5 +603,53 @@ public class Tools {
         p.balance = makeBalanceJoin(p1, p2);
 //        System.out.println(p.toString());
         return p;
+    }
+    public void out(Partition p,ArrayList<MyInteger> ordering) {
+        ArrayList<MyInteger> allready = new ArrayList<>();
+      //  File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
+        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
+        try {
+//            file.mkdirs();
+            file2.createNewFile();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        ArrayList<Integer> werte = new ArrayList<>();
+        werte.add(0, 0);
+
+        try {
+            PrintWriter pr = new PrintWriter(file2);
+            pr.println(0);
+            Integer newValue;
+            //temp weil ich nur die ersten einräge der adjazenslisten brauche um IndexOf zu machen
+            ArrayList<MyInteger> temp = new ArrayList<>();
+            for (int k = 0; k < ordering.size(); k++) {
+                temp.add((p.arrayList.get(k)).get(0));
+            }
+
+            for (int i = 0; i < ordering.size(); i++) {
+                Integer currentIndexInArrayList = temp.indexOf(ordering.get(i));//indexOf kann ich nicht verwenden ich suche in arraylists und will mitt den ersten einträgen vergleichen 
+                ArrayList<MyInteger> newB = new ArrayList<>();
+                newB.addAll(p.arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
+                newB.remove(0);
+                System.out.println("newB    :   "+newB);
+                newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
+                allready.addAll(newB);
+                 System.out.println("newB ohne Allready   :   "+newB);
+                for (int j = 0; j < newB.size(); j++) {
+                    newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
+                    werte.add(newValue);
+                    pr.println(newValue);
+                }
+                newValue = werte.get(werte.size() - 1) + ordering.get(i).i;
+                werte.add(newValue);
+                pr.println(newValue);
+            }
+            pr.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("No such file exists.");
+        }
+        System.out.println("Werte: " + werte);
     }
 }

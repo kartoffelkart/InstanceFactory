@@ -36,16 +36,21 @@ public class InstanceFactory {
 
         partitions = tool.makeBasicPartitions();
         Iterator it = partitions.iterator();
+        ArrayList<MyInteger> randomOrdering = new ArrayList<>();
         while (it.hasNext()) {
+            //ich gehe die Elemanterpartitionen durch und hole mir aus der Adjazensliste den ersten-ersten eintrag
+            randomOrdering.add(((Partition) it.next()).arrayList.get(0).get(0));
             System.out.println("elementare Partition: " + ((Partition) it.next()).toString() + "\n");
         }
 
         tool.buildInstance(partitions);
         instance = partitions.get(0);
-        instance.out();
+        tool.out(instance, instance.sortedSells);
+        tool.out(instance, randomOrdering);
+
+        instance.sortedSellsOut();
         System.out.println("Balance: " + instance.balance);
         System.out.println("Budget: " + instance.budget);
-        
 
     }
 }

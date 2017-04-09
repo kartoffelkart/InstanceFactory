@@ -17,6 +17,7 @@ import java.util.Iterator;
  * @author Sonja Schäfer sonja_schaefer@gmx.de
  */
 public class Partition {
+    Tools newTool = new Tools();
 
     public ArrayList<ArrayList<MyInteger>> arrayList;
 
@@ -154,52 +155,55 @@ public class Partition {
 
     }
 
-    public void out() {
-        ArrayList<MyInteger> allready = new ArrayList<>();
-        File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
-        try {
-//            file.mkdirs();
-            file2.createNewFile();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        ArrayList<Integer> werte = new ArrayList<>();
-        werte.add(0, 0);
+    public void sortedSellsOut() {
+        newTool.out(this, sortedSells);
+//        ArrayList<MyInteger> allready = new ArrayList<>();
+//      //  File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
+//        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
+//        try {
+////            file.mkdirs();
+//            file2.createNewFile();
+//        } catch (IOException e1) {
+//            e1.printStackTrace();
+//        }
+//        ArrayList<Integer> werte = new ArrayList<>();
+//        werte.add(0, 0);
+//
+//        try {
+//            PrintWriter pr = new PrintWriter(file2);
+//            pr.println(0);
+//            Integer newValue;
+//            //temp weil ich nur die ersten einräge der adjazenslisten brauche um IndexOf zu machen
+//            ArrayList<MyInteger> temp = new ArrayList<>();
+//            for (int k = 0; k < this.sortedSells.size(); k++) {
+//                temp.add((this.arrayList.get(k)).get(0));
+//            }
+//
+//            for (int i = 0; i < this.sortedSells.size(); i++) {
+//                Integer currentIndexInArrayList = temp.indexOf(this.sortedSells.get(i));//indexOf kann ich nicht verwenden ich suche in arraylists und will mitt den ersten einträgen vergleichen 
+//                ArrayList<MyInteger> newB = new ArrayList<>();
+//                newB.addAll(arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
+//                newB.remove(0);
+//                System.out.println("newB    :   "+newB);
+//                newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
+//                allready.addAll(newB);
+//                 System.out.println("newB ohne Allready   :   "+newB);
+//                for (int j = 0; j < newB.size(); j++) {
+//                    newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
+//                    werte.add(newValue);
+//                    pr.println(newValue);
+//                }
+//                newValue = werte.get(werte.size() - 1) + this.sortedSells.get(i).i;
+//                werte.add(newValue);
+//                pr.println(newValue);
+//            }
+//            pr.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println("No such file exists.");
+//        }
+//        System.out.println("Werte: " + werte);
 
-        try {
-            PrintWriter pr = new PrintWriter(file2);
-            pr.println(0);
-            Integer newValue;
-            //temp weil ich nur die ersten einräge der adjazenslisten brauche um IndexOf zu machen
-            ArrayList<MyInteger> temp = new ArrayList<>();
-            for (int k = 0; k < this.sortedSells.size(); k++) {
-                temp.add((this.arrayList.get(k)).get(0));
-            }
-
-            for (int i = 0; i < this.sortedSells.size(); i++) {
-                Integer currentIndexInArrayList = temp.indexOf(this.sortedSells.get(i));//indexOf kann ich nicht verwenden ich suche in arraylists und will mitt den ersten einträgen vergleichen 
-                ArrayList<MyInteger> newB = new ArrayList<>();
-                newB.addAll(arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
-                newB.remove(0);
-                System.out.println("newB    :   "+newB);
-                newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
-                allready.addAll(newB);
-                 System.out.println("newB ohne Allready   :   "+newB);
-                for (int j = 0; j < newB.size(); j++) {
-                    newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
-                    werte.add(newValue);
-                    pr.println(newValue);
-                }
-                newValue = werte.get(werte.size() - 1) + this.sortedSells.get(i).i;
-                werte.add(newValue);
-                pr.println(newValue);
-            }
-            pr.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("No such file exists.");
-        }
-        System.out.println("Werte: " + werte);
     }
 
     @Override
