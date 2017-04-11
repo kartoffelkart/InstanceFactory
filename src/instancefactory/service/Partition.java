@@ -155,8 +155,8 @@ public class Partition {
 
     }
 
-    public void sortedSellsOut() {
-        newTool.out(this, sortedSells);
+    public void sortedSellsOut(String dateiname) {
+        newTool.out(this, sortedSells,dateiname);
 //        ArrayList<MyInteger> allready = new ArrayList<>();
 //      //  File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
 //        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");

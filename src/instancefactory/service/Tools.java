@@ -26,12 +26,12 @@ public class Tools {
      * @return ArrayList of Partition
      */
     public ArrayList<Partition> makeBasicPartitions() {
-//        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray(5);
+        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
-        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
+//        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
         System.out.println(randomIntArrayList.toString());
-//        File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
-        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
+        File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
+//        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
 
         try {
 //            file.mkdirs();
@@ -159,25 +159,41 @@ public class Tools {
      * min und max
      */
     public ArrayList<MyInteger> getRandomIntArray(int min, int max, int size) {
-        ArrayList<MyInteger> randomIntArrayList = new ArrayList<>();
+        ArrayList<Integer> randomIntArrayList = new ArrayList<>();
+        ArrayList<MyInteger> randomMyIntArrayList = new ArrayList<>();
+
+//ersmal Integer Array
         int it = 0;
         while (it < size) {
-            MyInteger te = new MyInteger(ThreadLocalRandom.current().nextInt(min, max + 1));
+            Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
             randomIntArrayList.add(te);
             it++;
         }
-        return randomIntArrayList;
-    }
-
-    public ArrayList<MyInteger> getDeterministicIntArray(int size) {
-        ArrayList<MyInteger> deterministicIntArrayList = new ArrayList<>();
-        int it = 0;
-        while (it < size) {
-            MyInteger te = new MyInteger(it + 5);
-            deterministicIntArrayList.add(te);
+//dann MyInteger Array
+        it = 0;
+        while (it < randomIntArrayList.size()) {
+            MyInteger te = new MyInteger(randomIntArrayList.get(it));
+            randomMyIntArrayList.add(te);
             it++;
         }
-        return deterministicIntArrayList;
+
+        return randomMyIntArrayList;
+    }
+
+    public ArrayList<MyInteger> getDeterministicIntArray() {
+
+        int[] deterministicIntArrayList = {30, 53, 80, 77, 81, 23, 31, 81, 93, 96, 14, 18, 54, 61, 1, 48, 45, 29, 100, 72, 88, 30, 16, 22, 53, 75, 62, 27, 68, 84};;
+        ArrayList<MyInteger> deterministicMyIntArrayList = new ArrayList<>();
+
+        int it = 0;
+
+        while (it < deterministicIntArrayList.length) {
+            MyInteger te = new MyInteger(deterministicIntArrayList[it]);
+            deterministicMyIntArrayList.add(te);
+            it++;
+        }
+
+        return deterministicMyIntArrayList;
     }
 
     /**
@@ -625,10 +641,10 @@ public class Tools {
             ArrayList<MyInteger> newB = new ArrayList<>();
             newB.addAll(p.arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
             newB.remove(0);
-            System.out.println("newB    :   " + newB);
+//            System.out.println("newB    :   " + newB);
             newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
             allready.addAll(newB);
-            System.out.println("newB ohne Allready   :   " + newB);
+//            System.out.println("newB ohne Allready   :   " + newB);
             for (int j = 0; j < newB.size(); j++) {
                 newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
                 werte.add(newValue);
@@ -643,10 +659,10 @@ public class Tools {
         return budget;
     }
 
-    public void out(Partition p, ArrayList<MyInteger> ordering) {
+    public void out(Partition p, ArrayList<MyInteger> ordering, String dateiname) {
         ArrayList<MyInteger> allready = new ArrayList<>();
-        //  File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
-        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
+        File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "Daten.txt");
+//        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
         try {
 //            file.mkdirs();
             file2.createNewFile();
@@ -671,10 +687,10 @@ public class Tools {
                 ArrayList<MyInteger> newB = new ArrayList<>();
                 newB.addAll(p.arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
                 newB.remove(0);
-                System.out.println("newB    :   " + newB);
+//                System.out.println("newB    :   " + newB);
                 newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
                 allready.addAll(newB);
-                System.out.println("newB ohne Allready   :   " + newB);
+//                System.out.println("newB ohne Allready   :   " + newB);
                 for (int j = 0; j < newB.size(); j++) {
                     newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
                     werte.add(newValue);
@@ -694,12 +710,15 @@ public class Tools {
 
     public ArrayList<MyInteger> function(Partition p, ArrayList<MyInteger> ordering) {
         Integer highestMinimalBudget = getBudget(p, ordering);
+        System.out.println("StartBudget: " + highestMinimalBudget);
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; i < ordering.size(); i++) {
                 ArrayList<MyInteger> newOrdering = swap(i, j, ordering);
-
-                if (getBudget(p, newOrdering) > highestMinimalBudget) {
-                    ordering = swap(i, j, ordering);
+                Integer newBudget = getBudget(p, newOrdering);
+                if (newBudget > highestMinimalBudget) {
+                    ordering = newOrdering;
+                    highestMinimalBudget = newBudget;
+                    System.out.println("NewBudget: " + newBudget);
                 }
             }
         }
@@ -707,8 +726,7 @@ public class Tools {
     }
 
     public ArrayList<MyInteger> swap(int i, int j, ArrayList<MyInteger> ordering) {
-        MyInteger temp = new MyInteger();
-        temp = ordering.get(i);
+        MyInteger temp = ordering.get(i);
         ordering.set(i, ordering.get(j));
         ordering.set(j, temp);
         return ordering;

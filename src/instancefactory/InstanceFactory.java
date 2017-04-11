@@ -37,22 +37,23 @@ public class InstanceFactory {
         partitions = tool.makeBasicPartitions();
         Iterator it = partitions.iterator();
         ArrayList<MyInteger> randomOrdering = new ArrayList<>();
-//        while (it.hasNext()) {
-//            //ich gehe die Elemanterpartitionen durch und hole mir aus der Adjazensliste den ersten-ersten eintrag
-//            randomOrdering.add((((Partition) it.next()).arrayList.get(0)).get(0));
-//            System.out.println("elementare Partition: " + ((Partition) it.next()).toString() + "\n");
-//        }
+        for (int k = 0; k < partitions.size(); k++) {
+            randomOrdering.add((partitions.get(k).arrayList.get(0)).get(0));
+        }
 
         tool.buildInstance(partitions);
         instance = partitions.get(0);
-        System.out.println("Sorted Sells: ");
-        tool.out(instance, instance.sortedSells);
-        System.out.println("Random: ");
-//        tool.out(instance, randomOrdering);
-
-        instance.sortedSellsOut();
         System.out.println("Balance: " + instance.balance);
         System.out.println("Budget: " + instance.budget);
 
+        System.out.println("Sorted Sells: ");
+        instance.sortedSellsOut("sortedSells");
+        System.out.println("Random: ");
+
+        tool.out(instance, randomOrdering, "random");
+
+        System.out.println("AfterSwap: ");
+        tool.out(instance, tool.function(instance, randomOrdering), "afterSwap");
+//        System.out.println(tool.function(instance, randomOrdering).toString());
     }
 }
