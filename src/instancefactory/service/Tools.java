@@ -26,9 +26,9 @@ public class Tools {
      * @return ArrayList of Partition
      */
     public ArrayList<Partition> makeBasicPartitions() {
-        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
+//        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
-//        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
+        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
         System.out.println(randomIntArrayList.toString());
         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
 //        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
@@ -57,6 +57,8 @@ public class Tools {
 
         Partition partition1 = new Partition();
         currentRandom = randomIntArrayList.get(0);
+        
+        System.out.println("Erster Sell :" +currentRandom);
         randomIntArrayList.remove(0);
         ArrayList<MyInteger> l = new ArrayList<>();
         l.add(currentRandom);
@@ -71,11 +73,12 @@ public class Tools {
 //        Integer toogle = 0;
         while (randomIntArrayList.size() > 1) { //der letzte wird eventuel abgeschnitten
 //NOTE: muss wieder einkommentiert weren
-            if (this.getCoin(50, 50).equals("sell")) {
+            if (this.getCoin(0, 100).equals("sell")) {
 //            if (toogle.equals(1)) {
                 System.out.println("sell");
                 //ein Bought wird immer hinzugefügt:
                 currentRandom = randomIntArrayList.get(0);
+ System.out.println("Aktueller Bought : " + currentRandom);
                 partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
                 partitions.get(partitions.size() - 1).balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
                 partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
@@ -85,6 +88,7 @@ public class Tools {
                 Partition partition = new Partition();
 
                 currentRandom = randomIntArrayList.get(0);
+                System.out.println("Aktueller Sell : " + currentRandom);
                 randomIntArrayList.remove(0);
                 ArrayList<MyInteger> m = new ArrayList<>();
                 m.add(currentRandom);
@@ -97,7 +101,7 @@ public class Tools {
                 partitions.add(partition);
 //                toogle--;
             } else {
-
+                System.out.println("bought");
                 currentRandom = randomIntArrayList.get(0);
 
                 partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
@@ -634,6 +638,7 @@ public class Tools {
         ArrayList<MyInteger> temp = new ArrayList<>();
         for (int k = 0; k < ordering.size(); k++) {
             temp.add((p.arrayList.get(k)).get(0));
+            System.out.println("Sells : " + temp);
         }
 
         for (int i = 0; i < ordering.size(); i++) {
@@ -719,6 +724,9 @@ public class Tools {
                     ordering = newOrdering;
                     highestMinimalBudget = newBudget;
                     System.out.println("NewBudget: " + newBudget);
+
+                    return function(p, ordering);
+
                 }
             }
         }
