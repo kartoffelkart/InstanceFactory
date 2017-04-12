@@ -28,7 +28,7 @@ public class Tools {
     public ArrayList<Partition> makeBasicPartitions() {
 //        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
-        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 30);
+        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 100, 32);
         System.out.println(randomIntArrayList.toString());
         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
 //        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
@@ -69,6 +69,8 @@ public class Tools {
             partition1.balance = currentRandom.i;
 
             partitions.add(partition1);
+// todo: testen
+//            currentRandom = randomIntArrayList.get(0);
 
             System.out.println("Aktueller Bought : " + currentRandom);
             partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
@@ -76,7 +78,7 @@ public class Tools {
             partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
             randomIntArrayList.remove(0);
 
-                //-------------------------------------
+            //-------------------------------------
 //                toogle--;
         }
         return partitions;

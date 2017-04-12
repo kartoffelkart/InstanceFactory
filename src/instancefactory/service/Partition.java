@@ -17,6 +17,7 @@ import java.util.Iterator;
  * @author Sonja Schäfer sonja_schaefer@gmx.de
  */
 public class Partition {
+
     Tools newTool = new Tools();
 
     public ArrayList<ArrayList<MyInteger>> arrayList;
@@ -70,6 +71,20 @@ public class Partition {
      * @param index Index für den die Werte gerade dynamisch in die Tabelle
      * eingetragen werden
      */
+    public Integer getPositionMyIntObjektInAdjazensliste(MyInteger objekt) {
+
+        Integer position = 0;
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            //für jeden sell 
+            if (arrayList.get(i).get(0) == objekt) {//irgendwann ist hier Nullpointer, bei index?
+
+                position = i;
+            }
+        }
+        return position;
+    }
+
     public void setBalanceBoughtsBudgetOfSetUpToIndex(int index) {
         /**
          * balance Variable um sie in balanceBoughtsBudgetOfSetUpToIndex zu
@@ -89,23 +104,20 @@ public class Partition {
 
         // --------------hier finden wir die position des Integerobjekts, das in SortedSells bei Index steht in der Adjazensliste
         Integer position = 0;
+        position = getPositionMyIntObjektInAdjazensliste(sortedSells.get(index));
 
-        for (int i = 0; i < arrayList.size(); i++) {
-            //für jeden sell 
-            if (arrayList.get(i).get(0) == sortedSells.get(index)) {//irgendwann ist hier Nullpointer, bei index?
-
-                position = i;
-            }
-        }
-        //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------
 //if (position==null) würde ja gerne prüfen ob das initialisiert wurde
         newBought.addAll(arrayList.get(position)); //hier holen wir alle für den Sell benötigten Boughts
-        newBought.remove(0);
+        newBought.remove(
+                0);
         newBought.removeAll(allreadyBought);//hier entfernen wir alle, die schon gekauft waren
+
         allreadyBought.addAll(newBought);//hier vermerken wir die neu gekauften boughts als gekauft
 // berechnet die Summe von Boughts------------------------------
 
-        if (index > 0) {
+        if (index
+                > 0) {
             sumNewBoughts = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(1);
             Iterator it = newBought.iterator();
             while (it.hasNext()) {
@@ -122,7 +134,8 @@ public class Partition {
             }
         }
 //-----------------------------------------------------hier wird balance rekursiv aus den Werten von Index-1 berechnet
-        if (index > 0) {
+        if (index
+                > 0) {
             balance = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(0)
                     + sortedSells.get(index).i - sumNewBoughts;
 
@@ -130,7 +143,8 @@ public class Partition {
             balance = sortedSells.get(index).i - sumNewBoughts;
         }
         //-----------------------------------------------------hier wird budget  rekursiv aus den Werten von Index-1 berechnet
-        if (index > 0) {
+        if (index
+                > 0) {
             budget = Integer.min(balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2), balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2)
                     - sumNewBoughts);
 
@@ -141,10 +155,13 @@ public class Partition {
         ArrayList<Integer> newEintrag = new ArrayList<>();
 
         newEintrag.add(budget);
+
         newEintrag.add(balance);
+
         newEintrag.add(sumNewBoughts);
 
-        if (balanceBoughtsBudgetOfSetUpToIndex.size() == index) {
+        if (balanceBoughtsBudgetOfSetUpToIndex.size()
+                == index) {
             balanceBoughtsBudgetOfSetUpToIndex.add(index, newEintrag);
             //drucken
 
@@ -156,7 +173,7 @@ public class Partition {
     }
 
     public void sortedSellsOut(String dateiname) {
-        newTool.out(this, sortedSells,dateiname);
+        newTool.out(this, sortedSells, dateiname);
 //        ArrayList<MyInteger> allready = new ArrayList<>();
 //      //  File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
 //        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
