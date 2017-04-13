@@ -81,7 +81,7 @@ public class Partition {
                 position = i;
             }
         }
-        
+
         return position;
     }
 
@@ -120,12 +120,7 @@ public class Partition {
         allreadyBought.addAll(newBought);//hier vermerken wir die neu gekauften boughts als gekauft
 // berechnet die Summe von Boughts------------------------------
 
-        Iterator it = newBought.iterator();
-        while (it.hasNext()) {
-
-            sumNewBoughts = sumNewBoughts + ((MyInteger) it.next()).i;
-
-        }
+        sumNewBoughts = newTool.getSum(newBought);
         System.out.println("sumNewBoughts :" + sumNewBoughts);
 
         if (index > 0) {
