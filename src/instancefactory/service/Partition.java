@@ -85,6 +85,15 @@ public class Partition {
         return position;
     }
 
+    public ArrayList<MyInteger> getBoughtsOfSell(MyInteger sell) {
+        ArrayList<MyInteger> newBought = new ArrayList<>();
+        newBought.addAll(arrayList.get(getPositionMyIntObjektInAdjazensliste(sell))); //hier holen wir alle für den Sell benötigten Boughts
+        System.out.println("PositionMyIntObjektInAdjazensliste : " + arrayList.get(getPositionMyIntObjektInAdjazensliste(sell)));
+        newBought.remove(0);
+        System.out.println("Boughts of Sell " + sell + " : " + newBought);
+        return newBought;
+    }
+
     public void setBalanceBoughtsBudgetOfSetUpToIndex(int index) {
         /**
          * balance Variable um sie in balanceBoughtsBudgetOfSetUpToIndex zu
@@ -100,42 +109,26 @@ public class Partition {
         /**
          * Variable für die neu getätigten Boughts
          */
+
         ArrayList<MyInteger> newBought = new ArrayList<>();
 
-        // --------------hier finden wir die position des Integerobjekts, das in SortedSells bei Index steht in der Adjazensliste
-        Integer position = 0;
-        position = getPositionMyIntObjektInAdjazensliste(sortedSells.get(index));
-
-    //--------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------------
 //if (position==null) würde ja gerne prüfen ob das initialisiert wurde
-        newBought.addAll(arrayList.get(position)); //hier holen wir alle für den Sell benötigten Boughts
-        newBought.remove(
-                0);
+        newBought = getBoughtsOfSell(sortedSells.get(index)); //hier holen wir alle für den Sell benötigten Boughts
+
         newBought.removeAll(allreadyBought);//hier entfernen wir alle, die schon gekauft waren
 
         allreadyBought.addAll(newBought);//hier vermerken wir die neu gekauften boughts als gekauft
 // berechnet die Summe von Boughts------------------------------
 
-        if (index
-                > 0) {
-            sumNewBoughts = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(1);
-            Iterator it = newBought.iterator();
-            while (it.hasNext()) {
+        Iterator it = newBought.iterator();
+        while (it.hasNext()) {
 
-                sumNewBoughts = sumNewBoughts + ((MyInteger) it.next()).i;
+            sumNewBoughts = sumNewBoughts + ((MyInteger) it.next()).i;
 
-            }
-        } else {
-
-            Iterator it = newBought.iterator();
-            while (it.hasNext()) {
-
-                sumNewBoughts = sumNewBoughts + ((MyInteger) it.next()).i;
-            }
         }
 //-----------------------------------------------------hier wird balance rekursiv aus den Werten von Index-1 berechnet
-        if (index
-                > 0) {
+        if (index > 0) {
             balance = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(0)
                     + sortedSells.get(index).i - sumNewBoughts;
 
@@ -143,25 +136,21 @@ public class Partition {
             balance = sortedSells.get(index).i - sumNewBoughts;
         }
         //-----------------------------------------------------hier wird budget  rekursiv aus den Werten von Index-1 berechnet
-        if (index
-                > 0) {
+        if (index > 0) {
             budget = Integer.min(balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2), balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2)
                     - sumNewBoughts);
 
         } else {
-            budget = sumNewBoughts;
+            budget = -sumNewBoughts;
         }
         //hier wird ein neuer Eintrag daraus generiert
         ArrayList<Integer> newEintrag = new ArrayList<>();
 
+        newEintrag.add(balance);
+        newEintrag.add(sumNewBoughts);
         newEintrag.add(budget);
 
-        newEintrag.add(balance);
-
-        newEintrag.add(sumNewBoughts);
-
-        if (balanceBoughtsBudgetOfSetUpToIndex.size()
-                == index) {
+        if (balanceBoughtsBudgetOfSetUpToIndex.size() == index) {
             balanceBoughtsBudgetOfSetUpToIndex.add(index, newEintrag);
             //drucken
 
