@@ -64,20 +64,19 @@ public class Partition {
 //_____________________________________________________________________________
 
     /**
-     * füllt die lange Liste dert balanceBoughtsBudgetOfSetUpToIndex rekursiv
-     * aus den Werten von Index-1
+     * Gibt den Index zurück an dem ein Sell sich in der Adjazensliste befindet
      *
      *
-     * @param index Index für den die Werte gerade dynamisch in die Tabelle
-     * eingetragen werden
+     * @param MyInt Objekt (Sell)
+     * @return position of Sell in der Adjazensliste
      */
-    public Integer getPositionMyIntObjektInAdjazensliste(MyInteger objekt) {
+    public Integer getPositionOfSellInAdjazenslist(MyInteger sell) {
 
-        Integer position = 0;
+        Integer position = null;
 
         for (int i = 0; i < arrayList.size(); i++) {
             //für jeden sell 
-            if (arrayList.get(i).get(0) == objekt) {//irgendwann ist hier Nullpointer, bei index?
+            if (arrayList.get(i).get(0) == sell) {//irgendwann ist hier Nullpointer, bei index?
 
                 position = i;
             }
@@ -87,29 +86,29 @@ public class Partition {
 
     public ArrayList<MyInteger> getBoughtsOfSell(MyInteger sell) {
         ArrayList<MyInteger> newBought = new ArrayList<>();
-        newBought.addAll(arrayList.get(getPositionMyIntObjektInAdjazensliste(sell))); //hier holen wir alle für den Sell benötigten Boughts
-        System.out.println("PositionMyIntObjektInAdjazensliste : " + arrayList.get(getPositionMyIntObjektInAdjazensliste(sell)));
+        newBought.addAll(arrayList.get(getPositionOfSellInAdjazenslist(sell))); //hier holen wir alle für den Sell benötigten Boughts
+        System.out.println("PositionOfSellInAdjazenslist : " + arrayList.get(getPositionOfSellInAdjazenslist(sell)));
         newBought.remove(0);
         System.out.println("Boughts of Sell " + sell + " : " + newBought);
         return newBought;
     }
 
+    /**
+     * füllt die lange Liste dert balanceBoughtsBudgetOfSetUpToIndex rekursiv
+     * aus den Werten von Index-1
+     *
+     *
+     * @param index Index für den die Werte gerade dynamisch in die Tabelle
+     * eingetragen werden
+     */
     public void setBalanceBoughtsBudgetOfSetUpToIndex(int index) {
-        /**
-         * balance Variable um sie in balanceBoughtsBudgetOfSetUpToIndex zu
-         * speichern
-         */
+
         int balance = 0;
         int budget = 0;
-        /**
-         * Summe Boughts Variable um sie in balanceBoughtsBudgetOfSetUpToIndex
-         * zu speichern
-         */
         int sumNewBoughts = 0;
         /**
          * Variable für die neu getätigten Boughts
          */
-
         ArrayList<MyInteger> newBought = new ArrayList<>();
 
         //--------------------------------------------------------------------------------------------------------------------
@@ -127,90 +126,45 @@ public class Partition {
             sumNewBoughts = sumNewBoughts + ((MyInteger) it.next()).i;
 
         }
-        int lastBalance = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(0);
-        int lastBoughts = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(1);
-        int lastBudget = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2);
-//-----------------------------------------------------hier wird balance rekursiv aus den Werten von Index-1 berechnet
-        if (index > 0) {
-            balance = lastBalance
-                    + sortedSells.get(index).i - sumNewBoughts;
+        System.out.println("sumNewBoughts :" + sumNewBoughts);
 
-        } else {
-            balance = sortedSells.get(index).i - sumNewBoughts;
-        }
-        //-----------------------------------------------------hier wird budget  rekursiv aus den Werten von Index-1 berechnet
         if (index > 0) {
+            int lastBalance = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(0);
+            int lastBoughts = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(1);
+            int lastBudget = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2);
+            //-----------------------------------------------------hier wird balance rekursiv aus den Werten von Index-1 berechnet
+
+            balance = lastBalance
+                    - sumNewBoughts + sortedSells.get(index).i;
+            //-----------------------------------------------------hier wird budget  rekursiv aus den Werten von Index-1 berechnet
+
             budget = Integer.min(lastBudget, lastBalance - sumNewBoughts);
 
         } else {
+            balance = -sumNewBoughts + sortedSells.get(index).i;
             budget = -sumNewBoughts;
         }
+
         //hier wird ein neuer Eintrag daraus generiert
         ArrayList<Integer> newEintrag = new ArrayList<>();
 
         newEintrag.add(balance);
         newEintrag.add(sumNewBoughts);
         newEintrag.add(budget);
-
+//hier checken wir nochmal ob Index der richtige Indize ist
         if (balanceBoughtsBudgetOfSetUpToIndex.size() == index) {
             balanceBoughtsBudgetOfSetUpToIndex.add(index, newEintrag);
             //drucken
 
             System.out.println("Balance, Bought, Budget: " + balanceBoughtsBudgetOfSetUpToIndex.get(index).toString());
         } else {
-            System.err.println("Error");
+            System.err.println("Error falscher Index");
         }
 
     }
 
     public void sortedSellsOut(String dateiname) {
         newTool.out(this, sortedSells, dateiname);
-//        ArrayList<MyInteger> allready = new ArrayList<>();
-//      //  File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
-//        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
-//        try {
-////            file.mkdirs();
-//            file2.createNewFile();
-//        } catch (IOException e1) {
-//            e1.printStackTrace();
-//        }
-//        ArrayList<Integer> werte = new ArrayList<>();
-//        werte.add(0, 0);
-//
-//        try {
-//            PrintWriter pr = new PrintWriter(file2);
-//            pr.println(0);
-//            Integer newValue;
-//            //temp weil ich nur die ersten einräge der adjazenslisten brauche um IndexOf zu machen
-//            ArrayList<MyInteger> temp = new ArrayList<>();
-//            for (int k = 0; k < this.sortedSells.size(); k++) {
-//                temp.add((this.arrayList.get(k)).get(0));
-//            }
-//
-//            for (int i = 0; i < this.sortedSells.size(); i++) {
-//                Integer currentIndexInArrayList = temp.indexOf(this.sortedSells.get(i));//indexOf kann ich nicht verwenden ich suche in arraylists und will mitt den ersten einträgen vergleichen 
-//                ArrayList<MyInteger> newB = new ArrayList<>();
-//                newB.addAll(arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
-//                newB.remove(0);
-//                System.out.println("newB    :   "+newB);
-//                newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
-//                allready.addAll(newB);
-//                 System.out.println("newB ohne Allready   :   "+newB);
-//                for (int j = 0; j < newB.size(); j++) {
-//                    newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
-//                    werte.add(newValue);
-//                    pr.println(newValue);
-//                }
-//                newValue = werte.get(werte.size() - 1) + this.sortedSells.get(i).i;
-//                werte.add(newValue);
-//                pr.println(newValue);
-//            }
-//            pr.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("No such file exists.");
-//        }
-//        System.out.println("Werte: " + werte);
 
     }
 

@@ -608,14 +608,14 @@ public class Tools {
 
         Integer newValue;
         //temp weil ich nur die ersten einräge der adjazenslisten brauche um IndexOf zu machen
-        ArrayList<MyInteger> temp = new ArrayList<>();
-        for (int k = 0; k < ordering.size(); k++) {
-            temp.add((p.arrayList.get(k)).get(0));
-            System.out.println("Sells : " + temp);
-        }
+//        ArrayList<MyInteger> temp = new ArrayList<>();
+//        for (int k = 0; k < ordering.size(); k++) {
+//            temp.add((p.arrayList.get(k)).get(0));
+//            System.out.println("Sells : " + temp);
+//        }
 
         for (int i = 0; i < ordering.size(); i++) {
-            Integer currentIndexInArrayList = temp.indexOf(ordering.get(i));//indexOf kann ich nicht verwenden ich suche in arraylists und will mitt den ersten einträgen vergleichen 
+            Integer currentIndexInArrayList = p.getPositionOfSellInAdjazenslist(ordering.get(i));//indexOf kann ich nicht verwenden ich suche in arraylists und will mitt den ersten einträgen vergleichen 
             ArrayList<MyInteger> newB = new ArrayList<>();
             newB.addAll(p.arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
             newB.remove(0);
