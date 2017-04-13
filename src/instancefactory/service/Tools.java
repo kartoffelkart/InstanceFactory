@@ -355,14 +355,17 @@ public class Tools {
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
             p.setBalanceBoughtsBudgetOfSetUpToIndex(i);
             count++;
+            int balance=p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0);
+            int sumBoughts=p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(1);
+            int budget=p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(2);
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsPLengths und PositiveSetsPLengthsSumBoughts gespeichert
-            if (p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0) > 0) {
+            if (balance > 0) {
 
                 p.positiveSetsPLengths.add(count);
                 count = 0;
-                p.positiveSetsPLengthsSumBoughts.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(1));
-                p.positiveSetsBudgets.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(2));
-                p.positiveSetsBalances.add(p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0));
+                p.positiveSetsPLengthsSumBoughts.add(sumBoughts);
+                p.positiveSetsBudgets.add(budget);
+                p.positiveSetsBalances.add(balance);
                 System.out.println("PositiveSetsPLengths: " + p.positiveSetsPLengths.toString());//[] ist richtig
                 System.out.println("PositiveSetsPLengthsSumBoughts: " + p.positiveSetsPLengthsSumBoughts.toString());//[0]ist richtig
 
