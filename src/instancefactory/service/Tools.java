@@ -355,9 +355,9 @@ public class Tools {
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
             p.setBalanceBoughtsBudgetOfSetUpToIndex(i);
             count++;
-            int balance=p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0);
-            int sumBoughts=p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(1);
-            int budget=p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(2);
+            int balance = p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0);
+            int sumBoughts = p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(1);
+            int budget = p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(2);
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsPLengths und PositiveSetsPLengthsSumBoughts gespeichert
             if (balance > 0) {
 
@@ -598,40 +598,34 @@ public class Tools {
         return p;
     }
 
-    public Integer getBudget(Partition p, ArrayList<MyInteger> ordering) {
+    public Integer getSum(ArrayList<MyInteger> newB) {
+
+        Integer newValue = 0;
+        for (int j = 0; j < newB.size(); j++) {
+            newValue = newValue + newB.get(j).i;
+
+        }
+        return newValue;
+    }
+
+    public Integer getMinBudget(Partition p, ArrayList<MyInteger> ordering) {
         Integer budget = 0;
-        ArrayList<MyInteger> allready = new ArrayList<>();
-        //  File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten.txt");
-
-        ArrayList<Integer> werte = new ArrayList<>();
-        werte.add(0, 0);
-
         Integer newValue;
-        //temp weil ich nur die ersten einräge der adjazenslisten brauche um IndexOf zu machen
-//        ArrayList<MyInteger> temp = new ArrayList<>();
-//        for (int k = 0; k < ordering.size(); k++) {
-//            temp.add((p.arrayList.get(k)).get(0));
-//            System.out.println("Sells : " + temp);
-//        }
+        Integer bilanz = 0;
+
+        ArrayList<MyInteger> allready = new ArrayList<>();
 
         for (int i = 0; i < ordering.size(); i++) {
-            Integer currentIndexInArrayList = p.getPositionOfSellInAdjazenslist(ordering.get(i));//indexOf kann ich nicht verwenden ich suche in arraylists und will mitt den ersten einträgen vergleichen 
+
             ArrayList<MyInteger> newB = new ArrayList<>();
-            newB.addAll(p.arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
-            newB.remove(0);
-//            System.out.println("newB    :   " + newB);
-            newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
+            newB.addAll(p.getBoughtsOfSell(ordering.get(i)));
+
+            newB.removeAll(allready);
             allready.addAll(newB);
-//            System.out.println("newB ohne Allready   :   " + newB);
-            for (int j = 0; j < newB.size(); j++) {
-                newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
-                werte.add(newValue);
-                if (newValue < budget) {
-                    budget = newValue;
-                }
-            }
-            newValue = werte.get(werte.size() - 1) + ordering.get(i).i;
-            werte.add(newValue);
+
+            budget = Integer.min(budget, bilanz - getSum(newB));
+
+            bilanz = bilanz - getSum(newB) + ordering.get(i).i;
 
         }
         return budget;
@@ -687,12 +681,12 @@ public class Tools {
     }
 
     public ArrayList<MyInteger> function(Partition p, ArrayList<MyInteger> ordering) {
-        Integer highestMinimalBudget = getBudget(p, ordering);
+        Integer highestMinimalBudget = getMinBudget(p, ordering);
         System.out.println("StartBudget: " + highestMinimalBudget);
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; i < ordering.size(); i++) {
                 ArrayList<MyInteger> newOrdering = swap(i, j, ordering);
-                Integer newBudget = getBudget(p, newOrdering);
+                Integer newBudget = getMinBudget(p, newOrdering);
                 if (newBudget > highestMinimalBudget) {
                     ordering = newOrdering;
                     highestMinimalBudget = newBudget;
@@ -712,4 +706,5 @@ public class Tools {
         ordering.set(j, temp);
         return ordering;
     }
+
 }
