@@ -137,7 +137,7 @@ public class Partition {
         }
         //-----------------------------------------------------hier wird budget  rekursiv aus den Werten von Index-1 berechnet
         if (index > 0) {
-            budget = Integer.min(balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2), balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2)
+            budget = Integer.min(balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2), balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(0)
                     - sumNewBoughts);
 
         } else {
