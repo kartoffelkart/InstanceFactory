@@ -89,10 +89,22 @@ public class Partition {
         ArrayList<MyInteger> newBought = new ArrayList<>();
         newBought.addAll(arrayList.get(getPositionOfSellInAdjazenslist(sell))); //hier holen wir alle für den Sell benötigten Boughts
         newBought.remove(0);
-        System.out.println("Boughts of Sell " + sell + " : " + newBought);
+       
         return newBought;
     }
 
+//public Integer getBalance( int index) {
+//   return balanceBoughtsBudgetOfSetUpToIndex.get(index).get(0);
+//    
+//}
+//public Integer getSumNewBoughts( int index) {
+//   return balanceBoughtsBudgetOfSetUpToIndex.get(index).get(1);
+//    
+//}
+//public Integer getMinBudget( int index) {
+//   return balanceBoughtsBudgetOfSetUpToIndex.get(index).get(2);
+//    
+//}
     /**
      * füllt die lange Liste dert balanceBoughtsBudgetOfSetUpToIndex rekursiv
      * aus den Werten von Index-1

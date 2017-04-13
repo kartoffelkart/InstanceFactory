@@ -26,9 +26,9 @@ public class Tools {
      * @return ArrayList of Partition
      */
     public ArrayList<Partition> makeBasicPartitions() {
-        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
+//        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
-//        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 20, 32);
+        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 20, 32);
         System.out.println(randomIntArrayList.toString());
         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
 //        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
@@ -70,7 +70,7 @@ public class Tools {
 
             partitions.add(partition1);
 // todo: testen
-//            currentRandom = randomIntArrayList.get(0);
+            currentRandom = randomIntArrayList.get(0);
 
             System.out.println("Aktueller Bought : " + currentRandom);
             partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
@@ -155,6 +155,7 @@ public class Tools {
     }
 
     public ArrayList<MyInteger> getDeterministicIntArray() {
+//        int[] deterministicIntArrayList = {2, 4, 1, 3, 5, 2};;
 
         int[] deterministicIntArrayList = {30, 53, 80, 77, 81, 23, 31, 81, 93, 96, 14, 18, 54, 61, 1, 48, 45, 29, 100, 72, 88, 30, 16, 22, 53, 75, 62, 27, 68, 84};;
         ArrayList<MyInteger> deterministicMyIntArrayList = new ArrayList<>();
@@ -612,7 +613,6 @@ public class Tools {
         Integer budget = 0;
         Integer newValue;
         Integer bilanz = 0;
-
         ArrayList<MyInteger> allready = new ArrayList<>();
 
         for (int i = 0; i < ordering.size(); i++) {
@@ -648,17 +648,9 @@ public class Tools {
             PrintWriter pr = new PrintWriter(file2);
             pr.println(0);
             Integer newValue;
-            //temp weil ich nur die ersten einräge der adjazenslisten brauche um IndexOf zu machen
-            ArrayList<MyInteger> temp = new ArrayList<>();
-            for (int k = 0; k < ordering.size(); k++) {
-                temp.add((p.arrayList.get(k)).get(0));
-            }
 
             for (int i = 0; i < ordering.size(); i++) {
-                Integer currentIndexInArrayList = temp.indexOf(ordering.get(i));//indexOf kann ich nicht verwenden ich suche in arraylists und will mitt den ersten einträgen vergleichen 
-                ArrayList<MyInteger> newB = new ArrayList<>();
-                newB.addAll(p.arrayList.get(currentIndexInArrayList)); //hier holen wir alle für den Sell benötigten Boughts
-                newB.remove(0);
+                ArrayList<MyInteger> newB = p.getBoughtsOfSell(ordering.get(i));
 //                System.out.println("newB    :   " + newB);
                 newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
                 allready.addAll(newB);
@@ -681,12 +673,16 @@ public class Tools {
     }
 
     public ArrayList<MyInteger> function(Partition p, ArrayList<MyInteger> ordering) {
+        ArrayList<MyInteger> allreadyBought = new ArrayList<>();
         Integer highestMinimalBudget = getMinBudget(p, ordering);
+        System.out.println("ordering nacg getMinBudget : " + ordering.toString());
         System.out.println("StartBudget: " + highestMinimalBudget);
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; i < ordering.size(); i++) {
                 ArrayList<MyInteger> newOrdering = swap(i, j, ordering);
+                System.out.println("ordering nach swap : " + ordering.toString());
                 Integer newBudget = getMinBudget(p, newOrdering);
+
                 if (newBudget > highestMinimalBudget) {
                     ordering = newOrdering;
                     highestMinimalBudget = newBudget;
@@ -697,14 +693,17 @@ public class Tools {
                 }
             }
         }
+        System.out.println("ordering: " + ordering);
         return ordering;
     }
 
     public ArrayList<MyInteger> swap(int i, int j, ArrayList<MyInteger> ordering) {
-        MyInteger temp = ordering.get(i);
-        ordering.set(i, ordering.get(j));
-        ordering.set(j, temp);
-        return ordering;
+        ArrayList<MyInteger> newOrdering = new ArrayList<>();
+        newOrdering.addAll(ordering);
+
+        newOrdering.set(i, ordering.get(j));
+        newOrdering.set(j, ordering.get(i));
+        return newOrdering;
     }
 
 }
