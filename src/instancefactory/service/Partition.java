@@ -127,9 +127,12 @@ public class Partition {
             sumNewBoughts = sumNewBoughts + ((MyInteger) it.next()).i;
 
         }
+        int lastBalance = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(0);
+        int lastBoughts = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(1);
+        int lastBudget = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2);
 //-----------------------------------------------------hier wird balance rekursiv aus den Werten von Index-1 berechnet
         if (index > 0) {
-            balance = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(0)
+            balance = lastBalance
                     + sortedSells.get(index).i - sumNewBoughts;
 
         } else {
@@ -137,8 +140,7 @@ public class Partition {
         }
         //-----------------------------------------------------hier wird budget  rekursiv aus den Werten von Index-1 berechnet
         if (index > 0) {
-            budget = Integer.min(balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2), balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(0)
-                    - sumNewBoughts);
+            budget = Integer.min(lastBudget, lastBalance - sumNewBoughts);
 
         } else {
             budget = -sumNewBoughts;
