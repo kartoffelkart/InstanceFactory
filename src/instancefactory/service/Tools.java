@@ -26,9 +26,9 @@ public class Tools {
      * @return ArrayList of Partition
      */
     public ArrayList<Partition> makeBasicPartitions() {
-//        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
+        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
-        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 20, 32);
+//        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 20, 32);
         System.out.println(randomIntArrayList.toString());
         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
 //        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
@@ -97,16 +97,16 @@ public class Tools {
 
         while (partitions.size() > 1) {
             Partition partition = new Partition();
-            Integer indi = 0;
+//            Integer indi = 0;
             Partition partitionA = new Partition();
-//            partitionA = this.getRandomPartitionDueToProbality(partitions);
-            partitionA = partitions.get(indi);
-            indi++;
+            partitionA = this.getRandomPartitionDueToProbality(partitions);
+//            partitionA = partitions.get(indi);
+//            indi++;
             System.out.println("partitionA: " + partitionA.toString() + "\n");
 
             Partition partitionB = new Partition();
-//            partitionB = this.getRandomPartitionDueToProbality(partitions);
-            partitionB = partitions.get(indi);
+            partitionB = this.getRandomPartitionDueToProbality(partitions);
+//            partitionB = partitions.get(indi);
             System.out.println("partitionB: " + partitionB.toString() + "\n");
 
             while (partitionA == partitionB) {
@@ -157,7 +157,7 @@ public class Tools {
     public ArrayList<MyInteger> getDeterministicIntArray() {
 //        int[] deterministicIntArrayList = {2, 4, 1, 3, 5, 2};;
 
-        int[] deterministicIntArrayList = {30, 53, 80, 77, 81, 23, 31, 81, 93, 96, 14, 18, 54, 61, 1, 48, 45, 29, 100, 72, 88, 30, 16, 22, 53, 75, 62, 27, 68, 84};;
+        int[] deterministicIntArrayList = {30, 15, 80, 77, 81, 23, 31, 11, 93, 56, 14, 10, 54, 31, 1, 1, 45, 29, 100, 72, 88, 30, 16, 2, 53, 15, 62, 27, 68, 44};;
         ArrayList<MyInteger> deterministicMyIntArrayList = new ArrayList<>();
 
         int it = 0;
@@ -354,7 +354,7 @@ public class Tools {
         for (int i = 0; i < s1Rest.size(); i++) {
             // berechne balance bis i
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
-            p.setBalanceBoughtsBudgetOfSetUpToIndex(i);
+            p.setValueOfBalanceBoughtsBudgetOfSet(i);
             count++;
             int balance = p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0);
             int sumBoughts = p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(1);
@@ -454,7 +454,7 @@ public class Tools {
         // TODO: Eigentlich wird jetzt noch unterschieden ob max von min von...
         Integer budget2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(2);
         Integer budget1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(2);
-        Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(0);;
+        Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(0);;
         Integer balance2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(0);
 
         if (Integer.max(budget2, balance2 + budget1) > Integer.max(budget1, balance1 + budget2)) {
@@ -675,12 +675,12 @@ public class Tools {
     public ArrayList<MyInteger> function(Partition p, ArrayList<MyInteger> ordering) {
         ArrayList<MyInteger> allreadyBought = new ArrayList<>();
         Integer highestMinimalBudget = getMinBudget(p, ordering);
-        System.out.println("ordering nacg getMinBudget : " + ordering.toString());
+//        System.out.println("ordering nacg getMinBudget : " + ordering.toString());
         System.out.println("StartBudget: " + highestMinimalBudget);
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; i < ordering.size(); i++) {
                 ArrayList<MyInteger> newOrdering = swap(i, j, ordering);
-                System.out.println("ordering nach swap : " + ordering.toString());
+//                System.out.println("ordering nach swap : " + ordering.toString());
                 Integer newBudget = getMinBudget(p, newOrdering);
 
                 if (newBudget > highestMinimalBudget) {

@@ -113,7 +113,7 @@ public class Partition {
      * @param index Index für den die Werte gerade dynamisch in die Tabelle
      * eingetragen werden
      */
-    public void setBalanceBoughtsBudgetOfSetUpToIndex(int index) {
+    public void setValueOfBalanceBoughtsBudgetOfSet(int index) {
 
         int balance = 0;
         int budget = 0;
