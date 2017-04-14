@@ -26,9 +26,9 @@ public class Tools {
      * @return ArrayList of Partition
      */
     public ArrayList<Partition> makeBasicPartitions() {
-        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
+//        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
-//        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 20, 32);
+        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 20, 32);
         System.out.println(randomIntArrayList.toString());
         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
 //        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
