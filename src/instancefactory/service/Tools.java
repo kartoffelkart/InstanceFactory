@@ -256,23 +256,22 @@ public class Tools {
      */
     public Partition makePartition(Partition p1, Partition p2) {
         Partition partition = new Partition();
-//        String choice = this.getChoice(33, 33, 34);
-        String choice = new String("");
-
-        if (toogle.equals(0)) {
-            choice = "rightJoin";
-            toogle++;
-        } else {
-            if (toogle.equals(1)) {
-                choice = "leftJoin";
-                toogle++;
-            } else {
-                if (toogle.equals(2)) {
-                    choice = "union";
-                    toogle = toogle - 2;
-                }
-            }
-        }
+        String choice = this.getChoice(33, 33, 34);
+//        String choice = new String("");
+//        if (toogle.equals(0)) {
+//            choice = "rightJoin";
+//            toogle++;
+//        } else {
+//            if (toogle.equals(1)) {
+//                choice = "leftJoin";
+//                toogle++;
+//            } else {
+//                if (toogle.equals(2)) {
+//                    choice = "union";
+//                    toogle = toogle - 2;
+//                }
+//            }
+//        }
         System.out.println(choice);
         if (choice.equals("union")) {
             partition = makePartitionUnion(p1, p2);
