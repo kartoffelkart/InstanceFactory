@@ -138,10 +138,19 @@ public class Tools {
 
 //ersmal Integer Array
         int it = 0;
+        int toogle = 0;
         while (it < size) {
-            Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
-            randomIntArrayList.add(te);
-            it++;
+            if (toogle == 0) {
+                Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
+                randomIntArrayList.add(te);
+                it++;
+                toogle++;
+            } else {
+                Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
+                randomIntArrayList.add(te);//(te+10);//todo: so werden die ungeraden, also die Boughts größer
+                it++;
+                toogle--;
+            }
         }
 //dann MyInteger Array
         it = 0;
@@ -256,7 +265,7 @@ public class Tools {
      */
     public Partition makePartition(Partition p1, Partition p2, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
         Partition partition = new Partition();
-        partition.probability=p1.probability+p2.probability;
+//        partition.probability=p1.probability+p2.probability;
         String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
 //        String choice = new String("");
 //        if (toogle.equals(0)) {
@@ -275,15 +284,15 @@ public class Tools {
 //        }
         System.out.println(choice);
         if (choice.equals("union")) {
-            partition = makePartitionUnion(p1, p2,partition);
+            partition = makePartitionUnion(p1, p2, partition);
 
         } else {
             if (choice.equals("rightJoin")) {
-                partition = makePartitionJoin(p1, p2,partition);
+                partition = makePartitionJoin(p1, p2, partition);
 
             } else {
                 if (choice.equals("leftJoin")) {
-                    partition = makePartitionJoin(p2, p1,partition);
+                    partition = makePartitionJoin(p2, p1, partition);
 
                 } else {
                     System.err.println("error");
@@ -489,51 +498,35 @@ public class Tools {
      * @param a2 Adjazensliste a2
      * @return gejointe Adjazensliste a1 in a2
      */
-    public ArrayList<ArrayList<MyInteger>> makeArrayListJoin(ArrayList<ArrayList<MyInteger>> a1, ArrayList<ArrayList<MyInteger>> a2) {
+    public ArrayList<ArrayList<MyInteger>> makeArrayListJoin(Partition p1, Partition p2) {
 
         ArrayList<ArrayList<MyInteger>> a = new ArrayList<>();
-        a.addAll(a1);
+        a.addAll(p1.arrayList);
         ArrayList<MyInteger> toLink = new ArrayList<>();
-
-        Iterator ita2 = a2.iterator();
-
-        while (ita2.hasNext()) {
-//die Boughts vom nächsten Eintrag aus A2 die noch nicht verlinkt wurden
-            ArrayList<MyInteger> tempo = (ArrayList<MyInteger>) ita2.next();
-            MyInteger zero = tempo.remove(0);
-
-            toLink.addAll(tempo);
-            tempo.add(0, zero);
+        for (int k = 0; k < p2.arrayList.size(); k++) {
+            toLink.addAll(p2.getBoughtsOfSell(p2.arrayList.get(k).get(0)));
+        }
+//        Iterator ita2 = a2.iterator();
+//
+//        while (ita2.hasNext()) {
+////die Boughts vom nächsten Eintrag aus A2 die noch nicht verlinkt wurden
+//            ArrayList<MyInteger> tempo = (ArrayList<MyInteger>) ita2.next();
+//            MyInteger zero = tempo.remove(0);
+//
+//            toLink.addAll(tempo);
+//            tempo.add(0, zero);
             Set<MyInteger> hs = new HashSet<>();
             hs.addAll(toLink);
             toLink.clear();
             toLink.addAll(hs);
-
-        }
-        Iterator ita1 = a1.iterator();
-
-        while (ita1.hasNext()) {
-            ArrayList<MyInteger> nextitera1 = ((ArrayList<MyInteger>) ita1.next());
-            nextitera1.addAll(toLink);
-
-//
-//        ArrayList<MyInteger> allreadyJoinedBoughts = new ArrayList<>(); // kein Nullpinter oder?
-//        while (ita2.hasNext()) {
-////die Boughts vom nächsten Eintrag aus A2 die noch nicht verlinkt wurden
-//            ArrayList<MyInteger> toLink = new ArrayList<>();
-//            toLink.addAll((ArrayList<MyInteger>) ita2.next());
-//            toLink.remove(0);
-//            toLink.removeAll(allreadyJoinedBoughts);
-//            allreadyJoinedBoughts.addAll(toLink);
 //
 //        }
-//        Iterator ita1 = a1.iterator();
-//
-//        while (ita1.hasNext()) {
-//            ArrayList<MyInteger> itera1 = ((ArrayList<MyInteger>) ita1.next());
-//            itera1.addAll(toLink);
+         for (int k = 0; k < p1.arrayList.size(); k++) {
+            a.get(k).addAll(toLink);
         }
-        a.addAll(a2);
+       
+
+        a.addAll(p2.arrayList);
         return a;
 
     }
@@ -549,8 +542,7 @@ public class Tools {
      * @return Die Partition, die aus dem UNION Merge der Eingabe Partitionen
      * entstanden ist
      */
-    public Partition makePartitionUnion(Partition p1, Partition p2,Partition p) {
-       
+    public Partition makePartitionUnion(Partition p1, Partition p2, Partition p) {
 
         p.arrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
         makeSortedSellsUnionAndBudgetAndBalance(p, p1, p2);
@@ -588,10 +580,9 @@ public class Tools {
      * @return Die Partition, die aus dem UNION Merge der Eingabe Partitionen
      * entstanden ist
      */
-    public Partition makePartitionJoin(Partition p1, Partition p2,Partition p) {
-       
+    public Partition makePartitionJoin(Partition p1, Partition p2, Partition p) {
 
-        p.arrayList = makeArrayListJoin(p1.arrayList, p2.arrayList);
+        p.arrayList = makeArrayListJoin(p1, p2);
         p.sortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);//p2.sorted sells null
         p.budget = makeBudgetJoin(p1, p2);
         p.balance = makeBalanceJoin(p1, p2);
