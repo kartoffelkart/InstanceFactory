@@ -93,7 +93,7 @@ public class Tools {
      * Schritt zweier daraus zufällig gewählter Partitioen
      *
      */
-    public void buildInstance(ArrayList<Partition> partitions) {
+    public void buildInstance(ArrayList<Partition> partitions, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
         while (partitions.size() > 1) {
             Partition partition = new Partition();
@@ -112,7 +112,7 @@ public class Tools {
             while (partitionA == partitionB) {
                 partitionB = this.getRandomPartitionDueToProbality(partitions);
             }
-            partition = this.makePartition(partitionA, partitionB);//size 0 ???
+            partition = this.makePartition(partitionA, partitionB, unionProbability, leftJoinProbability, rightJoinProbability);//size 0 ???
             System.out.println("MergedPartition: " + partition.toString() + "\n");
             System.out.println("Sorted SellsOfMergedPartition: " + partition.sortedSells.toString() + "\n");
 
@@ -254,9 +254,9 @@ public class Tools {
      * @return Die Partition, die aus dem Merge der Eingabe Partitionen
      * entstanden ist
      */
-    public Partition makePartition(Partition p1, Partition p2) {
+    public Partition makePartition(Partition p1, Partition p2, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
         Partition partition = new Partition();
-        String choice = this.getChoice(33, 33, 34);
+        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
 //        String choice = new String("");
 //        if (toogle.equals(0)) {
 //            choice = "rightJoin";

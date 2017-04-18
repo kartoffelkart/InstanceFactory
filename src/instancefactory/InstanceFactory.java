@@ -41,7 +41,7 @@ public class InstanceFactory {
             randomOrdering.add((partitions.get(k).arrayList.get(0)).get(0));
         }
 
-        tool.buildInstance(partitions);
+        tool.buildInstance(partitions,33, 33, 34);
         instance = partitions.get(0);
         System.out.println("Balance: " + instance.balance);
         System.out.println("Budget: " + instance.budget);
