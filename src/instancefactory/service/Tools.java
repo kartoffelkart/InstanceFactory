@@ -256,6 +256,7 @@ public class Tools {
      */
     public Partition makePartition(Partition p1, Partition p2, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
         Partition partition = new Partition();
+        partition.probability=p1.probability+p2.probability;
         String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
 //        String choice = new String("");
 //        if (toogle.equals(0)) {
@@ -274,15 +275,15 @@ public class Tools {
 //        }
         System.out.println(choice);
         if (choice.equals("union")) {
-            partition = makePartitionUnion(p1, p2);
+            partition = makePartitionUnion(p1, p2,partition);
 
         } else {
             if (choice.equals("rightJoin")) {
-                partition = makePartitionJoin(p1, p2);
+                partition = makePartitionJoin(p1, p2,partition);
 
             } else {
                 if (choice.equals("leftJoin")) {
-                    partition = makePartitionJoin(p2, p1);
+                    partition = makePartitionJoin(p2, p1,partition);
 
                 } else {
                     System.err.println("error");
@@ -548,8 +549,8 @@ public class Tools {
      * @return Die Partition, die aus dem UNION Merge der Eingabe Partitionen
      * entstanden ist
      */
-    public Partition makePartitionUnion(Partition p1, Partition p2) {
-        Partition p = new Partition();
+    public Partition makePartitionUnion(Partition p1, Partition p2,Partition p) {
+       
 
         p.arrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
         makeSortedSellsUnionAndBudgetAndBalance(p, p1, p2);
@@ -587,8 +588,8 @@ public class Tools {
      * @return Die Partition, die aus dem UNION Merge der Eingabe Partitionen
      * entstanden ist
      */
-    public Partition makePartitionJoin(Partition p1, Partition p2) {
-        Partition p = new Partition();
+    public Partition makePartitionJoin(Partition p1, Partition p2,Partition p) {
+       
 
         p.arrayList = makeArrayListJoin(p1.arrayList, p2.arrayList);
         p.sortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);//p2.sorted sells null

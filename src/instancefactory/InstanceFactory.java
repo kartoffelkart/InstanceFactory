@@ -57,55 +57,5 @@ public class InstanceFactory {
         tool.out(instance, tool.function(instance, randomOrdering), "afterSwap");
 //        System.out.println(tool.function(instance, randomOrdering).toString());
     }
-//    clc; clear all; close all;
-// format short g;
-//% dbstop if error;
-//
-//%Graph Random
-//
-//fileID = fopen('randomDaten.txt');
-//
-//formatSpec = '%d';
-//
-//A = fscanf(fileID,formatSpec);
-//
-//figure('name','Random');
-//plot(A);
-//grid on;
-//title('Random');
-//
-//%Graph Sorted Sells
-//
-//fileID = fopen('sortedSellsDaten.txt');
-//
-//formatSpec = '%d';
-//
-//A = fscanf(fileID,formatSpec);
-//
-//figure('name','Sorted Sells');
-//plot(A);
-//grid on;
-//% xPlot=-2:0.01:50;
-//% xticks(0:1:50);
-//% xticklabels({'x = 0','x = 5','x = 10'})
-//% set(gca,'xLim',[-2 50])
-//% x = linspace(1,1000);
-//% set(gca,'xTick',1 2 3 4 5 6 7 );
-//% set(gca,'XtickLabel');
-//%set(AX(1),'xtick',[-2 -1 -1 0 1 2]); 
-//title('Sorted Sells');
-//
-//% Graph AfterSwap
-//
-//fileID = fopen('afterSwapDaten.txt');
-//
-//
-//formatSpec = '%d';
-//
-//A = fscanf(fileID,formatSpec);
-//
-//figure('name','AfterSwap');
-//plot(A);
-//grid on;
-//title('AfterSwap');
+
 }
