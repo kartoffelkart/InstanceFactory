@@ -54,8 +54,10 @@ public class InstanceFactory {
         System.out.println("order: "+ randomOrdering.toString());
 
         System.out.println("AfterSwap: ");
-        tool.out(instance, tool.function(instance, randomOrdering), "afterSwap");
+        tool.out(instance, tool.function(instance, randomOrdering, "swap"), "afterSwap");
 //        System.out.println(tool.function(instance, randomOrdering).toString());
+         System.out.println("AfterChangeOrder: ");
+        tool.out(instance, tool.function(instance, randomOrdering, "changeOrder"), "afterChangeOrder");
     }
 
 }

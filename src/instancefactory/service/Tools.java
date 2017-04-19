@@ -9,8 +9,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -28,7 +30,8 @@ public class Tools {
     public ArrayList<Partition> makeBasicPartitions() {
 //        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
-        ArrayList<MyInteger> randomIntArrayList = this.getRandomMyIntArray(1, 20, 32);
+        ArrayList<MyInteger> randomIntArrayList = this.getRandomMyIntArray(1, 20, 32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
+
         System.out.println(randomIntArrayList.toString());
         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
 //        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
@@ -141,7 +144,7 @@ public class Tools {
             if (toogle == 0) {
                 Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
                 randomIntArrayList.add(te);
-                
+
                 toogle++;
             } else {
                 Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
@@ -150,7 +153,6 @@ public class Tools {
                 toogle--;
             }
         }
-              
 
         return randomIntArrayList;
     }
@@ -169,7 +171,7 @@ public class Tools {
         ArrayList<MyInteger> randomMyIntArrayList = new ArrayList<>();
 
         ArrayList<Integer> randomIntArrayList = getRandomIntArrayList(min, max, size);
-//         randomIntArrayList.set((size/4)*2+1,max);//todo: ich mache hier einen lokal großen Gewinn
+        randomIntArrayList.set((size / 4) * 2 + 1, 100);/*((size/4)*2+1,max);*/ //todo: ich mache hier einen lokal großen Gewinn
 
         for (int it = 0; it < randomIntArrayList.size(); it++) {
 
@@ -678,23 +680,33 @@ public class Tools {
         System.out.println("Werte: " + werte);
     }
 
-    public ArrayList<MyInteger> function(Partition p, ArrayList<MyInteger> ordering) {
-        ArrayList<MyInteger> allreadyBought = new ArrayList<>();
+    public ArrayList<MyInteger> function(Partition p, ArrayList<MyInteger> ordering, String update) {
+
         Integer highestMinimalBudget = getMinBudget(p, ordering);
 //        System.out.println("ordering nacg getMinBudget : " + ordering.toString());
         System.out.println("StartBudget: " + highestMinimalBudget);
+
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; i < ordering.size(); i++) {
-                ArrayList<MyInteger> newOrdering = swap(i, j, ordering);
-//                System.out.println("ordering nach swap : " + ordering.toString());
-                Integer newBudget = getMinBudget(p, newOrdering);
+                ArrayList<MyInteger> newOrdering = new ArrayList<>();
 
+                if (update.equals("swap")) {
+                    newOrdering = swap(i, j, ordering);
+//                System.out.println("ordering nach swap : " + ordering.toString());
+                }
+
+                if (update.equals("changeOrder")) {
+                    newOrdering = changeOrder(i, j, ordering);
+//                System.out.println("ordering nach swap : " + ordering.toString());
+                }
+                Integer newBudget = getMinBudget(p, newOrdering);
+                System.out.println("NewBudget: " + newBudget);
                 if (newBudget > highestMinimalBudget) {
                     ordering = newOrdering;
                     highestMinimalBudget = newBudget;
-                    System.out.println("NewBudget: " + newBudget);
+                    System.out.println("highestMinimalBudget: " + highestMinimalBudget);
 
-                    return function(p, ordering);
+                    return function(p, ordering, update);
 
                 }
             }
@@ -709,6 +721,27 @@ public class Tools {
 
         newOrdering.set(i, ordering.get(j));
         newOrdering.set(j, ordering.get(i));
+        return newOrdering;
+    }
+
+    public ArrayList<MyInteger> changeOrder(int i, int j, ArrayList<MyInteger> ordering) {
+        ArrayList<MyInteger> newOrdering = new ArrayList<>();
+        newOrdering.addAll(ordering);
+        System.out.println("newOrdering:" + newOrdering);
+        List<MyInteger> part = new ArrayList<>();
+        for (int k = i; k < j + 1; k++) {
+            part.add(newOrdering.get(k));
+        }
+        System.out.println("part:" + part);
+//ArrayList.reverse(part);
+//        Collections.reverse(Arrays.asList(part));
+        System.out.println("part:" + part);
+
+        for (int k = 0; k < part.size(); k++) {
+            newOrdering.set(k + i, part.get(k));
+        }
+        System.out.println("newOrdering:" + newOrdering);
+
         return newOrdering;
     }
 
