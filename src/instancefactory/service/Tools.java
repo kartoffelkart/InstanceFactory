@@ -687,7 +687,7 @@ public class Tools {
         System.out.println("StartBudget: " + highestMinimalBudget);
 
         for (int i = 0; i < ordering.size(); i++) {
-            for (int j = i + 1; i < ordering.size(); i++) {
+            for (int j = i + 1; j < ordering.size(); j++) {
                 ArrayList<MyInteger> newOrdering = new ArrayList<>();
 
                 if (update.equals("swap")) {
@@ -734,7 +734,7 @@ public class Tools {
         }
         System.out.println("part:" + part);
 //ArrayList.reverse(part);
-//        Collections.reverse(Arrays.asList(part));
+        Collections.reverse(part);
         System.out.println("part:" + part);
 
         for (int k = 0; k < part.size(); k++) {
