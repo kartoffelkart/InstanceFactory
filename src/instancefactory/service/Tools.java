@@ -135,22 +135,22 @@ public class Tools {
     ArrayList<Integer> getRandomIntArrayList(int min, int max, int size) {
         ArrayList<Integer> randomIntArrayList = new ArrayList<>();
 
-        int it = 0;
         int toogle = 0;
-        while (it < size) {
+
+        for (int it = 0; it < size; it++) {
             if (toogle == 0) {
                 Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
                 randomIntArrayList.add(te);
-                it++;
+                
                 toogle++;
             } else {
                 Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
                 randomIntArrayList./*add(te);//*/add(te + 10);//todo: so werden die ungeraden, also die Boughts größer
-                it++;
+
                 toogle--;
             }
         }
-        //        randomIntArrayList.set(size/2,max);//todo: ich mache hier einen lokal großen Gewinn
+              
 
         return randomIntArrayList;
     }
@@ -169,6 +169,7 @@ public class Tools {
         ArrayList<MyInteger> randomMyIntArrayList = new ArrayList<>();
 
         ArrayList<Integer> randomIntArrayList = getRandomIntArrayList(min, max, size);
+//         randomIntArrayList.set((size/4)*2+1,max);//todo: ich mache hier einen lokal großen Gewinn
 
         for (int it = 0; it < randomIntArrayList.size(); it++) {
 
@@ -206,11 +207,11 @@ public class Tools {
      */
     public String getChoice(int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
-        ArrayList<MyInteger> numbers = getRandomMyIntArray(1, 100, 1);
-        if (numbers.get(0).i < unionProbability) {
+        ArrayList<Integer> numbers = getRandomIntArrayList(1, 100, 1);
+        if (numbers.get(0) < unionProbability) {
             return "union";
         } else {
-            if (numbers.get(0).i < (unionProbability + leftJoinProbability)) {
+            if (numbers.get(0) < (unionProbability + leftJoinProbability)) {
                 return "leftJoin";
             } else {
                 return "rightJoin";
@@ -228,8 +229,8 @@ public class Tools {
      */
     public String getCoin(int boughtProbability, int saleProbability) {
 
-        ArrayList<MyInteger> numbers = getRandomMyIntArray(1, 100, 1);
-        if (numbers.get(0).i < boughtProbability) {
+        ArrayList<Integer> numbers = getRandomIntArrayList(1, 100, 1);
+        if (numbers.get(0) < boughtProbability) {
             return "bought";
         } else {
             return "sell";
@@ -253,13 +254,13 @@ public class Tools {
 
         for (int y = 0; (y < partitions.size()); y++) {
 
-            ArrayList<MyInteger> numbers = getRandomMyIntArray(1, sumProb, 1);//Wieso geht kein einfacher MyInteger
-            MyInteger number = numbers.get(0);
+            ArrayList<Integer> numbers = getRandomIntArrayList(1, sumProb, 1);//Wieso geht kein einfacher MyInteger
+            Integer number = numbers.get(0);
             System.out.println(number.toString() + "<");
             sum = sum + partitions.get(y).probability;
             System.out.println(sum.toString());
 
-            if (number.i < sum + 1) {
+            if (number < sum + 1) {
                 partition = partitions.get(y);
                 break;
             }
