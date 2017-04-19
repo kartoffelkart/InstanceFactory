@@ -28,7 +28,7 @@ public class Tools {
     public ArrayList<Partition> makeBasicPartitions() {
 //        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
-        ArrayList<MyInteger> randomIntArrayList = this.getRandomIntArray(1, 20, 32);
+        ArrayList<MyInteger> randomIntArrayList = this.getRandomMyIntArray(1, 20, 32);
         System.out.println(randomIntArrayList.toString());
         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
 //        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
@@ -124,19 +124,17 @@ public class Tools {
     }
 
     /**
-     * hier wird ein zufälliger Array von MyInteger Objekten erzeugt
+     * hier wird ein zufälliger Array von Integer Objekten erzeugt
      *
-     * @param min linkes Intervallende der MyInteger
-     * @param max rechtes Intervallende der MyInteger
+     * @param min linkes Intervallende der Integer
+     * @param max rechtes Intervallende der Integer
      * @param size Größe des Arrays
-     * @return zufälliger Array der Länge size von MyInteger Objekten zwischen
-     * min und max
+     * @return zufälliger Array der Länge size von Integer Objekten zwischen min
+     * und max
      */
-    public ArrayList<MyInteger> getRandomIntArray(int min, int max, int size) {
+    ArrayList<Integer> getRandomIntArrayList(int min, int max, int size) {
         ArrayList<Integer> randomIntArrayList = new ArrayList<>();
-        ArrayList<MyInteger> randomMyIntArrayList = new ArrayList<>();
 
-//ersmal Integer Array
         int it = 0;
         int toogle = 0;
         while (it < size) {
@@ -147,19 +145,36 @@ public class Tools {
                 toogle++;
             } else {
                 Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
-                randomIntArrayList.add(te);//(te+10);//todo: so werden die ungeraden, also die Boughts größer
+                randomIntArrayList./*add(te);//*/add(te + 10);//todo: so werden die ungeraden, also die Boughts größer
                 it++;
                 toogle--;
             }
         }
-//dann MyInteger Array
-        it = 0;
-        while (it < randomIntArrayList.size()) {
+        //        randomIntArrayList.set(size/2,max);//todo: ich mache hier einen lokal großen Gewinn
+
+        return randomIntArrayList;
+    }
+
+    /**
+     * hier wird ein zufälliger Array von MyInteger Objekten erzeugt
+     *
+     * @param min linkes Intervallende der MyInteger
+     * @param max rechtes Intervallende der MyInteger
+     * @param size Größe des Arrays
+     * @return zufälliger Array der Länge size von MyInteger Objekten zwischen
+     * min und max
+     */
+    public ArrayList<MyInteger> getRandomMyIntArray(int min, int max, int size) {
+
+        ArrayList<MyInteger> randomMyIntArrayList = new ArrayList<>();
+
+        ArrayList<Integer> randomIntArrayList = getRandomIntArrayList(min, max, size);
+
+        for (int it = 0; it < randomIntArrayList.size(); it++) {
+
             MyInteger te = new MyInteger(randomIntArrayList.get(it));
             randomMyIntArrayList.add(te);
-            it++;
         }
-
         return randomMyIntArrayList;
     }
 
@@ -191,7 +206,7 @@ public class Tools {
      */
     public String getChoice(int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
-        ArrayList<MyInteger> numbers = getRandomIntArray(1, 100, 1);
+        ArrayList<MyInteger> numbers = getRandomMyIntArray(1, 100, 1);
         if (numbers.get(0).i < unionProbability) {
             return "union";
         } else {
@@ -213,7 +228,7 @@ public class Tools {
      */
     public String getCoin(int boughtProbability, int saleProbability) {
 
-        ArrayList<MyInteger> numbers = getRandomIntArray(1, 100, 1);
+        ArrayList<MyInteger> numbers = getRandomMyIntArray(1, 100, 1);
         if (numbers.get(0).i < boughtProbability) {
             return "bought";
         } else {
@@ -238,7 +253,7 @@ public class Tools {
 
         for (int y = 0; (y < partitions.size()); y++) {
 
-            ArrayList<MyInteger> numbers = getRandomIntArray(1, sumProb, 1);//Wieso geht kein einfacher MyInteger
+            ArrayList<MyInteger> numbers = getRandomMyIntArray(1, sumProb, 1);//Wieso geht kein einfacher MyInteger
             MyInteger number = numbers.get(0);
             System.out.println(number.toString() + "<");
             sum = sum + partitions.get(y).probability;
@@ -515,16 +530,15 @@ public class Tools {
 //
 //            toLink.addAll(tempo);
 //            tempo.add(0, zero);
-            Set<MyInteger> hs = new HashSet<>();
-            hs.addAll(toLink);
-            toLink.clear();
-            toLink.addAll(hs);
+        Set<MyInteger> hs = new HashSet<>();
+        hs.addAll(toLink);
+        toLink.clear();
+        toLink.addAll(hs);
 //
 //        }
-         for (int k = 0; k < p1.arrayList.size(); k++) {
+        for (int k = 0; k < p1.arrayList.size(); k++) {
             a.get(k).addAll(toLink);
         }
-       
 
         a.addAll(p2.arrayList);
         return a;
