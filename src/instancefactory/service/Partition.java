@@ -88,7 +88,7 @@ public class Partition {
     public ArrayList<MyInteger> getBoughtsOfSell(MyInteger sell) {
         ArrayList<MyInteger> newBought = new ArrayList<>();
         newBought.addAll(arrayList.get(getPositionOfSellInAdjazenslist(sell))); //hier holen wir alle für den Sell benötigten Boughts
-        newBought.remove(0);
+        newBought.remove(0) ;
        
         return newBought;
     }
