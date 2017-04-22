@@ -30,7 +30,7 @@ public class Tools {
     public ArrayList<Partition> makeBasicPartitions() {
 //        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
-        ArrayList<MyInteger> randomIntArrayList = this.getRandomMyIntArray(1, 20, 32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
+        ArrayList<MyInteger> randomIntArrayList = this.getRandomMyIntArray(1, 50, 32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
 
         System.out.println(randomIntArrayList.toString());
         File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
@@ -139,19 +139,13 @@ public class Tools {
         ArrayList<Integer> randomIntArrayList = new ArrayList<>();
 
         int toogle = 0;
+        Integer te;
 
         for (int it = 0; it < size; it++) {
-            if (toogle == 0) {
-                Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
-                randomIntArrayList.add(te);
+            te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
+            randomIntArrayList.add(te);
 
-                toogle++;
-            } else {
-                Integer te = new Integer(ThreadLocalRandom.current().nextInt(min, max + 1));
-                randomIntArrayList./*add(te);//*/add(te + 10);//todo: so werden die ungeraden, also die Boughts größer
-
-                toogle--;
-            }
+//           
         }
 
         return randomIntArrayList;
@@ -171,12 +165,22 @@ public class Tools {
         ArrayList<MyInteger> randomMyIntArrayList = new ArrayList<>();
 
         ArrayList<Integer> randomIntArrayList = getRandomIntArrayList(min, max, size);
-        randomIntArrayList.set((size / 4) * 2 + 1, 100);/*((size/4)*2+1,max);*/ //todo: ich mache hier einen lokal großen Gewinn
-
+//        randomIntArrayList.set((size / 4) * 2 + 1, 100);/*((size/4)*2+1,max);*/ //todo: ich mache hier einen lokal großen Gewinn
+        int toogle = 0;
         for (int it = 0; it < randomIntArrayList.size(); it++) {
+            if (toogle == 0) {
 
-            MyInteger te = new MyInteger(randomIntArrayList.get(it));
-            randomMyIntArrayList.add(te);
+                MyInteger te = new MyInteger(randomIntArrayList.get(it)+ 10);//todo: so werden die geraden, also die Sells größer
+                randomMyIntArrayList.add(te);
+                System.out.println("te:" + te.toString());
+                toogle++;
+            } else {
+                MyInteger te = new MyInteger(randomIntArrayList.get(it) );//todo: so werden die ungeraden, also die Boughts größer
+                randomMyIntArrayList.add(te);
+                System.out.println("te:" + te.toString());
+                toogle--;
+            }
+
         }
         return randomMyIntArrayList;
     }
@@ -638,6 +642,29 @@ public class Tools {
         }
         return budget;
     }
+
+    public void outStatistikN(String dateiname) {
+
+        File fileX = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\StatistikN\\" + dateiname + "DatenX.txt");
+        File fileY = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\StatistikN\\" + dateiname + "DatenY.txt");
+
+        try {
+//            file.mkdirs();
+            fileX.createNewFile();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        try {
+//            file.mkdirs();
+            fileY.createNewFile();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+//        tool.function(instance, randomOrdering, "swap")
+//                tool.function(instance, randomOrdering, "changeOrder"
+    }
+// todo: Hier gebe ich Integer minBudget zurück
 
     public void out(Partition p, ArrayList<MyInteger> ordering, String dateiname) {
         ArrayList<MyInteger> allready = new ArrayList<>();
