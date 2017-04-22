@@ -28,37 +28,43 @@ public class InstanceFactory {
 
     public static void main(String[] args) {
         Integer catchMe;
-        Integer balance = 0;
+      
         ArrayList<Partition> partitions = new ArrayList<>();
         Partition instance;
 //        ArrayList<Integer> balances = new ArrayList<>();
 //        Integer balanceOfInstance ;
 
         partitions = tool.makeBasicPartitions();
-        Iterator it = partitions.iterator();
-        ArrayList<MyInteger> randomOrdering = new ArrayList<>();
-        for (int k = 0; k < partitions.size(); k++) {
-            randomOrdering.add((partitions.get(k).arrayList.get(0)).get(0));
-        }
+   ArrayList<MyInteger> randomOrdering = tool.getOrderingOfBasicPartitions(partitions);
 
-        tool.buildInstance(partitions, 33, 33, 34);
+
+        tool.buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
+        
         instance = partitions.get(0);
+        
+        //-------------------------------------------------------------------------------------------------------------------------
+        
         System.out.println("Balance: " + instance.balance);
         System.out.println("Budget: " + instance.budget);
 
         System.out.println("Sorted Sells: ");
-        instance.sortedSellsOut("sortedSells");
+//        instance.sortedSellsOut("sortedSells");
+        catchMe = tool.out(instance, instance.sortedSells, "sortedSells");
 
         System.out.println("Random: ");
         catchMe = tool.out(instance, randomOrdering, "random");
 //        System.out.println("order: "+ randomOrdering.toString());
 
         System.out.println("AfterSwap: ");
-        catchMe = tool.out(instance, tool.function(instance, randomOrdering, "swap"), "afterSwap");
+        catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "swap"), "afterSwap");
 //        System.out.println(tool.function(instance, randomOrdering).toString());
 
         System.out.println("AfterChangeOrder: ");
-        catchMe = tool.out(instance, tool.function(instance, randomOrdering, "changeOrder"), "afterChangeOrder");
+        catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "changeOrder"), "afterChangeOrder");
+        
+        
+        
     }
+   
 
 }

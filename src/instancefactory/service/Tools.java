@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
@@ -96,7 +97,7 @@ public class Tools {
      * Schritt zweier daraus zufällig gewählter Partitioen
      *
      */
-    public void buildInstance(ArrayList<Partition> partitions, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
+    public void buildInstanceOnBasicPartitions(ArrayList<Partition> partitions, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
         while (partitions.size() > 1) {
             Partition partition = new Partition();
@@ -244,7 +245,7 @@ public class Tools {
     }
 
     /**
-     * @see buildInstance
+     * @see buildInstanceOnBasicPartitions
      * @param partitions Die aktuellen Partitionen aus denen jetzt eine nach
      * bestimmten Kriterien der Warscheinlichkeit ausgewählt wird
      * @return 'random' Partition, die nach bestimmten Kriterien der
@@ -642,6 +643,52 @@ public class Tools {
         }
         return budget;
     }
+public void calculate(File fileX,File fileY,String heuristik,int anzahlKnoten){
+
+
+
+
+}
+
+public Partition buildInstance(){
+         Partition instance;
+
+ ArrayList<Partition> partitions = new ArrayList<>();
+       
+        partitions = makeBasicPartitions();
+  
+        buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
+
+        instance = partitions.get(0);
+return instance;
+}
+
+public void calculateAndPrintValue(File fileY){
+
+    Integer catchMe;
+    
+        Partition instance=buildInstance();
+
+       
+        
+         try {
+            PrintWriter pr = new PrintWriter(fileY);
+            pr.println(0);
+            
+        catchMe = out(instance, instance.sortedSells, "sortedSells");
+       
+        pr.println(catchMe);
+
+            
+            pr.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("No such file exists.");
+        }
+        
+
+
+}
 
     public void outStatistikN(String dateiname) {
 
@@ -660,7 +707,9 @@ public class Tools {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-
+     
+        
+       
 //        tool.function(instance, randomOrdering, "swap")
 //                tool.function(instance, randomOrdering, "changeOrder"
     }
@@ -711,7 +760,7 @@ public class Tools {
         return minBudget;
     }
 
-    public ArrayList<MyInteger> function(Partition p, ArrayList<MyInteger> ordering, String update) {
+    public ArrayList<MyInteger> getOrderingHeuristik(Partition p, ArrayList<MyInteger> ordering, String update) {
 
         Integer highestMinimalBudget = getMinBudget(p, ordering);
 //        System.out.println("ordering nacg getMinBudget : " + ordering.toString());
@@ -737,7 +786,7 @@ public class Tools {
                     highestMinimalBudget = newBudget;
                     System.out.println("highestMinimalBudget: " + highestMinimalBudget);
 
-                    return function(p, ordering, update);
+                    return getOrderingHeuristik(p, ordering, update);
 
                 }
             }
@@ -775,5 +824,13 @@ public class Tools {
 
         return newOrdering;
     }
-
+public  ArrayList<MyInteger> getOrderingOfBasicPartitions(ArrayList<Partition> basicPartitions){
+    
+         Iterator it = basicPartitions.iterator();
+        ArrayList<MyInteger> randomOrdering = new ArrayList<>();
+        for (int k = 0; k < basicPartitions.size(); k++) {
+            randomOrdering.add((basicPartitions.get(k).arrayList.get(0)).get(0));
+        }
+    return randomOrdering;
+    }
 }

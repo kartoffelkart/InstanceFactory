@@ -170,11 +170,7 @@ public class Partition {
 
     }
 
-    public void sortedSellsOut(String dateiname) {
-        newTool.out(this, sortedSells, dateiname);
-
-    }
-
+   
     @Override
     public String toString() {
         String ret = new String();
