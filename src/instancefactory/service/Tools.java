@@ -170,12 +170,12 @@ public class Tools {
         for (int it = 0; it < randomIntArrayList.size(); it++) {
             if (toogle == 0) {
 
-                MyInteger te = new MyInteger(randomIntArrayList.get(it)+ 10);//todo: so werden die geraden, also die Sells größer
+                MyInteger te = new MyInteger(randomIntArrayList.get(it) + 10);//todo: so werden die geraden, also die Sells größer
                 randomMyIntArrayList.add(te);
                 System.out.println("te:" + te.toString());
                 toogle++;
             } else {
-                MyInteger te = new MyInteger(randomIntArrayList.get(it) );//todo: so werden die ungeraden, also die Boughts größer
+                MyInteger te = new MyInteger(randomIntArrayList.get(it));//todo: so werden die ungeraden, also die Boughts größer
                 randomMyIntArrayList.add(te);
                 System.out.println("te:" + te.toString());
                 toogle--;
@@ -666,7 +666,8 @@ public class Tools {
     }
 // todo: Hier gebe ich Integer minBudget zurück
 
-    public void out(Partition p, ArrayList<MyInteger> ordering, String dateiname) {
+    public Integer out(Partition p, ArrayList<MyInteger> ordering, String dateiname) {
+
         ArrayList<MyInteger> allready = new ArrayList<>();
         File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "Daten.txt");
 //        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
@@ -705,6 +706,9 @@ public class Tools {
             System.out.println("No such file exists.");
         }
         System.out.println("Werte: " + werte);
+        Integer minBudget = Collections.min(werte);
+        System.out.println("minBudget: " + minBudget);
+        return minBudget;
     }
 
     public ArrayList<MyInteger> function(Partition p, ArrayList<MyInteger> ordering, String update) {

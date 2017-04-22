@@ -27,7 +27,7 @@ public class InstanceFactory {
     private static Tools tool = new Tools();
 
     public static void main(String[] args) {
-
+        Integer catchMe;
         Integer balance = 0;
         ArrayList<Partition> partitions = new ArrayList<>();
         Partition instance;
@@ -41,23 +41,24 @@ public class InstanceFactory {
             randomOrdering.add((partitions.get(k).arrayList.get(0)).get(0));
         }
 
-        tool.buildInstance(partitions,33, 33, 34);
+        tool.buildInstance(partitions, 33, 33, 34);
         instance = partitions.get(0);
         System.out.println("Balance: " + instance.balance);
         System.out.println("Budget: " + instance.budget);
 
         System.out.println("Sorted Sells: ");
         instance.sortedSellsOut("sortedSells");
-        System.out.println("Random: ");
 
-        tool.out(instance, randomOrdering, "random");
-        System.out.println("order: "+ randomOrdering.toString());
+        System.out.println("Random: ");
+        catchMe = tool.out(instance, randomOrdering, "random");
+//        System.out.println("order: "+ randomOrdering.toString());
 
         System.out.println("AfterSwap: ");
-        tool.out(instance, tool.function(instance, randomOrdering, "swap"), "afterSwap");
+        catchMe = tool.out(instance, tool.function(instance, randomOrdering, "swap"), "afterSwap");
 //        System.out.println(tool.function(instance, randomOrdering).toString());
-         System.out.println("AfterChangeOrder: ");
-        tool.out(instance, tool.function(instance, randomOrdering, "changeOrder"), "afterChangeOrder");
+
+        System.out.println("AfterChangeOrder: ");
+        catchMe = tool.out(instance, tool.function(instance, randomOrdering, "changeOrder"), "afterChangeOrder");
     }
 
 }
