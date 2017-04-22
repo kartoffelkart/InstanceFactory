@@ -5,10 +5,6 @@
  */
 package instancefactory.service;
 
-import instancefactory.service.MyInteger;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -24,6 +20,8 @@ public class Partition {
 
     public ArrayList<MyInteger> sortedSells;
 
+    public Integer minBudgetSwap;
+    public Integer minBudgetChangeOrder;
     /**
      * Liste der Anzahl an Sells PositiveSets
      */
@@ -88,8 +86,8 @@ public class Partition {
     public ArrayList<MyInteger> getBoughtsOfSell(MyInteger sell) {
         ArrayList<MyInteger> newBought = new ArrayList<>();
         newBought.addAll(arrayList.get(getPositionOfSellInAdjazenslist(sell))); //hier holen wir alle für den Sell benötigten Boughts
-        newBought.remove(0) ;
-       
+        newBought.remove(0);
+
         return newBought;
     }
 
@@ -170,7 +168,6 @@ public class Partition {
 
     }
 
-   
     @Override
     public String toString() {
         String ret = new String();

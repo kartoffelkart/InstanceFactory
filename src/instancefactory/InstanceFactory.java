@@ -34,7 +34,7 @@ public class InstanceFactory {
 //        ArrayList<Integer> balances = new ArrayList<>();
 //        Integer balanceOfInstance ;
 
-        partitions = tool.makeBasicPartitions();
+        partitions = tool.makeBasicPartitions(1,50,32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
    ArrayList<MyInteger> randomOrdering = tool.getOrderingOfBasicPartitions(partitions);
 
 
