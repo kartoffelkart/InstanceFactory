@@ -28,22 +28,21 @@ public class InstanceFactory {
 
     public static void main(String[] args) {
         Integer catchMe;
-      
+
         ArrayList<Partition> partitions = new ArrayList<>();
         Partition instance;
 //        ArrayList<Integer> balances = new ArrayList<>();
 //        Integer balanceOfInstance ;
 
-        partitions = tool.makeBasicPartitions(1,50,32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
-   ArrayList<MyInteger> randomOrdering = tool.getOrderingOfBasicPartitions(partitions);
+        partitions = tool.makeBasicPartitions(1, 50, 32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
 
+        ArrayList<MyInteger> randomOrdering = tool.getOrderingOfBasicPartitions(partitions);
 
         tool.buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
-        
+
         instance = partitions.get(0);
-        
+
         //-------------------------------------------------------------------------------------------------------------------------
-        
         System.out.println("Balance: " + instance.balance);
         System.out.println("Budget: " + instance.budget);
 
@@ -61,10 +60,9 @@ public class InstanceFactory {
 
         System.out.println("AfterChangeOrder: ");
         catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "changeOrder"), "afterChangeOrder");
-        
-        
-        
+
+        tool.outStatistikN("test");
+
     }
-   
 
 }
