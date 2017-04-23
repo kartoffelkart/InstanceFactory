@@ -706,21 +706,22 @@ public class Tools {
             prX.println(0);
             prY.println(0);
 
-            for (int i = 2; i < 10; i++) {// todo: kein +10 ??????
+            for (int i = 2; i < 200; i += 10) {// todo: kein +10 ??????
 
                 prX.println(i);
 
                 partitions = makeBasicPartitions(1, 50, i);
-
+int sumOfBoughts= getSumOfBoughts(partitions);
                 ArrayList<MyInteger> randomOrdering = getOrderingOfBasicPartitions(partitions);
 
                 buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
                 instance = partitions.get(0);
 
                 ArrayList<MyInteger> orderingSwap = getOrderingHeuristik(instance, randomOrdering, "swap");
-
-                prY.println(instance.minBudgetSwap);
-                System.out.println("yEintrag : " + instance.minBudgetSwap);
+               
+//                prY.println(sumOfBoughts/instance.minBudgetSwap);
+                prY.println(instance.budget/instance.minBudgetSwap);// todo: hier können wir Wert für Statistik ändern
+                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
             }
             prX.close();
@@ -863,5 +864,14 @@ public class Tools {
             randomOrdering.add((basicPartitions.get(k).arrayList.get(0)).get(0));
         }
         return randomOrdering;
+    }
+
+    public Integer getSumOfBoughts(ArrayList<Partition> basicPartitions) {
+        Iterator it = basicPartitions.iterator();
+        Integer sum = 0;
+        for (int k = 0; k < basicPartitions.size(); k++) {
+            sum = sum + ((basicPartitions.get(k).arrayList.get(0)).get(1)).i;
+        }
+        return sum;
     }
 }
