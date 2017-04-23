@@ -720,6 +720,7 @@ public class Tools {
                 ArrayList<MyInteger> orderingSwap = getOrderingHeuristik(instance, randomOrdering, "swap");
 
                 prY.println(instance.minBudgetSwap);
+                System.out.println("yEintrag : " + instance.minBudgetSwap);
 
             }
             prX.close();
@@ -784,6 +785,8 @@ public class Tools {
         Integer highestMinimalBudget = getMinBudget(p, ordering);
 //        System.out.println("ordering nacg getMinBudget : " + ordering.toString());
         System.out.println("StartBudget: " + highestMinimalBudget);
+        p.minBudgetSwap = highestMinimalBudget;
+        p.minBudgetChangeOrder = highestMinimalBudget;
 
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; j < ordering.size(); j++) {
@@ -799,8 +802,8 @@ public class Tools {
 //                System.out.println("ordering nach swap : " + ordering.toString());
                 }
                 Integer newBudget = getMinBudget(p, newOrdering);
-                System.out.println("NewBudget: " + newBudget);
-                
+//                System.out.println("NewBudget: " + newBudget);
+
                 if (newBudget > highestMinimalBudget) {
                     ordering = newOrdering;
                     highestMinimalBudget = newBudget;
@@ -812,8 +815,7 @@ public class Tools {
                         p.minBudgetChangeOrder = highestMinimalBudget;
                     }
 
-                    System.out.println("highestMinimalBudget: " + highestMinimalBudget);
-
+//                    System.out.println("highestMinimalBudget: " + highestMinimalBudget);
                     return getOrderingHeuristik(p, ordering, update);
 
                 }
