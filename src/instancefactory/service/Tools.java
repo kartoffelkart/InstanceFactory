@@ -705,23 +705,30 @@ public class Tools {
             PrintWriter prY = new PrintWriter(fileY);
             prX.println(0);
             prY.println(0);
-
-            for (int i = 2; i < 200; i += 10) {// todo: kein +10 ??????
+            int pool = 10;
+            for (int i = 2; i < 100; i += 10) {// todo: kein +10 ??????
+                double mittelwertSwap = 0;
+                double mittelwertSortedSells = 0;
 
                 prX.println(i);
+                for (int j = 0; j < pool; j++) {
+                    partitions = makeBasicPartitions(1, 50, i);
+//int sumOfBoughts= getSumOfBoughts(partitions);
+                    ArrayList<MyInteger> randomOrdering = getOrderingOfBasicPartitions(partitions);
 
-                partitions = makeBasicPartitions(1, 50, i);
-int sumOfBoughts= getSumOfBoughts(partitions);
-                ArrayList<MyInteger> randomOrdering = getOrderingOfBasicPartitions(partitions);
+                    buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
+                    instance = partitions.get(0);
 
-                buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
-                instance = partitions.get(0);
+                    ArrayList<MyInteger> orderingSwap = getOrderingHeuristik(instance, randomOrdering, "swap");
 
-                ArrayList<MyInteger> orderingSwap = getOrderingHeuristik(instance, randomOrdering, "swap");
-               
 //                prY.println(sumOfBoughts/instance.minBudgetSwap);
-                prY.println(instance.budget/instance.minBudgetSwap);// todo: hier können wir Wert für Statistik ändern
-                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
+                    mittelwertSortedSells = mittelwertSortedSells + instance.budget;
+                    mittelwertSwap = mittelwertSwap + instance.minBudgetSwap;
+                }
+                mittelwertSwap = mittelwertSwap / pool;
+                mittelwertSortedSells=mittelwertSortedSells/pool;
+                prY.println(mittelwertSortedSells / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
+//                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
             }
             prX.close();
