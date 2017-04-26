@@ -22,7 +22,10 @@ public class Partition {
 
     public Integer minBudgetSwap;
     public Integer minBudgetChangeOrder;
+
         public Integer minBudgetRandomOrder;
+              
+
 public Integer sumOfBoughts ;
     /**
      * Liste der Anzahl an Sells PositiveSets
