@@ -28,6 +28,8 @@ public class Tools {
      *
      * @return ArrayList of Partition
      */
+    Graph currentGraph = new Graph();
+
     public ArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
 //        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
@@ -649,7 +651,10 @@ public class Tools {
 ////        Integer minBudget = Collections.min(werte);
 //        return werte;
 //    }
-        ArrayList<Integer> werte = calculateValues(p, ordering);
+        if (currentGraph.werte == null) {
+            calculateValues(p, ordering, currentGraph);
+        }
+        ArrayList<Integer> werte = currentGraph.werte;
         Integer minBudget = Collections.min(werte);
         return minBudget;
     }
@@ -786,12 +791,12 @@ public class Tools {
     }
 // todo: Hier gebe ich Integer minBudget zurück
 
-    public ArrayList<Integer> calculateValues(Partition p, ArrayList<MyInteger> ordering) {
+    public void calculateValues(Partition p, ArrayList<MyInteger> ordering, Graph currentGraph) {
 
         ArrayList<MyInteger> allready = new ArrayList<>();
+        currentGraph.werte = new ArrayList<>();
 
-        ArrayList<Integer> werte = new ArrayList<>();
-        werte.add(0, 0);
+        currentGraph.werte.add(0, 0);
 
         Integer newValue;
 
@@ -802,21 +807,24 @@ public class Tools {
             allready.addAll(newB);
 //                System.out.println("newB ohne Allready   :   " + newB);
             for (int j = 0; j < newB.size(); j++) {
-                newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
-                werte.add(newValue);
+                newValue = currentGraph.werte.get(currentGraph.werte.size() - 1) - (newB.get(j).i);
+                currentGraph.werte.add(newValue);
 
             }
-            newValue = werte.get(werte.size() - 1) + ordering.get(i).i;
-            werte.add(newValue);
+            newValue = currentGraph.werte.get(currentGraph.werte.size() - 1) + ordering.get(i).i;
+            currentGraph.werte.add(newValue);
 
         }
 
 //        Integer minBudget = Collections.min(werte);
-        return werte;
     }
 
     public Integer out(Partition p, ArrayList<MyInteger> ordering, String dateiname) {
-        ArrayList<Integer> werte = calculateValues(p, ordering);
+
+        if (currentGraph.werte == null) {
+            calculateValues(p, ordering, currentGraph);
+        }
+        ArrayList<Integer> werte = currentGraph.werte;
         File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "Daten.txt");
 //        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
         try {
