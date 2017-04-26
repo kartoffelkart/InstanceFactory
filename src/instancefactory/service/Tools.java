@@ -623,6 +623,47 @@ public class Tools {
     }
 
     public Integer getMinBudget(Partition p, ArrayList<MyInteger> ordering) {
+//        ArrayList<MyInteger> allready = new ArrayList<>();
+//
+//        ArrayList<Integer> werte = new ArrayList<>();
+//        werte.add(0, 0);
+//
+//        Integer newValue;
+//
+//        for (int i = 0; i < ordering.size(); i++) {
+//            ArrayList<MyInteger> newB = p.getBoughtsOfSell(ordering.get(i));
+////                System.out.println("newB    :   " + newB);
+//            newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
+//            allready.addAll(newB);
+////                System.out.println("newB ohne Allready   :   " + newB);
+//            for (int j = 0; j < newB.size(); j++) {
+//                newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
+//                werte.add(newValue);
+//
+//            }
+//            newValue = werte.get(werte.size() - 1) + ordering.get(i).i;
+//            werte.add(newValue);
+//
+//        }
+//
+////        Integer minBudget = Collections.min(werte);
+//        return werte;
+//    }
+        ArrayList<Integer> werte = calculateValues(p, ordering);
+        Integer minBudget = Collections.min(werte);
+        return minBudget;
+    }
+
+    public ArrayList<ArrayList<Integer>> getValuesBudgetsAndBilanzen(Partition p, ArrayList<MyInteger> ordering) {
+        ArrayList<Integer> bilanzen = new ArrayList<>();
+        bilanzen.add(0);
+
+        ArrayList<Integer> budgets = new ArrayList<>();
+        budgets.add(0);
+        ArrayList<ArrayList<Integer>> returnValue = new ArrayList<>();
+        returnValue.add(budgets);
+        returnValue.add(bilanzen);
+
         Integer budget = 0;
         Integer newValue;
         Integer bilanz = 0;
@@ -637,11 +678,13 @@ public class Tools {
             allready.addAll(newB);
 
             budget = Integer.min(budget, bilanz - getSum(newB));
-
+            budgets.add(budget);
             bilanz = bilanz - getSum(newB) + ordering.get(i).i;
+            bilanzen.add(bilanz);
 
         }
-        return budget;
+
+        return returnValue;
     }
 
     public void calculate(File fileX, File fileY, String heuristik, int anzahlKnoten) {
