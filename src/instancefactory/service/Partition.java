@@ -46,7 +46,7 @@ public Integer sumOfBoughts ;
     public ArrayList<ArrayList<Integer>> balanceBoughtsBudgetOfSetUpToIndex = new ArrayList();
 
     public int probability;
-    public int budget = 0;
+    public int budget;// todo: test = 0;
     public int balance = 0;
     //_________________________________________________________________________
 

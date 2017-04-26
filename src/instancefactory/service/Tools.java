@@ -726,7 +726,7 @@ public class Tools {
                     mittelwertSwap = mittelwertSwap + instance.minBudgetSwap;
                 }
                 mittelwertSwap = mittelwertSwap / pool;
-                mittelwertSortedSells=mittelwertSortedSells/pool;
+                mittelwertSortedSells = mittelwertSortedSells / pool;
                 prY.println(mittelwertSortedSells / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
 //                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
@@ -743,9 +743,37 @@ public class Tools {
     }
 // todo: Hier gebe ich Integer minBudget zurück
 
-    public Integer out(Partition p, ArrayList<MyInteger> ordering, String dateiname) {
+    public ArrayList<Integer> calculateValues(Partition p, ArrayList<MyInteger> ordering) {
 
         ArrayList<MyInteger> allready = new ArrayList<>();
+
+        ArrayList<Integer> werte = new ArrayList<>();
+        werte.add(0, 0);
+
+        Integer newValue;
+
+        for (int i = 0; i < ordering.size(); i++) {
+            ArrayList<MyInteger> newB = p.getBoughtsOfSell(ordering.get(i));
+//                System.out.println("newB    :   " + newB);
+            newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
+            allready.addAll(newB);
+//                System.out.println("newB ohne Allready   :   " + newB);
+            for (int j = 0; j < newB.size(); j++) {
+                newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
+                werte.add(newValue);
+
+            }
+            newValue = werte.get(werte.size() - 1) + ordering.get(i).i;
+            werte.add(newValue);
+
+        }
+
+//        Integer minBudget = Collections.min(werte);
+        return werte;
+    }
+
+    public Integer out(Partition p, ArrayList<MyInteger> ordering, String dateiname) {
+        ArrayList<Integer> werte = calculateValues(p, ordering);
         File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "Daten.txt");
 //        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
         try {
@@ -754,29 +782,17 @@ public class Tools {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        ArrayList<Integer> werte = new ArrayList<>();
-        werte.add(0, 0);
 
         try {
             PrintWriter pr = new PrintWriter(file2);
             pr.println(0);
             Integer newValue;
 
-            for (int i = 0; i < ordering.size(); i++) {
-                ArrayList<MyInteger> newB = p.getBoughtsOfSell(ordering.get(i));
-//                System.out.println("newB    :   " + newB);
-                newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
-                allready.addAll(newB);
-//                System.out.println("newB ohne Allready   :   " + newB);
-                for (int j = 0; j < newB.size(); j++) {
-                    newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
-                    werte.add(newValue);
-                    pr.println(newValue);
-                }
-                newValue = werte.get(werte.size() - 1) + ordering.get(i).i;
-                werte.add(newValue);
-                pr.println(newValue);
+            for (int j = 0; j < werte.size(); j++) {
+
+                pr.println(werte.get(j));
             }
+
             pr.close();
         } catch (Exception e) {
             e.printStackTrace();

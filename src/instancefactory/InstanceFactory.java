@@ -61,7 +61,7 @@ public class InstanceFactory {
         System.out.println("AfterChangeOrder: ");
         catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "changeOrder"), "afterChangeOrder");
 
-//        tool.outStatistikN("test");
+        tool.outStatistikN("test");
 
     }
 
