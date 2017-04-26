@@ -55,13 +55,16 @@ public class InstanceFactory {
 //        System.out.println("order: "+ randomOrdering.toString());
 
         System.out.println("AfterSwap: ");
-        catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "swap"), "afterSwap");
+        ArrayList<MyInteger> orderingHeuristik = new ArrayList();
+        orderingHeuristik=tool.getOrderingHeuristik(instance, randomOrdering, "swap");
+        catchMe = tool.out(instance,orderingHeuristik , "afterSwap");
 //        System.out.println(tool.function(instance, randomOrdering).toString());
 
         System.out.println("AfterChangeOrder: ");
-        catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "changeOrder"), "afterChangeOrder");
+        orderingHeuristik=tool.getOrderingHeuristik(instance, randomOrdering, "changeOrder");
+        catchMe = tool.out(instance,orderingHeuristik , "afterChangeOrder");
 
-//        tool.outStatistikN("test");
+       tool.outStatistikN("test");
 
     }
 

@@ -726,7 +726,7 @@ public class Tools {
                     mittelwertSwap = mittelwertSwap + instance.minBudgetSwap;
                 }
                 mittelwertSwap = mittelwertSwap / pool;
-                mittelwertSortedSells=mittelwertSortedSells/pool;
+                mittelwertSortedSells = mittelwertSortedSells / pool;
                 prY.println(mittelwertSortedSells / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
 //                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
@@ -788,8 +788,9 @@ public class Tools {
         return minBudget;
     }
 
-    public ArrayList<MyInteger> getOrderingHeuristik(Partition p, ArrayList<MyInteger> ordering, String update) {
-
+    public ArrayList<MyInteger> getOrderingHeuristik(Partition p, ArrayList<MyInteger> order, String update) {
+        ArrayList<MyInteger> ordering = new ArrayList<>();
+        ordering.addAll(order);
         Integer highestMinimalBudget = getMinBudget(p, ordering);
 //        System.out.println("ordering nacg getMinBudget : " + ordering.toString());
         System.out.println("StartBudget: " + highestMinimalBudget);
@@ -830,7 +831,25 @@ public class Tools {
             }
         }
         System.out.println("ordering: " + ordering);
+        //Assertion
+        ArrayList<MyInteger> test = new ArrayList<>();
+        test.addAll(ordering);
+        test.removeAll(p.sortedSells);
+        if (!(test.isEmpty())) {
+            System.err.println("Fehler");
+            return null;
+        }
+        test.clear();
+        test.addAll(p.sortedSells);
+        test.removeAll(ordering);
+        if (!(test.isEmpty())) {
+            System.err.println("Fehler");
+            return null;
+        }
+        //Ende ASSERTION
+        
         return ordering;
+
     }
 
     public ArrayList<MyInteger> swap(int i, int j, ArrayList<MyInteger> ordering) {
