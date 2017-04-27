@@ -28,7 +28,7 @@ public class InstanceFactory {
     private static Tools tool = new Tools();
 
     public static void main(String[] args) {
-        Integer catchMe;
+        
 
         ArrayList<Partition> partitions = new ArrayList<>();
         Partition instance;
@@ -49,20 +49,21 @@ public class InstanceFactory {
 
         System.out.println("Sorted Sells: ");
 //        instance.sortedSellsOut("sortedSells");
-        catchMe = tool.out(instance, instance.sortedSells, "sortedSells");
+         Graph newGraph = new Graph(instance, instance.sortedSells);
+       tool.out(newGraph);
 
         System.out.println("Random: ");
-        catchMe = tool.out(instance, randomOrdering, "random");
+        tool.out(instance, randomOrdering, "random");
 //        System.out.println("order: "+ randomOrdering.toString());
 
         System.out.println("AfterSwap: ");
          Graph currentGraph = new Graph(instance, randomOrdering);
          
-        catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "swap",currentGraph), "afterSwap");
+        tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "swap",currentGraph), "afterSwap");
 //        System.out.println(tool.function(instance, randomOrdering).toString());
 
         System.out.println("AfterChangeOrder: ");
-        catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "changeOrder",currentGraph), "afterChangeOrder");
+        tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "changeOrder",currentGraph), "afterChangeOrder");
 
         tool.outStatistikN("test");
 

@@ -787,12 +787,8 @@ public class Tools {
     }
 // todo: Hier gebe ich Integer minBudget zurück
 
-    public Integer out(Partition p, ArrayList<MyInteger> ordering, String dateiname) {
+    public void out(Graph currentGraph, String dateiname) {
 
-        if (currentGraph.werte == null) {
-            calculateValues(p, ordering, currentGraph);
-        }
-        ArrayList<Integer> werte = currentGraph.werte;
         File file2 = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "Daten.txt");
 //        File file2 = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\SortedSellsInstance.txt");
         try {
@@ -805,11 +801,10 @@ public class Tools {
         try {
             PrintWriter pr = new PrintWriter(file2);
             pr.println(0);
-            Integer newValue;
 
-            for (int j = 0; j < werte.size(); j++) {
+            for (int j = 0; j < currentGraph.werte.size(); j++) {
 
-                pr.println(werte.get(j));
+                pr.println(currentGraph.werte.get(j));
             }
 
             pr.close();
@@ -817,16 +812,12 @@ public class Tools {
             e.printStackTrace();
             System.out.println("No such file exists.");
         }
-        System.out.println("Werte: " + werte);
-        Integer minBudget = Collections.min(werte);
-        System.out.println("minBudget: " + minBudget);
-        return minBudget;
+
     }
 
-    public ArrayList<MyInteger> getOrderingHeuristik(Partition p, ArrayList<MyInteger> order, String update, Graph currentGraph) {
+    public Graph getGraphHeuristik(Partition p, ArrayList<MyInteger> order, String update, Graph currentGraph) {
         ArrayList<MyInteger> ordering = new ArrayList<>();
         ordering.addAll(order);
-        
 
         Integer highestMinimalBudget = currentGraph.getMinBudget();
 
@@ -859,13 +850,13 @@ public class Tools {
                         p.minBudgetChangeOrder = highestMinimalBudget;
                     }
 
-                    return getOrderingHeuristik(p, ordering, update, newGraph);
+                    return getGraphHeuristik(p, ordering, update, newGraph);
 
                 }
             }
         }
         System.out.println("ordering: " + ordering);
-        return ordering;
+        return currentGraph;
     }
 
     public ArrayList<MyInteger> swap(int i, int j, ArrayList<MyInteger> ordering) {
