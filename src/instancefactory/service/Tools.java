@@ -622,7 +622,6 @@ public class Tools {
         return newValue;
     }
 
-   
     public void outStatistikN(String dateiname) {
 
         File fileX = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "DatenX.txt");
@@ -660,7 +659,7 @@ public class Tools {
 
                     buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
                     instance = partitions.get(0);
-Graph newGraph = new Graph(instance, randomOrdering);
+                    Graph newGraph = new Graph(instance, randomOrdering);
                     ArrayList<MyInteger> orderingSwap = (getGraphHeuristik(newGraph, "swap")).getOrdering();
 
 //                prY.println(sumOfBoughts/instance.minBudgetSwap);
@@ -719,8 +718,6 @@ Graph newGraph = new Graph(instance, randomOrdering);
 
         Integer highestMinimalBudget = currentGraph.getMinBudget();
 
-        
-
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; j < ordering.size(); j++) {
                 ArrayList<MyInteger> newOrdering = new ArrayList<>();
@@ -739,14 +736,18 @@ Graph newGraph = new Graph(instance, randomOrdering);
                 if (newGraph.getMinBudget() > highestMinimalBudget) {
                     ordering = newOrdering;
                     highestMinimalBudget = newGraph.getMinBudget();
-                   
-                    return getGraphHeuristik(newGraph, update);
 
                 }
             }
         }
-        
-        System.out.println("ordering: " + ordering);
+
+        if (update.equals("swap")) {
+            currentGraph.getPartition().minBudgetSwap = highestMinimalBudget;
+        }
+
+        if (update.equals("changeOrder")) {
+            currentGraph.getPartition().minBudgetChangeOrder = highestMinimalBudget;
+        }
         return currentGraph;
     }
 
