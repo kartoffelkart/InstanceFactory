@@ -727,7 +727,7 @@ public class Tools {
                 }
                 mittelwertSwap = mittelwertSwap / pool;
                 mittelwertSortedSells = mittelwertSortedSells / pool;
-                prY.println(mittelwertSortedSells / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
+                prY.println( mittelwertSwap/mittelwertSortedSells);// todo: hier können wir Wert für Statistik ändern
 //                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
             }
