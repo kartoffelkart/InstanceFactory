@@ -622,109 +622,7 @@ public class Tools {
         return newValue;
     }
 
-    public Integer getMinBudget(Partition p, ArrayList<MyInteger> ordering) {
-//        ArrayList<MyInteger> allready = new ArrayList<>();
-//
-//        ArrayList<Integer> werte = new ArrayList<>();
-//        werte.add(0, 0);
-//
-//        Integer newValue;
-//
-//        for (int i = 0; i < ordering.size(); i++) {
-//            ArrayList<MyInteger> newB = p.getBoughtsOfSell(ordering.get(i));
-////                System.out.println("newB    :   " + newB);
-//            newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
-//            allready.addAll(newB);
-////                System.out.println("newB ohne Allready   :   " + newB);
-//            for (int j = 0; j < newB.size(); j++) {
-//                newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
-//                werte.add(newValue);
-//
-//            }
-//            newValue = werte.get(werte.size() - 1) + ordering.get(i).i;
-//            werte.add(newValue);
-//
-//        }
-//
-////        Integer minBudget = Collections.min(werte);
-//        return werte;
-//    }
-
-        ArrayList<Integer> werte = currentGraph.werte;
-        Integer minBudget = Collections.min(werte);
-        return minBudget;
-    }
-
-    public ArrayList<ArrayList<Integer>> getValuesBudgetsAndBilanzen(Partition p, ArrayList<MyInteger> ordering) {
-        ArrayList<Integer> bilanzen = new ArrayList<>();
-        bilanzen.add(0);
-
-        ArrayList<Integer> budgets = new ArrayList<>();
-        budgets.add(0);
-        ArrayList<ArrayList<Integer>> returnValue = new ArrayList<>();
-        returnValue.add(budgets);
-        returnValue.add(bilanzen);
-
-        Integer budget = 0;
-        Integer newValue;
-        Integer bilanz = 0;
-        ArrayList<MyInteger> allready = new ArrayList<>();
-
-        for (int i = 0; i < ordering.size(); i++) {
-
-            ArrayList<MyInteger> newB = new ArrayList<>();
-            newB.addAll(p.getBoughtsOfSell(ordering.get(i)));
-
-            newB.removeAll(allready);
-            allready.addAll(newB);
-
-            budget = Integer.min(budget, bilanz - getSum(newB));
-            budgets.add(budget);
-            bilanz = bilanz - getSum(newB) + ordering.get(i).i;
-            bilanzen.add(bilanz);
-
-        }
-
-        return returnValue;
-    }
-
-    public void calculate(File fileX, File fileY, String heuristik, int anzahlKnoten) {
-
-    }
-
-//    public Partition buildInstance() {
-//        Partition instance;
-//
-//        ArrayList<Partition> partitions = new ArrayList<>();
-//
-//        partitions = makeBasicPartitions(1,50,32);
-//
-//        buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
-//
-//        instance = partitions.get(0);
-//        return instance;
-//    }
-//    public void calculateAndPrintValue(File fileY) {
-//
-//        Integer catchMe;
-//
-//        Partition instance = buildInstance();
-//
-//        try {
-//            PrintWriter pr = new PrintWriter(fileY);
-//            pr.println(0);
-//
-//            catchMe = out(instance, instance.sortedSells, "sortedSells");
-//
-//            pr.println(catchMe);
-//
-//            pr.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("No such file exists.");
-//        }
-//
-//    }
+   
     public void outStatistikN(String dateiname) {
 
         File fileX = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "DatenX.txt");
@@ -762,8 +660,8 @@ public class Tools {
 
                     buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
                     instance = partitions.get(0);
-
-                    ArrayList<MyInteger> orderingSwap = getOrderingHeuristik(instance, randomOrdering, "swap");
+Graph newGraph = new Graph(instance, randomOrdering);
+                    ArrayList<MyInteger> orderingSwap = (getGraphHeuristik(newGraph, "swap")).getOrdering();
 
 //                prY.println(sumOfBoughts/instance.minBudgetSwap);
                     mittelwertSortedSells = mittelwertSortedSells + instance.budget;
@@ -815,14 +713,13 @@ public class Tools {
 
     }
 
-    public Graph getGraphHeuristik(Partition p, ArrayList<MyInteger> order, String update, Graph currentGraph) {
+    public Graph getGraphHeuristik(Graph currentGraph, String update) {
         ArrayList<MyInteger> ordering = new ArrayList<>();
-        ordering.addAll(order);
+        ordering.addAll(currentGraph.getOrdering());
 
         Integer highestMinimalBudget = currentGraph.getMinBudget();
 
-        p.minBudgetSwap = highestMinimalBudget;
-        p.minBudgetChangeOrder = highestMinimalBudget;
+        
 
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; j < ordering.size(); j++) {
@@ -837,24 +734,18 @@ public class Tools {
                     newOrdering = changeOrder(i, j, ordering);
 
                 }
-                Graph newGraph = new Graph(p, newOrdering);
+                Graph newGraph = new Graph(currentGraph.getPartition(), newOrdering);
 
                 if (newGraph.getMinBudget() > highestMinimalBudget) {
                     ordering = newOrdering;
                     highestMinimalBudget = newGraph.getMinBudget();
-                    if (update.equals("swap")) {
-                        p.minBudgetSwap = highestMinimalBudget;
-                    }
-
-                    if (update.equals("changeOrder")) {
-                        p.minBudgetChangeOrder = highestMinimalBudget;
-                    }
-
-                    return getGraphHeuristik(p, ordering, update, newGraph);
+                   
+                    return getGraphHeuristik(newGraph, update);
 
                 }
             }
         }
+        
         System.out.println("ordering: " + ordering);
         return currentGraph;
     }

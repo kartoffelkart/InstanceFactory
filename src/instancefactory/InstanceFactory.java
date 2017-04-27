@@ -29,6 +29,7 @@ public class InstanceFactory {
 
     public static void main(String[] args) {
         
+//       public void superFunction (){}
 
         ArrayList<Partition> partitions = new ArrayList<>();
         Partition instance;
@@ -44,26 +45,23 @@ public class InstanceFactory {
         instance = partitions.get(0);
 
         //-------------------------------------------------------------------------------------------------------------------------
-        System.out.println("Balance: " + instance.balance);
-        System.out.println("Budget: " + instance.budget);
+        Graph newGraph;
 
+        newGraph = new Graph(instance, instance.sortedSells);
         System.out.println("Sorted Sells: ");
-//        instance.sortedSellsOut("sortedSells");
-         Graph newGraph = new Graph(instance, instance.sortedSells);
-       tool.out(newGraph);
+
+        tool.out(newGraph, "sortedSells");
+        newGraph = new Graph(instance, randomOrdering);
 
         System.out.println("Random: ");
-        tool.out(instance, randomOrdering, "random");
-//        System.out.println("order: "+ randomOrdering.toString());
+        tool.out(newGraph, "random");
 
         System.out.println("AfterSwap: ");
-         Graph currentGraph = new Graph(instance, randomOrdering);
-         
-        tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "swap",currentGraph), "afterSwap");
-//        System.out.println(tool.function(instance, randomOrdering).toString());
+
+        tool.out(tool.getGraphHeuristik(newGraph, "swap"), "afterSwap");
 
         System.out.println("AfterChangeOrder: ");
-        tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "changeOrder",currentGraph), "afterChangeOrder");
+        tool.out(tool.getGraphHeuristik(newGraph, "changeOrder"), "afterChangeOrder");
 
         tool.outStatistikN("test");
 

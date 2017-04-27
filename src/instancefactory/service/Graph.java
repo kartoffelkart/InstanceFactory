@@ -14,16 +14,18 @@ import java.util.Collections;
  */
 public class Graph {
 
-    Partition partition;
-    ArrayList<MyInteger> ordering;
-    ArrayList<MyInteger> orderingWithBoughts;
-    Integer minBudget;
+    private Partition partition;
+    private ArrayList<MyInteger> ordering;
+    private ArrayList<MyInteger> orderingWithBoughts;
     public ArrayList<Integer> werte;
+
+    private Integer minBudget;
 
     public Graph(Partition partition, ArrayList<MyInteger> ordering) {
         this.partition = partition;
         this.ordering = ordering;
-
+        this.orderingWithBoughts = new ArrayList<>();
+        this.werte = new ArrayList<>();
         calculateValues(partition, ordering);
         this.minBudget = Collections.min(werte);
     }
@@ -76,7 +78,5 @@ public class Graph {
     public ArrayList<Integer> getWerte() {
         return werte;
     }
-    
-    
-    
+
 }
