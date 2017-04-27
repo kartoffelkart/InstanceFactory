@@ -827,14 +827,9 @@ public void buildIstanceMakeHeuristicsAndOut(int min, int max, int size){
         System.out.println("AfterChangeOrder: ");
         out(getGraphHeuristik(newGraph, "changeOrder"), "afterChangeOrder");
 }
-    public void superFunction(int min, int max, int size) {
+    public void superFunctionStatistik(int min, int max, int size) {
         Partition instance = buildInstance(min, max, size);
 
-        
-        
-    
-   
-        
        
         outStatistikN("test");
 

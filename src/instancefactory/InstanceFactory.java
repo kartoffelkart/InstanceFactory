@@ -28,8 +28,9 @@ public class InstanceFactory {
     private static Tools tool = new Tools();
 
     public static void main(String[] args) {
-        tool.superFunction(1, 100, 32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
-tool.buildIstanceMakeHeuristicsAndOut(1, 100, 32);
+//        tool.superFunctionStatistik(1, 100, 32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
+
+        tool.buildIstanceMakeHeuristicsAndOut(1, 100, 32);
 
     }
 
