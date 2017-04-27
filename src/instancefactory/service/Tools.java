@@ -28,11 +28,6 @@ public class Tools {
      *
      * @return ArrayList of Partition
      */
-    public Graph currentGraph = new Graph();
-    public Graph lastGraph = new Graph();
-  
-         
-
     public ArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
 //        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
@@ -654,9 +649,7 @@ public class Tools {
 ////        Integer minBudget = Collections.min(werte);
 //        return werte;
 //    }
-        if (currentGraph.werte == null) {
-            calculateValues(p, ordering, currentGraph);
-        }
+
         ArrayList<Integer> werte = currentGraph.werte;
         Integer minBudget = Collections.min(werte);
         return minBudget;
@@ -794,34 +787,6 @@ public class Tools {
     }
 // todo: Hier gebe ich Integer minBudget zurück
 
-    public void calculateValues(Partition p, ArrayList<MyInteger> ordering, Graph currentGraph) {
-
-        ArrayList<MyInteger> allready = new ArrayList<>();
-        currentGraph.werte = new ArrayList<>();
-
-        currentGraph.werte.add(0, 0);
-
-        Integer newValue;
-
-        for (int i = 0; i < ordering.size(); i++) {
-            ArrayList<MyInteger> newB = p.getBoughtsOfSell(ordering.get(i));
-//                System.out.println("newB    :   " + newB);
-            newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
-            allready.addAll(newB);
-//                System.out.println("newB ohne Allready   :   " + newB);
-            for (int j = 0; j < newB.size(); j++) {
-                newValue = currentGraph.werte.get(currentGraph.werte.size() - 1) - (newB.get(j).i);
-                currentGraph.werte.add(newValue);
-
-            }
-            newValue = currentGraph.werte.get(currentGraph.werte.size() - 1) + ordering.get(i).i;
-            currentGraph.werte.add(newValue);
-
-        }
-
-//        Integer minBudget = Collections.min(werte);
-    }
-
     public Integer out(Partition p, ArrayList<MyInteger> ordering, String dateiname) {
 
         if (currentGraph.werte == null) {
@@ -858,14 +823,13 @@ public class Tools {
         return minBudget;
     }
 
-    public ArrayList<MyInteger> getOrderingHeuristik(Partition p, ArrayList<MyInteger> order, String update) {
-ArrayList<MyInteger> ordering=order;
-        calculateValues(p, ordering, currentGraph);
-      
-        Integer highestMinimalBudget = getMinBudget(p, ordering);
-       
-//        System.out.println("ordering nacg getMinBudget : " + ordering.toString());
-        System.out.println("StartBudget: " + highestMinimalBudget);
+    public ArrayList<MyInteger> getOrderingHeuristik(Partition p, ArrayList<MyInteger> order, String update, Graph currentGraph) {
+        ArrayList<MyInteger> ordering = new ArrayList<>();
+        ordering.addAll(order);
+        
+
+        Integer highestMinimalBudget = currentGraph.getMinBudget();
+
         p.minBudgetSwap = highestMinimalBudget;
         p.minBudgetChangeOrder = highestMinimalBudget;
 
@@ -875,21 +839,18 @@ ArrayList<MyInteger> ordering=order;
 
                 if (update.equals("swap")) {
                     newOrdering = swap(i, j, ordering);
-//                System.out.println("ordering nach swap : " + ordering.toString());
+
                 }
 
                 if (update.equals("changeOrder")) {
                     newOrdering = changeOrder(i, j, ordering);
-//                System.out.println("ordering nach swap : " + ordering.toString());
-                }
-                lastGraph.werte=currentGraph.werte;
-                calculateValues(p, ordering, currentGraph);
-                Integer newBudget = getMinBudget(p, newOrdering);
-//                System.out.println("NewBudget: " + newBudget);
 
-                if (newBudget > highestMinimalBudget) {
+                }
+                Graph newGraph = new Graph(p, newOrdering);
+
+                if (newGraph.getMinBudget() > highestMinimalBudget) {
                     ordering = newOrdering;
-                    highestMinimalBudget = newBudget;
+                    highestMinimalBudget = newGraph.getMinBudget();
                     if (update.equals("swap")) {
                         p.minBudgetSwap = highestMinimalBudget;
                     }
@@ -897,9 +858,8 @@ ArrayList<MyInteger> ordering=order;
                     if (update.equals("changeOrder")) {
                         p.minBudgetChangeOrder = highestMinimalBudget;
                     }
-lastGraph.werte=currentGraph.werte;
-//                    System.out.println("highestMinimalBudget: " + highestMinimalBudget);
-                    return getOrderingHeuristik(p, ordering, update);
+
+                    return getOrderingHeuristik(p, ordering, update, newGraph);
 
                 }
             }

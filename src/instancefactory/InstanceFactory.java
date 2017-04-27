@@ -5,6 +5,7 @@
  */
 package instancefactory;
 
+import instancefactory.service.Graph;
 import instancefactory.service.MyInteger;
 import instancefactory.service.Partition;
 import instancefactory.service.Tools;
@@ -55,11 +56,13 @@ public class InstanceFactory {
 //        System.out.println("order: "+ randomOrdering.toString());
 
         System.out.println("AfterSwap: ");
-        catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "swap"), "afterSwap");
+         Graph currentGraph = new Graph(instance, randomOrdering);
+         
+        catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "swap",currentGraph), "afterSwap");
 //        System.out.println(tool.function(instance, randomOrdering).toString());
 
         System.out.println("AfterChangeOrder: ");
-        catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "changeOrder"), "afterChangeOrder");
+        catchMe = tool.out(instance, tool.getOrderingHeuristik(instance, randomOrdering, "changeOrder",currentGraph), "afterChangeOrder");
 
         tool.outStatistikN("test");
 
