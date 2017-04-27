@@ -716,8 +716,6 @@ public class Tools {
         ArrayList<MyInteger> ordering = new ArrayList<>();
         ordering.addAll(currentGraph.getOrdering());
 
-        Integer highestMinimalBudget = currentGraph.getMinBudget();
-
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; j < ordering.size(); j++) {
                 ArrayList<MyInteger> newOrdering = new ArrayList<>();
@@ -733,20 +731,20 @@ public class Tools {
                 }
                 Graph newGraph = new Graph(currentGraph.getPartition(), newOrdering);
 
-                if (newGraph.getMinBudget() > highestMinimalBudget) {
-                    ordering = newOrdering;
-                    highestMinimalBudget = newGraph.getMinBudget();
+                if (newGraph.getMinBudget() > currentGraph.getMinBudget()) {
 
+                    return getGraphHeuristik(newGraph, update);
                 }
+
             }
         }
 
         if (update.equals("swap")) {
-            currentGraph.getPartition().minBudgetSwap = highestMinimalBudget;
+            currentGraph.getPartition().minBudgetSwap = currentGraph.getMinBudget();
         }
 
         if (update.equals("changeOrder")) {
-            currentGraph.getPartition().minBudgetChangeOrder = highestMinimalBudget;
+            currentGraph.getPartition().minBudgetChangeOrder = currentGraph.getMinBudget();
         }
         return currentGraph;
     }
