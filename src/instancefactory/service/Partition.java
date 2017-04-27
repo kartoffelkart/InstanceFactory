@@ -23,10 +23,9 @@ public class Partition {
     public Integer minBudgetSwap;
     public Integer minBudgetChangeOrder;
 
-        public Integer minBudgetRandomOrder;
-              
+    public Integer minBudgetRandomOrder;
 
-public Integer sumOfBoughts ;
+    public Integer sumOfBoughts;
     /**
      * Liste der Anzahl an Sells PositiveSets
      */
@@ -63,7 +62,7 @@ public Integer sumOfBoughts ;
         positiveSetsPLengthsSumBoughts = new ArrayList<>();
         positiveSetsBudgets = new ArrayList<>();
         positiveSetsBalances = new ArrayList<>();
-        
+
     }
 //_____________________________________________________________________________
 

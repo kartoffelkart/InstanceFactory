@@ -28,6 +28,8 @@ public class Tools {
      *
      * @return ArrayList of Partition
      */
+    public ArrayList<MyInteger> randomOrdering;
+
     public ArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
 //        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
 
@@ -85,6 +87,7 @@ public class Tools {
             //-------------------------------------
 //                toogle--;
         }
+        randomOrdering = getOrderingOfBasicPartitions(partitions);
         return partitions;
     }
 
@@ -653,14 +656,13 @@ public class Tools {
 
                 prX.println(i);
                 for (int j = 0; j < pool; j++) {
-                    partitions = makeBasicPartitions(1, 50, i);
-//int sumOfBoughts= getSumOfBoughts(partitions);
-                    ArrayList<MyInteger> randomOrdering = getOrderingOfBasicPartitions(partitions);
 
-                    buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
-                    instance = partitions.get(0);
+                    instance = buildInstance(1, 50, i);
+
                     Graph newGraph = new Graph(instance, randomOrdering);
-                    ArrayList<MyInteger> orderingSwap = (getGraphHeuristik(newGraph, "swap")).getOrdering();
+                newGraph=  getGraphHeuristik(newGraph, "swap");
+
+ 
 
 //                prY.println(sumOfBoughts/instance.minBudgetSwap);
                     mittelwertSortedSells = mittelwertSortedSells + instance.budget;
@@ -668,7 +670,7 @@ public class Tools {
                 }
                 mittelwertSwap = mittelwertSwap / pool;
                 mittelwertSortedSells = mittelwertSortedSells / pool;
-                prY.println(mittelwertSortedSells / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
+                prY.println( mittelwertSortedSells/mittelwertSwap /mittelwertSwap );// todo: hier können wir Wert für Statistik ändern
 //                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
             }
@@ -797,4 +799,45 @@ public class Tools {
         }
         return sum;
     }
+
+    public Partition buildInstance(int min, int max, int size) {
+
+        ArrayList<Partition> partitions = makeBasicPartitions(min, max, size);
+        buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
+
+        Partition instance = partitions.get(0);
+        return instance;
+    }
+public void buildIstanceMakeHeuristicsAndOut(int min, int max, int size){
+            Partition instance = buildInstance(min, max, size);
+
+     Graph newGraph;
+
+        newGraph = new Graph(instance, instance.sortedSells);
+        System.out.println("Sorted Sells: ");
+        out(newGraph, "sortedSells");
+        
+        newGraph = new Graph(instance, randomOrdering);
+        System.out.println("Random: ");
+        out(newGraph, "random");
+
+        System.out.println("AfterSwap: ");
+        out(getGraphHeuristik(newGraph, "swap"), "afterSwap");
+
+        System.out.println("AfterChangeOrder: ");
+        out(getGraphHeuristik(newGraph, "changeOrder"), "afterChangeOrder");
+}
+    public void superFunction(int min, int max, int size) {
+        Partition instance = buildInstance(min, max, size);
+
+        
+        
+    
+   
+        
+       
+        outStatistikN("test");
+
+    }
+
 }
