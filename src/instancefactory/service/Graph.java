@@ -26,17 +26,15 @@ public class Graph {
         this.ordering = ordering;
         this.orderingWithBoughts = new ArrayList<>();
         this.werte = new ArrayList<>();
+        werte.add(0, 0);
         calculateValues(partition, ordering);
         this.minBudget = Collections.min(werte);
         this.partition.setMinBudgetCompare(minBudget);
     }
 
     private void calculateValues(Partition p, ArrayList<MyInteger> ordering) {
-
+        
         ArrayList<MyInteger> allready = new ArrayList<>();
-        werte = new ArrayList<>();
-        werte.add(0, 0);
-
         Integer newValue;
 
         for (int i = 0; i < ordering.size(); i++) {

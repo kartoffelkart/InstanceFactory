@@ -18,6 +18,8 @@ public class Partition {
 
     public ArrayList<ArrayList<MyInteger>> arrayList;
 
+  
+
     public ArrayList<MyInteger> sortedSells;
 
    private  Integer minBudgetCompare;
@@ -28,7 +30,7 @@ public class Partition {
 
     public void setMinBudgetCompare(Integer minBudgetCompare) {
         //ASSERTION
-        if(minBudgetCompare.intValue()< budget)
+        if(!(minBudgetCompare.intValue()> budget))
         { this.minBudgetCompare = minBudgetCompare;}else{
             System.err.println("Fehler");}
         
@@ -71,6 +73,19 @@ public class Partition {
         arrayList = new ArrayList<ArrayList<MyInteger>>();
         probability = 1;
         sortedSells = new ArrayList<>();
+        positiveSetsPLengths = new ArrayList<>();
+        positiveSetsPLengthsSumBoughts = new ArrayList<>();
+        positiveSetsBudgets = new ArrayList<>();
+        positiveSetsBalances = new ArrayList<>();
+
+    }
+//_____________________________________________________________________________
+ //KONSTRUKTOR
+    public Partition(ArrayList<ArrayList<MyInteger>> newArrayList,ArrayList<MyInteger> newSortedSells) {
+        ArrayList<MyInteger> array = new ArrayList<>();
+        arrayList = newArrayList;
+        probability = 1;
+        sortedSells = newSortedSells;
         positiveSetsPLengths = new ArrayList<>();
         positiveSetsPLengthsSumBoughts = new ArrayList<>();
         positiveSetsBudgets = new ArrayList<>();
@@ -183,7 +198,14 @@ public class Partition {
         }
 
     }
+  public ArrayList<ArrayList<MyInteger>> getArrayList() {
+        return arrayList;
+    }
 
+    public void setArrayList(ArrayList<ArrayList<MyInteger>> arrayList) {
+        this.arrayList = arrayList;
+    }
+    
     @Override
     public String toString() {
         String ret = new String();

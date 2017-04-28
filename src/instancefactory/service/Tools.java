@@ -125,12 +125,11 @@ public class Tools {
 //ASSERTION
             Graph testGraph = new Graph(partition, partition.sortedSells);
             if (partition.budget == testGraph.getMinBudget().intValue()) {
-                System.err.println("Alles gut");
-                System.err.println("budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
+                System.err.println("Alles gut" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
 
             } else {
-                System.err.println("Scheiße");
-                System.err.println("budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
+                System.err.println("Scheiße hier stimmt der budget Wert aus der Partition nicht mit dem im Graph neu berechneten überein!" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
+
             }
             //-------------
 
@@ -301,7 +300,7 @@ public class Tools {
      * entstanden ist
      */
     public Partition makePartition(Partition p1, Partition p2, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
-        Partition partition = new Partition();
+        Partition partition= new Partition();
 //        partition.probability=p1.probability+p2.probability;
         String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
 //        String choice = new String("");
@@ -321,15 +320,15 @@ public class Tools {
 //        }
         System.out.println(choice);
         if (choice.equals("union")) {
-            partition = makePartitionUnion(p1, p2, partition);
+            partition = makePartitionUnion(p1, p2);
 
         } else {
             if (choice.equals("rightJoin")) {
-                partition = makePartitionJoin(p1, p2, partition);
+                partition = makePartitionJoin(p1, p2);
 
             } else {
                 if (choice.equals("leftJoin")) {
-                    partition = makePartitionJoin(p2, p1, partition);
+                    partition = makePartitionJoin(p2, p1);
 
                 } else {
                     System.err.println("error");
@@ -447,7 +446,7 @@ public class Tools {
      * @return SortedSells, die aus dem UNION Merge der SortedSells der Eingabe
      * Partitionen entstanden ist
      */
-    public void makeSortedSellsUnionAndBudgetAndBalance(Partition p, Partition p1, Partition p2) {
+    public ArrayList<MyInteger> makeSortedSellsUnionAndBudgetAndBalance(Partition p, Partition p1, Partition p2) {
         ArrayList<Integer> budgets = new ArrayList<>();
         ArrayList<Integer> balances = new ArrayList<>();
 
@@ -522,7 +521,7 @@ public class Tools {
         System.out.println("newSortedSells: " + newSortedSells.toString());
         //--------------
 
-        p.sortedSells = newSortedSells;
+        return newSortedSells;
 
     }
 
@@ -558,7 +557,7 @@ public class Tools {
         toLink.addAll(hs);
 //
 //        }
-        for (int k = 0; k < p1.arrayList.size(); k++) {
+        for (int k = 0; k < a.size(); k++) {
             a.get(k).addAll(toLink);
         }
 
@@ -578,12 +577,13 @@ public class Tools {
      * @return Die Partition, die aus dem UNION Merge der Eingabe Partitionen
      * entstanden ist
      */
-    public Partition makePartitionUnion(Partition p1, Partition p2, Partition p) {
+    public Partition makePartitionUnion(Partition p1, Partition p2) {
+        Partition partition = new Partition();
 
-        p.arrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
-        makeSortedSellsUnionAndBudgetAndBalance(p, p1, p2);
-
-        return p;
+        ArrayList<ArrayList<MyInteger>> newArrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
+        ArrayList<MyInteger> newSortedSells = makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
+        partition = new Partition(newArrayList, newSortedSells);
+        return partition;
     }
 
     /**
@@ -616,14 +616,17 @@ public class Tools {
      * @return Die Partition, die aus dem UNION Merge der Eingabe Partitionen
      * entstanden ist
      */
-    public Partition makePartitionJoin(Partition p1, Partition p2, Partition p) {
-
-        p.arrayList = makeArrayListJoin(p1, p2);
-        p.sortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);//p2.sorted sells null
-        p.budget = makeBudgetJoin(p1, p2);
-        p.balance = makeBalanceJoin(p1, p2);
+    public Partition makePartitionJoin(Partition p1, Partition p2) {
+        Partition partition;
+        ArrayList<ArrayList<MyInteger>> newArrayList = makeArrayListJoin(p1, p2);
+        ArrayList<MyInteger> newSortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);//p2.sorted sells null
+        Integer newBudget = makeBudgetJoin(p1, p2);
+        Integer newBalance = makeBalanceJoin(p1, p2);
+        partition = new Partition(newArrayList, newSortedSells);
+        partition.budget = newBudget;
+        partition.balance = newBalance;
 //        System.out.println(p.toString());
-        return p;
+        return partition;
     }
 
     public Integer getSum(ArrayList<MyInteger> newB) {
