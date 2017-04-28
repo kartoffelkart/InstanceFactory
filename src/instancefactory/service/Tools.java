@@ -122,6 +122,17 @@ public class Tools {
             partition = this.makePartition(partitionA, partitionB, unionProbability, leftJoinProbability, rightJoinProbability);//size 0 ???
             System.out.println("MergedPartition: " + partition.toString() + "\n");
             System.out.println("Sorted SellsOfMergedPartition: " + partition.sortedSells.toString() + "\n");
+//ASSERTION
+            Graph testGraph = new Graph(partition, partition.sortedSells);
+            if (partition.budget == testGraph.getMinBudget().intValue()) {
+                System.err.println("Alles gut");
+                System.err.println("budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
+
+            } else {
+                System.err.println("Scheiße");
+                System.err.println("budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
+            }
+            //-------------
 
             int ind = partitions.indexOf(partitionA);
             partitions.set(ind, partition);//ind -1
@@ -660,17 +671,16 @@ public class Tools {
                     instance = buildInstance(1, 50, i);
 
                     Graph newGraph = new Graph(instance, randomOrdering);
-                newGraph=  getGraphHeuristik(newGraph, "swap");
-
- 
+                    newGraph = getGraphHeuristik(newGraph, "swap");
 
 //                prY.println(sumOfBoughts/instance.minBudgetSwap);
                     mittelwertSortedSells = mittelwertSortedSells + instance.budget;
                     mittelwertSwap = mittelwertSwap + instance.minBudgetSwap;
+                    System.err.println("test" + instance.minBudgetSwap);
                 }
                 mittelwertSwap = mittelwertSwap / pool;
                 mittelwertSortedSells = mittelwertSortedSells / pool;
-                prY.println( mittelwertSortedSells/mittelwertSwap /mittelwertSwap );// todo: hier können wir Wert für Statistik ändern
+                prY.println(mittelwertSortedSells / mittelwertSwap / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
 //                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
             }
@@ -808,15 +818,16 @@ public class Tools {
         Partition instance = partitions.get(0);
         return instance;
     }
-public void buildIstanceMakeHeuristicsAndOut(int min, int max, int size){
-            Partition instance = buildInstance(min, max, size);
 
-     Graph newGraph;
+    public void buildIstanceMakeHeuristicsAndOut(int min, int max, int size) {
+        Partition instance = buildInstance(min, max, size);
+
+        Graph newGraph;
 
         newGraph = new Graph(instance, instance.sortedSells);
         System.out.println("Sorted Sells: ");
         out(newGraph, "sortedSells");
-        
+
         newGraph = new Graph(instance, randomOrdering);
         System.out.println("Random: ");
         out(newGraph, "random");
@@ -826,11 +837,11 @@ public void buildIstanceMakeHeuristicsAndOut(int min, int max, int size){
 
         System.out.println("AfterChangeOrder: ");
         out(getGraphHeuristik(newGraph, "changeOrder"), "afterChangeOrder");
-}
+    }
+
     public void superFunctionStatistik(int min, int max, int size) {
         Partition instance = buildInstance(min, max, size);
 
-       
         outStatistikN("test");
 
     }
