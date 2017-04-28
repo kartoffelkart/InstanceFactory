@@ -402,9 +402,9 @@ public class Tools {
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
             p.setValueOfBalanceBoughtsBudgetOfSet(i);
             count++;
-            int balance = p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(0);
-            int sumBoughts = p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(1);
-            int budget = p.balanceBoughtsBudgetOfSetUpToIndex.get(i).get(2);
+            int balance = (p.balanceBoughtsBudgetOfSetUpToIndex.get(i)).getBalance();
+            int sumBoughts = (p.balanceBoughtsBudgetOfSetUpToIndex.get(i)).getBoughts();
+            int budget = (p.balanceBoughtsBudgetOfSetUpToIndex.get(i)).getBudget();
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsPLengths und PositiveSetsPLengthsSumBoughts gespeichert
             if (balance > 0) {
 
@@ -419,9 +419,9 @@ public class Tools {
                 //hier will ich alle vorher zurücksetzten balance aber eigentlich auch bought
                 for (int k = 0; k < i + 1; k++) {
 
-                    p.balanceBoughtsBudgetOfSetUpToIndex.get(k).set(0, 0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
-                    p.balanceBoughtsBudgetOfSetUpToIndex.get(k).set(1, 0);
-                    p.balanceBoughtsBudgetOfSetUpToIndex.get(k).set(2, 0);
+                    p.balanceBoughtsBudgetOfSetUpToIndex.get(k).setBalance(0);//index 1 size 1!!!!!!!!!!!!!!!!!!!
+                    p.balanceBoughtsBudgetOfSetUpToIndex.get(k).setBoughts(0);
+                    p.balanceBoughtsBudgetOfSetUpToIndex.get(k).setBudget(0);
                 }
             }
 
@@ -498,10 +498,10 @@ public class Tools {
         }
 
         // TODO: Eigentlich wird jetzt noch unterschieden ob max von min von...
-        Integer budget2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(2);
-        Integer budget1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(2);
-        Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(0);;
-        Integer balance2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).get(0);
+        Integer budget2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
+        Integer budget1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
+        Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
+        Integer balance2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
 
         if (Integer.max(budget2, balance2 + budget1) > Integer.max(budget1, balance1 + budget2)) {
             newSortedSells.addAll(s1Rest);

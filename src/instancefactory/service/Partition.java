@@ -58,7 +58,7 @@ public class Partition {
 
     public ArrayList<MyInteger> allreadyBought = new ArrayList<>();
 
-    public ArrayList<ArrayList<Integer>> balanceBoughtsBudgetOfSetUpToIndex = new ArrayList();
+    public ArrayList<BalanceBoughtsBudget> balanceBoughtsBudgetOfSetUpToIndex = new ArrayList();
 
     public int probability;
     public int budget;// todo: test = 0;
@@ -152,9 +152,9 @@ public class Partition {
         System.out.println("sumNewBoughts :" + sumNewBoughts);
 
         if (index > 0) {
-            int lastBalance = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(0);
-            int lastBoughts = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(1);
-            int lastBudget = balanceBoughtsBudgetOfSetUpToIndex.get(index - 1).get(2);
+            int lastBalance = (balanceBoughtsBudgetOfSetUpToIndex.get(index - 1)).getBalance();
+            int lastBoughts = (balanceBoughtsBudgetOfSetUpToIndex.get(index - 1)).getBoughts();
+            int lastBudget = (balanceBoughtsBudgetOfSetUpToIndex.get(index - 1)).getBudget();
             //-----------------------------------------------------hier wird balance rekursiv aus den Werten von Index-1 berechnet
 
             balance = lastBalance
@@ -169,11 +169,9 @@ public class Partition {
         }
 
         //hier wird ein neuer Eintrag daraus generiert
-        ArrayList<Integer> newEintrag = new ArrayList<>();
+        BalanceBoughtsBudget newEintrag = new BalanceBoughtsBudget(balance, sumNewBoughts, budget);
 
-        newEintrag.add(balance);
-        newEintrag.add(sumNewBoughts);
-        newEintrag.add(budget);
+       
 //hier checken wir nochmal ob Index der richtige Indize ist
         if (balanceBoughtsBudgetOfSetUpToIndex.size() == index) {
             balanceBoughtsBudgetOfSetUpToIndex.add(index, newEintrag);
