@@ -28,6 +28,7 @@ public class Graph {
         this.werte = new ArrayList<>();
         calculateValues(partition, ordering);
         this.minBudget = Collections.min(werte);
+        this.partition.setMinBudgetCompare(minBudget);
     }
 
     private void calculateValues(Partition p, ArrayList<MyInteger> ordering) {

@@ -20,6 +20,19 @@ public class Partition {
 
     public ArrayList<MyInteger> sortedSells;
 
+   private  Integer minBudgetCompare;
+
+    public Integer getMinBudgetCompare() {
+        return minBudgetCompare;
+    }
+
+    public void setMinBudgetCompare(Integer minBudgetCompare) {
+        //ASSERTION
+        if(minBudgetCompare.intValue()< budget)
+        { this.minBudgetCompare = minBudgetCompare;}else{
+            System.err.println("Fehler");}
+        
+    }
     public Integer minBudgetSwap;
     public Integer minBudgetChangeOrder;
 
