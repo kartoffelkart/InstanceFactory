@@ -30,41 +30,18 @@ public class Tools {
     public ArrayList<MyInteger> randomOrdering;
 
     public ArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
-//        ArrayList<MyInteger> randomIntArrayList = this.getDeterministicIntArray();
+//        ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
 
-        ArrayList<MyInteger> randomIntArrayList = this.getRandomMyIntArray(min, max, size);
-
-        System.out.println(randomIntArrayList.toString());
-        File file = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Randoms.txt");
-//        File file = new File("X:\\speedee\\mitarbeiter\\sonja_schäfer\\Bachelorarbeit\\Randoms.txt");
-
-        try {
-//            file.mkdirs();
-            file.createNewFile();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        try {
-            PrintWriter pr = new PrintWriter(file);
-
-            for (int i = 0; i < randomIntArrayList.size(); i++) {
-                pr.println(randomIntArrayList.get(i).i);
-            }
-            pr.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("No such file exists.");
-        }
-//        ArrayList<MyInteger> randomIntArrayList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-
+        ArrayList<MyInteger> randomMyIntArrayList = this.getRandomMyIntArray(min, max, size);
         ArrayList<Partition> partitions = new ArrayList<>();
         MyInteger currentRandom;
-        while (randomIntArrayList.size() > 1) { //der letzte wird eventuel abgeschnitten
+        int k = 0;
+        while (k < randomMyIntArrayList.size() - 1) { //der letzte wird eventuel abgeschnitten
             Partition partition1 = new Partition();
-            currentRandom = randomIntArrayList.get(0);
+            currentRandom = randomMyIntArrayList.get(k);
 
             System.out.println("Aktueller Sell :" + currentRandom);
-            randomIntArrayList.remove(0);
+            k++;
             ArrayList<MyInteger> l = new ArrayList<>();
             l.add(currentRandom);
 
@@ -75,13 +52,13 @@ public class Tools {
 
             partitions.add(partition1);
 // todo: testen
-            currentRandom = randomIntArrayList.get(0);
+            currentRandom = randomMyIntArrayList.get(k);
 
             System.out.println("Aktueller Bought : " + currentRandom);
             partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
             partitions.get(partitions.size() - 1).balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
             partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
-            randomIntArrayList.remove(0);
+            k++;
 
             //-------------------------------------
 //                toogle--;
@@ -101,23 +78,32 @@ public class Tools {
      */
     public void buildInstanceOnBasicPartitions(ArrayList<Partition> partitions, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
+// BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
+//        Integer indi = 0;
+//        while (indi < (partitions.size())) {
+//            Partition partition = new Partition();
+//
+//            Partition partitionA = partitions.get(indi);
+//            indi++;
+//
+//            Partition partitionB = partitions.get(indi);
+//            indi++;
+//-----------------------------------------------------------------------------------------
+        //   BUILD RANDOM INSTANCE ----------------------------------------------------       
         while (partitions.size() > 1) {
             Partition partition = new Partition();
-//            Integer indi = 0;
             Partition partitionA = new Partition();
             partitionA = this.getRandomPartitionDueToProbality(partitions);
-//            partitionA = partitions.get(indi);
-//            indi++;
             System.out.println("partitionA: " + partitionA.toString() + "\n");
 
             Partition partitionB = new Partition();
             partitionB = this.getRandomPartitionDueToProbality(partitions);
-//            partitionB = partitions.get(indi);
             System.out.println("partitionB: " + partitionB.toString() + "\n");
 
             while (partitionA == partitionB) {
                 partitionB = this.getRandomPartitionDueToProbality(partitions);
             }
+            //---------------------------------------------------------------------------------
             partition = this.makePartition(partitionA, partitionB, unionProbability, leftJoinProbability, rightJoinProbability);//size 0 ???
             System.out.println("MergedPartition: " + partition.toString() + "\n");
             System.out.println("Sorted SellsOfMergedPartition: " + partition.sortedSells.toString() + "\n");
@@ -198,10 +184,10 @@ public class Tools {
         return randomMyIntArrayList;
     }
 
-    public ArrayList<MyInteger> getDeterministicIntArray() {
+    public ArrayList<MyInteger> getDeterministicMyIntArray() {
 //        int[] deterministicIntArrayList = {2, 4, 1, 3, 5, 2};;
 
-        int[] deterministicIntArrayList = {30, 15, 80, 77, 81, 23, 31, 11, 93, 56, 14, 10, 54, 31, 1, 1, 45, 29, 100, 72, 88, 30, 16, 2, 53, 15, 62, 27, 68, 44};;
+        int[] deterministicIntArrayList = {15, 14, 17, 5, 11, 15, 25, 20, 17, 14, 21, 17};;
         ArrayList<MyInteger> deterministicMyIntArrayList = new ArrayList<>();
 
         int it = 0;
@@ -300,9 +286,11 @@ public class Tools {
      */
     public Partition makePartition(Partition p1, Partition p2, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
         Partition partition = new Partition();
-//        partition.probability=p1.probability+p2.probability;
-        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
+// // //        partition.probability=p1.probability+p2.probability;
+
+        // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
 //        String choice = new String("");
+//        Integer toogle = 0;
 //        if (toogle.equals(0)) {
 //            choice = "rightJoin";
 //            toogle++;
@@ -317,6 +305,11 @@ public class Tools {
 //                }
 //            }
 //        }
+        //-------------------------------------------------------------------------------
+        //   BUILD RANDOM INSTANCE ----------------------------------------------------       
+        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
+
+//---------------------------------------------------------------------------------------------
         System.out.println(choice);
         if (choice.equals("union")) {
             partition = makePartitionUnion(p1, p2);
@@ -401,7 +394,7 @@ public class Tools {
             p.setValueOfBalanceBoughtsBudgetOfSet(i);
             count++;
             BalanceBoughtsBudget currentBalanceBoughtsBudget;
-            currentBalanceBoughtsBudget= p.balanceBoughtsBudgetOfSetUpToIndex.get(0);
+            currentBalanceBoughtsBudget = p.balanceBoughtsBudgetOfSetUpToIndex.get(0);
             int balance = currentBalanceBoughtsBudget.getBalance();
             int sumBoughts = currentBalanceBoughtsBudget.getBoughts();
             int budget = currentBalanceBoughtsBudget.getBudget();
@@ -812,6 +805,7 @@ public class Tools {
         buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
 
         Partition instance = partitions.get(0);
+        System.out.println("Instance is build.");
         return instance;
     }
 
