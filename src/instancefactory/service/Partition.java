@@ -18,11 +18,11 @@ public class Partition {
 
     public ArrayList<ArrayList<MyInteger>> arrayList;
 
-  
+    ArrayList<PositiveSet> positiveSets;
 
     public ArrayList<MyInteger> sortedSells;
 
-   private  Integer minBudgetCompare;
+    private Integer minBudgetCompare;
 
     public Integer getMinBudgetCompare() {
         return minBudgetCompare;
@@ -30,33 +30,17 @@ public class Partition {
 
     public void setMinBudgetCompare(Integer minBudgetCompare) {
         //ASSERTION
-        if(!(minBudgetCompare.intValue()> budget))
-        { this.minBudgetCompare = minBudgetCompare;}else{
-            System.err.println("Fehler");}
-        
+        if (!(minBudgetCompare.intValue() > budget)) {
+            this.minBudgetCompare = minBudgetCompare;
+        } else {
+            System.err.println("Fehler");
+        }
+
     }
     public Integer minBudgetSwap;
     public Integer minBudgetChangeOrder;
 
     public Integer minBudgetRandomOrder;
-
-    public Integer sumOfBoughts;
-    /**
-     * Liste der Anzahl an Sells PositiveSets
-     */
-    public ArrayList<Integer> positiveSetsPLengths;
-    /**
-     * Liste der aufsummierten Boughts für die PositiveSets
-     */
-    public ArrayList<Integer> positiveSetsPLengthsSumBoughts;
-    /**
-     * Liste der Budgets für die PositiveSets
-     */
-    public ArrayList<Integer> positiveSetsBudgets;
-    /**
-     * Liste der Balances für die PositiveSets
-     */
-    public ArrayList<Integer> positiveSetsBalances;
 
     public ArrayList<MyInteger> allreadyBought = new ArrayList<>();
 
@@ -73,23 +57,18 @@ public class Partition {
         arrayList = new ArrayList<ArrayList<MyInteger>>();
         probability = 1;
         sortedSells = new ArrayList<>();
-        positiveSetsPLengths = new ArrayList<>();
-        positiveSetsPLengthsSumBoughts = new ArrayList<>();
-        positiveSetsBudgets = new ArrayList<>();
-        positiveSetsBalances = new ArrayList<>();
+        positiveSets = new ArrayList<PositiveSet>();
 
     }
 //_____________________________________________________________________________
- //KONSTRUKTOR
-    public Partition(ArrayList<ArrayList<MyInteger>> newArrayList,ArrayList<MyInteger> newSortedSells) {
+    //KONSTRUKTOR
+
+    public Partition(ArrayList<ArrayList<MyInteger>> newArrayList, ArrayList<MyInteger> newSortedSells) {
         ArrayList<MyInteger> array = new ArrayList<>();
         arrayList = newArrayList;
         probability = 1;
         sortedSells = newSortedSells;
-        positiveSetsPLengths = new ArrayList<>();
-        positiveSetsPLengthsSumBoughts = new ArrayList<>();
-        positiveSetsBudgets = new ArrayList<>();
-        positiveSetsBalances = new ArrayList<>();
+        positiveSets = new ArrayList<PositiveSet>();
 
     }
 //_____________________________________________________________________________
@@ -179,6 +158,7 @@ public class Partition {
             budget = Integer.min(lastBudget, lastBalance - sumNewBoughts);
 
         } else {
+            System.out.println("Das ist der Anfang. Hier war der Index 0.");
             balance = -sumNewBoughts + sortedSells.get(index).i;
             budget = -sumNewBoughts;
         }
@@ -186,7 +166,6 @@ public class Partition {
         //hier wird ein neuer Eintrag daraus generiert
         BalanceBoughtsBudget newEintrag = new BalanceBoughtsBudget(balance, sumNewBoughts, budget);
 
-       
 //hier checken wir nochmal ob Index der richtige Indize ist
         if (balanceBoughtsBudgetOfSetUpToIndex.size() == index) {
             balanceBoughtsBudgetOfSetUpToIndex.add(index, newEintrag);
@@ -198,14 +177,23 @@ public class Partition {
         }
 
     }
-  public ArrayList<ArrayList<MyInteger>> getArrayList() {
+
+    public ArrayList<ArrayList<MyInteger>> getArrayList() {
         return arrayList;
     }
 
     public void setArrayList(ArrayList<ArrayList<MyInteger>> arrayList) {
         this.arrayList = arrayList;
     }
-    
+
+    public ArrayList<BalanceBoughtsBudget> getBalanceBoughtsBudgetOfSetUpToIndex() {
+        return balanceBoughtsBudgetOfSetUpToIndex;
+    }
+
+    public void setBalanceBoughtsBudgetOfSetUpToIndex(ArrayList<BalanceBoughtsBudget> balanceBoughtsBudgetOfSetUpToIndex) {
+        this.balanceBoughtsBudgetOfSetUpToIndex = balanceBoughtsBudgetOfSetUpToIndex;
+    }
+
     @Override
     public String toString() {
         String ret = new String();

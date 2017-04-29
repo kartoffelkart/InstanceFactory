@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -383,7 +382,7 @@ public class Tools {
      * @param PositiveSetsPLengthsSumBoughts Summe der Boughts die wir für die
      * PositiveSets brauchen
      */
-    public void fillPositiveSetsAndPositiveSetsBoughts(Partition p) {
+    public void fillPositiveSets(Partition p) {
         /**
          * wir wollen die PositiveSets Lengths und die benötigten Einkaufssummen
          */
@@ -393,28 +392,28 @@ public class Tools {
          *
          * noch nicht abgearbeiteter Rest der Liste SortedSells
          */
-        ArrayList<MyInteger> s1Rest = new ArrayList<>();
-        s1Rest.addAll(p.sortedSells);
-        System.out.println("S1Rest: " + s1Rest.toString());
+        ArrayList<MyInteger> sRest = new ArrayList<>();
+        sRest.addAll(p.sortedSells);
+        System.out.println("S1Rest: " + sRest.toString());
         Integer count = 0;
-        for (int i = 0; i < s1Rest.size(); i++) {
+        for (int i = 0; i < sRest.size(); i++) {
             // berechne balance bis i
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
             p.setValueOfBalanceBoughtsBudgetOfSet(i);
             count++;
-            int balance = (p.balanceBoughtsBudgetOfSetUpToIndex.get(i)).getBalance();
-            int sumBoughts = (p.balanceBoughtsBudgetOfSetUpToIndex.get(i)).getBoughts();
-            int budget = (p.balanceBoughtsBudgetOfSetUpToIndex.get(i)).getBudget();
+            BalanceBoughtsBudget currentBalanceBoughtsBudget;
+            currentBalanceBoughtsBudget= p.balanceBoughtsBudgetOfSetUpToIndex.get(0);
+            int balance = currentBalanceBoughtsBudget.getBalance();
+            int sumBoughts = currentBalanceBoughtsBudget.getBoughts();
+            int budget = currentBalanceBoughtsBudget.getBudget();
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsPLengths und PositiveSetsPLengthsSumBoughts gespeichert
             if (balance > 0) {
-
-                p.positiveSetsPLengths.add(count);
+                PositiveSet newPositiveSet = new PositiveSet(sumBoughts, count, budget, balance);
+                p.positiveSets.add(newPositiveSet);
                 count = 0;
-                p.positiveSetsPLengthsSumBoughts.add(sumBoughts);
-                p.positiveSetsBudgets.add(budget);
-                p.positiveSetsBalances.add(balance);
-                System.out.println("PositiveSetsPLengths: " + p.positiveSetsPLengths.toString());//[] ist richtig
-                System.out.println("PositiveSetsPLengthsSumBoughts: " + p.positiveSetsPLengthsSumBoughts.toString());//[0]ist richtig
+
+                System.out.println("PositiveSetsPLengths: " + "PositiveSetsPLengthsSumBoughts: " + p.balanceBoughtsBudgetOfSetUpToIndex.toString());//[] ist richtig
+//                System.out.println("PositiveSetsPLengthsSumBoughts: " + p.positiveSetsPLengthsSumBoughts.toString());//[0]ist richtig
 
                 //hier will ich alle vorher zurücksetzten balance aber eigentlich auch bought
                 for (int k = 0; k < i + 1; k++) {
@@ -426,16 +425,6 @@ public class Tools {
             }
 
         }
-    }
-
-    public void BudgetAndBalanceAfterNewPositiveSet(Partition p, Partition p1) {
-        p.budget = Integer.min(p.budget, p.balance + p1.positiveSetsBudgets.get(0));//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
-        p.balance = p.balance + p1.positiveSetsBalances.get(0);//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
-        p1.positiveSetsPLengths.remove(0);
-        p1.positiveSetsBudgets.remove(0);
-        p1.positiveSetsBalances.remove(0);
-        p1.positiveSetsPLengthsSumBoughts.remove(0);
-
     }
 
     /**
@@ -459,39 +448,42 @@ public class Tools {
         ArrayList<MyInteger> s2Rest = new ArrayList<>();
         s2Rest.addAll(p2.sortedSells);
 
-        fillPositiveSetsAndPositiveSetsBoughts(p1);
-        System.out.println("PositiveSetsPLengths1Lengths: " + p1.positiveSetsPLengths.toString());//[] ist richtig
-        System.out.println("PositiveSetsPLengths1LengthsSumBoughts: " + p1.positiveSetsPLengthsSumBoughts.toString());//[]ist richtig
+        fillPositiveSets(p1);
+        System.out.println("PositiveSets 1 : " + p1.positiveSets.toString());//[] ist richtig
+//        System.out.println( p1.positiveSetsPLengthsSumBoughts.toString());//[]ist richtig
 
-        fillPositiveSetsAndPositiveSetsBoughts(p2);
+        fillPositiveSets(p2);
 
-        System.out.println("PositiveSetsPLengths2Lengths: " + p2.positiveSetsPLengths.toString());//[0]ist richtig
-        System.out.println("PositiveSetsPLengths2LengthsSumBoughts: " + p2.positiveSetsPLengthsSumBoughts.toString());//[0]ist richtig
+        System.out.println("PositiveSets 2 : " + p2.positiveSets.toString());//[] ist richtig
 
 //        
 //        Iterator it1 = PositiveSetsPLengths1Lengths.iterator();
 //                 Iterator it2 = PositiveSetsPLengths2Lengths.iterator();
 //          
         //jetzt wird gemergt
-        while ((!p1.positiveSetsPLengths.isEmpty()) && (!p2.positiveSetsPLengths.isEmpty())) {
+        while ((!p1.positiveSets.isEmpty()) && (!p2.positiveSets.isEmpty())) {
 
-            if (p1.positiveSetsPLengthsSumBoughts.get(0) < p2.positiveSetsPLengthsSumBoughts.get(0)) {
-                for (int countP1 = 0; countP1 < p1.positiveSetsPLengths.get(0); countP1++) {
+            if (p1.positiveSets.get(0).getPositiveSetPLengthSumBoughts() < p2.positiveSets.get(0).getPositiveSetPLengthSumBoughts()) {
+                for (int countP1 = 0; countP1 < p1.positiveSets.get(0).positiveSetPLength; countP1++) {
                     newSortedSells.add(s1Rest.get(0));//index 0 size 0
                     s1Rest.remove(0);
                     System.out.println("S1Rest: " + s1Rest.toString());
 
                 }
-                BudgetAndBalanceAfterNewPositiveSet(p, p1);
+                p.budget = Integer.min(p.budget, p.balance + ((p1.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+                p.balance = p.balance + ((p1.positiveSets).get(0)).getPositiveSetBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
+                (p1.positiveSets).remove(0);
 
             } else {
-                for (int countP2 = 0; countP2 < p2.positiveSetsPLengths.get(0); countP2++) {
+                for (int countP2 = 0; countP2 < p2.positiveSets.get(0).positiveSetPLength; countP2++) {
                     newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
                     s2Rest.remove(0);
                     System.out.println("S2Rest: " + s2Rest.toString());
 
                 }
-                BudgetAndBalanceAfterNewPositiveSet(p, p2);
+                p.budget = Integer.min(p.budget, p.balance + ((p2.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+                p.balance = p.balance + ((p2.positiveSets).get(0)).getPositiveSetBalance();//p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(0);
+                (p2.positiveSets).remove(0);
 
             }
 
