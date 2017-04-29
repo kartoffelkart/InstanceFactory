@@ -13,6 +13,8 @@ import java.util.ArrayList;
  */
 public class BalanceBoughtsBudget {
 
+    
+
     private Integer balance;
     private Integer boughts;
     private Integer budget;
@@ -46,5 +48,9 @@ public class BalanceBoughtsBudget {
 
     public void setBudget(Integer budget) {
         this.budget = budget;
+    }
+    @Override
+    public String toString() {
+        return "BalanceBoughtsBudget{" + "balance=" + balance + ", boughts=" + boughts + ", budget=" + budget + '}';
     }
 }

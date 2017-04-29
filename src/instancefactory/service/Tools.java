@@ -128,6 +128,7 @@ public class Tools {
                 System.err.println("Alles gut" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
 
             } else {
+                System.err.println(" budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
                 System.err.println("Scheiße hier stimmt der budget Wert aus der Partition nicht mit dem im Graph neu berechneten überein!" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
 
             }
@@ -300,7 +301,7 @@ public class Tools {
      * entstanden ist
      */
     public Partition makePartition(Partition p1, Partition p2, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
-        Partition partition= new Partition();
+        Partition partition = new Partition();
 //        partition.probability=p1.probability+p2.probability;
         String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
 //        String choice = new String("");
@@ -446,7 +447,7 @@ public class Tools {
      * @return SortedSells, die aus dem UNION Merge der SortedSells der Eingabe
      * Partitionen entstanden ist
      */
-    public ArrayList<MyInteger> makeSortedSellsUnionAndBudgetAndBalance(Partition p, Partition p1, Partition p2) {
+    public void makeSortedSellsUnionAndBudgetAndBalance(Partition p, Partition p1, Partition p2) {
         ArrayList<Integer> budgets = new ArrayList<>();
         ArrayList<Integer> balances = new ArrayList<>();
 
@@ -521,7 +522,7 @@ public class Tools {
         System.out.println("newSortedSells: " + newSortedSells.toString());
         //--------------
 
-        return newSortedSells;
+        p.sortedSells = newSortedSells;
 
     }
 
@@ -581,8 +582,9 @@ public class Tools {
         Partition partition = new Partition();
 
         ArrayList<ArrayList<MyInteger>> newArrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
-        ArrayList<MyInteger> newSortedSells = makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
-        partition = new Partition(newArrayList, newSortedSells);
+        makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
+        partition.arrayList = newArrayList;
+
         return partition;
     }
 
