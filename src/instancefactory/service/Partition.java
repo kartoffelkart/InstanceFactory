@@ -32,8 +32,11 @@ public class Partition {
         //ASSERTION
         if (!(minBudgetCompare.intValue() > budget)) {
             this.minBudgetCompare = minBudgetCompare;
+             System.err.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
         } else {
-            System.err.println("Fehler");
+            System.err.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
+
+ 
         }
 
     }

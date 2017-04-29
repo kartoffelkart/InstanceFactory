@@ -124,11 +124,10 @@ public class Tools {
 //ASSERTION
             Graph testGraph = new Graph(partition, partition.sortedSells);
             if (partition.budget == testGraph.getMinBudget().intValue()) {
-                System.err.println("Alles gut" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
+                System.err.println("Alles gut, hier stimmt der budget Wert aus der neuen Partition  mit dem TestGraph überein" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
 
             } else {
-                System.err.println(" budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
-                System.err.println("Scheiße hier stimmt der budget Wert aus der Partition nicht mit dem im Graph neu berechneten überein!" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
+                System.err.println("Scheiße hier stimmt der budget Wert aus der neuen Partition nicht mit dem TestGraph  überein!" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
 
             }
             //-------------
