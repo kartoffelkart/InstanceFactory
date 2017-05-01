@@ -16,30 +16,28 @@ public class PositiveSet {
     /**
      * Anzahl an Sells PositiveSets
      */
-    public Integer positiveSetPLength;
+    private Integer positiveSetPLength;
     /**
      * aufsummierte Boughts für das PositiveSet
      */
-    public Integer positiveSetPLengthSumBoughts;
+    private Integer positiveSetPLengthSumBoughts;
     /**
      * Budgets für das PositiveSet
      */
-    public Integer positiveSetBudget;
+    private Integer positiveSetBudget;
     /**
      * Balance für das PositiveSet
      */
-    public Integer positiveSetBalance;
+    private Integer positiveSetBalance;
 
     public PositiveSet(Integer sumOfBoughts, Integer positiveSetPLength, Integer positiveSetBudget, Integer positiveSetBalance) {
        
         this.positiveSetPLength = positiveSetPLength;
-        this.positiveSetPLengthSumBoughts = sumOfBoughts;
+        this.positiveSetPLengthSumBoughts = positiveSetPLengthSumBoughts;
         this.positiveSetBudget = positiveSetBudget;
-        this.positiveSetBalance = positiveSetBalance;
+        this.positiveSetBalance =positiveSetBalance;
     }
 
-    
-    
     
     public Integer getPositiveSetPLength() {
         return positiveSetPLength;
@@ -71,6 +69,11 @@ public class PositiveSet {
 
     public void setPositiveSetBalance(Integer positiveSetBalance) {
         this.positiveSetBalance = positiveSetBalance;
+    }
+
+    @Override
+    public String toString() {
+        return "PositiveSet{" + "positiveSetPLength=" + positiveSetPLength + ", positiveSetPLengthSumBoughts=" + positiveSetPLengthSumBoughts + ", positiveSetBudget=" + positiveSetBudget + ", positiveSetBalance=" + positiveSetBalance + '}';
     }
     
 }

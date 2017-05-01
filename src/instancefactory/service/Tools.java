@@ -291,25 +291,25 @@ public class Tools {
 // // //        partition.probability=p1.probability+p2.probability;
 
         // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
-//        String choice = new String("");
-//        Integer toogle = 0;
-//        if (toogle.equals(0)) {
-//            choice = "rightJoin";
-//            toogle++;
-//        } else {
-//            if (toogle.equals(1)) {
-//                choice = "leftJoin";
-//                toogle++;
-//            } else {
-//                if (toogle.equals(2)) {
-//                    choice = "union";
-//                    toogle = toogle - 2;
-//                }
-//            }
-//        }
+        String choice = new String("");
+        Integer toogle = 0;
+        if (toogle.equals(0)) {
+            choice = "union";
+            toogle++;
+        } else {
+            if (toogle.equals(1)) {
+                choice = "union";
+                toogle++;
+            } else {
+                if (toogle.equals(2)) {
+                    choice = "union";
+                    toogle = toogle - 2;
+                }
+            }
+        }
         //-------------------------------------------------------------------------------
         //   BUILD RANDOM INSTANCE ----------------------------------------------------       
-        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
+//        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
 
 //---------------------------------------------------------------------------------------------
         System.out.println(choice);
@@ -458,7 +458,7 @@ public class Tools {
         while ((!p1.positiveSets.isEmpty()) && (!p2.positiveSets.isEmpty())) {
 
             if (p1.positiveSets.get(0).getPositiveSetPLengthSumBoughts() < p2.positiveSets.get(0).getPositiveSetPLengthSumBoughts()) {
-                for (int countP1 = 0; countP1 < p1.positiveSets.get(0).positiveSetPLength; countP1++) {
+                for (int countP1 = 0; countP1 < p1.positiveSets.get(0).getPositiveSetPLength(); countP1++) {
                     newSortedSells.add(s1Rest.get(0));//index 0 size 0
                     s1Rest.remove(0);
                     System.out.println("S1Rest: " + s1Rest.toString());
@@ -469,7 +469,7 @@ public class Tools {
                 (p1.positiveSets).remove(0);
 
             } else {
-                for (int countP2 = 0; countP2 < p2.positiveSets.get(0).positiveSetPLength; countP2++) {
+                for (int countP2 = 0; countP2 < p2.positiveSets.get(0).getPositiveSetPLength(); countP2++) {
                     newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
                     s2Rest.remove(0);
                     System.out.println("S2Rest: " + s2Rest.toString());
