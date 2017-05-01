@@ -30,9 +30,9 @@ public class Tools {
     public ArrayList<MyInteger> randomOrdering;
 
     public ArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
-//        ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
+        ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
 
-        ArrayList<MyInteger> randomMyIntArrayList = this.getRandomMyIntArray(min, max, size);
+//        ArrayList<MyInteger> randomMyIntArrayList = this.getRandomMyIntArray(min, max, size);
         ArrayList<Partition> partitions = new ArrayList<>();
         MyInteger currentRandom;
         int k = 0;
@@ -79,30 +79,32 @@ public class Tools {
     public void buildInstanceOnBasicPartitions(ArrayList<Partition> partitions, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
 // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
-//        Integer indi = 0;
-//        while (indi < (partitions.size())) {
-//            Partition partition = new Partition();
-//
-//            Partition partitionA = partitions.get(indi);
-//            indi++;
-//
-//            Partition partitionB = partitions.get(indi);
-//            indi++;
+       
+        while ((partitions.size())>1) {
+            Integer indi = 0;//das muss hier rein wir betrachten immer die Partitions an Indize 0 und 1 in Partitions
+        
+            Partition partition = new Partition();
+
+            Partition partitionA = partitions.get(indi);
+            indi++;
+
+            Partition partitionB = partitions.get(indi);
+            
 //-----------------------------------------------------------------------------------------
         //   BUILD RANDOM INSTANCE ----------------------------------------------------       
-        while (partitions.size() > 1) {
-            Partition partition = new Partition();
-            Partition partitionA = new Partition();
-            partitionA = this.getRandomPartitionDueToProbality(partitions);
-            System.out.println("partitionA: " + partitionA.toString() + "\n");
-
-            Partition partitionB = new Partition();
-            partitionB = this.getRandomPartitionDueToProbality(partitions);
-            System.out.println("partitionB: " + partitionB.toString() + "\n");
-
-            while (partitionA == partitionB) {
-                partitionB = this.getRandomPartitionDueToProbality(partitions);
-            }
+//        while (partitions.size() > 1) {
+//            Partition partition = new Partition();
+//            Partition partitionA = new Partition();
+//            partitionA = this.getRandomPartitionDueToProbality(partitions);
+//            System.out.println("partitionA: " + partitionA.toString() + "\n");
+//
+//            Partition partitionB = new Partition();
+//            partitionB = this.getRandomPartitionDueToProbality(partitions);
+//            System.out.println("partitionB: " + partitionB.toString() + "\n");
+//
+//            while (partitionA == partitionB) {
+//                partitionB = this.getRandomPartitionDueToProbality(partitions);
+//            }
             //---------------------------------------------------------------------------------
             partition = this.makePartition(partitionA, partitionB, unionProbability, leftJoinProbability, rightJoinProbability);//size 0 ???
             System.out.println("MergedPartition: " + partition.toString() + "\n");
@@ -289,25 +291,25 @@ public class Tools {
 // // //        partition.probability=p1.probability+p2.probability;
 
         // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
-//        String choice = new String("");
-//        Integer toogle = 0;
-//        if (toogle.equals(0)) {
-//            choice = "rightJoin";
-//            toogle++;
-//        } else {
-//            if (toogle.equals(1)) {
-//                choice = "leftJoin";
-//                toogle++;
-//            } else {
-//                if (toogle.equals(2)) {
-//                    choice = "union";
-//                    toogle = toogle - 2;
-//                }
-//            }
-//        }
+        String choice = new String("");
+        Integer toogle = 0;
+        if (toogle.equals(0)) {
+            choice = "rightJoin";
+            toogle++;
+        } else {
+            if (toogle.equals(1)) {
+                choice = "leftJoin";
+                toogle++;
+            } else {
+                if (toogle.equals(2)) {
+                    choice = "union";
+                    toogle = toogle - 2;
+                }
+            }
+        }
         //-------------------------------------------------------------------------------
         //   BUILD RANDOM INSTANCE ----------------------------------------------------       
-        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
+//        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
 
 //---------------------------------------------------------------------------------------------
         System.out.println(choice);
