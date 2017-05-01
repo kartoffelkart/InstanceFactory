@@ -30,9 +30,9 @@ public class Tools {
     public ArrayList<MyInteger> randomOrdering;
 
     public ArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
-        ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
+//        ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
 
-//        ArrayList<MyInteger> randomMyIntArrayList = this.getRandomMyIntArray(min, max, size);
+        ArrayList<MyInteger> randomMyIntArrayList = this.getRandomMyIntArray(min, max, size);
         ArrayList<Partition> partitions = new ArrayList<>();
         MyInteger currentRandom;
         int k = 0;
@@ -79,36 +79,36 @@ public class Tools {
     public void buildInstanceOnBasicPartitions(ArrayList<Partition> partitions, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
 // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
-        while ((partitions.size()) > 1) {
-            Integer indi = 0;//das muss hier rein wir betrachten immer die Partitions an Indize 0 und 1 in Partitions
-
-            Partition partition = new Partition();
-
-            Partition partitionA = partitions.get(indi);
-            indi++;
-
-            Partition partitionB = partitions.get(indi);
-
-//-----------------------------------------------------------------------------------------
-            //   BUILD RANDOM INSTANCE ----------------------------------------------------       
-//        while (partitions.size() > 1) {
+//        while ((partitions.size()) > 1) {
+//            Integer indi = 0;//das muss hier rein wir betrachten immer die Partitions an Indize 0 und 1 in Partitions
+//
 //            Partition partition = new Partition();
-//            Partition partitionA = new Partition();
-//            partitionA = this.getRandomPartitionDueToProbality(partitions);
-//            System.out.println("partitionA: " + partitionA.toString() + "\n");
 //
-//            Partition partitionB = new Partition();
-//            partitionB = this.getRandomPartitionDueToProbality(partitions);
-//            System.out.println("partitionB: " + partitionB.toString() + "\n");
+//            Partition partitionA = partitions.get(indi);
+//            indi++;
 //
-//            while (partitionA == partitionB) {
-//                partitionB = this.getRandomPartitionDueToProbality(partitions);
-//            }
+//            Partition partitionB = partitions.get(indi);
+//-----------------------------------------------------------------------------------------
+        //   BUILD RANDOM INSTANCE ----------------------------------------------------       
+        while (partitions.size() > 1) {
+            Partition partition = new Partition();
+            Partition partitionA = new Partition();
+            partitionA = this.getRandomPartitionDueToProbality(partitions);
+            System.out.println("partitionA: " + partitionA.toString() + "\n");
+
+            Partition partitionB = new Partition();
+            partitionB = this.getRandomPartitionDueToProbality(partitions);
+            System.out.println("partitionB: " + partitionB.toString() + "\n");
+
+            while (partitionA == partitionB) {
+                partitionB = this.getRandomPartitionDueToProbality(partitions);
+            }
             //---------------------------------------------------------------------------------
             partition = this.makePartition(partitionA, partitionB, unionProbability, leftJoinProbability, rightJoinProbability);//size 0 ???
             System.out.println("MergedPartition: " + partition.toString() + "\n");
             System.out.println("Sorted SellsOfMergedPartition: " + partition.sortedSells.toString() + "\n");
 //ASSERTION
+
             Graph testGraph = new Graph(partition, partition.sortedSells);
 
             if (partition.budget == testGraph.getMinBudget().intValue()) {
@@ -189,7 +189,7 @@ public class Tools {
     public ArrayList<MyInteger> getDeterministicMyIntArray() {
 //        int[] deterministicIntArrayList = {2, 4, 1, 3, 5, 2};;
 
-        int[] deterministicIntArrayList = {15, 14, 17, 5, 11, 15, 25, 20, 17, 14, 21, 1712, 3, 60, 9, 32, 16, 56, 10, 56, 47, 11, 26, 20, 35, 30, 41, 59, 19, 56, 8, 31, 38, 28, 45, 41, 24, 12, 42, 38, 21, 26, 43};;
+        int[] deterministicIntArrayList = {15, 14, 17, 5, 11, 15, 25, 20, 17, 14, 21, 17};;
         ArrayList<MyInteger> deterministicMyIntArrayList = new ArrayList<>();
 
         int it = 0;
@@ -291,25 +291,25 @@ public class Tools {
 // // //        partition.probability=p1.probability+p2.probability;
 
         // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
-        String choice = new String("");
-        Integer toogle = 0;
-        if (toogle.equals(0)) {
-            choice = "union";
-            toogle++;
-        } else {
-            if (toogle.equals(1)) {
-                choice = "union";
-                toogle++;
-            } else {
-                if (toogle.equals(2)) {
-                    choice = "union";
-                    toogle = toogle - 2;
-                }
-            }
-        }
+//        String choice = new String("");
+//        Integer toogle = 0;
+//        if (toogle.equals(0)) {
+//            choice = "union";
+//            toogle++;
+//        } else {
+//            if (toogle.equals(1)) {
+//                choice = "union";
+//                toogle++;
+//            } else {
+//                if (toogle.equals(2)) {
+//                    choice = "union";
+//                    toogle = toogle - 2;
+//                }
+//            }
+//        }
         //-------------------------------------------------------------------------------
         //   BUILD RANDOM INSTANCE ----------------------------------------------------       
-//        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
+        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
 
 //---------------------------------------------------------------------------------------------
         System.out.println(choice);
@@ -459,10 +459,7 @@ public class Tools {
         while ((!p1.positiveSets.isEmpty()) && (!p2.positiveSets.isEmpty())) {
 //ArrayList<MyInteger> testSortedSells= new ArrayList<>();
             if (p1.positiveSets.get(0).getPositiveSetPLengthSumBoughts() < p2.positiveSets.get(0).getPositiveSetPLengthSumBoughts()) {
-              
-              
-                
-                
+
                 for (int countP1 = 0; countP1 < p1.positiveSets.get(0).getPositiveSetPLength(); countP1++) {
 //                    testSortedSells.add(s1Rest.get(0));
                     System.out.println("newSortedSells.add: " + s1Rest.get(0));
@@ -501,44 +498,43 @@ public class Tools {
             }
 
         }
-while(!(p1.positiveSets.isEmpty())){
-                
-                
-                for (int countP1 = 0; countP1 < p1.positiveSets.get(0).getPositiveSetPLength(); countP1++) {
-//                    testSortedSells.add(s1Rest.get(0));
-                    System.out.println("newSortedSells.add: " + s1Rest.get(0));
+        while (!(p1.positiveSets.isEmpty())) {
 
-                    newSortedSells.add(s1Rest.get(0));//index 0 size 0
-                    s1Rest.remove(0);
+            for (int countP1 = 0; countP1 < p1.positiveSets.get(0).getPositiveSetPLength(); countP1++) {
+//                    testSortedSells.add(s1Rest.get(0));
+                System.out.println("newSortedSells.add: " + s1Rest.get(0));
+
+                newSortedSells.add(s1Rest.get(0));//index 0 size 0
+                s1Rest.remove(0);
 //                    System.out.println("S1Rest: " + s1Rest.toString());
 
-                }
+            }
 
                 //ASSERTION
-                //------------------------------------
-                budget = Integer.min(budget, balance + ((p1.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
-                System.out.println("budget " + budget);
-                balance = balance + ((p1.positiveSets).get(0)).getPositiveSetBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
-                System.out.println("balance " + balance);
+            //------------------------------------
+            budget = Integer.min(budget, balance + ((p1.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+            System.out.println("budget " + budget);
+            balance = balance + ((p1.positiveSets).get(0)).getPositiveSetBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
+            System.out.println("balance " + balance);
 
-                (p1.positiveSets).remove(0);
-}
-while(!(p1.positiveSets.isEmpty())){for (int countP2 = 0; countP2 < p2.positiveSets.get(0).getPositiveSetPLength(); countP2++) {
-                    System.out.println("newSortedSells.add: " + s2Rest.get(0));
+            (p1.positiveSets).remove(0);
+        }
+        while (!(p2.positiveSets.isEmpty())) {
+            for (int countP2 = 0; countP2 < p2.positiveSets.get(0).getPositiveSetPLength(); countP2++) {
+                System.out.println("newSortedSells.add: " + s2Rest.get(0));
 
-                    newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
-                    s2Rest.remove(0);
-                    System.out.println("S2Rest: " + s2Rest.toString());
+                newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
+                s2Rest.remove(0);
+                System.out.println("S2Rest: " + s2Rest.toString());
 
-                }
-                budget = Integer.min(budget, balance + ((p2.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
-                System.out.println("budget " + budget);
-                balance = balance + ((p2.positiveSets).get(0)).getPositiveSetBalance();//p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(0);
-                System.out.println("balance " + balance);
+            }
+            budget = Integer.min(budget, balance + ((p2.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+            System.out.println("budget " + budget);
+            balance = balance + ((p2.positiveSets).get(0)).getPositiveSetBalance();//p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(0);
+            System.out.println("balance " + balance);
 
-                (p2.positiveSets).remove(0);}
-
-
+            (p2.positiveSets).remove(0);
+        }
 
         // TODO: Eigentlich wird jetzt noch unterschieden ob max von min von...
         Integer budget2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
@@ -567,6 +563,7 @@ while(!(p1.positiveSets.isEmpty())){for (int countP2 = 0; countP2 < p2.positiveS
 
         p.sortedSells = newSortedSells;
         p.balance = balance;
+        System.out.println("BUDGET:                      " + budget);
         p.budget = budget;
 
     }
@@ -896,5 +893,7 @@ while(!(p1.positiveSets.isEmpty())){for (int countP2 = 0; countP2 < p2.positiveS
         outStatistikN("test");
 
     }
- public void addPositiveSet(){}
+
+    public void addPositiveSet() {
+    }
 }
