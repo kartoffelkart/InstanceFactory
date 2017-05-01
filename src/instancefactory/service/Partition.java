@@ -23,23 +23,7 @@ public class Partition {
     public ArrayList<MyInteger> sortedSells;
 
     private Integer minBudgetCompare;
-
-    public Integer getMinBudgetCompare() {
-        return minBudgetCompare;
-    }
-
-    public void setMinBudgetCompare(Integer minBudgetCompare) {
-        //ASSERTION
-        if (!(minBudgetCompare.intValue() > budget)) {
-            this.minBudgetCompare = minBudgetCompare;
-             System.err.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
-        } else {
-            System.err.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
-
- 
-        }
-
-    }
+       
     public Integer minBudgetSwap;
     public Integer minBudgetChangeOrder;
 
@@ -52,7 +36,9 @@ public class Partition {
     public int probability;
     public int budget;// todo: test = 0;
     public int balance = 0;
-    //_________________________________________________________________________
+
+   
+  //_________________________________________________________________________
 
     //KONSTRUKTOR
     public Partition() {
@@ -75,7 +61,22 @@ public class Partition {
 
     }
 //_____________________________________________________________________________
+ public Integer getMinBudgetCompare() {
+        return minBudgetCompare;
+    }
 
+   public void setMinBudgetCompare(Integer minBudgetCompare) {
+        //ASSERTION
+        if (!(minBudgetCompare.intValue() > budget)) {
+            this.minBudgetCompare = minBudgetCompare;
+             System.err.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
+        } else {
+            System.err.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
+
+ 
+        }
+
+    }
     /**
      * Gibt den Index zurück an dem ein Sell sich in der Adjazensliste befindet
      *
