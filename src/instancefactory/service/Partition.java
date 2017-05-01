@@ -65,18 +65,18 @@ public class Partition {
         return minBudgetCompare;
     }
 
-   public void setMinBudgetCompare(Integer minBudgetCompare) {
-        //ASSERTION
-        if (!(minBudgetCompare.intValue() > budget)) {
-            this.minBudgetCompare = minBudgetCompare;
-             System.err.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
-        } else {
-            System.err.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
-
- 
-        }
-
-    }
+//   public void setMinBudgetCompare(Integer minBudgetCompare) {
+//        //ASSERTION
+//        if (!(minBudgetCompare.intValue() > budget)) {
+//            this.minBudgetCompare = minBudgetCompare;
+//             System.err.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
+//        } else {
+//            System.err.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
+//
+// 
+//        }
+//
+//    }
     /**
      * Gibt den Index zurück an dem ein Sell sich in der Adjazensliste befindet
      *

@@ -29,7 +29,7 @@ public class Graph {
         werte.add(0, 0);
         calculateValues(partition, ordering);
         this.minBudget = Collections.min(werte);
-        this.partition.setMinBudgetCompare(minBudget);
+//        this.partition.setMinBudgetCompare(minBudget);
     }
 
     private void calculateValues(Partition p, ArrayList<MyInteger> ordering) {
