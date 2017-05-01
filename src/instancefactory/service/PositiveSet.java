@@ -33,7 +33,7 @@ public class PositiveSet {
     public PositiveSet(Integer sumOfBoughts, Integer positiveSetPLength, Integer positiveSetBudget, Integer positiveSetBalance) {
        
         this.positiveSetPLength = positiveSetPLength;
-        this.positiveSetPLengthSumBoughts = positiveSetPLengthSumBoughts;
+        this.positiveSetPLengthSumBoughts = sumOfBoughts;
         this.positiveSetBudget = positiveSetBudget;
         this.positiveSetBalance =positiveSetBalance;
     }
