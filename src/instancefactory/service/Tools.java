@@ -189,7 +189,7 @@ public class Tools {
     public ArrayList<MyInteger> getDeterministicMyIntArray() {
 //        int[] deterministicIntArrayList = {2, 4, 1, 3, 5, 2};;
 
-        int[] deterministicIntArrayList = {15, 14, 17, 5, 11, 15, 25, 20, 17, 14, 21, 17};;
+        int[] deterministicIntArrayList = {15, 14, 17, 5, 11, 15, 25, 20, 17, 14, 21, 1712, 3, 60, 9, 32, 16, 56, 10, 56, 47, 11, 26, 20, 35, 30, 41, 59, 19, 56, 8, 31, 38, 28, 45, 41, 24, 12, 42, 38, 21, 26, 43};;
         ArrayList<MyInteger> deterministicMyIntArrayList = new ArrayList<>();
 
         int it = 0;
@@ -291,25 +291,25 @@ public class Tools {
 // // //        partition.probability=p1.probability+p2.probability;
 
         // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
-        String choice = new String("");
-        Integer toogle = 0;
-        if (toogle.equals(0)) {
-            choice = "rightJoin";
-            toogle++;
-        } else {
-            if (toogle.equals(1)) {
-                choice = "leftJoin";
-                toogle++;
-            } else {
-                if (toogle.equals(2)) {
-                    choice = "union";
-                    toogle = toogle - 2;
-                }
-            }
-        }
+//        String choice = new String("");
+//        Integer toogle = 0;
+//        if (toogle.equals(0)) {
+//            choice = "rightJoin";
+//            toogle++;
+//        } else {
+//            if (toogle.equals(1)) {
+//                choice = "leftJoin";
+//                toogle++;
+//            } else {
+//                if (toogle.equals(2)) {
+//                    choice = "union";
+//                    toogle = toogle - 2;
+//                }
+//            }
+//        }
         //-------------------------------------------------------------------------------
         //   BUILD RANDOM INSTANCE ----------------------------------------------------       
-//        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
+        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
 
 //---------------------------------------------------------------------------------------------
         System.out.println(choice);
