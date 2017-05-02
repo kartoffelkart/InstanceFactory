@@ -30,9 +30,9 @@ public class Tools {
     public ArrayList<MyInteger> randomOrdering;
 
     public ArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
-//        ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
+        ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
 
-        ArrayList<MyInteger> randomMyIntArrayList = this.getRandomMyIntArray(min, max, size);
+//        ArrayList<MyInteger> randomMyIntArrayList = this.getRandomMyIntArray(min, max, size);
         ArrayList<Partition> partitions = new ArrayList<>();
         MyInteger currentRandom;
         int k = 0;
@@ -112,7 +112,7 @@ public class Tools {
             Graph testGraph = new Graph(partition, partition.sortedSells);
 
             if (partition.budget == testGraph.getMinBudget().intValue()) {
-                System.err.println("Alles gut, hier stimmt der budget Wert aus der neuen Partition  mit dem TestGraph überein" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
+//                System.err.println("Alles gut, hier stimmt der budget Wert aus der neuen Partition  mit dem TestGraph überein" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
 
             } else {
                 System.err.println("Scheiße hier stimmt der budget Wert aus der neuen Partition nicht mit dem TestGraph  überein!" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget());
@@ -189,7 +189,7 @@ public class Tools {
     public ArrayList<MyInteger> getDeterministicMyIntArray() {
 //        int[] deterministicIntArrayList = {2, 4, 1, 3, 5, 2};;
 
-        int[] deterministicIntArrayList = {15, 14, 17, 5, 11, 15, 25, 20, 17, 14, 21, 17};;
+        int[] deterministicIntArrayList = {12, 3, 60, 9, 32, 16, 56, 10, 56, 47, 11, 26, 20, 35, 30, 41, 59, 19, 56, 8, 31, 38, 28, 45, 41, 24, 12, 42, 38, 21, 26, 43};;
         ArrayList<MyInteger> deterministicMyIntArrayList = new ArrayList<>();
 
         int it = 0;
@@ -708,7 +708,7 @@ public class Tools {
             prX.println(0);
             prY.println(0);
             int pool = 10;
-            for (int i = 2; i < 100; i += 10) {// todo: kein +10 ??????
+            for (int i = 2; i < 50; i += 10) {// todo: kein +10 ??????
                 double mittelwertSwap = 0;
                 double mittelwertSortedSells = 0;
 
@@ -727,7 +727,7 @@ public class Tools {
                 }
                 mittelwertSwap = mittelwertSwap / pool;
                 mittelwertSortedSells = mittelwertSortedSells / pool;
-                prY.println(mittelwertSortedSells / mittelwertSwap / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
+                prY.println(mittelwertSortedSells / mittelwertSwap );// todo: hier können wir Wert für Statistik ändern
 //                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
             }
@@ -789,7 +789,9 @@ public class Tools {
 
                 }
                 Graph newGraph = new Graph(currentGraph.getPartition(), newOrdering);
-
+                System.out.println("currentGraph also ersmal Random : Budget "+currentGraph.getMinBudget());
+                System.out.println("Graph nach Heuristik : Budget "+newGraph.getMinBudget());
+                System.out.println("Graph mit SortedSells : Budget "+currentGraph.getPartition().budget);
                 if (newGraph.getMinBudget() > currentGraph.getMinBudget()) {
 
                     return getGraphHeuristik(newGraph, update);
