@@ -644,9 +644,9 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
         if (!partition.orderingFitsBudget())
         {
             System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");}
-        if (! partition.isBestOrdering())
-        {
-            System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
+//        if (! partition.isBestOrdering())
+//        {
+//            System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
 //--------------------------------
         return partition;
     }
@@ -697,9 +697,9 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
         if (!partition.orderingFitsBudget())
         {
             System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");}
-        if (! partition.isBestOrdering())
-        {
-            System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
+//        if (! partition.isBestOrdering())
+//        {
+//            System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
 //--------------------------------
         return partition;
     }
