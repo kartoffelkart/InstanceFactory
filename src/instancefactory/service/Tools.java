@@ -740,7 +740,7 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
 //                prY.println(sumOfBoughts/instance.minBudgetSwap);
                     mittelwertSortedSells = mittelwertSortedSells + instance.budget;
                     mittelwertSwap = mittelwertSwap + instance.minBudgetSwap;
-                    System.err.println("test" + instance.minBudgetSwap);
+//                    System.err.println("test" + instance.minBudgetSwap);
                 }
                 mittelwertSwap = mittelwertSwap / pool;
                 mittelwertSortedSells = mittelwertSortedSells / pool;

@@ -201,7 +201,7 @@ public class Partition {
     public boolean orderingFitsBudget() {
 
         Graph newTestGraph = new Graph(this, sortedSells);
-        if (!(newTestGraph.getMinBudget().equals(budget))) {
+        if ((newTestGraph.getMinBudget().equals(budget))) {
             return true;
         } else {
 
