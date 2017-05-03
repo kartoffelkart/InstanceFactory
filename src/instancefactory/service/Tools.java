@@ -31,7 +31,7 @@ public class Tools {
 
     public ArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
         ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
-
+//        System.out.println("");
 //        ArrayList<MyInteger> randomMyIntArrayList = this.getRandomMyIntArray(min, max, size);
         ArrayList<Partition> partitions = new ArrayList<>();
         MyInteger currentRandom;
@@ -102,6 +102,8 @@ public class Tools {
 
             while (partitionA == partitionB) {
                 partitionB = this.getRandomPartitionDueToProbality(partitions);
+                System.out.println("partitionB: " + partitionB.toString() + "\n");
+
             }
             //---------------------------------------------------------------------------------
             partition = this.makePartition(partitionA, partitionB, unionProbability, leftJoinProbability, rightJoinProbability);//size 0 ???
@@ -148,7 +150,7 @@ public class Tools {
 
 //           
         }
-
+        System.out.println(" Random IntArray :" + randomIntArrayList);
         return randomIntArrayList;
     }
 
@@ -171,14 +173,14 @@ public class Tools {
         for (int it = 0; it < randomIntArrayList.size(); it++) {
             if (toogle == 0) {
 
-                MyInteger te = new MyInteger(randomIntArrayList.get(it) + 10);//todo: so werden die geraden, also die Sells größer
+                MyInteger te = new MyInteger(randomIntArrayList.get(it));//todo: so werden die geraden, also die Sells größer
                 randomMyIntArrayList.add(te);
-                System.out.println("te:" + te.toString());
+
                 toogle++;
             } else {
                 MyInteger te = new MyInteger(randomIntArrayList.get(it));//todo: so werden die ungeraden, also die Boughts größer
                 randomMyIntArrayList.add(te);
-                System.out.println("te:" + te.toString());
+
                 toogle--;
             }
 
@@ -189,7 +191,8 @@ public class Tools {
     public ArrayList<MyInteger> getDeterministicMyIntArray() {
 //        int[] deterministicIntArrayList = {2, 4, 1, 3, 5, 2};;
 
-        int[] deterministicIntArrayList = {12, 3, 60, 9, 32, 16, 56, 10, 56, 47, 11, 26, 20, 35, 30, 41, 59, 19, 56, 8, 31, 38, 28, 45, 41, 24, 12, 42, 38, 21, 26, 43};;
+        int[] deterministicIntArrayList = {15,28,60,38,49,49,16,49,16,40,19,25};;
+
         ArrayList<MyInteger> deterministicMyIntArrayList = new ArrayList<>();
 
         int it = 0;
@@ -294,7 +297,7 @@ public class Tools {
 //        String choice = new String("");
 //        Integer toogle = 0;
 //        if (toogle.equals(0)) {
-//            choice = "union";
+//            choice = "rightJoin";
 //            toogle++;
 //        } else {
 //            if (toogle.equals(1)) {
@@ -388,7 +391,7 @@ public class Tools {
          */
         ArrayList<MyInteger> sRest = new ArrayList<>();
         sRest.addAll(p.sortedSells);
-        System.out.println("S1Rest: " + sRest.toString());
+        System.out.println("SRest: " + sRest.toString());
         Integer count = 0;
         for (int i = 0; i < sRest.size(); i++) {
             ArrayList<MyInteger> SellsForCurrentPositiveSet = new ArrayList<>();
@@ -510,7 +513,7 @@ public class Tools {
 
             }
 
-                //ASSERTION
+            //ASSERTION
             //------------------------------------
             budget = Integer.min(budget, balance + ((p1.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
             System.out.println("budget " + budget);
@@ -525,7 +528,7 @@ public class Tools {
 
                 newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
                 s2Rest.remove(0);
-                System.out.println("S2Rest: " + s2Rest.toString());
+//                System.out.println("S2Rest: " + s2Rest.toString());
 
             }
             budget = Integer.min(budget, balance + ((p2.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
@@ -537,8 +540,8 @@ public class Tools {
         }
 
         // TODO: Eigentlich wird jetzt noch unterschieden ob max von min von...
-        Integer budget2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
         Integer budget1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
+        Integer budget2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
         Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
         Integer balance2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
 
@@ -700,7 +703,7 @@ public class Tools {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        ArrayList<Partition> partitions = new ArrayList<>();
+
         Partition instance;
         try {
             PrintWriter prX = new PrintWriter(fileX);
@@ -711,8 +714,8 @@ public class Tools {
             for (int i = 2; i < 50; i += 10) {// todo: kein +10 ??????
                 double mittelwertSwap = 0;
                 double mittelwertSortedSells = 0;
-
                 prX.println(i);
+
                 for (int j = 0; j < pool; j++) {
 
                     instance = buildInstance(1, 50, i);
@@ -727,7 +730,7 @@ public class Tools {
                 }
                 mittelwertSwap = mittelwertSwap / pool;
                 mittelwertSortedSells = mittelwertSortedSells / pool;
-                prY.println(mittelwertSortedSells / mittelwertSwap );// todo: hier können wir Wert für Statistik ändern
+                prY.println(mittelwertSortedSells / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
 //                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
             }
@@ -772,9 +775,11 @@ public class Tools {
     }
 
     public Graph getGraphHeuristik(Graph currentGraph, String update) {
+        System.out.println("nochmal der Graph nach Heuristik : Budget " + currentGraph.getMinBudget());
+
         ArrayList<MyInteger> ordering = new ArrayList<>();
         ordering.addAll(currentGraph.getOrdering());
-
+        System.out.println("Graph mit SortedSells : Budget " + currentGraph.getPartition().budget);
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; j < ordering.size(); j++) {
                 ArrayList<MyInteger> newOrdering = new ArrayList<>();
@@ -789,12 +794,14 @@ public class Tools {
 
                 }
                 Graph newGraph = new Graph(currentGraph.getPartition(), newOrdering);
-                System.out.println("currentGraph also ersmal Random : Budget "+currentGraph.getMinBudget());
-                System.out.println("Graph nach Heuristik : Budget "+newGraph.getMinBudget());
-                System.out.println("Graph mit SortedSells : Budget "+currentGraph.getPartition().budget);
+
                 if (newGraph.getMinBudget() > currentGraph.getMinBudget()) {
+                    System.out.println("Graph nach Heuristik : Budget " + newGraph.getMinBudget());
+                    System.out.println("Besser");
 
                     return getGraphHeuristik(newGraph, update);
+                } else {
+                    System.out.println("nicht besser");
                 }
 
             }
@@ -879,6 +886,8 @@ public class Tools {
         out(newGraph, "sortedSells");
 
         newGraph = new Graph(instance, randomOrdering);
+        System.out.println("currentGraph also ersmal Random : Budget " + newGraph.getMinBudget());
+
         System.out.println("Random: ");
         out(newGraph, "random");
 
@@ -890,7 +899,7 @@ public class Tools {
     }
 
     public void superFunctionStatistik(int min, int max, int size) {
-        Partition instance = buildInstance(min, max, size);
+        // todo: min, max, size muss noch übergeben werden an outStatitikN
 
         outStatistikN("test");
 

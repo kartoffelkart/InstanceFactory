@@ -15,7 +15,7 @@ public class MyInteger {
      *
      */
     public final Integer i;
-    public Integer balance;
+//    public Integer balance;
 
     public MyInteger() {
         this.i = null;
