@@ -110,7 +110,7 @@ public class Tools {
             System.out.println("MergedPartition: " + partition.toString() + "\n");
             System.out.println("Sorted SellsOfMergedPartition: " + partition.sortedSells.toString() + "\n");
 //ASSERTION
-boolean test1 =partition.orderingFitsBudget();
+if(!partition.orderingFitsBudget()){System.err.println("In makePartition wurde Budget oder SortedSells falsch berechnet. Passt nicht zusammen");}
            
             //-------------
 
@@ -565,8 +565,8 @@ boolean test1 =partition.orderingFitsBudget();
         
         //ASSERTION
 
-        boolean test2 =p.orderingFitsBudget();
-        boolean test3 = p.isBestOrdering();
+        if (!p.orderingFitsBudget()){System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");}
+        if (! p.isBestOrdering()){System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");};
 //--------------------------------
     }
   
