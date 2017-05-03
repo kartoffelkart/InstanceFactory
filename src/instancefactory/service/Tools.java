@@ -30,9 +30,9 @@ public class Tools {
     public ArrayList<MyInteger> randomOrdering;
 
     public ArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
-        ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
+//        ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
 //        System.out.println("");
-//        ArrayList<MyInteger> randomMyIntArrayList = this.getRandomMyIntArray(min, max, size);
+        ArrayList<MyInteger> randomMyIntArrayList = this.getRandomMyIntArray(min, max, size);
         ArrayList<Partition> partitions = new ArrayList<>();
         MyInteger currentRandom;
         int k = 0;
@@ -563,11 +563,7 @@ if(!partition.orderingFitsBudget()){System.err.println("In makePartition wurde B
         System.out.println("BUDGET:               ,       " + budget);
         p.budget = budget;
         
-        //ASSERTION
-
-        if (!p.orderingFitsBudget()){System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");}
-        if (! p.isBestOrdering()){System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");};
-//--------------------------------
+       
     }
   
 
@@ -579,7 +575,7 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
             java.util.Collections.swap(arr, k, i);
         }
         if (k == arr.size() -1){
-            System.out.println(java.util.Arrays.toString(arr.toArray()));
+//            System.out.println(java.util.Arrays.toString(arr.toArray()));
             returnList.add(arr);
         }
         return returnList;
@@ -643,7 +639,15 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
          partition.arrayList = newArrayList;
         makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
        
+ //ASSERTION
 
+        if (!partition.orderingFitsBudget())
+        {
+            System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");}
+        if (! partition.isBestOrdering())
+        {
+            System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
+//--------------------------------
         return partition;
     }
 
@@ -687,6 +691,16 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
         partition.budget = newBudget;
         partition.balance = newBalance;
 //        System.out.println(p.toString());
+        
+        //ASSERTION
+
+        if (!partition.orderingFitsBudget())
+        {
+            System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");}
+        if (! partition.isBestOrdering())
+        {
+            System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
+//--------------------------------
         return partition;
     }
 
@@ -839,7 +853,15 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
         newOrdering.set(j, ordering.get(i));
         return newOrdering;
     }
+public Partition buildInstance(int min, int max, int size) {
 
+        ArrayList<Partition> partitions = makeBasicPartitions(min, max, size);
+        buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
+
+        Partition instance = partitions.get(0);
+        System.out.println("Instance is build.");
+        return instance;
+    }
     public ArrayList<MyInteger> changeOrder(int i, int j, ArrayList<MyInteger> ordering) {
         ArrayList<MyInteger> newOrdering = new ArrayList<>();
         newOrdering.addAll(ordering);
@@ -880,15 +902,7 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
         return sum;
     }
 
-    public Partition buildInstance(int min, int max, int size) {
-
-        ArrayList<Partition> partitions = makeBasicPartitions(min, max, size);
-        buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
-
-        Partition instance = partitions.get(0);
-        System.out.println("Instance is build.");
-        return instance;
-    }
+    
 
     public void buildIstanceMakeHeuristicsAndOut(int min, int max, int size) {
         Partition instance = buildInstance(min, max, size);
