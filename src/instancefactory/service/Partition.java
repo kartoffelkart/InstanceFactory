@@ -197,7 +197,21 @@ public class Partition {
     public void setBalanceBoughtsBudgetOfSetUpToIndex(ArrayList<BalanceBoughtsBudget> balanceBoughtsBudgetOfSetUpToIndex) {
         this.balanceBoughtsBudgetOfSetUpToIndex = balanceBoughtsBudgetOfSetUpToIndex;
     }
+public boolean orderingFitsBudget(){
 
+    Graph newTestGraph = new Graph(this, sortedSells);
+        if (!(newTestGraph.getMinBudget().equals(budget))) {
+            return true;
+        } else {
+            return false;
+        }
+
+
+
+
+
+
+}
     @Override
     public String toString() {
         String ret = new String();

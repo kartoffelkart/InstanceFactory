@@ -563,6 +563,7 @@ public class Tools {
 
         System.out.println("newSortedSells: " + newSortedSells.toString());
         //--------------
+        
         Graph newTestGraph = new Graph(p, newSortedSells);
         if (!(newTestGraph.getMinBudget().equals(budget))) {
             System.out.println("hier stimmts ");
