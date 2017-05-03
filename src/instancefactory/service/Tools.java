@@ -114,7 +114,7 @@ public class Tools {
     public void buildInstanceOnBasicPartitions(ArrayList<Partition> partitions, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
 // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
-        while ((partitions.size()) > 1) {
+        while ((partitions.size()) > 1)   {
             Integer indi = 0;//das muss hier rein wir betrachten immer die Partitions an Indize 0 und 1 in Partitions
 
             Partition partition = new Partition();
