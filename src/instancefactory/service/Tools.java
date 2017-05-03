@@ -545,7 +545,7 @@ public class Tools {
         Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
         Integer balance2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
 
-        if (Integer.max(budget2, balance2 + budget1) > Integer.max(budget1, balance1 + budget2)) {
+        if (Integer.min(budget2, balance2 + budget1) < Integer.min(budget1, balance1 + budget2)) {
             newSortedSells.addAll(s1Rest);
             budget = Integer.min(balance + budget1, budget);
             balance = balance + balance1;
