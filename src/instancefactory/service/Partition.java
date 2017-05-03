@@ -5,6 +5,7 @@
  */
 package instancefactory.service;
 
+import static instancefactory.service.Tools.permute;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -23,7 +24,7 @@ public class Partition {
     public ArrayList<MyInteger> sortedSells;
 
     private Integer minBudgetCompare;
-       
+
     public Integer minBudgetSwap;
     public Integer minBudgetChangeOrder;
 
@@ -37,9 +38,7 @@ public class Partition {
     public int budget;// todo: test = 0;
     public int balance = 0;
 
-   
   //_________________________________________________________________________
-
     //KONSTRUKTOR
     public Partition() {
         ArrayList<MyInteger> array = new ArrayList<>();
@@ -61,22 +60,23 @@ public class Partition {
 
     }
 //_____________________________________________________________________________
- public Integer getMinBudgetCompare() {
+
+    public Integer getMinBudgetCompare() {
         return minBudgetCompare;
     }
 
-   public void setMinBudgetCompare(Integer minBudgetCompare) {
+    public void setMinBudgetCompare(Integer minBudgetCompare) {
         //ASSERTION
         if (!(minBudgetCompare.intValue() > budget)) {
             this.minBudgetCompare = minBudgetCompare;
 //             System.err.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
         } else {
-         System.err.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
+            System.err.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
 
- 
         }
 
     }
+
     /**
      * Gibt den Index zurück an dem ein Sell sich in der Adjazensliste befindet
      *
@@ -197,21 +197,36 @@ public class Partition {
     public void setBalanceBoughtsBudgetOfSetUpToIndex(ArrayList<BalanceBoughtsBudget> balanceBoughtsBudgetOfSetUpToIndex) {
         this.balanceBoughtsBudgetOfSetUpToIndex = balanceBoughtsBudgetOfSetUpToIndex;
     }
-public boolean orderingFitsBudget(){
 
-    Graph newTestGraph = new Graph(this, sortedSells);
+    public boolean orderingFitsBudget() {
+
+        Graph newTestGraph = new Graph(this, sortedSells);
         if (!(newTestGraph.getMinBudget().equals(budget))) {
             return true;
         } else {
+
+            System.err.println("Fehler ! Budget von Partition stimmt nicht mit MinBudegt des TestGraphen überein");
             return false;
         }
 
+    }
 
+    public boolean isBestOrdering() {
+        Graph newTestGraph = new Graph(this, sortedSells);
+        Integer probablyBest = newTestGraph.getMinBudget();
 
+        java.util.List<java.util.List<MyInteger>> liste = permute(sortedSells, 0);
 
+        for (int i = 0; i < liste.size(); i++) {
+            newTestGraph = new Graph(this, liste.get(i));
+            if (probablyBest < newTestGraph.getMinBudget()) {
+                return false;
+            }
+        }
+        return true;
 
+    }
 
-}
     @Override
     public String toString() {
         String ret = new String();

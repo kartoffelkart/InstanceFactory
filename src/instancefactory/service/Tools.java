@@ -110,16 +110,8 @@ public class Tools {
             System.out.println("MergedPartition: " + partition.toString() + "\n");
             System.out.println("Sorted SellsOfMergedPartition: " + partition.sortedSells.toString() + "\n");
 //ASSERTION
-
-            Graph testGraph = new Graph(partition, partition.sortedSells);
-
-            if (partition.budget == testGraph.getMinBudget().intValue()) {
-//                System.err.println("Alles gut, hier stimmt der budget Wert aus der neuen Partition  mit dem TestGraph überein" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget().intValue());
-
-            } else {
-                System.err.println("Scheiße hier stimmt der budget Wert aus der neuen Partition nicht mit dem TestGraph  überein!" + " budget" + partition.budget + "getMinBudget" + testGraph.getMinBudget());
-
-            }
+boolean test1 =partition.orderingFitsBudget();
+           
             //-------------
 
             int ind = partitions.indexOf(partitionA);
@@ -561,38 +553,24 @@ public class Tools {
             balance = balance + balance1;
         }
 
-        System.out.println("newSortedSells: " + newSortedSells.toString());
+//        System.out.println("newSortedSells: " + newSortedSells.toString());
         //--------------
-        
-        Graph newTestGraph = new Graph(p, newSortedSells);
-        if (!(newTestGraph.getMinBudget().equals(budget))) {
-            System.out.println("hier stimmts ");
-        } else {
-            System.err.println("hier stimmts nicht ");
-        }
-            
+
+      
         
         p.sortedSells = newSortedSells;
         p.balance = balance;
         System.out.println("BUDGET:               ,       " + budget);
         p.budget = budget;
-
-    }
-    // isBestOrdering in Partition verschieben
-    public boolean isBestOrdering(Partition p,ArrayList<MyInteger> newSortedSells ){
-    Graph newTestGraph = new Graph(p, newSortedSells);
-    Integer probablyBest = newTestGraph.getMinBudget();
         
-    java.util.List<java.util.List<MyInteger>> liste =permute(newSortedSells,0);
-    
-    
-    for (int i =0; i<liste.size();i++){
-             newTestGraph = new Graph(p, liste.get(i));
-if(probablyBest<newTestGraph.getMinBudget()){return false;}
+        //ASSERTION
+
+        boolean test2 =p.orderingFitsBudget();
+        boolean test3 = p.isBestOrdering();
+//--------------------------------
     }
-    return true;
-    
-    }
+  
+
 static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyInteger> arr, int k){
     java.util.List<java.util.List<MyInteger>> returnList = new ArrayList<>();
         for(int i = k; i < arr.size(); i++){
