@@ -7,6 +7,7 @@ package instancefactory.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -15,13 +16,13 @@ import java.util.Collections;
 public class Graph {
 
     private Partition partition;
-    private ArrayList<MyInteger> ordering;
+    private List<MyInteger> ordering;
     private ArrayList<MyInteger> orderingWithBoughts;
     public ArrayList<Integer> werte;
 
     private Integer minBudget;
 
-    public Graph(Partition partition, ArrayList<MyInteger> ordering) {
+    public Graph(Partition partition, List<MyInteger> ordering) {
         this.partition = partition;
         this.ordering = ordering;
         this.orderingWithBoughts = new ArrayList<>();
@@ -32,7 +33,7 @@ public class Graph {
         this.partition.setMinBudgetCompare(minBudget);
     }
 
-    private void calculateValues(Partition p, ArrayList<MyInteger> ordering) {
+    private void calculateValues(Partition p, List<MyInteger> ordering) {
         
         ArrayList<MyInteger> allready = new ArrayList<>();
         Integer newValue;
@@ -62,7 +63,7 @@ public class Graph {
         return partition;
     }
 
-    public ArrayList<MyInteger> getOrdering() {
+    public List<MyInteger> getOrdering() {
         return ordering;
     }
 

@@ -191,7 +191,7 @@ public class Tools {
     public ArrayList<MyInteger> getDeterministicMyIntArray() {
 //        int[] deterministicIntArrayList = {2, 4, 1, 3, 5, 2};;
 
-        int[] deterministicIntArrayList = {15,28,60,38,49,49,16,49,16,40,19,25};;
+        int[] deterministicIntArrayList = {15, 28, 60, 38, 49, 49, 16, 49, 16, 40, 19, 25};;
 
         ArrayList<MyInteger> deterministicMyIntArrayList = new ArrayList<>();
 
@@ -563,14 +563,48 @@ public class Tools {
 
         System.out.println("newSortedSells: " + newSortedSells.toString());
         //--------------
-
+        Graph newTestGraph = new Graph(p, newSortedSells);
+        if (!(newTestGraph.getMinBudget().equals(budget))) {
+            System.out.println("hier stimmts ");
+        } else {
+            System.err.println("hier stimmts nicht ");
+        }
+            
+        
         p.sortedSells = newSortedSells;
         p.balance = balance;
-        System.out.println("BUDGET:                      " + budget);
+        System.out.println("BUDGET:               ,       " + budget);
         p.budget = budget;
 
     }
-
+    // isBestOrdering in Partition verschieben
+    public boolean isBestOrdering(Partition p,ArrayList<MyInteger> newSortedSells ){
+    Graph newTestGraph = new Graph(p, newSortedSells);
+    Integer probablyBest = newTestGraph.getMinBudget();
+        
+    java.util.List<java.util.List<MyInteger>> liste =permute(newSortedSells,0);
+    
+    
+    for (int i =0; i<liste.size();i++){
+             newTestGraph = new Graph(p, liste.get(i));
+if(probablyBest<newTestGraph.getMinBudget()){return false;}
+    }
+    return true;
+    
+    }
+static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyInteger> arr, int k){
+    java.util.List<java.util.List<MyInteger>> returnList = new ArrayList<>();
+        for(int i = k; i < arr.size(); i++){
+            java.util.Collections.swap(arr, i, k);
+            permute(arr, k+1);
+            java.util.Collections.swap(arr, k, i);
+        }
+        if (k == arr.size() -1){
+            System.out.println(java.util.Arrays.toString(arr.toArray()));
+            returnList.add(arr);
+        }
+        return returnList;
+    }
     /**
      * hier werden die Adjazenslisten a1 und a2 zu einer neue Adjazensliste
      * gejoint, a1 wird in a2 reingejoint, das heißt a2 muss vor a1 abgearbeitet
@@ -627,8 +661,9 @@ public class Tools {
         Partition partition = new Partition();
 
         ArrayList<ArrayList<MyInteger>> newArrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
+         partition.arrayList = newArrayList;
         makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
-        partition.arrayList = newArrayList;
+       
 
         return partition;
     }
