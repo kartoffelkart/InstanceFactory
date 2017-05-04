@@ -110,10 +110,11 @@ public class Tools {
             System.out.println("MergedPartition: " + partition.toString() + "\n");
             System.out.println("Sorted SellsOfMergedPartition: " + partition.sortedSells.toString() + "\n");
 //ASSERTION
-if(!partition.orderingFitsBudget()){System.err.println("In makePartition wurde Budget oder SortedSells falsch berechnet. Passt nicht zusammen");}
-           
-            //-------------
+            if (!partition.orderingFitsBudget()) {
+                System.err.println("In makePartition wurde Budget oder SortedSells falsch berechnet. Passt nicht zusammen");
+            }
 
+            //-------------
             int ind = partitions.indexOf(partitionA);
             partitions.set(ind, partition);//ind -1
             partitions.remove(partitionB);
@@ -283,8 +284,10 @@ if(!partition.orderingFitsBudget()){System.err.println("In makePartition wurde B
      */
     public Partition makePartition(Partition p1, Partition p2, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
         Partition partition = new Partition();
-// // //        partition.probability=p1.probability+p2.probability;
+        partition.leftPartition = p1;
+        partition.rightPartition = p2;
 
+// // //        partition.probability=p1.probability+p2.probability;
         // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
 //        String choice = new String("");
 //        Integer toogle = 0;
@@ -309,14 +312,17 @@ if(!partition.orderingFitsBudget()){System.err.println("In makePartition wurde B
 //---------------------------------------------------------------------------------------------
         System.out.println(choice);
         if (choice.equals("union")) {
+            partition.mergeStep = "union";
             partition = makePartitionUnion(p1, p2);
 
         } else {
             if (choice.equals("rightJoin")) {
+                partition.mergeStep = "rightJoin";
                 partition = makePartitionJoin(p1, p2);
 
             } else {
                 if (choice.equals("leftJoin")) {
+                    partition.mergeStep = "leftJoin";
                     partition = makePartitionJoin(p2, p1);
 
                 } else {
@@ -427,6 +433,8 @@ if(!partition.orderingFitsBudget()){System.err.println("In makePartition wurde B
      * Partitionen entstanden ist
      */
     public void makeSortedSellsUnionAndBudgetAndBalance(Partition p, Partition p1, Partition p2) {
+        
+        //hier musst du mit i Lists of PositiveSets und Resten arbeiten
         Integer budget = 0;
         Integer balance = 0;
 
@@ -555,31 +563,27 @@ if(!partition.orderingFitsBudget()){System.err.println("In makePartition wurde B
 
 //        System.out.println("newSortedSells: " + newSortedSells.toString());
         //--------------
-
-      
-        
         p.sortedSells = newSortedSells;
         p.balance = balance;
         System.out.println("BUDGET:               ,       " + budget);
         p.budget = budget;
-        
-       
-    }
-  
 
-static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyInteger> arr, int k){
-    java.util.List<java.util.List<MyInteger>> returnList = new ArrayList<>();
-        for(int i = k; i < arr.size(); i++){
+    }
+
+    static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyInteger> arr, int k) {
+        java.util.List<java.util.List<MyInteger>> returnList = new ArrayList<>();
+        for (int i = k; i < arr.size(); i++) {
             java.util.Collections.swap(arr, i, k);
-            permute(arr, k+1);
+            permute(arr, k + 1);
             java.util.Collections.swap(arr, k, i);
         }
-        if (k == arr.size() -1){
+        if (k == arr.size() - 1) {
 //            System.out.println(java.util.Arrays.toString(arr.toArray()));
             returnList.add(arr);
         }
         return returnList;
     }
+
     /**
      * hier werden die Adjazenslisten a1 und a2 zu einer neue Adjazensliste
      * gejoint, a1 wird in a2 reingejoint, das heißt a2 muss vor a1 abgearbeitet
@@ -636,14 +640,13 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
         Partition partition = new Partition();
 
         ArrayList<ArrayList<MyInteger>> newArrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
-         partition.arrayList = newArrayList;
+        partition.arrayList = newArrayList;
         makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
-       
- //ASSERTION
 
-        if (!partition.orderingFitsBudget())
-        {
-            System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");}
+        //ASSERTION
+        if (!partition.orderingFitsBudget()) {
+            System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");
+        }
 //        if (! partition.isBestOrdering())
 //        {
 //            System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
@@ -691,12 +694,11 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
         partition.budget = newBudget;
         partition.balance = newBalance;
 //        System.out.println(p.toString());
-        
-        //ASSERTION
 
-        if (!partition.orderingFitsBudget())
-        {
-            System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");}
+        //ASSERTION
+        if (!partition.orderingFitsBudget()) {
+            System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");
+        }
 //        if (! partition.isBestOrdering())
 //        {
 //            System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
@@ -853,7 +855,8 @@ static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyIntege
         newOrdering.set(j, ordering.get(i));
         return newOrdering;
     }
-public Partition buildInstance(int min, int max, int size) {
+
+    public Partition buildInstance(int min, int max, int size) {
 
         ArrayList<Partition> partitions = makeBasicPartitions(min, max, size);
         buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
@@ -862,6 +865,7 @@ public Partition buildInstance(int min, int max, int size) {
         System.out.println("Instance is build.");
         return instance;
     }
+
     public ArrayList<MyInteger> changeOrder(int i, int j, ArrayList<MyInteger> ordering) {
         ArrayList<MyInteger> newOrdering = new ArrayList<>();
         newOrdering.addAll(ordering);
@@ -901,8 +905,6 @@ public Partition buildInstance(int min, int max, int size) {
         }
         return sum;
     }
-
-    
 
     public void buildIstanceMakeHeuristicsAndOut(int min, int max, int size) {
         Partition instance = buildInstance(min, max, size);

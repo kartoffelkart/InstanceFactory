@@ -14,7 +14,9 @@ import java.util.Iterator;
  * @author Sonja Schäfer sonja_schaefer@gmx.de
  */
 public class Partition {
-
+Partition leftPartition;
+Partition rightPartition;
+String mergeStep; 
     Tools newTool = new Tools();
 
     public ArrayList<ArrayList<MyInteger>> arrayList;
