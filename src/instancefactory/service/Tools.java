@@ -55,9 +55,12 @@ public class Tools {
             currentRandom = randomMyIntArrayList.get(k);
 
             System.out.println("Aktueller Bought : " + currentRandom);
-            partitions.get(partitions.size() - 1).arrayList.get(0).add(currentRandom);
-            partitions.get(partitions.size() - 1).balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
-            partitions.get(partitions.size() - 1).budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
+            Partition currentPartition = partitions.get(partitions.size() - 1);
+            currentPartition.arrayList.get(0).add(currentRandom);
+            currentPartition.balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
+            currentPartition.budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
+            currentPartition.setCalculatedGraphOfSortedSells();
+            currentPartition.werte = currentPartition.getCalculatedGraphOfSortedSells().getWerte();
             k++;
 
             //-------------------------------------
@@ -284,8 +287,6 @@ public class Tools {
      */
     public Partition makePartition(Partition p1, Partition p2, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
         Partition partition = new Partition();
-        partition.leftPartition = p1;
-        partition.rightPartition = p2;
 
 // // //        partition.probability=p1.probability+p2.probability;
         // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
@@ -312,17 +313,14 @@ public class Tools {
 //---------------------------------------------------------------------------------------------
         System.out.println(choice);
         if (choice.equals("union")) {
-            partition.mergeStep = "union";
             partition = makePartitionUnion(p1, p2);
 
         } else {
             if (choice.equals("rightJoin")) {
-                partition.mergeStep = "rightJoin";
                 partition = makePartitionJoin(p1, p2);
 
             } else {
                 if (choice.equals("leftJoin")) {
-                    partition.mergeStep = "leftJoin";
                     partition = makePartitionJoin(p2, p1);
 
                 } else {
@@ -331,6 +329,7 @@ public class Tools {
                 }
             }
         }
+
         return partition;
     }
 
@@ -433,7 +432,7 @@ public class Tools {
      * Partitionen entstanden ist
      */
     public void makeSortedSellsUnionAndBudgetAndBalance(Partition p, Partition p1, Partition p2) {
-        
+
         //hier musst du mit i Lists of PositiveSets und Resten arbeiten
         Integer budget = 0;
         Integer balance = 0;
@@ -695,6 +694,10 @@ public class Tools {
         partition.balance = newBalance;
 //        System.out.println(p.toString());
 
+        partition.werte = new ArrayList<>();
+        partition.werte.addAll(p2.werte);
+        ArrayList<Integer> shiftList = shift(p1.werte,p2.balance);
+        partition.werte.addAll(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
             System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");
@@ -714,6 +717,16 @@ public class Tools {
 
         }
         return newValue;
+    }
+
+    ArrayList<Integer> shift(ArrayList<Integer> list, Integer shiftValue) {
+        ArrayList<Integer> newList = (ArrayList<Integer>) list.clone();
+
+        for (int i = 0; i < newList.size(); i++) {
+            newList.set(i, newList.get(0) + shiftValue);
+        }
+
+        return newList;
     }
 
     public void outStatistikN(String dateiname) {
@@ -911,7 +924,7 @@ public class Tools {
 
         Graph newGraph;
 
-        newGraph = new Graph(instance, instance.sortedSells);
+        newGraph = instance.getCalculatedGraphOfSortedSells();
         System.out.println("Sorted Sells: ");
         out(newGraph, "sortedSells");
 

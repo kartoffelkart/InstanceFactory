@@ -39,7 +39,8 @@ public class Partition {
     public int probability;
     public int budget;// todo: test = 0;
     public int balance = 0;
-
+  private Graph calculatedGraphOfSortedSells;
+  public ArrayList<Integer> werte;
     //_________________________________________________________________________
     //KONSTRUKTOR
     public Partition() {
@@ -241,5 +242,13 @@ public class Partition {
 
         }
         return ret;
+    }
+
+    public Graph getCalculatedGraphOfSortedSells() {
+        return calculatedGraphOfSortedSells;
+    }
+
+    public void setCalculatedGraphOfSortedSells() {
+        this.calculatedGraphOfSortedSells = new Graph(this, sortedSells);
     }
 }
