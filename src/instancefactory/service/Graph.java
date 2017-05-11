@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Graph {
 
-    private Partition partition;
+    private Partition  partition;
     private List<MyInteger> ordering;
     public ArrayList<Eintrag> werte;
 
