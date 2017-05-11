@@ -29,6 +29,9 @@ public class PositiveSet {
      * Balance für das PositiveSet
      */
     private Integer positiveSetBalance;
+    private Graph graph;
+
+    
 
     public PositiveSet(Integer sumOfBoughts, Integer positiveSetPLength, Integer positiveSetBudget, Integer positiveSetBalance) {
        
@@ -75,5 +78,11 @@ public class PositiveSet {
     public String toString() {
         return "PositiveSet{" + "positiveSetPLength=" + positiveSetPLength + ", positiveSetPLengthSumBoughts=" + positiveSetPLengthSumBoughts + ", positiveSetBudget=" + positiveSetBudget + ", positiveSetBalance=" + positiveSetBalance + '}';
     }
-    
+    public Graph getGraph() {
+        return graph;
+    }
+
+    public void setGraph(Graph graph) {
+        this.graph = graph;
+    }
 }

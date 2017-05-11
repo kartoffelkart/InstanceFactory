@@ -8,6 +8,7 @@ package instancefactory.service;
 import static instancefactory.service.Tools.permute;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -41,7 +42,8 @@ public class Partition {
     public int budget;// todo: test = 0;
     public int balance = 0;
     private Graph calculatedGraphOfSortedSells;
-    
+ 
+
 
     //_________________________________________________________________________
     //KONSTRUKTOR
@@ -257,5 +259,5 @@ public class Partition {
 
     public void setCalculatedGraphOfSortedSells() {
         this.calculatedGraphOfSortedSells = new Graph(this, sortedSells);
+        }
     }
-}

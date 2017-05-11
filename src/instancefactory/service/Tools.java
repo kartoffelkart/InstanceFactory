@@ -386,6 +386,7 @@ public class Tools {
          *
          * noch nicht abgearbeiteter Rest der Liste SortedSells
          */
+        
         ArrayList<MyInteger> sRest = new ArrayList<>();
         sRest.addAll(p.sortedSells);
         System.out.println("SRest: " + sRest.toString());
