@@ -60,7 +60,7 @@ public class Tools {
             currentPartition.balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
             currentPartition.budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
             currentPartition.setCalculatedGraphOfSortedSells();
-            currentPartition.werte = currentPartition.getCalculatedGraphOfSortedSells().getWerte();
+            currentPartition.getCalculatedGraphOfSortedSells().werte = currentPartition.getCalculatedGraphOfSortedSells().getWerte();
             k++;
 
             //-------------------------------------
@@ -694,10 +694,10 @@ public class Tools {
         partition.balance = newBalance;
 //        System.out.println(p.toString());
 
-        partition.werte = new ArrayList<>();
-        partition.werte.addAll(p2.werte);
-        ArrayList<Integer> shiftList = shift(p1.werte,p2.balance);
-        partition.werte.addAll(shiftList);
+        partition.getCalculatedGraphOfSortedSells().werte = new ArrayList<>();
+        partition.getCalculatedGraphOfSortedSells().werte.addAll(p2.getCalculatedGraphOfSortedSells().getWerte());
+        ArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().werte,p2.balance);
+        partition.getCalculatedGraphOfSortedSells().werte.addAll(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
             System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");
@@ -719,11 +719,11 @@ public class Tools {
         return newValue;
     }
 
-    ArrayList<Integer> shift(ArrayList<Integer> list, Integer shiftValue) {
-        ArrayList<Integer> newList = (ArrayList<Integer>)list.clone();
+    ArrayList<Eintrag> shift(ArrayList<Eintrag> list, Integer shiftValue) {
+        ArrayList<Eintrag> newList = (ArrayList<Eintrag>)list.clone();
 
         for (int i = 0; i < newList.size(); i++) {
-            newList.set(i, newList.get(0) + shiftValue);
+            newList.get(i).value =newList.get(i).value + shiftValue;
         }
 
         return newList;

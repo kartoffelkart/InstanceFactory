@@ -25,7 +25,7 @@ public class Graph {
         this.partition = partition;
         this.ordering = ordering;
 //nächste Zeile kann weg
-        this.partition.setMinBudgetCompare(minBudget);
+        
     }
 
     public Partition getPartition() {
@@ -45,12 +45,12 @@ public class Graph {
             }
             this.minBudget = Collections.min(values);
         }
-
         return minBudget;
     }
 
     public ArrayList<Eintrag> getWerte() {
         if (this.werte == null) {
+            werte = new ArrayList<>();
             Eintrag eintrag = new Eintrag();
             eintrag.node = null;
             eintrag.value = 0;
