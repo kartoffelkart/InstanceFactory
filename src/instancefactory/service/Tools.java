@@ -720,7 +720,7 @@ public class Tools {
     }
 
     ArrayList<Integer> shift(ArrayList<Integer> list, Integer shiftValue) {
-        ArrayList<Integer> newList = (ArrayList<Integer>) list.clone();
+        ArrayList<Integer> newList = (ArrayList<Integer>)list.clone();
 
         for (int i = 0; i < newList.size(); i++) {
             newList.set(i, newList.get(0) + shiftValue);
@@ -924,7 +924,7 @@ public class Tools {
 
         Graph newGraph;
 
-        newGraph = instance.getCalculatedGraphOfSortedSells();
+        newGraph = new Graph(instance, instance.sortedSells);
         System.out.println("Sorted Sells: ");
         out(newGraph, "sortedSells");
 
