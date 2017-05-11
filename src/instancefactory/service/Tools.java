@@ -697,7 +697,7 @@ public class Tools {
 
         partition.getCalculatedGraphOfSortedSells().werte = new ArrayList<>();
         partition.getCalculatedGraphOfSortedSells().werte.addAll(p2.getCalculatedGraphOfSortedSells().getWerte());
-        ArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().werte,p2.balance);
+        ArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
         partition.getCalculatedGraphOfSortedSells().werte.addAll(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
@@ -805,7 +805,7 @@ public class Tools {
             PrintWriter pr = new PrintWriter(file2);
             pr.println(0);
 
-            for (int j = 0; j < currentGraph.werte.size(); j++) {
+            for (int j = 0; j < currentGraph.getWerte().size(); j++) {
 
                 pr.println(currentGraph.werte.get(j));
             }
