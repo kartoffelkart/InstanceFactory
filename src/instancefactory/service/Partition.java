@@ -54,6 +54,7 @@ public class Partition {
         probability = 1;
         sortedSells = new ArrayList<>();
         positiveSets = new ArrayList<PositiveSet>();
+    calculatedGraphOfSortedSells= new Graph(this, sortedSells);
 
     }
 //_____________________________________________________________________________
@@ -65,6 +66,7 @@ public class Partition {
         probability = 1;
         sortedSells = newSortedSells;
         positiveSets = new ArrayList<PositiveSet>();
+   calculatedGraphOfSortedSells= new Graph(this, sortedSells);
 
     }
 //_____________________________________________________________________________
@@ -257,7 +259,4 @@ public class Partition {
         return calculatedGraphOfSortedSells;
     }
 
-    public void setCalculatedGraphOfSortedSells() {
-        this.calculatedGraphOfSortedSells = new Graph(this, sortedSells);
-        }
-    }
+}

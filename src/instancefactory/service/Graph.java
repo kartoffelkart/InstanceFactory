@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class Graph {
 
-    private Partition  partition;
+    private Partition partition;
     private List<MyInteger> ordering;
-    public ArrayList<Eintrag> werte;
+    private ArrayList<Eintrag> werte;
 
     private Integer minBudget;
 
@@ -25,7 +25,7 @@ public class Graph {
         this.partition = partition;
         this.ordering = ordering;
 //nächste Zeile kann weg
-        
+
     }
 
     public Partition getPartition() {
@@ -59,6 +59,14 @@ public class Graph {
 
         }
         return werte;
+    }
+
+    public void addWerte(ArrayList<Eintrag> newWerte) {
+        if (this.werte == null) {
+            werte = new ArrayList<>();
+        }
+        werte.addAll(newWerte);
+
     }
 
     private void calculateValues(Partition p, List<MyInteger> ordering) {

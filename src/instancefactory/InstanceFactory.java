@@ -31,7 +31,7 @@ public class InstanceFactory {
 //        tool.superFunctionStatistik(1, 100, 32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
 
         tool.buildIstanceMakeHeuristicsAndOut(1, 20, 6);
-        tool.superFunctionStatistik(1, 20, 6);
+//        tool.superFunctionStatistik(1, 20, 6);
     }
 
 }
