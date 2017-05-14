@@ -15,6 +15,8 @@ import java.util.List;
  * @author Sonja Schäfer sonja_schaefer@gmx.de
  */
 public class Partition {
+
+    
 //Partition leftPartition;
 //Partition rightPartition;
 //String mergeStep; 
@@ -41,8 +43,8 @@ public class Partition {
     public int probability;
     public int budget;// todo: test = 0;
     public int balance = 0;
-    private Graph calculatedGraphOfSortedSells;
- 
+//    private Graph calculatedGraphOfSortedSells;
+ public ArrayList<Eintrag> werte;
 
 
     //_________________________________________________________________________
@@ -77,13 +79,14 @@ public class Partition {
 
     public void setMinBudgetCompare(Integer minBudgetCompare) {
         //ASSERTION
-        if (!(this.calculatedGraphOfSortedSells.getMinBudget().intValue() > budget)) {
-            this.minBudgetCompare = minBudgetCompare;
+//        Graph calculatedGraphOfSortedSells= new Graph(this, sortedSells);
+//        if (!(calculatedGraphOfSortedSells.getMinBudget().intValue() > budget)) {
+//            this.minBudgetCompare = minBudgetCompare;
 //             System.err.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
-        } else {
-            System.err.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
-
-        }
+//        } else {
+//            System.err.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
+//
+//        }
 
     }
 
@@ -251,15 +254,25 @@ public class Partition {
         return ret;
     }
 
-    public Graph getCalculatedGraphOfSortedSells() {
-        if (calculatedGraphOfSortedSells == null) {
-            calculatedGraphOfSortedSells = new Graph(this, sortedSells);
-        }
-
-        return calculatedGraphOfSortedSells;
+//    public Graph getCalculatedGraphOfSortedSells() {
+//        if (calculatedGraphOfSortedSells == null) {
+//            calculatedGraphOfSortedSells = new Graph(this, sortedSells);
+//        }
+//
+//        return calculatedGraphOfSortedSells;
+//    }
+//
+//    public void setCalculatedGraphOfSortedSells() {
+//        this.calculatedGraphOfSortedSells = new Graph(this, sortedSells);
+//}
+    
+    public ArrayList<Eintrag> getWerte() {
+         if (this.werte == null) {
+             Graph calculatedGraphOfSortedSells= new Graph(this, sortedSells);
+             werte=calculatedGraphOfSortedSells.getWerte();
+         }
+           return werte;
     }
-
-    public void setCalculatedGraphOfSortedSells() {
-        this.calculatedGraphOfSortedSells = new Graph(this, sortedSells);
 }
-    }
+
+    

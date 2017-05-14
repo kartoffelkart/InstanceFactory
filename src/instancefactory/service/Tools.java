@@ -61,8 +61,9 @@ public class Tools {
             currentPartition.budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
            
 // kann das weg?
-            currentPartition.setCalculatedGraphOfSortedSells();
-            currentPartition.getCalculatedGraphOfSortedSells().werte = currentPartition.getCalculatedGraphOfSortedSells().getWerte();
+            Graph calculatedGraphOfSortedSells=new Graph(currentPartition, currentPartition.sortedSells);
+           
+            currentPartition.werte = calculatedGraphOfSortedSells.getWerte();
            
           //----------------  
             k++;
@@ -703,10 +704,10 @@ public class Tools {
 //        ArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
 //        partition.getCalculatedGraphOfSortedSells().addWerte(shiftList);
         
-        partition.getCalculatedGraphOfSortedSells().werte = new ArrayList<>();
-        partition.getCalculatedGraphOfSortedSells().werte.addAll(p2.getCalculatedGraphOfSortedSells().getWerte());
-        ArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
-        partition.getCalculatedGraphOfSortedSells().werte.addAll(shiftList);
+        partition.werte = new ArrayList<>();
+        partition.werte.addAll(p2.getWerte());
+        ArrayList<Eintrag> shiftList = shift(p1.getWerte(),p2.balance);
+        partition.werte.addAll(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
             System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");
@@ -815,7 +816,7 @@ public class Tools {
 
             for (int j = 0; j < currentGraph.getWerte().size(); j++) {
 
-                pr.println(currentGraph.werte.get(j).value);
+                pr.println(currentGraph.getWerte().get(j).value);
             }
 
             pr.close();
