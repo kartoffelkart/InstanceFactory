@@ -54,7 +54,7 @@ public class Partition {
         probability = 1;
         sortedSells = new ArrayList<>();
         positiveSets = new ArrayList<PositiveSet>();
-    calculatedGraphOfSortedSells= new Graph(this, sortedSells);
+//    calculatedGraphOfSortedSells= new Graph(this, sortedSells);
 
     }
 //_____________________________________________________________________________
@@ -66,7 +66,7 @@ public class Partition {
         probability = 1;
         sortedSells = newSortedSells;
         positiveSets = new ArrayList<PositiveSet>();
-   calculatedGraphOfSortedSells= new Graph(this, sortedSells);
+//   calculatedGraphOfSortedSells= new Graph(this, sortedSells);
 
     }
 //_____________________________________________________________________________
@@ -77,10 +77,7 @@ public class Partition {
 
     public void setMinBudgetCompare(Integer minBudgetCompare) {
         //ASSERTION
-        // todo: hier Fehler?
-//        if (!(this.calculatedGraphOfSortedSells.getMinBudget().intValue() > budget)) {
-                   if (!(minBudgetCompare.intValue() > budget)) {
-
+        if (!(this.calculatedGraphOfSortedSells.getMinBudget().intValue() > budget)) {
             this.minBudgetCompare = minBudgetCompare;
 //             System.err.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
         } else {
@@ -262,4 +259,7 @@ public class Partition {
         return calculatedGraphOfSortedSells;
     }
 
+    public void setCalculatedGraphOfSortedSells() {
+        this.calculatedGraphOfSortedSells = new Graph(this, sortedSells);
 }
+    }

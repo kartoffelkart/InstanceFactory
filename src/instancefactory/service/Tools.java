@@ -59,8 +59,12 @@ public class Tools {
             currentPartition.arrayList.get(0).add(currentRandom);
             currentPartition.balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
             currentPartition.budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
-            
-            
+           
+// kann das weg?
+            currentPartition.setCalculatedGraphOfSortedSells();
+            currentPartition.getCalculatedGraphOfSortedSells().werte = currentPartition.getCalculatedGraphOfSortedSells().getWerte();
+           
+          //----------------  
             k++;
 
             //-------------------------------------
@@ -695,10 +699,14 @@ public class Tools {
         partition.balance = newBalance;
 //        System.out.println(p.toString());
 // todo:  Fehler hier?
-        
-//        partition.getCalculatedGraphOfSortedSells().addWerte(p2.getCalculatedGraphOfSortedSells().getWerte());
+        //        partition.getCalculatedGraphOfSortedSells().addWerte(p2.getCalculatedGraphOfSortedSells().getWerte());
 //        ArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
 //        partition.getCalculatedGraphOfSortedSells().addWerte(shiftList);
+        
+        partition.getCalculatedGraphOfSortedSells().werte = new ArrayList<>();
+        partition.getCalculatedGraphOfSortedSells().werte.addAll(p2.getCalculatedGraphOfSortedSells().getWerte());
+        ArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
+        partition.getCalculatedGraphOfSortedSells().werte.addAll(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
             System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");
@@ -720,15 +728,15 @@ public class Tools {
         return newValue;
     }
 
-//    ArrayList<Integer> shift(ArrayList<Integer> list, Integer shiftValue) {
-//        ArrayList<Integer> newList = (ArrayList<Integer>)list.clone();
-//
-//        for (int i = 0; i < newList.size(); i++) {
-//            newList.get(i) = newList.get(i) + shiftValue;
-//        }
-//
-//        return newList;
-//    }
+    ArrayList<Eintrag> shift(ArrayList<Eintrag> list, Integer shiftValue) {
+        ArrayList<Eintrag> newList = (ArrayList<Eintrag>)list.clone();
+
+        for (int i = 0; i < newList.size(); i++) {
+            newList.get(i).value =newList.get(i).value + shiftValue;
+        }
+
+        return newList;
+    }
 
     public void outStatistikN(String dateiname) {
 
@@ -806,10 +814,8 @@ public class Tools {
             pr.println(0);
 
             for (int j = 0; j < currentGraph.getWerte().size(); j++) {
-// todo: Fehler hier?
-//                pr.println(currentGraph.getWerte().get(j));
-                          pr.println(currentGraph.werte.get(j));
 
+                pr.println(currentGraph.werte.get(j).value);
             }
 
             pr.close();

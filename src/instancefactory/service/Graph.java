@@ -15,25 +15,17 @@ import java.util.List;
  */
 public class Graph {
 
-    private Partition partition;
+    private Partition  partition;
     private List<MyInteger> ordering;
-    private ArrayList<MyInteger> orderingWithBoughts;
-    public ArrayList<Integer> werte;
+    public ArrayList<Eintrag> werte;
 
     private Integer minBudget;
 
     public Graph(Partition partition, List<MyInteger> ordering) {
         this.partition = partition;
         this.ordering = ordering;
-
-        this.orderingWithBoughts = new ArrayList<>();
-        this.werte = new ArrayList<>();
-        werte.add(0, 0);
-        calculateValues(partition, ordering);
-        this.minBudget = Collections.min(werte);
-        this.partition.setMinBudgetCompare(minBudget);
 //nächste Zeile kann weg
-
+        
     }
 
     public Partition getPartition() {
@@ -49,35 +41,24 @@ public class Graph {
             ArrayList<Integer> values = new ArrayList<>();
             for (int i = 0; i < this.getWerte().size(); i++) {
 
-                values.add(werte.get(i)
-                );
+                values.add(werte.get(i).value);
             }
             this.minBudget = Collections.min(values);
         }
         return minBudget;
     }
 
-    public ArrayList<Integer> getWerte() {
+    public ArrayList<Eintrag> getWerte() {
         if (this.werte == null) {
-//            werte = new ArrayList<>();
-//            Eintrag eintrag = new Eintrag();
-//            eintrag.node = null;
-//            eintrag.value = 0;
-//            werte.add(eintrag);
             werte = new ArrayList<>();
-            werte.add(0);
+            Eintrag eintrag = new Eintrag();
+            eintrag.node = null;
+            eintrag.value = 0;
+            werte.add(eintrag);
             calculateValues(partition, ordering);
 
         }
         return werte;
-    }
-
-    public void addWerte(ArrayList<Integer> newWerte) {
-        if (this.werte == null) {
-            werte = new ArrayList<>();
-        }
-        werte.addAll(newWerte);
-
     }
 
     private void calculateValues(Partition p, List<MyInteger> ordering) {
@@ -93,25 +74,21 @@ public class Graph {
 //                System.out.println("newB ohne Allready   :   " + newB);
             for (int j = 0; j < newB.size(); j++) {
 
-//                newValue = werte.get(werte.size() - 1).value - (newB.get(j).i);
-                newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
+                newValue = werte.get(werte.size() - 1).value - (newB.get(j).i);
 
-//                Eintrag eintrag = new Eintrag();
-//                eintrag.node = newB.get(j);
-//
-//                eintrag.value = newValue;
-//                werte.add(eintrag);
-                werte.add(newValue);
+                Eintrag eintrag = new Eintrag();
+                eintrag.node = newB.get(j);
+
+                eintrag.value = newValue;
+                werte.add(eintrag);
+
             }
-//            newValue = werte.get(werte.size() - 1).value + ordering.get(i).i;
-            newValue = werte.get(werte.size() - 1) + ordering.get(i).i;
+            newValue = werte.get(werte.size() - 1).value + ordering.get(i).i;
+            Eintrag eintrag = new Eintrag();
+            eintrag.node = ordering.get(i);
 
-//            Eintrag eintrag = new Eintrag();
-//            eintrag.node = ordering.get(i);
-//
-//            eintrag.value = newValue;
-//            werte.add(eintrag);
-            werte.add(newValue);
+            eintrag.value = newValue;
+            werte.add(eintrag);
 
         }
 
