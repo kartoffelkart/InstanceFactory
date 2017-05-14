@@ -25,8 +25,7 @@ public class Graph {
     public Graph(Partition partition, List<MyInteger> ordering) {
         this.partition = partition;
         this.ordering = ordering;
-        
-        
+
         this.orderingWithBoughts = new ArrayList<>();
         this.werte = new ArrayList<>();
         werte.add(0, 0);
@@ -50,27 +49,30 @@ public class Graph {
             ArrayList<Integer> values = new ArrayList<>();
             for (int i = 0; i < this.getWerte().size(); i++) {
 
-                values.add(werte.get(i).value);
+                values.add(werte.get(i)
+                );
             }
             this.minBudget = Collections.min(values);
         }
         return minBudget;
     }
 
-    public ArrayList<Eintrag> getWerte() {
+    public ArrayList<Integer> getWerte() {
         if (this.werte == null) {
+//            werte = new ArrayList<>();
+//            Eintrag eintrag = new Eintrag();
+//            eintrag.node = null;
+//            eintrag.value = 0;
+//            werte.add(eintrag);
             werte = new ArrayList<>();
-            Eintrag eintrag = new Eintrag();
-            eintrag.node = null;
-            eintrag.value = 0;
-            werte.add(eintrag);
+            werte.add(0);
             calculateValues(partition, ordering);
 
         }
         return werte;
     }
 
-    public void addWerte(ArrayList<Eintrag> newWerte) {
+    public void addWerte(ArrayList<Integer> newWerte) {
         if (this.werte == null) {
             werte = new ArrayList<>();
         }
@@ -91,21 +93,25 @@ public class Graph {
 //                System.out.println("newB ohne Allready   :   " + newB);
             for (int j = 0; j < newB.size(); j++) {
 
-                newValue = werte.get(werte.size() - 1).value - (newB.get(j).i);
+//                newValue = werte.get(werte.size() - 1).value - (newB.get(j).i);
+                newValue = werte.get(werte.size() - 1) - (newB.get(j).i);
 
-                Eintrag eintrag = new Eintrag();
-                eintrag.node = newB.get(j);
-
-                eintrag.value = newValue;
-                werte.add(eintrag);
-
+//                Eintrag eintrag = new Eintrag();
+//                eintrag.node = newB.get(j);
+//
+//                eintrag.value = newValue;
+//                werte.add(eintrag);
+                werte.add(newValue);
             }
-            newValue = werte.get(werte.size() - 1).value + ordering.get(i).i;
-            Eintrag eintrag = new Eintrag();
-            eintrag.node = ordering.get(i);
+//            newValue = werte.get(werte.size() - 1).value + ordering.get(i).i;
+            newValue = werte.get(werte.size() - 1) + ordering.get(i).i;
 
-            eintrag.value = newValue;
-            werte.add(eintrag);
+//            Eintrag eintrag = new Eintrag();
+//            eintrag.node = ordering.get(i);
+//
+//            eintrag.value = newValue;
+//            werte.add(eintrag);
+            werte.add(newValue);
 
         }
 

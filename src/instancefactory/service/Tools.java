@@ -720,15 +720,15 @@ public class Tools {
         return newValue;
     }
 
-    ArrayList<Eintrag> shift(ArrayList<Eintrag> list, Integer shiftValue) {
-        ArrayList<Eintrag> newList = (ArrayList<Eintrag>)list.clone();
-
-        for (int i = 0; i < newList.size(); i++) {
-            newList.get(i).value =newList.get(i).value + shiftValue;
-        }
-
-        return newList;
-    }
+//    ArrayList<Integer> shift(ArrayList<Integer> list, Integer shiftValue) {
+//        ArrayList<Integer> newList = (ArrayList<Integer>)list.clone();
+//
+//        for (int i = 0; i < newList.size(); i++) {
+//            newList.get(i) = newList.get(i) + shiftValue;
+//        }
+//
+//        return newList;
+//    }
 
     public void outStatistikN(String dateiname) {
 

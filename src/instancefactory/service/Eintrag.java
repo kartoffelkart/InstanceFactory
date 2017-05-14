@@ -10,6 +10,22 @@ package instancefactory.service;
  * @author Sonja Schäfer sonja_schaefer@gmx.de
  */
 public class Eintrag {
-  Integer value;
-  MyInteger node;
+  private Integer value;
+  private MyInteger node;
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public MyInteger getNode() {
+        return node;
+    }
+
+    public void setNode(MyInteger node) {
+        this.node = node;
+    }
 }

@@ -77,7 +77,10 @@ public class Partition {
 
     public void setMinBudgetCompare(Integer minBudgetCompare) {
         //ASSERTION
-        if (!(this.calculatedGraphOfSortedSells.getMinBudget().intValue() > budget)) {
+        // todo: hier Fehler?
+//        if (!(this.calculatedGraphOfSortedSells.getMinBudget().intValue() > budget)) {
+                   if (!(minBudgetCompare.intValue() > budget)) {
+
             this.minBudgetCompare = minBudgetCompare;
 //             System.err.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
         } else {
