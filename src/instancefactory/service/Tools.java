@@ -694,11 +694,11 @@ public class Tools {
         partition.budget = newBudget;
         partition.balance = newBalance;
 //        System.out.println(p.toString());
-
+// todo:  Fehler hier?
         
-        partition.getCalculatedGraphOfSortedSells().addWerte(p2.getCalculatedGraphOfSortedSells().getWerte());
-        ArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
-        partition.getCalculatedGraphOfSortedSells().addWerte(shiftList);
+//        partition.getCalculatedGraphOfSortedSells().addWerte(p2.getCalculatedGraphOfSortedSells().getWerte());
+//        ArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
+//        partition.getCalculatedGraphOfSortedSells().addWerte(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
             System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");
@@ -806,8 +806,10 @@ public class Tools {
             pr.println(0);
 
             for (int j = 0; j < currentGraph.getWerte().size(); j++) {
+// todo: Fehler hier?
+//                pr.println(currentGraph.getWerte().get(j));
+                          pr.println(currentGraph.werte.get(j));
 
-                pr.println(currentGraph.getWerte().get(j));
             }
 
             pr.close();

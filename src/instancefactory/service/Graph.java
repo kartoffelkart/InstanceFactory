@@ -17,13 +17,22 @@ public class Graph {
 
     private Partition partition;
     private List<MyInteger> ordering;
-    private ArrayList<Eintrag> werte;
+    private ArrayList<MyInteger> orderingWithBoughts;
+    public ArrayList<Integer> werte;
 
     private Integer minBudget;
 
     public Graph(Partition partition, List<MyInteger> ordering) {
         this.partition = partition;
         this.ordering = ordering;
+        
+        
+        this.orderingWithBoughts = new ArrayList<>();
+        this.werte = new ArrayList<>();
+        werte.add(0, 0);
+        calculateValues(partition, ordering);
+        this.minBudget = Collections.min(werte);
+        this.partition.setMinBudgetCompare(minBudget);
 //nächste Zeile kann weg
 
     }
