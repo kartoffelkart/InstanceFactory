@@ -556,6 +556,11 @@ public class Tools {
         }
 
         // TODO: Eigentlich wird jetzt noch unterschieden ob max von min von...
+//        for (int k = 0; k < currentWerteP1.size(); k++) {
+//
+//        }
+//        Eintrag minWert = 
+//                currentWerteP1.
         Integer budget1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
         Integer budget2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
         Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
@@ -981,5 +986,35 @@ public class Tools {
 
         }
         return abschnitt;
+    }
+
+    int getIndexOfMin(ArrayList<Eintrag> list) {
+        int index = 0;
+        int minWert = 0;
+
+        for (int k = 0; k < list.size(); k++) {
+            if (list.get(k).value < minWert) {
+                minWert = list.get(k).value;
+                index = k;
+            }
+
+        }
+        return index;
+
+    }
+
+    int getIndexOfMax(ArrayList<Eintrag> list) {
+        int index = 0;
+        int maxWert = 0;
+
+        for (int k = 0; k < list.size(); k++) {
+            if (list.get(k).value > maxWert) {
+                maxWert = list.get(k).value;
+                index = k;
+            }
+
+        }
+        return index;
+
     }
 }
