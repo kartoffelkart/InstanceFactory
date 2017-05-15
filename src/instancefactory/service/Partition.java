@@ -312,59 +312,49 @@ public class Partition {
         return newListSumOfBoughts;
     }
 
-    public ArrayList<Partition> getPositiveSetsList() {
-
-        if (this.positiveSetsList == null) {
-
-            positiveSetsList = calculatePositiveSetsList();
-        }
-
-        return positiveSetsList;
-    }
-
-    private ArrayList<Partition> calculatePositiveSetsList() {
-        ArrayList<Partition> newPositiveSetsList = new ArrayList<>();
-for(int i = 0;i<werte.size();i++){
-if(werte.get(i).value >0){
- 
-Partition positiveMinimalSet = new Partition();
-// todo: die AllreadyBought müssen entfernt werden
- ArrayList<MyInteger> newBoughts = new ArrayList<>();
-int m = 0; m++) {
-      while( ! werte.get(i).node==sortedSells.get(m-1)){
-     newBoughts.addAll(sortedSells.get(m).g)
-      m++;    
- }
-        //--------------------------------------------------------------------------------------------------------------------
-//if (position==null) würde ja gerne prüfen ob das initialisiert wurde
-        newBought = getBoughtsOfSell(sortedSells.get(index)); //hier holen wir alle für den Sell benötigten Boughts
-
-        newBought.removeAll(allreadyBought);//hier entfernen wir alle, die schon gekauft waren
-
-        allreadyBought.addAll(newBought);//hier vermerken wir die neu gekauften boughts als gekauft
-// berechnet die Summe von Boughts------------------------------
-
-
-//-----------
-positiveMinimalSet.arrayList= (ArrayList<ArrayList<MyInteger>>)getArrayAbschnitt(arrayList, 0, i);
-positiveMinimalSet.werte=getArrayAbschnitt(werte, i, j)
-}
-
-
-
-}
-        
-    }
+//    public ArrayList<Partition> getPositiveSetsList() {
+//
+//        if (this.positiveSetsList == null) {
+//
+//            positiveSetsList = calculatePositiveSetsList();
+//        }
+//
+//        return positiveSetsList;
+//    }
+//
+//    private ArrayList<Partition> calculatePositiveSetsList() {
+//        ArrayList<Partition> newPositiveSetsList = new ArrayList<>();
+//for(int i = 0;i<werte.size();i++){
+//if(werte.get(i).value >0){
+// 
+//Partition positiveMinimalSet = new Partition();
+//// todo: die AllreadyBought müssen entfernt werden
+// ArrayList<MyInteger> newBoughts = new ArrayList<>();
+//int m = 0; m++) {
+//      while( ! werte.get(i).node==sortedSells.get(m-1)){
+//     newBoughts.addAll(sortedSells.get(m).g)
+//      m++;    
+// }
+//        //--------------------------------------------------------------------------------------------------------------------
+////if (position==null) würde ja gerne prüfen ob das initialisiert wurde
+//        newBought = getBoughtsOfSell(sortedSells.get(index)); //hier holen wir alle für den Sell benötigten Boughts
+//
+//        newBought.removeAll(allreadyBought);//hier entfernen wir alle, die schon gekauft waren
+//
+//        allreadyBought.addAll(newBought);//hier vermerken wir die neu gekauften boughts als gekauft
+//// berechnet die Summe von Boughts------------------------------
+//
+//
+////-----------
+//positiveMinimalSet.arrayList= (ArrayList<ArrayList<MyInteger>>)getArrayAbschnitt(arrayList, 0, i);
+//positiveMinimalSet.werte=getArrayAbschnitt(werte, i, j)
+//}
+//
+//
+//
+//}
+//        
+//    }
     
-    ArrayList getArrayAbschnitt (ArrayList list,int i,int j){
-    
-    ArrayList abschnitt = new ArrayList<>();
-    for(int k = i;k<j+1;k++){
-
-    abschnitt.add(list.get(k));
-    
-    
-    }
-    return abschnitt;
-}
+   
      }

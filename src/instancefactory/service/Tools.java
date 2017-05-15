@@ -960,4 +960,15 @@ public class Tools {
 
     public void addPositiveSet() {
     }
+     ArrayList getArrayAbschnitt (ArrayList list,int i,int j){
+    
+    ArrayList abschnitt = new ArrayList<>();
+    for(int k = i;k<j+1;k++){
+
+    abschnitt.add(list.get(k));
+    
+    
+    }
+    return abschnitt;
+}
 }
