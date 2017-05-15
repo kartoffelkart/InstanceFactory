@@ -16,11 +16,9 @@ import java.util.List;
  */
 public class Partition {
 
-    
 //Partition leftPartition;
 //Partition rightPartition;
 //String mergeStep; 
-
     Tools newTool = new Tools();
 
     public ArrayList<ArrayList<MyInteger>> arrayList;
@@ -44,12 +42,11 @@ public class Partition {
     public int budget;// todo: test = 0;
     public int balance = 0;
 //    private Graph calculatedGraphOfSortedSells;
- public ArrayList<Eintrag> werte;
-
+    public ArrayList<Eintrag> werte;
+    public ArrayList<Integer> sumBoughts;
 
     //_________________________________________________________________________
     //KONSTRUKTOR
-
     public Partition() {
         ArrayList<MyInteger> array = new ArrayList<>();
         arrayList = new ArrayList<ArrayList<MyInteger>>();
@@ -143,6 +140,7 @@ public class Partition {
     public void setValueOfBalanceBoughtsBudgetOfSet(int index) {
 
         int balance = 0;
+
         int budget = 0;
         int sumNewBoughts = 0;
         /**
@@ -265,14 +263,50 @@ public class Partition {
 //    public void setCalculatedGraphOfSortedSells() {
 //        this.calculatedGraphOfSortedSells = new Graph(this, sortedSells);
 //}
-    
     public ArrayList<Eintrag> getWerte() {
-         if (this.werte == null) {
-             Graph calculatedGraphOfSortedSells= new Graph(this, sortedSells);
-             werte=calculatedGraphOfSortedSells.getWerte();
-         }
-           return werte;
+        if (this.werte == null) {
+            Graph calculatedGraphOfSortedSells = new Graph(this, sortedSells);
+            werte = calculatedGraphOfSortedSells.getWerte();
+        }
+        return werte;
     }
-}
 
-    
+    public ArrayList<Integer> getSumBoughts() {
+        if (this.sumBoughts == null) {
+            ArrayList<Integer> newSumBoughts = new ArrayList<>();
+            newSumBoughts = calculateSumOfBoughts();
+            sumBoughts = newSumBoughts;
+        }
+
+        return sumBoughts;
+    }
+
+    ArrayList<Integer> calculateSumOfBoughts() {
+        ArrayList<Integer> newListSumOfBoughts = new ArrayList<>();
+        ArrayList<MyInteger> allreadyBought = new ArrayList<>();
+
+        for (int i = 0; i < sortedSells.size(); i++) {
+
+            int sumNewBoughts = 0;
+            /**
+             * Variable für die neu getätigten Boughts
+             */
+            ArrayList<MyInteger> newBought = new ArrayList<>();
+
+            //--------------------------------------------------------------------------------------------------------------------
+//if (position==null) würde ja gerne prüfen ob das initialisiert wurde
+            newBought = getBoughtsOfSell(sortedSells.get(i)); //hier holen wir alle für den Sell benötigten Boughts
+
+            newBought.removeAll(allreadyBought);//hier entfernen wir alle, die schon gekauft waren
+
+            allreadyBought.addAll(newBought);//hier vermerken wir die neu gekauften boughts als gekauft
+// berechnet die Summe von Boughts------------------------------
+
+            sumNewBoughts = newTool.getSum(newBought);
+
+            newListSumOfBoughts.add(sumNewBoughts);
+        }
+        return newListSumOfBoughts;
+    }
+
+}

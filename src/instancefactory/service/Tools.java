@@ -644,8 +644,8 @@ public class Tools {
     public Partition makePartitionUnion(Partition p1, Partition p2) {
         Partition partition = new Partition();
 
-        ArrayList<ArrayList<MyInteger>> newArrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
-        partition.arrayList = newArrayList;
+         partition.arrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
+       
         makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
 
         //ASSERTION
