@@ -42,43 +42,52 @@ public class MySet {
         this.balance =positiveSetBalance;
     }
 
-    
-    public Integer getPositiveSetPLength() {
+   
+
+  
+
+   
+  
+    public Integer getLength() {
         return length;
     }
 
-    public void setPositiveSetPLength(Integer positiveSetPLength) {
-        this.length = positiveSetPLength;
+    public void setLength(Integer length) {
+        this.length = length;
     }
 
-    public Integer getPositiveSetPLengthSumBoughts() {
+    public Integer getSumBoughts() {
         return sumBoughts;
     }
 
-    public void setPositiveSetPLengthSumBoughts(Integer positiveSetPLengthSumBoughts) {
-        this.sumBoughts = positiveSetPLengthSumBoughts;
+    public void setSumBoughts(Integer sumBoughts) {
+        this.sumBoughts = sumBoughts;
     }
 
-    public Integer getPositiveSetBudget() {
+    public Integer getBudget() {
         return budget;
     }
 
-    public void setPositiveSetBudget(Integer positiveSetBudget) {
-        this.budget = positiveSetBudget;
+    public void setBudget(Integer budget) {
+        this.budget = budget;
     }
 
-    public Integer getPositiveSetBalance() {
+    public Integer getBalance() {
         return balance;
     }
 
-    public void setPositiveSetBalance(Integer positiveSetBalance) {
-        this.balance = positiveSetBalance;
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 
-    @Override
-    public String toString() {
-        return "PositiveSet{" + "positiveSetPLength=" + length + ", positiveSetPLengthSumBoughts=" + sumBoughts + ", positiveSetBudget=" + budget + ", positiveSetBalance=" + balance + '}';
+    public ArrayList<Eintrag> getWerte() {
+        return werte;
     }
+
+    public void setWerte(ArrayList<Eintrag> werte) {
+        this.werte = werte;
+    }
+
     public Graph getGraph() {
         return graph;
     }
@@ -86,4 +95,10 @@ public class MySet {
     public void setGraph(Graph graph) {
         this.graph = graph;
     }
+   
+   @Override
+    public String toString() {
+        return "PositiveSet{" + "positiveSetPLength=" + length + ", positiveSetPLengthSumBoughts=" + sumBoughts + ", positiveSetBudget=" + budget + ", positiveSetBalance=" + balance + '}';
+    }
+
 }

@@ -59,13 +59,13 @@ public class Tools {
             currentPartition.arrayList.get(0).add(currentRandom);
             currentPartition.balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
             currentPartition.budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
-           
+
 // kann das weg?
-            Graph calculatedGraphOfSortedSells=new Graph(currentPartition, currentPartition.sortedSells);
-           
+            Graph calculatedGraphOfSortedSells = new Graph(currentPartition, currentPartition.sortedSells);
+
             currentPartition.werte = calculatedGraphOfSortedSells.getWerte();
-           
-          //----------------  
+
+            //----------------  
             k++;
 
             //-------------------------------------
@@ -370,10 +370,10 @@ public class Tools {
 
     /**
      * füllt die kurze Liste von Lengths von rechten Intervallgrenzen von
- PositiveSets und die kurze Liste der aufsummierten Boughts für die
- PositiveSets, wenn ein positive minimal MySet gefunden ist, werden alle
- Einträge von balanceBoughtsBudgetOfSetUpToIndex bis zu diesem Index auf 0
- gesetzt,und
+     * PositiveSets und die kurze Liste der aufsummierten Boughts für die
+     * PositiveSets, wenn ein positive minimal MySet gefunden ist, werden alle
+     * Einträge von balanceBoughtsBudgetOfSetUpToIndex bis zu diesem Index auf 0
+     * gesetzt,und
      *
      * @param p Partition
      * @param PositiveSetsPLengths PositiveSets die wir für diesen UNION Merge
@@ -391,7 +391,6 @@ public class Tools {
          *
          * noch nicht abgearbeiteter Rest der Liste SortedSells
          */
-        
         ArrayList<MyInteger> sRest = new ArrayList<>();
         sRest.addAll(p.sortedSells);
         System.out.println("SRest: " + sRest.toString());
@@ -444,6 +443,11 @@ public class Tools {
         Integer balance = 0;
 
         ArrayList<MyInteger> newSortedSells = new ArrayList<>();
+        ArrayList<Eintrag> currentWerteP1 = new ArrayList<>();
+        currentWerteP1 = (ArrayList<Eintrag>) p1.getWerte().clone();
+
+        ArrayList<Eintrag> currentWerteP2 = new ArrayList<>();
+        currentWerteP2 = (ArrayList<Eintrag>) p2.getWerte().clone();
 
         ArrayList<MyInteger> s1Rest = new ArrayList<>();
         s1Rest.addAll(p1.sortedSells);
@@ -466,13 +470,15 @@ public class Tools {
         //jetzt wird gemergt
         while ((!p1.positiveSets.isEmpty()) && (!p2.positiveSets.isEmpty())) {
 //ArrayList<MyInteger> testSortedSells= new ArrayList<>();
-            if (p1.positiveSets.get(0).getPositiveSetPLengthSumBoughts() < p2.positiveSets.get(0).getPositiveSetPLengthSumBoughts()) {
+            if (p1.positiveSets.get(0).getLength() < p2.positiveSets.get(0).getLength()) {
 
-                for (int countP1 = 0; countP1 < p1.positiveSets.get(0).getPositiveSetPLength(); countP1++) {
+                for (int countP1 = 0; countP1 < p1.positiveSets.get(0).getLength(); countP1++) {
 //                    testSortedSells.add(s1Rest.get(0));
                     System.out.println("newSortedSells.add: " + s1Rest.get(0));
 
                     newSortedSells.add(s1Rest.get(0));//index 0 size 0
+                    currentWerteP1 = shift(currentWerteP1, p1.positiveSets.get(0).getBalance());
+
                     s1Rest.remove(0);
 //                    System.out.println("S1Rest: " + s1Rest.toString());
 
@@ -480,25 +486,26 @@ public class Tools {
 
                 //ASSERTION
                 //------------------------------------
-                budget = Integer.min(budget, balance + ((p1.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+                budget = Integer.min(budget, balance + ((p1.positiveSets).get(0)).getLength());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
                 System.out.println("budget " + budget);
-                balance = balance + ((p1.positiveSets).get(0)).getPositiveSetBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
+                balance = balance + ((p1.positiveSets).get(0)).getBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
                 System.out.println("balance " + balance);
 
                 (p1.positiveSets).remove(0);
 
             } else {
-                for (int countP2 = 0; countP2 < p2.positiveSets.get(0).getPositiveSetPLength(); countP2++) {
+                for (int countP2 = 0; countP2 < p2.positiveSets.get(0).getLength(); countP2++) {
                     System.out.println("newSortedSells.add: " + s2Rest.get(0));
 
                     newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
+                    currentWerteP2 = shift(currentWerteP2, p2.positiveSets.get(0).getBalance());
                     s2Rest.remove(0);
                     System.out.println("S2Rest: " + s2Rest.toString());
 
                 }
-                budget = Integer.min(budget, balance + ((p2.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+                budget = Integer.min(budget, balance + ((p2.positiveSets).get(0)).getBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
                 System.out.println("budget " + budget);
-                balance = balance + ((p2.positiveSets).get(0)).getPositiveSetBalance();//p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(0);
+                balance = balance + ((p2.positiveSets).get(0)).getBalance();//p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(0);
                 System.out.println("balance " + balance);
 
                 (p2.positiveSets).remove(0);
@@ -508,11 +515,13 @@ public class Tools {
         }
         while (!(p1.positiveSets.isEmpty())) {
 
-            for (int countP1 = 0; countP1 < p1.positiveSets.get(0).getPositiveSetPLength(); countP1++) {
+            for (int countP1 = 0; countP1 < p1.positiveSets.get(0).getLength(); countP1++) {
 //                    testSortedSells.add(s1Rest.get(0));
                 System.out.println("newSortedSells.add: " + s1Rest.get(0));
 
                 newSortedSells.add(s1Rest.get(0));//index 0 size 0
+                currentWerteP1 = shift(currentWerteP1, p1.positiveSets.get(0).getBalance());
+
                 s1Rest.remove(0);
 //                    System.out.println("S1Rest: " + s1Rest.toString());
 
@@ -520,25 +529,27 @@ public class Tools {
 
             //ASSERTION
             //------------------------------------
-            budget = Integer.min(budget, balance + ((p1.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+            budget = Integer.min(budget, balance + ((p1.positiveSets).get(0)).getBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
             System.out.println("budget " + budget);
-            balance = balance + ((p1.positiveSets).get(0)).getPositiveSetBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
+            balance = balance + ((p1.positiveSets).get(0)).getBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
             System.out.println("balance " + balance);
 
             (p1.positiveSets).remove(0);
         }
         while (!(p2.positiveSets.isEmpty())) {
-            for (int countP2 = 0; countP2 < p2.positiveSets.get(0).getPositiveSetPLength(); countP2++) {
+            for (int countP2 = 0; countP2 < p2.positiveSets.get(0).getLength(); countP2++) {
                 System.out.println("newSortedSells.add: " + s2Rest.get(0));
 
                 newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
+                currentWerteP2 = shift(currentWerteP2, p2.positiveSets.get(0).getBalance());
+
                 s2Rest.remove(0);
 //                System.out.println("S2Rest: " + s2Rest.toString());
 
             }
-            budget = Integer.min(budget, balance + ((p2.positiveSets).get(0)).getPositiveSetBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+            budget = Integer.min(budget, balance + ((p2.positiveSets).get(0)).getBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
             System.out.println("budget " + budget);
-            balance = balance + ((p2.positiveSets).get(0)).getPositiveSetBalance();//p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(0);
+            balance = balance + ((p2.positiveSets).get(0)).getBalance();//p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(0);
             System.out.println("balance " + balance);
 
             (p2.positiveSets).remove(0);
@@ -644,8 +655,8 @@ public class Tools {
     public Partition makePartitionUnion(Partition p1, Partition p2) {
         Partition partition = new Partition();
 
-         partition.arrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
-       
+        partition.arrayList = makeArrayListUnion(p1.arrayList, p2.arrayList);//What ich übergebe was size 2 und danach hat es size 0????
+
         makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
 
         //ASSERTION
@@ -703,10 +714,10 @@ public class Tools {
         //        partition.getCalculatedGraphOfSortedSells().addWerte(p2.getCalculatedGraphOfSortedSells().getWerte());
 //        ArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
 //        partition.getCalculatedGraphOfSortedSells().addWerte(shiftList);
-        
+
         partition.werte = new ArrayList<>();
         partition.werte.addAll(p2.getWerte());
-        ArrayList<Eintrag> shiftList = shift(p1.getWerte(),p2.balance);
+        ArrayList<Eintrag> shiftList = shift(p1.getWerte(), p2.balance);
         partition.werte.addAll(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
@@ -730,10 +741,10 @@ public class Tools {
     }
 
     ArrayList<Eintrag> shift(ArrayList<Eintrag> list, Integer shiftValue) {
-        ArrayList<Eintrag> newList = (ArrayList<Eintrag>)list.clone();
+        ArrayList<Eintrag> newList = (ArrayList<Eintrag>) list.clone();
 
         for (int i = 0; i < newList.size(); i++) {
-            newList.get(i).value =newList.get(i).value + shiftValue;
+            newList.get(i).value = newList.get(i).value + shiftValue;
         }
 
         return newList;
@@ -960,15 +971,15 @@ public class Tools {
 
     public void addPositiveSet() {
     }
-     ArrayList getArrayAbschnitt (ArrayList list,int i,int j){
-    
-    ArrayList abschnitt = new ArrayList<>();
-    for(int k = i;k<j+1;k++){
 
-    abschnitt.add(list.get(k));
-    
-    
+    ArrayList getArrayAbschnitt(ArrayList list, int i, int j) {
+
+        ArrayList abschnitt = new ArrayList<>();
+        for (int k = i; k < j + 1; k++) {
+
+            abschnitt.add(list.get(k));
+
+        }
+        return abschnitt;
     }
-    return abschnitt;
-}
 }
