@@ -556,11 +556,21 @@ public class Tools {
         }
 
         // TODO: Eigentlich wird jetzt noch unterschieden ob max von min von...
-//        for (int k = 0; k < currentWerteP1.size(); k++) {
-//
-//        }
-//        Eintrag minWert = 
-//                currentWerteP1.
+        for (int k = 0; k < currentWerteP1.size(); k++) {
+
+        }
+        int minIndexP1 = getIndexOfMin(currentWerteP1);
+        int minIndexP2 = getIndexOfMin(currentWerteP2);
+
+        Integer minWertP1 = currentWerteP1.get(minIndexP1).value;
+        Integer minWertP2 = currentWerteP2.get(minIndexP2).value;
+
+        int maxIndexP1 = getIndexOfMax(getArrayAbschnitt(currentWerteP1, minIndexP1, currentWerteP1.size() - 1));
+        int maxIndexP2 = getIndexOfMax(getArrayAbschnitt(currentWerteP2, minIndexP2, currentWerteP2.size() - 1));
+
+        Integer maxWertP1 = currentWerteP1.get(maxIndexP1).value;
+        Integer maxWertP2 = currentWerteP2.get(maxIndexP2).value;
+
         Integer budget1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
         Integer budget2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
         Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
