@@ -370,10 +370,10 @@ public class Tools {
 
     /**
      * füllt die kurze Liste von Lengths von rechten Intervallgrenzen von
-     * PositiveSets und die kurze Liste der aufsummierten Boughts für die
-     * PositiveSets, wenn ein positive minimal Set gefunden ist, werden alle
-     * Einträge von balanceBoughtsBudgetOfSetUpToIndex bis zu diesem Index auf 0
-     * gesetzt,und
+ PositiveSets und die kurze Liste der aufsummierten Boughts für die
+ PositiveSets, wenn ein positive minimal MySet gefunden ist, werden alle
+ Einträge von balanceBoughtsBudgetOfSetUpToIndex bis zu diesem Index auf 0
+ gesetzt,und
      *
      * @param p Partition
      * @param PositiveSetsPLengths PositiveSets die wir für diesen UNION Merge
@@ -409,7 +409,7 @@ public class Tools {
             int budget = currentBalanceBoughtsBudget.getBudget();
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsPLengths und PositiveSetsPLengthsSumBoughts gespeichert
             if (balance > 0) {
-                PositiveSet newPositiveSet = new PositiveSet(sumBoughts, count, budget, balance);
+                MySet newPositiveSet = new MySet(sumBoughts, count, budget, balance);
                 p.positiveSets.add(newPositiveSet);
                 count = 0;
 

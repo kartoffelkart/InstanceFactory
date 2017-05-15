@@ -23,7 +23,7 @@ public class Partition {
 
     public ArrayList<ArrayList<MyInteger>> arrayList;
 
-    ArrayList<PositiveSet> positiveSets;
+    ArrayList<MySet> positiveSets;
 
     public ArrayList<MyInteger> sortedSells;
 
@@ -44,7 +44,7 @@ public class Partition {
 //    private Graph calculatedGraphOfSortedSells;
     public ArrayList<Eintrag> werte;
     public ArrayList<Integer> sumBoughts;
-    public ArrayList<Partition> positiveSetsList;
+   
 
     //_________________________________________________________________________
     //KONSTRUKTOR
@@ -55,7 +55,7 @@ public class Partition {
         sortedSells = new ArrayList<>();
         
         // todo: nächste Zeile weg
-        positiveSets = new ArrayList<PositiveSet>();
+        positiveSets = new ArrayList<MySet>();
 //    calculatedGraphOfSortedSells= new Graph(this, sortedSells);
 
     }
@@ -68,7 +68,7 @@ public class Partition {
         probability = 1;
         sortedSells = newSortedSells;
         // todo: nächste Zeile weg
-        positiveSets = new ArrayList<PositiveSet>();
+        positiveSets = new ArrayList<MySet>();
 //   calculatedGraphOfSortedSells= new Graph(this, sortedSells);
 
     }
