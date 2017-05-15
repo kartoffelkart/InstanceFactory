@@ -576,20 +576,20 @@ public class Tools {
         Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
         Integer balance2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
 
-        if (Integer.min(budget2, balance2 + budget1) < Integer.min(budget1, balance1 + budget2)) {
+        if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
             newSortedSells.addAll(s1Rest);
-            budget = Integer.min(balance + budget1, budget);
-            balance = balance + balance1;
+            budget = Integer.min(balance + minWertP1, budget);
+            balance = balance + maxWertP1;
             newSortedSells.addAll(s2Rest);
-            budget = Integer.min(balance + budget2, budget);
-            balance = balance + balance2;
+            budget = Integer.min(balance + minWertP2, budget);
+            balance = balance + maxWertP2;
         } else {
             newSortedSells.addAll(s2Rest);
-            budget = Integer.min(balance + budget2, budget);
-            balance = balance + balance2;
+            budget = Integer.min(balance + minWertP2, budget);
+            balance = balance + maxWertP2;
             newSortedSells.addAll(s1Rest);
-            budget = Integer.min(balance + budget1, budget);
-            balance = balance + balance1;
+            budget = Integer.min(balance + minWertP1, budget);
+            balance = balance + maxWertP1;
         }
 
 //        System.out.println("newSortedSells: " + newSortedSells.toString());
@@ -1026,5 +1026,19 @@ public class Tools {
         }
         return index;
 
+    }
+
+    ArrayList<MyInteger> getAbschnittBisNode(ArrayList<MyInteger> list, MyInteger node) {
+
+        ArrayList<MyInteger> newList = new ArrayList<>();
+        int k = 0;
+        while (!(list.get(k) == node)) {
+            newList.add(list.get(k));
+
+            k++;
+        }
+        newList.add(list.get(k));
+
+        return newList;
     }
 }
