@@ -478,6 +478,7 @@ public class Tools {
 
                     newSortedSells.add(s1Rest.get(0));//index 0 size 0
                     currentWerteP1 = shift(currentWerteP1, p1.positiveSets.get(0).getBalance());
+            currentWerteP1=getArrayAbschnitt(currentWerteP1, p1.positiveSets.get(0).getLength(), currentWerteP1.size()-1);
 
                     s1Rest.remove(0);
 //                    System.out.println("S1Rest: " + s1Rest.toString());
@@ -499,6 +500,8 @@ public class Tools {
 
                     newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
                     currentWerteP2 = shift(currentWerteP2, p2.positiveSets.get(0).getBalance());
+                                currentWerteP2=getArrayAbschnitt(currentWerteP2, p2.positiveSets.get(0).getLength(), currentWerteP2.size()-1);
+
                     s2Rest.remove(0);
                     System.out.println("S2Rest: " + s2Rest.toString());
 
@@ -521,6 +524,7 @@ public class Tools {
 
                 newSortedSells.add(s1Rest.get(0));//index 0 size 0
                 currentWerteP1 = shift(currentWerteP1, p1.positiveSets.get(0).getBalance());
+            currentWerteP1=getArrayAbschnitt(currentWerteP1, p1.positiveSets.get(0).getLength(), currentWerteP1.size()-1);
 
                 s1Rest.remove(0);
 //                    System.out.println("S1Rest: " + s1Rest.toString());
@@ -542,6 +546,7 @@ public class Tools {
 
                 newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
                 currentWerteP2 = shift(currentWerteP2, p2.positiveSets.get(0).getBalance());
+                                currentWerteP2=getArrayAbschnitt(currentWerteP2, p2.positiveSets.get(0).getLength(), currentWerteP2.size()-1);
 
                 s2Rest.remove(0);
 //                System.out.println("S2Rest: " + s2Rest.toString());
@@ -555,10 +560,9 @@ public class Tools {
             (p2.positiveSets).remove(0);
         }
 
-        // TODO: Eigentlich wird jetzt noch unterschieden ob max von min von...
-        for (int k = 0; k < currentWerteP1.size(); k++) {
+        // TODO: Das muss jetzt noch in 3 Schleifen solange bis beide SortedSells aufgebraucht sind 
 
-        }
+        
         int minIndexP1 = getIndexOfMin(currentWerteP1);
         int minIndexP2 = getIndexOfMin(currentWerteP2);
 
@@ -571,25 +575,21 @@ public class Tools {
         Integer maxWertP1 = currentWerteP1.get(maxIndexP1).value;
         Integer maxWertP2 = currentWerteP2.get(maxIndexP2).value;
 
-        Integer budget1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
-        Integer budget2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBudget();
-        Integer balance1 = p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
-        Integer balance2 = p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.balanceBoughtsBudgetOfSetUpToIndex.size() - 1).getBalance();
+     
 
         if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
-            newSortedSells.addAll(s1Rest);
+            newSortedSells.addAll(getAbschnittBisNode(s1Rest, currentWerteP1.get(maxIndexP1).node));
             budget = Integer.min(balance + minWertP1, budget);
             balance = balance + maxWertP1;
-            newSortedSells.addAll(s2Rest);
-            budget = Integer.min(balance + minWertP2, budget);
-            balance = balance + maxWertP2;
+            currentWerteP1=shift(currentWerteP1, maxWertP1);
+            currentWerteP1=getArrayAbschnitt(currentWerteP1, maxIndexP1+1, currentWerteP1.size()-1);
         } else {
-            newSortedSells.addAll(s2Rest);
+            newSortedSells.addAll(getAbschnittBisNode(s2Rest, currentWerteP2.get(maxIndexP2).node));
             budget = Integer.min(balance + minWertP2, budget);
             balance = balance + maxWertP2;
-            newSortedSells.addAll(s1Rest);
-            budget = Integer.min(balance + minWertP1, budget);
-            balance = balance + maxWertP1;
+            currentWerteP2=shift(currentWerteP2, maxWertP2);
+                        currentWerteP2=getArrayAbschnitt(currentWerteP2, maxIndexP2+1, currentWerteP2.size()-1);
+
         }
 
 //        System.out.println("newSortedSells: " + newSortedSells.toString());
@@ -759,7 +759,7 @@ public class Tools {
         ArrayList<Eintrag> newList = (ArrayList<Eintrag>) list.clone();
 
         for (int i = 0; i < newList.size(); i++) {
-            newList.get(i).value = newList.get(i).value + shiftValue;
+            newList.get(i).value = newList.get(i).value - shiftValue;
         }
 
         return newList;
