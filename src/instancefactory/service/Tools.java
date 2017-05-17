@@ -474,66 +474,13 @@ public class Tools {
         while ((!p1.positiveSets.isEmpty()) && (!p2.positiveSets.isEmpty())) {
 //ArrayList<MyInteger> testSortedSells= new ArrayList<>();
             ///////////////////////////////////////////////////////////////////////
-            if (p1.positiveSets.get(0).getLength() < p2.positiveSets.get(0).getLength()) {
+            if (p1.positiveSets.get(0).getBudget() < p2.positiveSets.get(0).getBudget()) {
 
-                for (int countP1 = 0; countP1 < p1.positiveSets.get(0).getLength(); countP1++) {
-//                    testSortedSells.add(s1Rest.get(0));
-
-                    newSortedSells.add(s1Rest.get(0));//index 0 size 0
-                    currentWerteP1 = shift(currentWerteP1, p1.positiveSets.get(0).getBalance());
-
-                    currentWerteP1.removeAll(getWerteBisNode(currentWerteP1, s1Rest.get(p1.positiveSets.get(0).getLength() - 1)));
-                    s1Rest.remove(0);
-//                    System.out.println("S1Rest: " + s1Rest.toString());
-
-                }
-                //ASSERTION
-
-                ArrayList<MyInteger> test = new ArrayList<>();
-                for (int i = 0; i < currentWerteP1.size(); i++) {
-                    test.add(currentWerteP1.get(i).node);
-                }
-                if (!(s1Rest == test)) {
-                    System.err.println("da stimmts nicht mehr");
-                }
-                //ASSERTION
-                //------------------------------------
-                budget = Integer.min(budget, balance + ((p1.positiveSets).get(0)).getLength());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
-                System.out.println("budget " + budget);
-                balance = balance + ((p1.positiveSets).get(0)).getBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
-                System.out.println("balance " + balance);
-
-                (p1.positiveSets).remove(0);
+                positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budget, balance);
 
             } else ////////////////////////////////////////////////////////////////////////////////
             {
-                for (int countP2 = 0; countP2 < p2.positiveSets.get(0).getLength(); countP2++) {
-                    System.out.println("newSortedSells.add: " + s2Rest.get(0));
-
-                    newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
-                    currentWerteP2 = shift(currentWerteP2, p2.positiveSets.get(0).getBalance());
-                    currentWerteP2.removeAll(getWerteBisNode(currentWerteP2, s2Rest.get(p2.positiveSets.get(0).getLength() - 1)));
-
-                    s2Rest.remove(0);
-                    System.out.println("S2Rest: " + s2Rest.toString());
-
-                }
-                //ASSERTION
-
-                ArrayList<MyInteger> test = new ArrayList<>();
-                for (int i = 0; i < currentWerteP2.size(); i++) {
-                    test.add(currentWerteP2.get(i).node);
-                }
-                if (!(s2Rest == test)) {
-                    System.err.println("da stimmts nicht mehr");
-                }
-
-                budget = Integer.min(budget, balance + ((p2.positiveSets).get(0)).getBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
-                System.out.println("budget " + budget);
-                balance = balance + ((p2.positiveSets).get(0)).getBalance();//p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(0);
-                System.out.println("balance " + balance);
-
-                (p2.positiveSets).remove(0);
+                positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budget, balance);
 
             }
 
@@ -541,64 +488,13 @@ public class Tools {
         //////////////////////////////////////////////////////////////////////////////
         while (!(p1.positiveSets.isEmpty())) {
 
-            for (int countP1 = 0; countP1 < p1.positiveSets.get(0).getLength(); countP1++) {
-//                    testSortedSells.add(s1Rest.get(0));
-                System.out.println("newSortedSells.add: " + s1Rest.get(0));
+            positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budget, balance);
 
-                newSortedSells.add(s1Rest.get(0));//index 0 size 0
-
-                s1Rest.remove(0);
-
-            }
-                        //ASSERTION
-            currentWerteP1 = shift(currentWerteP1, p1.positiveSets.get(0).getBalance());
-            currentWerteP1.removeAll(getWerteBisNode(currentWerteP1, s1Rest.get(0)));
-
-            ArrayList<MyInteger> test = new ArrayList<>();
-            for (int i = 0; i < currentWerteP1.size(); i++) {
-                test.add(currentWerteP1.get(i).node);
-            }
-            if (!(s1Rest == test)) {
-                System.err.println("da stimmts nicht mehr");
-            }
-            //ASSERTION
-            //------------------------------------
-            budget = Integer.min(budget, balance + ((p1.positiveSets).get(0)).getBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
-            System.out.println("budget " + budget);
-            balance = balance + ((p1.positiveSets).get(0)).getBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
-            System.out.println("balance " + balance);
-
-            (p1.positiveSets).remove(0);
         }
         //////////////////////////////////////////////////////////////////////////
         while (!(p2.positiveSets.isEmpty())) {
-            for (int countP2 = 0; countP2 < p2.positiveSets.get(0).getLength(); countP2++) {
-                System.out.println("newSortedSells.add: " + s2Rest.get(0));
+            positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budget, balance);
 
-                newSortedSells.add(s2Rest.get(0));//s2Rest schon leer, warum?
-
-                s2Rest.remove(0);
-//                System.out.println("S2Rest: " + s2Rest.toString());
-
-            }
-            currentWerteP2 = shift(currentWerteP2, p2.positiveSets.get(0).getBalance());
-            currentWerteP2.removeAll(getWerteBisNode(currentWerteP2, s2Rest.get(0)));
-            //ASSERTION
-
-            ArrayList<MyInteger> test = new ArrayList<>();
-            for (int i = 0; i < currentWerteP2.size(); i++) {
-                test.add(currentWerteP2.get(i).node);
-            }
-            if (!(s2Rest == test)) {
-                System.err.println("da stimmts nicht mehr");
-            }
-
-            budget = Integer.min(budget, balance + ((p2.positiveSets).get(0)).getBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
-            System.out.println("budget " + budget);
-            balance = balance + ((p2.positiveSets).get(0)).getBalance();//p2.balanceBoughtsBudgetOfSetUpToIndex.get(p2.positiveSetsPLengths.get(0)).get(0);
-            System.out.println("balance " + balance);
-
-            (p2.positiveSets).remove(0);
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1136,4 +1032,43 @@ public class Tools {
 
         return newList;
     }
+
+    public void positiveSetAbarbeiten(ArrayList<Eintrag> currentWerte, ArrayList<MyInteger> newSortedSells, Partition p, ArrayList<MyInteger> sRest, Integer budget, Integer balance) {
+
+        MyInteger currentSell = new MyInteger();
+        for (int countP1 = 0; countP1 < p.positiveSets.get(0).getLength(); countP1++) {
+//                    testSortedSells.add(s1Rest.get(0));
+            currentSell = sRest.get(0);
+
+            newSortedSells.add(sRest.get(0));//index 0 size 0
+            sRest.remove(0);
+//                    System.out.println("S1Rest: " + s1Rest.toString());
+
+        }
+        currentWerte = shift(currentWerte, p.positiveSets.get(0).getBalance());
+
+        currentWerte.removeAll(getWerteBisNode(currentWerte, currentSell));
+        //ASSERTION
+
+        ArrayList<MyInteger> test = new ArrayList<>();
+        for (int i = 0; i < currentWerte.size(); i++) {
+            test.add(currentWerte.get(i).node);
+        }
+        if (!(sRest == test)) {
+            System.err.println("da stimmts nicht mehr");
+        }
+                //ASSERTION
+        //------------------------------------
+        budget = Integer.min(budget, balance + ((p.positiveSets).get(0)).getLength());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+        System.out.println("budget " + budget);
+        balance = balance + ((p.positiveSets).get(0)).getBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
+        System.out.println("balance " + balance);
+
+        (p.positiveSets).remove(0);
+
+        System.out.println("S2Rest: " + sRest.toString());
+
+    }
+                //ASSERTION
+
 }
