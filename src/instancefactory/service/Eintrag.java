@@ -12,4 +12,16 @@ package instancefactory.service;
 public class Eintrag {
   Integer value;
   MyInteger node;
+
+    @Override
+    public String toString() {
+        return "Eintrag{" + "value=" + value + ", node=" + node + '}';
+    }
+  
+  
+  
+  
+  
+  
+  
 }
