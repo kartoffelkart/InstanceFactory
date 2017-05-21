@@ -8,6 +8,7 @@ package instancefactory.service;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -505,10 +506,26 @@ public class Tools {
 
             Integer minWertP1 = currentWerteP1.get(minIndexP1).value;
             Integer minWertP2 = currentWerteP2.get(minIndexP2).value;
-            ArrayList<Eintrag> abschnitt = getArrayAbschnitt(currentWerteP1, minIndexP1, currentWerteP1.size() - 1);
-            int maxIndexP1 = getIndexOfMax(abschnitt) + minIndexP1;
-            int maxIndexP2 = getIndexOfMax(getArrayAbschnitt(currentWerteP2, minIndexP2, currentWerteP2.size() - 1)) + minIndexP2;
+            
+            ArrayList<Eintrag> abschnitt1 = getArrayAbschnitt(currentWerteP1, minIndexP1, currentWerteP1.size() - 1);
+           int help = getIndexOfMax(abschnitt1);
+            System.err.println("help"+help);
+            int maxIndexP1 = help+minIndexP1;
+            
+            ArrayList<Eintrag> abschnitt2 = getArrayAbschnitt(currentWerteP2, minIndexP2, currentWerteP2.size() - 1);
+            int maxIndexP2 = getIndexOfMax(abschnitt2) + minIndexP2;//warum hier 1 addiert werden muss ist schleierhaft, aber der wird ist immer ienen Index höher
+            
+            if (!p2.sortedSells.contains(currentWerteP2.get(maxIndexP2).node)) {
+                 System.err.println("p2.sortedSells"+p2.sortedSells);
+                System.err.println("node"+currentWerteP2.get(maxIndexP2).node);
+                                System.err.println("index"+maxIndexP2);
 
+                System.err.println("nein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
+//            if (!s1Rest.contains(currentWerteP1.get(maxIndexP1).node)) {
+//
+//                System.err.println("nein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//            }
             Integer maxWertP1 = currentWerteP1.get(maxIndexP1).value;
             Integer maxWertP2 = currentWerteP2.get(maxIndexP2).value;
 
@@ -992,7 +1009,7 @@ public class Tools {
 
     int getIndexOfMax(ArrayList<Eintrag> list) {
         int index = 0;
-        int maxWert = 0;
+        int maxWert = list.get(0).value;
 
         for (int k = 0; k < list.size(); k++) {
             if (list.get(k).value > maxWert) {
@@ -1034,7 +1051,13 @@ public class Tools {
     }
 
     public void positiveSetAbarbeiten(ArrayList<Eintrag> currentWerte, ArrayList<MyInteger> newSortedSells, Partition p, ArrayList<MyInteger> sRest, Integer budget, Integer balance) {
-
+ArrayList<MyInteger> test = new ArrayList<>();
+        for (int i = 0; i < currentWerte.size(); i++) {
+            test.add(currentWerte.get(i).node);
+        }
+        if (!( test.containsAll(sRest))) {
+            System.err.println("da stimmts schon am Anfang nicht ");
+        }
         MyInteger currentSell = new MyInteger();
         for (int countP1 = 0; countP1 < p.positiveSets.get(0).getLength(); countP1++) {
 //                    testSortedSells.add(s1Rest.get(0));
@@ -1050,14 +1073,14 @@ public class Tools {
         currentWerte.removeAll(getWerteBisNode(currentWerte, currentSell));
         //ASSERTION
 
-        ArrayList<MyInteger> test = new ArrayList<>();
+         test = new ArrayList<>();
         for (int i = 0; i < currentWerte.size(); i++) {
             test.add(currentWerte.get(i).node);
         }
-        if (!(sRest == test)) {
-            System.err.println("da stimmts nicht mehr");
+        if (!( test.containsAll(sRest))) {
+            System.err.println("da stimmts nicht mehr. Manche ");
         }
-                //ASSERTION
+        //ASSERTION
         //------------------------------------
         budget = Integer.min(budget, balance + ((p.positiveSets).get(0)).getLength());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
         System.out.println("budget " + budget);
@@ -1069,6 +1092,6 @@ public class Tools {
         System.out.println("S2Rest: " + sRest.toString());
 
     }
-                //ASSERTION
-
+    //ASSERTION
+ 
 }

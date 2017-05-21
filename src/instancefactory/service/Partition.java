@@ -112,7 +112,20 @@ public class Partition {
 
         return position;
     }
+   public Integer getPositionOfSellInSortedSells(MyInteger sell) {
 
+        Integer position = null;
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            //für jeden sell 
+            if (arrayList.get(i).get(0) == sell) {//irgendwann ist hier Nullpointer, bei index? == Objektidentität
+
+                position = i;
+            }
+        }
+
+        return position;
+    }
     public ArrayList<MyInteger> getBoughtsOfSell(MyInteger sell) {
         ArrayList<MyInteger> newBought = new ArrayList<>();
         newBought.addAll(arrayList.get(getPositionOfSellInAdjazenslist(sell))); //hier holen wir alle für den Sell benötigten Boughts
