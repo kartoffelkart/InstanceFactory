@@ -29,6 +29,7 @@ public class Tools {
      * @return ArrayList of Partition
      */
     public ArrayList<MyInteger> randomOrdering;
+    public ArrayList<MyInteger> s1Rest;
 
     public ArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
 //        ArrayList<MyInteger> randomMyIntArrayList = this.getDeterministicMyIntArray();
@@ -120,7 +121,7 @@ public class Tools {
             System.out.println("Sorted SellsOfMergedPartition: " + partition.sortedSells.toString() + "\n");
 //ASSERTION
             if (!partition.orderingFitsBudget()) {
-                System.err.println("In makePartition wurde Budget oder SortedSells falsch berechnet. Passt nicht zusammen");
+                System.out.println("In makePartition wurde Budget oder SortedSells falsch berechnet. Passt nicht zusammen");
             }
 
             //-------------
@@ -330,7 +331,7 @@ public class Tools {
                     partition = makePartitionJoin(p2, p1);
 
                 } else {
-                    System.err.println("error");
+                    System.out.println("error");
 
                 }
             }
@@ -445,28 +446,42 @@ public class Tools {
 
         ArrayList<MyInteger> newSortedSells = new ArrayList<>();
         ArrayList<Eintrag> currentWerteP1 = new ArrayList<>();
-        currentWerteP1 = (ArrayList<Eintrag>) p1.getWerte().clone();
+        System.out.println("p1.getWerte()" + p1.getWerte());
+        currentWerteP1 = (ArrayList<Eintrag>) p1.getWerte().clone();// todo: getEinträge
+        System.out.println("currentWerteP1 nach clone" + currentWerteP1);
 
         ArrayList<Eintrag> currentWerteP2 = new ArrayList<>();
-
-        System.err.println("p2.getWerte()" + p2.getWerte());
+        System.out.println("p2.getWerte()" + p2.getWerte());
         currentWerteP2 = (ArrayList<Eintrag>) p2.getWerte().clone();
-        System.err.println("currentWerteP2 nach clone" + currentWerteP2);
+        System.out.println("currentWerteP2 nach clone" + currentWerteP2);
 
-        ArrayList<MyInteger> s1Rest = new ArrayList<>();
+        //ArrayList<MyInteger> s1Rest = new ArrayList<>();
+        s1Rest = new ArrayList<>();
         s1Rest.addAll(p1.sortedSells);
 
         ArrayList<MyInteger> s2Rest = new ArrayList<>();
         s2Rest.addAll(p2.sortedSells);
+//----------test
+        System.out.println("currentWerteP1:" + currentWerteP1);
+        System.out.println("currentWerteP2:" + currentWerteP2);
+        System.out.println("s1Rest:" + s1Rest);
+        System.out.println("s2Rest:" + s2Rest);
+//-------------------
 
         fillPositiveSets(p1);
         System.out.println("PositiveSets 1 : " + p1.positiveSets.toString());//[] ist richtig
-//        System.out.println( p1.positiveSetsPLengthsSumBoughts.toString());//[]ist richtig
 
         fillPositiveSets(p2);
-
         System.out.println("PositiveSets 2 : " + p2.positiveSets.toString());//[] ist richtig
 
+//----------test
+        System.out.println("Nach fillPositiveSets:");
+
+        System.out.println("currentWerteP1:" + currentWerteP1);
+        System.out.println("currentWerteP2:" + currentWerteP2);
+        System.out.println("s1Rest:" + s1Rest);
+        System.out.println("s2Rest:" + s2Rest);
+//-------------------
 //        
 //        Iterator it1 = PositiveSetsPLengths1Lengths.iterator();
 //                 Iterator it2 = PositiveSetsPLengths2Lengths.iterator();
@@ -477,25 +492,43 @@ public class Tools {
             ///////////////////////////////////////////////////////////////////////
             if (p1.positiveSets.get(0).getBudget() < p2.positiveSets.get(0).getBudget()) {
 
-                positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budget, balance);
+                positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budget, balance, "s1");
 
             } else ////////////////////////////////////////////////////////////////////////////////
             {
-                positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budget, balance);
+                positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budget, balance, "s2");
 
             }
-
+//----------test
+            System.out.println("Nach positiveSets abarbeiten beide nicht leer:");
+            System.out.println("currentWerteP1:" + currentWerteP1);
+            System.out.println("currentWerteP2:" + currentWerteP2);
+            System.out.println("s1Rest:" + s1Rest);
+            System.out.println("s2Rest:" + s2Rest);
+//-------------------
         }
         //////////////////////////////////////////////////////////////////////////////
         while (!(p1.positiveSets.isEmpty())) {
 
-            positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budget, balance);
-
+            positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budget, balance, "s1");
+//----------test
+            System.out.println("Nach positiveSets abarbeiten p1 nicht leer:");
+            System.out.println("currentWerteP1:" + currentWerteP1);
+            System.out.println("currentWerteP2:" + currentWerteP2);
+            System.out.println("s1Rest:" + s1Rest);
+            System.out.println("s2Rest:" + s2Rest);
+//-------------------
         }
         //////////////////////////////////////////////////////////////////////////
         while (!(p2.positiveSets.isEmpty())) {
-            positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budget, balance);
-
+            positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budget, balance, "s2");
+//----------test
+            System.out.println("Nach positiveSets abarbeiten p2 nicht leer:");
+            System.out.println("currentWerteP1:" + currentWerteP1);
+            System.out.println("currentWerteP2:" + currentWerteP2);
+            System.out.println("s1Rest:" + s1Rest);
+            System.out.println("s2Rest:" + s2Rest);
+//-------------------
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -506,64 +539,82 @@ public class Tools {
 
             Integer minWertP1 = currentWerteP1.get(minIndexP1).value;
             Integer minWertP2 = currentWerteP2.get(minIndexP2).value;
-            
+
             ArrayList<Eintrag> abschnitt1 = getArrayAbschnitt(currentWerteP1, minIndexP1, currentWerteP1.size() - 1);
-           int help = getIndexOfMax(abschnitt1);
-            System.err.println("help"+help);
-            int maxIndexP1 = help+minIndexP1;
-            
+            int help = getIndexOfMax(abschnitt1);
+            System.out.println("help" + help);
+            int maxIndexP1 = help + minIndexP1;
+
             ArrayList<Eintrag> abschnitt2 = getArrayAbschnitt(currentWerteP2, minIndexP2, currentWerteP2.size() - 1);
             int maxIndexP2 = getIndexOfMax(abschnitt2) + minIndexP2;//warum hier 1 addiert werden muss ist schleierhaft, aber der wird ist immer ienen Index höher
-            
-            if (!p2.sortedSells.contains(currentWerteP2.get(maxIndexP2).node)) {
-                 System.err.println("p2.sortedSells"+p2.sortedSells);
-                System.err.println("node"+currentWerteP2.get(maxIndexP2).node);
-                                System.err.println("index"+maxIndexP2);
 
-                System.err.println("nein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            if (!p2.sortedSells.contains(currentWerteP2.get(maxIndexP2).node)) {
+                System.out.println("p2.sortedSells" + p2.sortedSells);
+                System.out.println("node" + currentWerteP2.get(maxIndexP2).node);
+                System.out.println("index" + maxIndexP2);
+
+                System.out.println("nein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             }
 //            if (!s1Rest.contains(currentWerteP1.get(maxIndexP1).node)) {
 //
-//                System.err.println("nein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//                System.out.println("nein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //            }
             Integer maxWertP1 = currentWerteP1.get(maxIndexP1).value;
             Integer maxWertP2 = currentWerteP2.get(maxIndexP2).value;
 
+            //----------test
+                  System.out.println("Nach min und max:");
+        System.out.println("currentWerteP1:" + currentWerteP1);
+        System.out.println("currentWerteP2:" + currentWerteP2);
+        System.out.println("s1Rest:" + s1Rest);
+        System.out.println("s2Rest:" + s2Rest);
+//-------------------
+            
+            
 /////////////////////////////////////////////
             if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
 
+                ArrayList<MyInteger> test = new ArrayList<>();
+                for (int i = 0; i < currentWerteP1.size(); i++) {
+                    test.add(currentWerteP1.get(i).node);
+                }
+                //TODO: ändern
+                if (!(test.containsAll(s1Rest))) {
+                    System.err.println("da stimmts nicht mehr");
+                }
+                System.out.println("currentWerteP1 : " + currentWerteP1);
                 //hier wird es nicht richtig berechnet, der node ist gar nicht drinin s1Rest
-                ArrayList<MyInteger> anfangsAbschnittS1 = getAbschnittBisNode(s1Rest, currentWerteP1.get(maxIndexP1).node);
+                ArrayList<MyInteger> anfangsAbschnittS1 = getAbschnittBisNode(s1Rest, currentWerteP1.get(maxIndexP1).node, "s1");
                 newSortedSells.addAll(anfangsAbschnittS1);
                 s1Rest.removeAll(anfangsAbschnittS1);
 
                 budget = Integer.min(balance + minWertP1, budget);
                 balance = balance + maxWertP1;
 
-                System.err.println("currentWerteP1" + currentWerteP1);
-                currentWerteP1 = shift(currentWerteP1, maxWertP1);
-                System.err.println("currentWerteP1 nach Shift um " + maxWertP1 + "ist" + currentWerteP1);
+                System.out.println("currentWerteP1" + currentWerteP1);
+                currentWerteP1 = shift(currentWerteP1, maxWertP1, " p1 ");
+                System.out.println("currentWerteP1 nach Shift um " + maxWertP1 + "ist" + currentWerteP1);
 
                 currentWerteP1 = getArrayAbschnitt(currentWerteP1, maxIndexP1 + 1, currentWerteP1.size() - 1);
             } ///////////////////////////////////////////////////////////
             else {
-                System.err.println("currentWerteP2" + currentWerteP2);
-                System.err.println("");
+                System.out.println("currentWerteP2" + currentWerteP2);
                 //ASSERTION
 
                 ArrayList<MyInteger> test = new ArrayList<>();
                 for (int i = 0; i < currentWerteP2.size(); i++) {
                     test.add(currentWerteP2.get(i).node);
                 }
-                if (!(s2Rest == test)) {
+                //TODO: ändern
+                if (!(test.containsAll(s2Rest))) {
                     System.err.println("da stimmts nicht mehr");
                 }
-                ArrayList<MyInteger> anfangsAbschnittS2 = getAbschnittBisNode(s2Rest, currentWerteP2.get(maxIndexP2).node);
+                ArrayList<MyInteger> anfangsAbschnittS2 = getAbschnittBisNode(s2Rest, currentWerteP2.get(maxIndexP2).node, "s2");
                 newSortedSells.addAll(anfangsAbschnittS2);
                 s2Rest.removeAll(anfangsAbschnittS2);
                 budget = Integer.min(balance + minWertP2, budget);
                 balance = balance + maxWertP2;
-                currentWerteP2 = shift(currentWerteP2, maxWertP2);
+                currentWerteP2 = shift(currentWerteP2, maxWertP2," p2 ");
                 currentWerteP2 = getArrayAbschnitt(currentWerteP2, maxIndexP2 + 1, currentWerteP2.size() - 1);
 
             }
@@ -720,7 +771,7 @@ public class Tools {
 
         partition.werte = new ArrayList<>();
         partition.werte.addAll(p2.getWerte());
-        ArrayList<Eintrag> shiftList = shift(p1.getWerte(), p2.balance);
+        ArrayList<Eintrag> shiftList = shift(p1.getWerte(), p2.balance," p1 ");
         partition.werte.addAll(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
@@ -728,7 +779,7 @@ public class Tools {
         }
 //        if (! partition.isBestOrdering())
 //        {
-//            System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
+//            System.out.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
 //--------------------------------
         return partition;
     }
@@ -743,15 +794,15 @@ public class Tools {
         return newValue;
     }
 
-    ArrayList<Eintrag> shift(ArrayList<Eintrag> list, Integer shiftValue) {
-        System.err.println("list vor shift um" + shiftValue + "ist" + list);
+    ArrayList<Eintrag> shift(ArrayList<Eintrag> list, Integer shiftValue,String id) {
+        System.out.println("list "+id+" vor shift um" + shiftValue + "ist" + list);
 
         ArrayList<Eintrag> newList = (ArrayList<Eintrag>) list.clone();
 
         for (int i = 0; i < newList.size(); i++) {
             newList.get(i).value = newList.get(i).value + shiftValue;
         }
-        System.err.println("list nach shift um" + shiftValue + "ist" + list);
+        System.out.println("list "+id+" nach shift um" + shiftValue + "ist" + list);
 
         return newList;
     }
@@ -796,7 +847,7 @@ public class Tools {
 //                prY.println(sumOfBoughts/instance.minBudgetSwap);
                     mittelwertSortedSells = mittelwertSortedSells + instance.budget;
                     mittelwertSwap = mittelwertSwap + instance.minBudgetSwap;
-//                    System.err.println("test" + instance.minBudgetSwap);
+//                    System.out.println("test" + instance.minBudgetSwap);
                 }
                 mittelwertSwap = mittelwertSwap / pool;
                 mittelwertSortedSells = mittelwertSortedSells / pool;
@@ -808,7 +859,7 @@ public class Tools {
             prY.close();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("No such file exists.");
+            System.err.println("No such file exists.");
         }
 
 //        tool.function(instance, randomOrdering, "swap")
@@ -902,7 +953,7 @@ public class Tools {
         buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
 
         Partition instance = partitions.get(0);
-        System.out.println("Instance is build.");
+        System.err.println("Instance is build.");
         return instance;
     }
 
@@ -979,7 +1030,7 @@ public class Tools {
     }
 
     ArrayList getArrayAbschnitt(ArrayList list, int i, int j) {
-        System.err.println("list vor Abschnitt " + list);
+        System.out.println("list vor Abschnitt " + list);
 
         ArrayList abschnitt = new ArrayList<>();
         for (int k = i; k < j + 1; k++) {
@@ -987,14 +1038,14 @@ public class Tools {
             abschnitt.add(list.get(k));
 
         }
-        System.err.println("list nach Abschnitt von" + i + "bis" + j + "ist" + abschnitt);
+        System.out.println("list nach Abschnitt von" + i + "bis" + j + "ist" + abschnitt);
 
         return abschnitt;
     }
 
     int getIndexOfMin(ArrayList<Eintrag> list) {
         int index = 0;
-        int minWert = 0;
+        int minWert = list.get(0).value;
 
         for (int k = 0; k < list.size(); k++) {
             if (list.get(k).value < minWert) {
@@ -1022,7 +1073,7 @@ public class Tools {
 
     }
 
-    ArrayList<Eintrag> getWerteBisNode(ArrayList<Eintrag> list, MyInteger node) {
+    ArrayList<Eintrag> getWerteBisNodeExclusive(ArrayList<Eintrag> list, MyInteger node) {
 
         ArrayList<Eintrag> newList = new ArrayList<>();
         int k = 0;
@@ -1035,9 +1086,26 @@ public class Tools {
 
         return newList;
     }
+ ArrayList<Eintrag> getWerteBisNodeInclusive(ArrayList<Eintrag> list, MyInteger node) {
 
-    ArrayList<MyInteger> getAbschnittBisNode(ArrayList<MyInteger> list, MyInteger node) {
+        ArrayList<Eintrag> newList = new ArrayList<>();
+        int k = 0;
+        while (!(list.get(k).node == node)) {
+            newList.add(list.get(k));
 
+            k++;
+        }
+        newList.add(list.get(k));
+
+        return newList;
+    }
+    ArrayList<MyInteger> getAbschnittBisNode(ArrayList<MyInteger> list, MyInteger node, String id) {
+        System.out.println("list" + id + ":");
+        for (int i = 0; i < list.size(); i++) {
+
+            System.out.println(list.get(i));
+        }
+        System.out.println("node:" + node);
         ArrayList<MyInteger> newList = new ArrayList<>();
         int k = 0;
         while (!(list.get(k) == node)) {
@@ -1050,48 +1118,51 @@ public class Tools {
         return newList;
     }
 
-    public void positiveSetAbarbeiten(ArrayList<Eintrag> currentWerte, ArrayList<MyInteger> newSortedSells, Partition p, ArrayList<MyInteger> sRest, Integer budget, Integer balance) {
-ArrayList<MyInteger> test = new ArrayList<>();
-        for (int i = 0; i < currentWerte.size(); i++) {
-            test.add(currentWerte.get(i).node);
-        }
-        if (!( test.containsAll(sRest))) {
-            System.err.println("da stimmts schon am Anfang nicht ");
-        }
+    public void positiveSetAbarbeiten(ArrayList<Eintrag> currentWerte, ArrayList<MyInteger> newSortedSells, Partition p, ArrayList<MyInteger> sRest, Integer budget, Integer balance, String id) {
+//        ArrayList<MyInteger> test = new ArrayList<>();
+//        for (int i = 0; i < currentWerte.size(); i++) {
+//            test.add(currentWerte.get(i).node);
+//        }
+//        if (!(test.containsAll(sRest))) {
+//            System.out.println("da stimmts schon am Anfang nicht ");
+//        }
         MyInteger currentSell = new MyInteger();
         for (int countP1 = 0; countP1 < p.positiveSets.get(0).getLength(); countP1++) {
 //                    testSortedSells.add(s1Rest.get(0));
             currentSell = sRest.get(0);
 
-            newSortedSells.add(sRest.get(0));//index 0 size 0
-            sRest.remove(0);
+            newSortedSells.add(currentSell);//index 0 size 0
+            sRest.remove(currentSell);
 //                    System.out.println("S1Rest: " + s1Rest.toString());
+        currentWerte.removeAll(getWerteBisNodeInclusive(currentWerte, currentSell));
 
         }
-        currentWerte = shift(currentWerte, p.positiveSets.get(0).getBalance());
+        
+        // Macht das das was es soll?
+        currentWerte = shift(currentWerte, p.positiveSets.get(0).getBalance()," p ");
 
-        currentWerte.removeAll(getWerteBisNode(currentWerte, currentSell));
+                // Macht das das was es soll?
         //ASSERTION
 
-         test = new ArrayList<>();
-        for (int i = 0; i < currentWerte.size(); i++) {
-            test.add(currentWerte.get(i).node);
-        }
-        if (!( test.containsAll(sRest))) {
-            System.err.println("da stimmts nicht mehr. Manche ");
-        }
+//        test = new ArrayList<>();
+//        for (int i = 0; i < currentWerte.size(); i++) {
+//            test.add(currentWerte.get(i).node);
+//        }
+//        if (!(test.containsAll(sRest))) {
+//            System.out.println("da stimmts nicht mehr. Manche ");
+//        }
         //ASSERTION
         //------------------------------------
-        budget = Integer.min(budget, balance + ((p.positiveSets).get(0)).getLength());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
+        budget = Integer.min(budget, balance + ((p.positiveSets).get(0)).getBudget());//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
         System.out.println("budget " + budget);
         balance = balance + ((p.positiveSets).get(0)).getBalance();//p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
         System.out.println("balance " + balance);
 
         (p.positiveSets).remove(0);
 
-        System.out.println("S2Rest: " + sRest.toString());
+        System.out.println(id + "Rest: " + sRest.toString());
 
     }
     //ASSERTION
- 
+
 }
