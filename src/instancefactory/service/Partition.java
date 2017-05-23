@@ -229,6 +229,8 @@ public class Partition {
     public boolean orderingFitsBudget() {
 
         Graph newTestGraph = new Graph(this, sortedSells);
+        System.out.println("newTestGraph.getMinBudget()"+newTestGraph.getMinBudget());
+        System.out.println("budget"+budget);
         if ((newTestGraph.getMinBudget().equals(budget))) {
             return true;
         } else {
@@ -240,19 +242,21 @@ public class Partition {
     }
 
     public boolean isBestOrdering() {
-        Graph newTestGraph = new Graph(this, sortedSells);
-        Integer probablyBest = newTestGraph.getMinBudget();
-
-        java.util.List<java.util.List<MyInteger>> liste = permute(sortedSells, 0);
-
-        for (int i = 0; i < liste.size(); i++) {
-            newTestGraph = new Graph(this, liste.get(i));
-            if (probablyBest < newTestGraph.getMinBudget()) {
-                System.err.println("Fehler ! SortedSells ist in der Partition nicht die optimale Reihenfolge");
-
-                return false;
-            }
-        }
+//        Graph newTestGraph = new Graph(this, sortedSells);
+//        Integer probablyBest = newTestGraph.getMinBudget();
+//
+//        java.util.List<java.util.List<MyInteger>> listeVonPermutationen = permute(sortedSells, 0);
+//
+//        for (int i = 0; i < listeVonPermutationen.size(); i++) {
+//            newTestGraph = new Graph(this, listeVonPermutationen.get(i));
+//            if (probablyBest < newTestGraph.getMinBudget()) {
+//                System.err.println("Fehler ! SortedSells ist in der Partition nicht die optimale Reihenfolge");
+//                System.err.println("mit neuer Permutation newTestGraph.getMinBudget()"+newTestGraph.getMinBudget());
+//                System.err.println("probablyBest"+probablyBest);
+//
+//                return false;
+//            }
+//        }
         return true;
 
     }
