@@ -44,16 +44,15 @@ public class Partition {
 //    private Graph calculatedGraphOfSortedSells;
     public ArrayList<Eintrag> werte;
     public ArrayList<Integer> sumBoughts;
-   
 
     //_________________________________________________________________________
     //KONSTRUKTOR
     public Partition() {
-       
+
         arrayList = new ArrayList<ArrayList<MyInteger>>();
         probability = 1;
         sortedSells = new ArrayList<>();
-        
+
         // todo: nächste Zeile weg
         positiveSets = new ArrayList<MySet>();
 //    calculatedGraphOfSortedSells= new Graph(this, sortedSells);
@@ -63,7 +62,7 @@ public class Partition {
     //KONSTRUKTOR
 
     public Partition(ArrayList<ArrayList<MyInteger>> newArrayList, ArrayList<MyInteger> newSortedSells) {
-      
+
         arrayList = newArrayList;
         probability = 1;
         sortedSells = newSortedSells;
@@ -112,7 +111,8 @@ public class Partition {
 
         return position;
     }
-   public Integer getPositionOfSellInSortedSells(MyInteger sell) {
+
+    public Integer getPositionOfSellInSortedSells(MyInteger sell) {
 
         Integer position = null;
 
@@ -126,6 +126,7 @@ public class Partition {
 
         return position;
     }
+
     public ArrayList<MyInteger> getBoughtsOfSell(MyInteger sell) {
         ArrayList<MyInteger> newBought = new ArrayList<>();
         newBought.addAll(arrayList.get(getPositionOfSellInAdjazenslist(sell))); //hier holen wir alle für den Sell benötigten Boughts
@@ -226,12 +227,18 @@ public class Partition {
         this.balanceBoughtsBudgetOfSetUpToIndex = balanceBoughtsBudgetOfSetUpToIndex;
     }
 
+    /**
+     *
+     * testet ob in dieser Patition die SortedSells zum Budget passt
+     */
     public boolean orderingFitsBudget() {
 
         Graph newTestGraph = new Graph(this, sortedSells);
-        System.out.println("newTestGraph.getMinBudget()"+newTestGraph.getMinBudget());
-        System.out.println("budget"+budget);
+        System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
+        System.out.println("budget" + budget);
         if ((newTestGraph.getMinBudget().equals(budget))) {
+                        System.out.println("Gut ! Budget von Partition passt zu den SortedSells");
+
             return true;
         } else {
 
@@ -240,23 +247,29 @@ public class Partition {
         }
 
     }
-
+ /**
+     *
+     * testet ob in dieser Patition die SortedSells wirklich die Reihenfolge
+     * sind, die zum MinimalBudget führt
+     */
     public boolean isBestOrdering() {
-//        Graph newTestGraph = new Graph(this, sortedSells);
-//        Integer probablyBest = newTestGraph.getMinBudget();
-//
-//        java.util.List<java.util.List<MyInteger>> listeVonPermutationen = permute(sortedSells, 0);
-//
-//        for (int i = 0; i < listeVonPermutationen.size(); i++) {
-//            newTestGraph = new Graph(this, listeVonPermutationen.get(i));
-//            if (probablyBest < newTestGraph.getMinBudget()) {
-//                System.err.println("Fehler ! SortedSells ist in der Partition nicht die optimale Reihenfolge");
-//                System.err.println("mit neuer Permutation newTestGraph.getMinBudget()"+newTestGraph.getMinBudget());
-//                System.err.println("probablyBest"+probablyBest);
-//
-//                return false;
-//            }
-//        }
+        Graph newTestGraph = new Graph(this, sortedSells);
+        Integer probablyBest = newTestGraph.getMinBudget();
+//warum ist die liste leer?
+       ArrayList<ArrayList<MyInteger>> returnList = new ArrayList<>();
+       permute(sortedSells, 0,returnList);
+
+        for (int i = 0; i < returnList.size(); i++) {
+            newTestGraph = new Graph(this, returnList.get(i));
+            if (probablyBest < newTestGraph.getMinBudget()) {
+                System.err.println("Fehler ! SortedSells ist in der Partition nicht die optimale Reihenfolge");
+                System.err.println("mit neuer Permutation newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
+                System.err.println("probablyBest" + probablyBest);
+
+                return false;
+            }
+        }
+        System.out.println("Gut ! SortedSells ist in der Partition die optimale Reihenfolge");
         return true;
 
     }
@@ -372,6 +385,4 @@ public class Partition {
 //}
 //        
 //    }
-    
-   
-     }
+}

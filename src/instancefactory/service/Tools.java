@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -121,7 +122,7 @@ public class Tools {
             System.out.println("Sorted SellsOfMergedPartition: " + partition.sortedSells.toString() + "\n");
 //ASSERTION
             if (!partition.orderingFitsBudget()) {
-                System.out.println("In makePartition wurde Budget oder SortedSells falsch berechnet. Passt nicht zusammen");
+                boolean test = partition.isBestOrdering();
             }
 
             //-------------
@@ -646,18 +647,19 @@ balance=balanceHelp.getNumber();
 
     }
 
-    static java.util.List<java.util.List<MyInteger>> permute(java.util.List<MyInteger> arr, int k) {
-        java.util.List<java.util.List<MyInteger>> returnList = new ArrayList<>();
+    static void permute(ArrayList<MyInteger> arr, int k,ArrayList<ArrayList<MyInteger>> returnList) {
+       
         for (int i = k; i < arr.size(); i++) {
             java.util.Collections.swap(arr, i, k);
-            permute(arr, k + 1);
-            java.util.Collections.swap(arr, k, i);
+           
+            permute(arr, k + 1,returnList);
+//            java.util.Collections.swap(arr, k, i);
         }
         if (k == arr.size() - 1) {
-//            System.out.println(java.util.Arrays.toString(arr.toArray()));
+ System.out.println("Permutation : "+ arr);
             returnList.add(arr);
         }
-        return returnList;
+       
     }
 
     /**
@@ -720,12 +722,10 @@ balance=balanceHelp.getNumber();
         makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
 
         //ASSERTION
-        if (!partition.orderingFitsBudget()) {
-            System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");
-        }
-        if (!partition.isBestOrdering()) {
-            System.err.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");
-        }
+         if (!partition.orderingFitsBudget()) {
+                boolean test = partition.isBestOrdering();
+            }
+
 //--------------------------------
         return partition;
     }
@@ -780,12 +780,10 @@ balance=balanceHelp.getNumber();
         ArrayList<Eintrag> shiftList = shift(p1.getWerte(), p2.balance, " p1 ");
         partition.werte.addAll(shiftList);
         //ASSERTION
-        if (!partition.orderingFitsBudget()) {
-            System.err.println("In PartitionUnion wurde das Budget (oder die SortedSells) nicht richtig berechnet.");
-        }
-//        if (! partition.isBestOrdering())
-//        {
-//            System.out.println("In PartitionUnion wurden die SortedSells nicht richtig berechnet.");}
+       if (!partition.orderingFitsBudget()) {
+                boolean test = partition.isBestOrdering();
+            }
+
 //--------------------------------
         return partition;
     }
