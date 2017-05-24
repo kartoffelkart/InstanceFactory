@@ -119,7 +119,8 @@ public class Tools {
             //---------------------------------------------------------------------------------
             partition = this.makePartition(partitionA, partitionB, unionProbability, leftJoinProbability, rightJoinProbability);//size 0 ???
             System.out.println("MergedPartition: " + partition.toString() + "\n");
-            System.out.println("Sorted SellsOfMergedPartition: " + partition.sortedSells.toString() + "\n");
+            System.out.println("Sorted SellsOfMergedPa\n" +
+"            //--------------------------------rtition: " + partition.sortedSells.toString() + "\n");
 //ASSERTION
             if (!partition.orderingFitsBudget()) {
                 boolean test = partition.isBestOrdering();
@@ -398,12 +399,14 @@ public class Tools {
         sRest.addAll(p.sortedSells);
         System.out.println("SRest: " + sRest.toString());
         Integer count = 0;
+         ArrayList<MyInteger> sellsForCurrentPositiveSet = new ArrayList<>();
         for (int i = 0; i < sRest.size(); i++) {
-            ArrayList<MyInteger> SellsForCurrentPositiveSet = new ArrayList<>();
+           
             // berechne balance bis i
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
             p.setValueOfBalanceBoughtsBudgetOfSet(i);
             count++;
+            sellsForCurrentPositiveSet.add(sRest.get(i));
             BalanceBoughtsBudget currentBalanceBoughtsBudget;
             currentBalanceBoughtsBudget = p.balanceBoughtsBudgetOfSetUpToIndex.get(i);// Index 0???
             int balance = currentBalanceBoughtsBudget.getBalance();
@@ -412,9 +415,14 @@ public class Tools {
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsPLengths und PositiveSetsPLengthsSumBoughts gespeichert
             if (balance > 0) {
                 MySet newPositiveSet = new MySet(sumBoughts, count, budget, balance);
+                newPositiveSet.setSortedSells(sellsForCurrentPositiveSet);
                 p.positiveSets.add(newPositiveSet);
+                
+                
+                
+                //Alles zurücksetzen
                 count = 0;
-
+sellsForCurrentPositiveSet=new ArrayList<>();
                 System.out.println("PositiveSetsPLengths: " + "PositiveSetsPLengthsSumBoughts: " + p.balanceBoughtsBudgetOfSetUpToIndex.toString());//[] ist richtig
 //                System.out.println("PositiveSetsPLengthsSumBoughts: " + p.positiveSetsPLengthsSumBoughts.toString());//[0]ist richtig
 

@@ -31,9 +31,9 @@ public class MySet {
     private Integer balance;
     private ArrayList<Eintrag> werte;
     private Graph graph;
+private ArrayList<MyInteger> sortedSells;
 
-    
-
+   
     public MySet(Integer sumOfBoughts, Integer positiveSetPLength, Integer positiveSetBudget, Integer positiveSetBalance) {
        
         this.length = positiveSetPLength;
@@ -95,7 +95,15 @@ public class MySet {
     public void setGraph(Graph graph) {
         this.graph = graph;
     }
-   
+    public ArrayList<MyInteger> getSortedSells() {
+        return sortedSells;
+    }
+
+    public void setSortedSells(ArrayList<MyInteger> sortedSells) {
+        this.sortedSells = sortedSells;
+    }
+    
+
    @Override
     public String toString() {
         return "PositiveSet{" + "positiveSetPLength=" + length + ", positiveSetPLengthSumBoughts=" + sumBoughts + ", positiveSetBudget=" + budget + ", positiveSetBalance=" + balance + '}';
