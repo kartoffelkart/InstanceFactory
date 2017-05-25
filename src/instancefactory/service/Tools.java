@@ -119,8 +119,8 @@ public class Tools {
             //---------------------------------------------------------------------------------
             partition = this.makePartition(partitionA, partitionB, unionProbability, leftJoinProbability, rightJoinProbability);//size 0 ???
             System.out.println("MergedPartition: " + partition.toString() + "\n");
-            System.out.println("Sorted SellsOfMergedPa\n" +
-"            //--------------------------------rtition: " + partition.sortedSells.toString() + "\n");
+            System.out.println("Sorted SellsOfMergedPa\n"
+                    + "            //--------------------------------rtition: " + partition.sortedSells.toString() + "\n");
 //ASSERTION
             if (!partition.orderingFitsBudget()) {
                 boolean test = partition.isBestOrdering();
@@ -399,9 +399,9 @@ public class Tools {
         sRest.addAll(p.sortedSells);
         System.out.println("SRest: " + sRest.toString());
         Integer count = 0;
-         ArrayList<MyInteger> sellsForCurrentPositiveSet = new ArrayList<>();
+        ArrayList<MyInteger> sellsForCurrentPositiveSet = new ArrayList<>();
         for (int i = 0; i < sRest.size(); i++) {
-           
+
             // berechne balance bis i
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
             p.setValueOfBalanceBoughtsBudgetOfSet(i);
@@ -417,12 +417,10 @@ public class Tools {
                 MySet newPositiveSet = new MySet(sumBoughts, count, budget, balance);
                 newPositiveSet.setSortedSells(sellsForCurrentPositiveSet);
                 p.positiveSets.add(newPositiveSet);
-                
-                
-                
+
                 //Alles zurücksetzen
                 count = 0;
-sellsForCurrentPositiveSet=new ArrayList<>();
+                sellsForCurrentPositiveSet = new ArrayList<>();
                 System.out.println("PositiveSetsPLengths: " + "PositiveSetsPLengthsSumBoughts: " + p.balanceBoughtsBudgetOfSetUpToIndex.toString());//[] ist richtig
 //                System.out.println("PositiveSetsPLengthsSumBoughts: " + p.positiveSetsPLengthsSumBoughts.toString());//[0]ist richtig
 
@@ -497,13 +495,12 @@ sellsForCurrentPositiveSet=new ArrayList<>();
 //          /////////////////////////////////////////////////////////////////////////
         //jetzt wird gemergt
         IntegerOut budgetHelp = new IntegerOut(budget);
-IntegerOut balanceHelp = new IntegerOut(balance);
+        IntegerOut balanceHelp = new IntegerOut(balance);
 
         while ((!p1.positiveSets.isEmpty()) && (!p2.positiveSets.isEmpty())) {
 //ArrayList<MyInteger> testSortedSells= new ArrayList<>();
             ///////////////////////////////////////////////////////////////////////
             if (p1.positiveSets.get(0).getBudget() < p2.positiveSets.get(0).getBudget()) {
-
 
                 positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
 
@@ -543,8 +540,8 @@ IntegerOut balanceHelp = new IntegerOut(balance);
             System.out.println("s2Rest:" + s2Rest);
 //-------------------
         }
-budget = budgetHelp.getNumber();
-balance=balanceHelp.getNumber();
+        budget = budgetHelp.getNumber();
+        balance = balanceHelp.getNumber();
         /////////////////////////////////////////////////////////////////////////////////////////////////
         while ((!s1Rest.isEmpty()) && (!s2Rest.isEmpty())) {
             // TODO: Das muss jetzt noch in 3 Schleifen solange bis beide SortedSells aufgebraucht sind 
@@ -634,12 +631,22 @@ balance=balanceHelp.getNumber();
         }
 /////////////////////////////////////////////////////////////////////
         while (!(s1Rest.isEmpty())) {
+
+            int minIndexP1 = getIndexOfMin(currentWerteP1);
+            Integer minWertP1 = currentWerteP1.get(minIndexP1).value;
+            Integer endWertP1 = currentWerteP1.get(currentWerteP1.size() - 1).value;
+            budget = Integer.min(balance + minWertP1, budget);
+            balance = balance + endWertP1;
             newSortedSells.addAll(s1Rest);
             s1Rest.removeAll(s1Rest);
-
         }
 //////////////////////////////////////////////////////////////////////////
         while (!(s2Rest.isEmpty())) {
+            int minIndexP2 = getIndexOfMin(currentWerteP2);
+            Integer minWertP2 = currentWerteP2.get(minIndexP2).value;
+            Integer endWertP2 = currentWerteP2.get(currentWerteP2.size() - 1).value;
+            budget = Integer.min(balance + minWertP2, budget);
+            balance = balance + endWertP2;
             newSortedSells.addAll(s2Rest);
             s2Rest.removeAll(s2Rest);
         }
@@ -655,19 +662,19 @@ balance=balanceHelp.getNumber();
 
     }
 
-    static void permute(ArrayList<MyInteger> arr, int k,ArrayList<ArrayList<MyInteger>> returnList) {
-       
+    static void permute(ArrayList<MyInteger> arr, int k, ArrayList<ArrayList<MyInteger>> returnList) {
+
         for (int i = k; i < arr.size(); i++) {
             java.util.Collections.swap(arr, i, k);
-           
-            permute(arr, k + 1,returnList);
+
+            permute(arr, k + 1, returnList);
 //            java.util.Collections.swap(arr, k, i);
         }
         if (k == arr.size() - 1) {
- System.out.println("Permutation : "+ arr);
+            System.out.println("Permutation : " + arr);
             returnList.add(arr);
         }
-       
+
     }
 
     /**
@@ -730,9 +737,9 @@ balance=balanceHelp.getNumber();
         makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
 
         //ASSERTION
-         if (!partition.orderingFitsBudget()) {
-                boolean test = partition.isBestOrdering();
-            }
+        if (!partition.orderingFitsBudget()) {
+            boolean test = partition.isBestOrdering();
+        }
 
 //--------------------------------
         return partition;
@@ -788,9 +795,9 @@ balance=balanceHelp.getNumber();
         ArrayList<Eintrag> shiftList = shift(p1.getWerte(), p2.balance, " p1 ");
         partition.werte.addAll(shiftList);
         //ASSERTION
-       if (!partition.orderingFitsBudget()) {
-                boolean test = partition.isBestOrdering();
-            }
+        if (!partition.orderingFitsBudget()) {
+            boolean test = partition.isBestOrdering();
+        }
 
 //--------------------------------
         return partition;
@@ -1167,13 +1174,13 @@ balance=balanceHelp.getNumber();
 //        }
         //ASSERTION
         //------------------------------------
-        int budgetHelp=budget.getNumber();
-                int balanceHelp=balance.getNumber();
+        int budgetHelp = budget.getNumber();
+        int balanceHelp = balance.getNumber();
 
         int help = Integer.min(budgetHelp, balanceHelp + currentPositiveSet.getBudget());
         budget.setNumber(help);//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
         System.out.println("budget " + budget);
-        
+
         balance.setNumber(balanceHelp + currentPositiveSet.getBalance()); //p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
         System.out.println("balance " + balance);
 

@@ -237,39 +237,41 @@ public class Partition {
         System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
         System.out.println("budget" + budget);
         if ((newTestGraph.getMinBudget().equals(budget))) {
-                        System.out.println("Gut ! Budget von Partition passt zu den SortedSells");
+            System.out.println("Gut ! Budget von Partition passt zu den SortedSells");
 
             return true;
         } else {
-
-            System.err.println("Fehler ! Budget von Partition passt nicht zu den SortedSells");
+            System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
+            System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget()+"budget" + budget);
+            System.err.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget()+"budget" + budget+"Fehler ! Budget von Partition passt nicht zu den SortedSells");
             return false;
         }
 
     }
- /**
+
+    /**
      *
      * testet ob in dieser Patition die SortedSells wirklich die Reihenfolge
      * sind, die zum MinimalBudget führt
      */
     public boolean isBestOrdering() {
-        Graph newTestGraph = new Graph(this, sortedSells);
-        Integer probablyBest = newTestGraph.getMinBudget();
-//warum ist die liste leer?
-       ArrayList<ArrayList<MyInteger>> returnList = new ArrayList<>();
-       permute(sortedSells, 0,returnList);
-
-        for (int i = 0; i < returnList.size(); i++) {
-            newTestGraph = new Graph(this, returnList.get(i));
-            if (probablyBest < newTestGraph.getMinBudget()) {
-                System.err.println("Fehler ! SortedSells ist in der Partition nicht die optimale Reihenfolge");
-                System.err.println("mit neuer Permutation newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
-                System.err.println("probablyBest" + probablyBest);
-
-                return false;
-            }
-        }
-        System.out.println("Gut ! SortedSells ist in der Partition die optimale Reihenfolge");
+//        Graph newTestGraph = new Graph(this, sortedSells);
+//        Integer probablyBest = newTestGraph.getMinBudget();
+////warum ist die liste leer?
+//        ArrayList<ArrayList<MyInteger>> returnList = new ArrayList<>();
+//        permute(sortedSells, 0, returnList);
+//
+//        for (int i = 0; i < returnList.size(); i++) {
+//            newTestGraph = new Graph(this, returnList.get(i));
+//            if (probablyBest < newTestGraph.getMinBudget()) {
+//                System.err.println("Fehler ! SortedSells ist in der Partition nicht die optimale Reihenfolge");
+//                System.err.println("mit neuer Permutation newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
+//                System.err.println("probablyBest" + probablyBest);
+//
+//                return false;
+//            }
+//        }
+//        System.out.println("Gut ! SortedSells ist in der Partition die optimale Reihenfolge");
         return true;
 
     }
