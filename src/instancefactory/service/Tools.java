@@ -826,7 +826,7 @@ public class Tools {
         return newList;
     }
 
-    public void outStatistikN(String dateiname) {
+    public void outStatistikN(String dateiname,Integer maxKnotenAnzahl,Integer schrittlaenge,Integer pool) {
 
         File fileX = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "DatenX.txt");
         File fileY = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "DatenY.txt");
@@ -850,8 +850,8 @@ public class Tools {
             PrintWriter prY = new PrintWriter(fileY);
             prX.println(0);
             prY.println(0);
-            int pool = 10;
-            for (int i = 2; i < 50; i += 10) {// todo: kein +10 ??????
+           
+            for (int i = 2; i < maxKnotenAnzahl; i += schrittlaenge) {// todo: kein +10 ??????
                 double mittelwertSwap = 0;
                 double mittelwertSortedSells = 0;
                 prX.println(i);
@@ -1041,7 +1041,7 @@ public class Tools {
     public void superFunctionStatistik(int min, int max, int size) {
         // todo: min, max, size muss noch übergeben werden an outStatitikN
 
-        outStatistikN("test");
+        outStatistikN("test",10,2,5);
 
     }
 
