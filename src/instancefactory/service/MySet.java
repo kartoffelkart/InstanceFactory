@@ -5,7 +5,7 @@
  */
 package instancefactory.service;
 
-import java.util.ArrayList;
+import java.util.MyArrayList;
 
 /**
  *
@@ -29,9 +29,9 @@ public class MySet {
      * Balance für das MySet
      */
     private Integer balance;
-    private ArrayList<Eintrag> werte;
+    private MyArrayList<Eintrag> werte;
     private Graph graph;
-private ArrayList<MyInteger> sortedSells;
+private MyArrayList<MyInteger> sortedSells;
 
    
     public MySet(Integer sumOfBoughts, Integer positiveSetPLength, Integer positiveSetBudget, Integer positiveSetBalance) {
@@ -80,11 +80,11 @@ private ArrayList<MyInteger> sortedSells;
         this.balance = balance;
     }
 
-    public ArrayList<Eintrag> getWerte() {
+    public MyArrayList<Eintrag> getWerte() {
         return werte;
     }
 
-    public void setWerte(ArrayList<Eintrag> werte) {
+    public void setWerte(MyArrayList<Eintrag> werte) {
         this.werte = werte;
     }
 
@@ -95,11 +95,11 @@ private ArrayList<MyInteger> sortedSells;
     public void setGraph(Graph graph) {
         this.graph = graph;
     }
-    public ArrayList<MyInteger> getSortedSells() {
+    public MyArrayList<MyInteger> getSortedSells() {
         return sortedSells;
     }
 
-    public void setSortedSells(ArrayList<MyInteger> sortedSells) {
+    public void setSortedSells(MyArrayList<MyInteger> sortedSells) {
         this.sortedSells = sortedSells;
     }
     

@@ -5,7 +5,7 @@
  */
 package instancefactory.service;
 
-import java.util.ArrayList;
+import java.util.MyArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Graph {
     
     private Partition partition;
     private List<MyInteger> ordering;
-    public ArrayList<Eintrag> werte;
+    public MyArrayList<Eintrag> werte;
     
     private Integer minBudget;
     
@@ -38,7 +38,7 @@ public class Graph {
     
     public Integer getMinBudget() {
         if (this.minBudget == null) {
-            ArrayList<Integer> values = new ArrayList<>();
+            MyArrayList<Integer> values = new MyArrayList<>();
             for (int i = 0; i < this.getWerte().size(); i++) {
                 
                 values.add(werte.get(i).value);
@@ -48,9 +48,9 @@ public class Graph {
         return minBudget;
     }
     
-    public ArrayList<Eintrag> getWerte() {
+    public MyArrayList<Eintrag> getWerte() {
         if (this.werte == null) {
-            werte = new ArrayList<>();
+            werte = new MyArrayList<>();
             Eintrag eintrag = new Eintrag();
             eintrag.node = null;
             eintrag.value = 0;
@@ -64,11 +64,11 @@ public class Graph {
 
     private void calculateValues(Partition p, List<MyInteger> ordering) {
         
-        ArrayList<MyInteger> allready = new ArrayList<>();
+        MyArrayList<MyInteger> allready = new MyArrayList<>();
         Integer newValue;
         
         for (int i = 0; i < ordering.size(); i++) {
-            ArrayList<MyInteger> newB = p.getBoughtsOfSell(ordering.get(i));
+            MyArrayList<MyInteger> newB = p.getBoughtsOfSell(ordering.get(i));
 //                System.out.println("newB    :   " + newB);
             newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
             allready.addAll(newB);

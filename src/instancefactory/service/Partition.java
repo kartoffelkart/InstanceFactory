@@ -6,9 +6,8 @@
 package instancefactory.service;
 
 import static instancefactory.service.Tools.permute;
-import java.util.ArrayList;
+import  instancefactory.service.MyArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  *
@@ -21,11 +20,11 @@ public class Partition {
 //String mergeStep; 
     Tools newTool = new Tools();
 
-    public ArrayList<ArrayList<MyInteger>> arrayList;
+    public MyArrayList<MyArrayList<MyInteger>> MyArrayList;
 
-    ArrayList<MySet> positiveSets;
+    MyArrayList<MySet> positiveSets;
 
-    public ArrayList<MyInteger> sortedSells;
+    public MyArrayList<MyInteger> sortedSells;
 
     private Integer minBudgetCompare;
 
@@ -34,40 +33,40 @@ public class Partition {
 
     public Integer minBudgetRandomOrder;
 
-    public ArrayList<MyInteger> allreadyBought = new ArrayList<>();
+    public MyArrayList<MyInteger> allreadyBought = new MyArrayList<>();
 
-    public ArrayList<BalanceBoughtsBudget> balanceBoughtsBudgetOfSetUpToIndex = new ArrayList();
+    public MyArrayList<BalanceBoughtsBudget> balanceBoughtsBudgetOfSetUpToIndex = new MyArrayList();
 
     public int probability;
     public int budget;
     public int balance = 0;
 //    private Graph calculatedGraphOfSortedSells;
-    public ArrayList<Eintrag> werte;
-    public ArrayList<Integer> sumBoughts;
+    public MyArrayList<Eintrag> werte;
+    public MyArrayList<Integer> sumBoughts;
 
     //_________________________________________________________________________
     //KONSTRUKTOR
     public Partition() {
 
-        arrayList = new ArrayList<ArrayList<MyInteger>>();
+        MyArrayList = new MyArrayList<MyArrayList<MyInteger>>();
         probability = 1;
-        sortedSells = new ArrayList<>();
+        sortedSells = new MyArrayList<>();
 
         // todo: nächste Zeile weg
-        positiveSets = new ArrayList<MySet>();
+        positiveSets = new MyArrayList<MySet>();
 //    calculatedGraphOfSortedSells= new Graph(this, sortedSells);
 
     }
 //_____________________________________________________________________________
     //KONSTRUKTOR
 
-    public Partition(ArrayList<ArrayList<MyInteger>> newArrayList, ArrayList<MyInteger> newSortedSells) {
+    public Partition(MyArrayList<MyArrayList<MyInteger>> newMyArrayList, MyArrayList<MyInteger> newSortedSells) {
 
-        arrayList = newArrayList;
+        MyArrayList = newMyArrayList;
         probability = 1;
         sortedSells = newSortedSells;
         // todo: nächste Zeile weg
-        positiveSets = new ArrayList<MySet>();
+        positiveSets = new MyArrayList<MySet>();
 //   calculatedGraphOfSortedSells= new Graph(this, sortedSells);
 
     }
@@ -101,9 +100,9 @@ public class Partition {
 
         Integer position = null;
 
-        for (int i = 0; i < arrayList.size(); i++) {
+        for (int i = 0; i < MyArrayList.size(); i++) {
             //für jeden sell 
-            if (arrayList.get(i).get(0) == sell) {//irgendwann ist hier Nullpointer, bei index? == Objektidentität
+            if (MyArrayList.get(i).get(0) == sell) {//irgendwann ist hier Nullpointer, bei index? == Objektidentität
 
                 position = i;
             }
@@ -116,9 +115,9 @@ public class Partition {
 
         Integer position = null;
 
-        for (int i = 0; i < arrayList.size(); i++) {
+        for (int i = 0; i < MyArrayList.size(); i++) {
             //für jeden sell 
-            if (arrayList.get(i).get(0) == sell) {//irgendwann ist hier Nullpointer, bei index? == Objektidentität
+            if (MyArrayList.get(i).get(0) == sell) {//irgendwann ist hier Nullpointer, bei index? == Objektidentität
 
                 position = i;
             }
@@ -127,9 +126,9 @@ public class Partition {
         return position;
     }
 
-    public ArrayList<MyInteger> getBoughtsOfSell(MyInteger sell) {
-        ArrayList<MyInteger> newBought = new ArrayList<>();
-        newBought.addAll(arrayList.get(getPositionOfSellInAdjazenslist(sell))); //hier holen wir alle für den Sell benötigten Boughts
+    public MyArrayList<MyInteger> getBoughtsOfSell(MyInteger sell) {
+        MyArrayList<MyInteger> newBought = new MyArrayList<>();
+        newBought.addAll(MyArrayList.get(getPositionOfSellInAdjazenslist(sell))); //hier holen wir alle für den Sell benötigten Boughts
         newBought.remove(0);
 
         return newBought;
@@ -164,7 +163,7 @@ public class Partition {
         /**
          * Variable für die neu getätigten Boughts
          */
-        ArrayList<MyInteger> newBought = new ArrayList<>();
+        MyArrayList<MyInteger> newBought = new MyArrayList<>();
 
         //--------------------------------------------------------------------------------------------------------------------
 //if (position==null) würde ja gerne prüfen ob das initialisiert wurde
@@ -211,19 +210,19 @@ public class Partition {
 
     }
 
-    public ArrayList<ArrayList<MyInteger>> getArrayList() {
-        return arrayList;
+    public MyArrayList<MyArrayList<MyInteger>> getMyArrayList() {
+        return MyArrayList;
     }
 
-    public void setArrayList(ArrayList<ArrayList<MyInteger>> arrayList) {
-        this.arrayList = arrayList;
+    public void setMyArrayList(MyArrayList<MyArrayList<MyInteger>> MyArrayList) {
+        this.MyArrayList = MyArrayList;
     }
 
-    public ArrayList<BalanceBoughtsBudget> getBalanceBoughtsBudgetOfSetUpToIndex() {
+    public MyArrayList<BalanceBoughtsBudget> getBalanceBoughtsBudgetOfSetUpToIndex() {
         return balanceBoughtsBudgetOfSetUpToIndex;
     }
 
-    public void setBalanceBoughtsBudgetOfSetUpToIndex(ArrayList<BalanceBoughtsBudget> balanceBoughtsBudgetOfSetUpToIndex) {
+    public void setBalanceBoughtsBudgetOfSetUpToIndex(MyArrayList<BalanceBoughtsBudget> balanceBoughtsBudgetOfSetUpToIndex) {
         this.balanceBoughtsBudgetOfSetUpToIndex = balanceBoughtsBudgetOfSetUpToIndex;
     }
 
@@ -258,7 +257,7 @@ public class Partition {
         Graph newTestGraph = new Graph(this, sortedSells);
         Integer probablyBest = newTestGraph.getMinBudget();
 //warum ist die liste leer?
-        ArrayList<ArrayList<MyInteger>> returnList = new ArrayList<>();
+        MyArrayList<MyArrayList<MyInteger>> returnList = new MyArrayList<>();
         permute(sortedSells, 0, returnList);
 
         for (int i = 0; i < returnList.size(); i++) {
@@ -279,10 +278,10 @@ public class Partition {
     @Override
     public String toString() {
         String ret = new String();
-        Iterator it = arrayList.iterator();
+        Iterator it = MyArrayList.iterator();
         while (it.hasNext()) {
             ret = ret.concat(" nächster Sell mit seinen Boughts: ");
-            ret = ret.concat(((ArrayList<MyInteger>) it.next()).toString() + "\n");
+            ret = ret.concat(((MyArrayList<MyInteger>) it.next()).toString() + "\n");
 
         }
         return ret;
@@ -299,7 +298,7 @@ public class Partition {
 //    public void setCalculatedGraphOfSortedSells() {
 //        this.calculatedGraphOfSortedSells = new Graph(this, sortedSells);
 //}
-    public ArrayList<Eintrag> getWerte() {
+    public MyArrayList<Eintrag> getWerte() {
         if (this.werte == null) {
             Graph calculatedGraphOfSortedSells = new Graph(this, sortedSells);
             werte = calculatedGraphOfSortedSells.getWerte();
@@ -307,7 +306,7 @@ public class Partition {
         return werte;
     }
 
-    public ArrayList<Integer> getSumBoughts() {
+    public MyArrayList<Integer> getSumBoughts() {
         if (this.sumBoughts == null) {
 
             sumBoughts = calculateSumOfBoughts();
@@ -316,9 +315,9 @@ public class Partition {
         return sumBoughts;
     }
 
-    private ArrayList<Integer> calculateSumOfBoughts() {
-        ArrayList<Integer> newListSumOfBoughts = new ArrayList<>();
-        ArrayList<MyInteger> allreadyBought = new ArrayList<>();
+    private MyArrayList<Integer> calculateSumOfBoughts() {
+        MyArrayList<Integer> newListSumOfBoughts = new MyArrayList<>();
+        MyArrayList<MyInteger> allreadyBought = new MyArrayList<>();
 
         for (int i = 0; i < sortedSells.size(); i++) {
 
@@ -326,7 +325,7 @@ public class Partition {
             /**
              * Variable für die neu getätigten Boughts
              */
-            ArrayList<MyInteger> newBought = new ArrayList<>();
+            MyArrayList<MyInteger> newBought = new MyArrayList<>();
 
             //--------------------------------------------------------------------------------------------------------------------
 //if (position==null) würde ja gerne prüfen ob das initialisiert wurde
@@ -344,7 +343,7 @@ public class Partition {
         return newListSumOfBoughts;
     }
 
-//    public ArrayList<Partition> getPositiveSetsList() {
+//    public MyArrayList<Partition> getPositiveSetsList() {
 //
 //        if (this.positiveSetsList == null) {
 //
@@ -354,14 +353,14 @@ public class Partition {
 //        return positiveSetsList;
 //    }
 //
-//    private ArrayList<Partition> calculatePositiveSetsList() {
-//        ArrayList<Partition> newPositiveSetsList = new ArrayList<>();
+//    private MyArrayList<Partition> calculatePositiveSetsList() {
+//        MyArrayList<Partition> newPositiveSetsList = new MyArrayList<>();
 //for(int i = 0;i<werte.size();i++){
 //if(werte.get(i).value >0){
 // 
 //Partition positiveMinimalSet = new Partition();
 //// todo: die AllreadyBought müssen entfernt werden
-// ArrayList<MyInteger> newBoughts = new ArrayList<>();
+// MyArrayList<MyInteger> newBoughts = new MyArrayList<>();
 //int m = 0; m++) {
 //      while( ! werte.get(i).node==sortedSells.get(m-1)){
 //     newBoughts.addAll(sortedSells.get(m).g)
@@ -378,7 +377,7 @@ public class Partition {
 //
 //
 ////-----------
-//positiveMinimalSet.arrayList= (ArrayList<ArrayList<MyInteger>>)getArrayAbschnitt(arrayList, 0, i);
+//positiveMinimalSet.MyArrayList= (MyArrayList<MyArrayList<MyInteger>>)getArrayAbschnitt(MyArrayList, 0, i);
 //positiveMinimalSet.werte=getArrayAbschnitt(werte, i, j)
 //}
 //
