@@ -20,7 +20,7 @@ public class Partition {
 //String mergeStep; 
     Tools newTool = new Tools();
 
-    public MyArrayList<MyArrayList<MyInteger>> MyArrayList;
+    public MyArrayList<MyArrayList<MyInteger>> adjacencyList;
 
     MyArrayList<MySet> positiveSets;
 
@@ -48,7 +48,7 @@ public class Partition {
     //KONSTRUKTOR
     public Partition() {
 
-        MyArrayList = new MyArrayList<MyArrayList<MyInteger>>();
+        adjacencyList = new MyArrayList<MyArrayList<MyInteger>>();
         probability = 1;
         sortedSells = new MyArrayList<>();
 
@@ -62,7 +62,7 @@ public class Partition {
 
     public Partition(MyArrayList<MyArrayList<MyInteger>> newMyArrayList, MyArrayList<MyInteger> newSortedSells) {
 
-        MyArrayList = newMyArrayList;
+        adjacencyList = newMyArrayList;
         probability = 1;
         sortedSells = newSortedSells;
         // todo: nächste Zeile weg
@@ -100,9 +100,9 @@ public class Partition {
 
         Integer position = null;
 
-        for (int i = 0; i < MyArrayList.size(); i++) {
+        for (int i = 0; i < adjacencyList.size(); i++) {
             //für jeden sell 
-            if (MyArrayList.get(i).get(0) == sell) {//irgendwann ist hier Nullpointer, bei index? == Objektidentität
+            if (adjacencyList.get(i).get(0) == sell) {//irgendwann ist hier Nullpointer, bei index? == Objektidentität
 
                 position = i;
             }
@@ -115,9 +115,9 @@ public class Partition {
 
         Integer position = null;
 
-        for (int i = 0; i < MyArrayList.size(); i++) {
+        for (int i = 0; i < adjacencyList.size(); i++) {
             //für jeden sell 
-            if (MyArrayList.get(i).get(0) == sell) {//irgendwann ist hier Nullpointer, bei index? == Objektidentität
+            if (adjacencyList.get(i).get(0) == sell) {//irgendwann ist hier Nullpointer, bei index? == Objektidentität
 
                 position = i;
             }
@@ -128,7 +128,7 @@ public class Partition {
 
     public MyArrayList<MyInteger> getBoughtsOfSell(MyInteger sell) {
         MyArrayList<MyInteger> newBought = new MyArrayList<>();
-        newBought.addAll(MyArrayList.get(getPositionOfSellInAdjazenslist(sell))); //hier holen wir alle für den Sell benötigten Boughts
+        newBought.addAll(adjacencyList.get(getPositionOfSellInAdjazenslist(sell))); //hier holen wir alle für den Sell benötigten Boughts
         newBought.remove(0);
 
         return newBought;
@@ -211,11 +211,11 @@ public class Partition {
     }
 
     public MyArrayList<MyArrayList<MyInteger>> getMyArrayList() {
-        return MyArrayList;
+        return adjacencyList;
     }
 
     public void setMyArrayList(MyArrayList<MyArrayList<MyInteger>> MyArrayList) {
-        this.MyArrayList = MyArrayList;
+        this.adjacencyList = MyArrayList;
     }
 
     public MyArrayList<BalanceBoughtsBudget> getBalanceBoughtsBudgetOfSetUpToIndex() {
@@ -278,7 +278,7 @@ public class Partition {
     @Override
     public String toString() {
         String ret = new String();
-        Iterator it = MyArrayList.iterator();
+        Iterator it = adjacencyList.iterator();
         while (it.hasNext()) {
             ret = ret.concat(" nächster Sell mit seinen Boughts: ");
             ret = ret.concat(((MyArrayList<MyInteger>) it.next()).toString() + "\n");
@@ -343,7 +343,7 @@ public class Partition {
         return newListSumOfBoughts;
     }
 
-//    public MyArrayList<Partition> getPositiveSetsList() {
+//    public adjacencyList<Partition> getPositiveSetsList() {
 //
 //        if (this.positiveSetsList == null) {
 //
@@ -353,14 +353,14 @@ public class Partition {
 //        return positiveSetsList;
 //    }
 //
-//    private MyArrayList<Partition> calculatePositiveSetsList() {
-//        MyArrayList<Partition> newPositiveSetsList = new MyArrayList<>();
+//    private adjacencyList<Partition> calculatePositiveSetsList() {
+//        adjacencyList<Partition> newPositiveSetsList = new adjacencyList<>();
 //for(int i = 0;i<werte.size();i++){
 //if(werte.get(i).value >0){
 // 
 //Partition positiveMinimalSet = new Partition();
 //// todo: die AllreadyBought müssen entfernt werden
-// MyArrayList<MyInteger> newBoughts = new MyArrayList<>();
+// adjacencyList<MyInteger> newBoughts = new adjacencyList<>();
 //int m = 0; m++) {
 //      while( ! werte.get(i).node==sortedSells.get(m-1)){
 //     newBoughts.addAll(sortedSells.get(m).g)
@@ -377,7 +377,7 @@ public class Partition {
 //
 //
 ////-----------
-//positiveMinimalSet.MyArrayList= (MyArrayList<MyArrayList<MyInteger>>)getArrayAbschnitt(MyArrayList, 0, i);
+//positiveMinimalSet.adjacencyList= (adjacencyList<MyArrayList<MyInteger>>)getArrayAbschnitt(adjacencyList, 0, i);
 //positiveMinimalSet.werte=getArrayAbschnitt(werte, i, j)
 //}
 //

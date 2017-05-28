@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.AbstractList;
-import java.util.MyArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,13 +26,13 @@ public class Tools {
     /**
      * hier wird ein Array von BasisPartitionen erstellt
      *
-     * @return MyArrayList of Partition
+     * @return adjacencyList of Partition
      */
     public MyArrayList<MyInteger> randomOrdering;
     public MyArrayList<MyInteger> s1Rest;
 
     public MyArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
-//        MyArrayList<MyInteger> randomMyIntMyArrayList = this.getDeterministicMyIntArray();
+//        adjacencyList<MyInteger> randomMyIntMyArrayList = this.getDeterministicMyIntArray();
 //        System.out.println("");
         MyArrayList<MyInteger> randomMyIntMyArrayList = this.getRandomMyIntArray(min, max, size);
         MyArrayList<Partition> partitions = new MyArrayList<>();
@@ -48,7 +47,7 @@ public class Tools {
             MyArrayList<MyInteger> l = new MyArrayList<>();
             l.add(currentRandom);
 
-            partition1.MyArrayList.add(l);
+            partition1.adjacencyList.add(l);
             partition1.sortedSells.add(currentRandom);
 
             partition1.balance = currentRandom.i;
@@ -59,7 +58,7 @@ public class Tools {
 
             System.out.println("Aktueller Bought : " + currentRandom);
             Partition currentPartition = partitions.get(partitions.size() - 1);
-            currentPartition.MyArrayList.get(0).add(currentRandom);
+            currentPartition.adjacencyList.get(0).add(currentRandom);
             currentPartition.balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
             currentPartition.budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
 
@@ -462,7 +461,7 @@ public class Tools {
         currentWerteP2 = (MyArrayList<Eintrag>) p2.getWerte().clone();
         System.out.println("currentWerteP2 nach clone" + currentWerteP2);
 
-        //MyArrayList<MyInteger> s1Rest = new MyArrayList<>();
+        //MyArrayList<MyInteger> s1Rest = new adjacencyList<>();
         s1Rest = new MyArrayList<>();
         s1Rest.addAll(p1.sortedSells);
 
@@ -498,7 +497,7 @@ public class Tools {
         IntegerOut balanceHelp = new IntegerOut(balance);
 
         while ((!p1.positiveSets.isEmpty()) && (!p2.positiveSets.isEmpty())) {
-//MyArrayList<MyInteger> testSortedSells= new MyArrayList<>();
+//MyArrayList<MyInteger> testSortedSells= new adjacencyList<>();
             ///////////////////////////////////////////////////////////////////////
             if (p1.positiveSets.get(0).getBudget() < p2.positiveSets.get(0).getBudget()) {
 
@@ -689,16 +688,16 @@ public class Tools {
     public MyArrayList<MyArrayList<MyInteger>> makeMyArrayListJoin(Partition p1, Partition p2) {
 
         MyArrayList<MyArrayList<MyInteger>> a = new MyArrayList<>();
-        a.addAll(p1.MyArrayList);
+        a.addAll(p1.adjacencyList);
         MyArrayList<MyInteger> toLink = new MyArrayList<>();
-        for (int k = 0; k < p2.MyArrayList.size(); k++) {
-            toLink.addAll(p2.getBoughtsOfSell(p2.MyArrayList.get(k).get(0)));
+        for (int k = 0; k < p2.adjacencyList.size(); k++) {
+            toLink.addAll(p2.getBoughtsOfSell(p2.adjacencyList.get(k).get(0)));
         }
 //        Iterator ita2 = a2.iterator();
 //
 //        while (ita2.hasNext()) {
 ////die Boughts vom nächsten Eintrag aus A2 die noch nicht verlinkt wurden
-//            MyArrayList<MyInteger> tempo = (MyArrayList<MyInteger>) ita2.next();
+//            adjacencyList<MyInteger> tempo = (adjacencyList<MyInteger>) ita2.next();
 //            MyInteger zero = tempo.remove(0);
 //
 //            toLink.addAll(tempo);
@@ -713,7 +712,7 @@ public class Tools {
             a.get(k).addAll(toLink);
         }
 
-        a.addAll(p2.MyArrayList);
+        a.addAll(p2.adjacencyList);
         return a;
 
     }
@@ -732,7 +731,7 @@ public class Tools {
     public Partition makePartitionUnion(Partition p1, Partition p2) {
         Partition partition = new Partition();
 
-        partition.MyArrayList = makeMyArrayListUnion(p1.MyArrayList, p2.MyArrayList);//What ich übergebe was size 2 und danach hat es size 0????
+        partition.adjacencyList = makeMyArrayListUnion(p1.adjacencyList, p2.adjacencyList);//What ich übergebe was size 2 und danach hat es size 0????
 
         makeSortedSellsUnionAndBudgetAndBalance(partition, p1, p2);
 
@@ -787,7 +786,7 @@ public class Tools {
 //        System.out.println(p.toString());
 // todo:  Fehler hier?
         //        partition.getCalculatedGraphOfSortedSells().addWerte(p2.getCalculatedGraphOfSortedSells().getWerte());
-//        MyArrayList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
+//        adjacencyList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
 //        partition.getCalculatedGraphOfSortedSells().addWerte(shiftList);
 
         partition.werte = new MyArrayList<>();
@@ -1002,7 +1001,7 @@ public class Tools {
         Iterator it = basicPartitions.iterator();
         MyArrayList<MyInteger> randomOrdering = new MyArrayList<>();
         for (int k = 0; k < basicPartitions.size(); k++) {
-            randomOrdering.add((basicPartitions.get(k).MyArrayList.get(0)).get(0));
+            randomOrdering.add((basicPartitions.get(k).adjacencyList.get(0)).get(0));
         }
         return randomOrdering;
     }
@@ -1011,7 +1010,7 @@ public class Tools {
         Iterator it = basicPartitions.iterator();
         Integer sum = 0;
         for (int k = 0; k < basicPartitions.size(); k++) {
-            sum = sum + ((basicPartitions.get(k).MyArrayList.get(0)).get(1)).i;
+            sum = sum + ((basicPartitions.get(k).adjacencyList.get(0)).get(1)).i;
         }
         return sum;
     }
@@ -1138,7 +1137,7 @@ public class Tools {
     }
 
     public void positiveSetAbarbeiten(MyArrayList<Eintrag> currentWertePx, MyArrayList<MyInteger> newSortedSells, Partition p, MyArrayList<MyInteger> sRest, IntegerOut budget, IntegerOut balance, String id) {
-//        MyArrayList<MyInteger> test = new MyArrayList<>();
+//        adjacencyList<MyInteger> test = new adjacencyList<>();
 //        for (int i = 0; i < currentWerte.size(); i++) {
 //            test.add(currentWerte.get(i).node);
 //        }
@@ -1163,7 +1162,7 @@ public class Tools {
         System.out.println("currentWerte " + id + " nach shift um" + currentPositiveSet.getBalance() + "ist" + currentWertePx);
         // Macht das das was es soll?
         //ASSERTION
-//        test = new MyArrayList<>();
+//        test = new adjacencyList<>();
 //        for (int i = 0; i < currentWerte.size(); i++) {
 //            test.add(currentWerte.get(i).node);
 //        }
