@@ -29,8 +29,16 @@ public class InstanceFactory {
     public static void main(String[] args) {
 //        tool.superFunctionStatistik(1, 100, 32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
 
-        tool.buildIstanceMakeHeuristicsAndOut(1, 20, 4);
-        tool.superFunctionStatistik(1, 20, 4);
+        tool.buildIstanceMakeHeuristicsAndOut(1, 20, 6);
+        
+        String dateiname = "test";
+        int min = 1;
+        int max = 20;
+        Integer maxKnotenAnzahl = 10;
+        Integer schrittlaenge = 2;
+        Integer pool = 5;
+        
+        tool.outStatistikN(dateiname, min, max, maxKnotenAnzahl, schrittlaenge, pool);
     }
 
 }

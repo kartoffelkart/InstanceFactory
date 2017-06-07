@@ -232,6 +232,7 @@ public class Partition {
      */
     public boolean orderingFitsBudget() {
 
+        System.out.println("orderingFitsBudget()");
         Graph newTestGraph = new Graph(this, sortedSells);
         System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
         System.out.println("budget" + budget);

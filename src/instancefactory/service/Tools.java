@@ -552,7 +552,7 @@ public class Tools {
 
             MyArrayList<Eintrag> abschnitt1 = getArrayAbschnitt(currentWerteP1, minIndexP1, currentWerteP1.size() - 1);
             int help = getIndexOfMax(abschnitt1);
-            System.out.println("help" + help);
+            System.out.println("help : " + help);
             int maxIndexP1 = help + minIndexP1;
 
             MyArrayList<Eintrag> abschnitt2 = getArrayAbschnitt(currentWerteP2, minIndexP2, currentWerteP2.size() - 1);
@@ -582,7 +582,7 @@ public class Tools {
 
 /////////////////////////////////////////////
             if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
-
+    System.out.println("zuerst die 1. Partition" );
                 MyArrayList<MyInteger> test = new MyArrayList<>();
                 for (int i = 0; i < currentWerteP1.size(); i++) {
                     test.add(currentWerteP1.get(i).node);
@@ -607,6 +607,8 @@ public class Tools {
                 currentWerteP1 = getArrayAbschnitt(currentWerteP1, maxIndexP1 + 1, currentWerteP1.size() - 1);
             } ///////////////////////////////////////////////////////////
             else {
+                                System.out.println("zuerst die 2. Partition" );
+
                 System.out.println("currentWerteP2" + currentWerteP2);
                 //ASSERTION
 
@@ -623,13 +625,15 @@ public class Tools {
                 s2Rest.removeAll(anfangsAbschnittS2);
                 budget = Integer.min(balance + minWertP2, budget);
                 balance = balance + maxWertP2;
-                currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");
+               
                 currentWerteP2 = getArrayAbschnitt(currentWerteP2, maxIndexP2 + 1, currentWerteP2.size() - 1);
-
+ currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");
+ 
             }
         }
 /////////////////////////////////////////////////////////////////////
         while (!(s1Rest.isEmpty())) {
+                                System.out.println("Jetzt noch der Rest non S 1 " );
 
             int minIndexP1 = getIndexOfMin(currentWerteP1);
             Integer minWertP1 = currentWerteP1.get(minIndexP1).value;
@@ -641,6 +645,7 @@ public class Tools {
         }
 //////////////////////////////////////////////////////////////////////////
         while (!(s2Rest.isEmpty())) {
+             System.out.println("Jetzt noch der Rest non S 2 " );
             int minIndexP2 = getIndexOfMin(currentWerteP2);
             Integer minWertP2 = currentWerteP2.get(minIndexP2).value;
             Integer endWertP2 = currentWerteP2.get(currentWerteP2.size() - 1).value;
@@ -825,7 +830,7 @@ public class Tools {
         return newList;
     }
 
-    public void outStatistikN(String dateiname,Integer maxKnotenAnzahl,Integer schrittlaenge,Integer pool) {
+    public void outStatistikN(String dateiname,int min, int max,Integer maxKnotenAnzahl,Integer schrittlaenge,Integer pool) {
 
         File fileX = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "DatenX.txt");
         File fileY = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "DatenY.txt");
@@ -855,9 +860,9 @@ public class Tools {
                 double mittelwertSortedSells = 0;
                 prX.println(i);
 
-                for (int j = 0; j < pool; j++) {
+                for (int count = 0; count < pool; count++) {
 
-                    instance = buildInstance(1, 50, i);
+                    instance = buildInstance(min, max, i);
 
                     Graph newGraph = new Graph(instance, randomOrdering);
                     newGraph = getGraphHeuristik(newGraph, "swap");
@@ -1037,12 +1042,12 @@ public class Tools {
         out(getGraphHeuristik(newGraph, "changeOrder"), "afterChangeOrder");
     }
 
-    public void superFunctionStatistik(int min, int max, int size) {
-        // todo: min, max, size muss noch übergeben werden an outStatitikN
-
-        outStatistikN("test",10,2,5);
-
-    }
+//    public void superFunctionStatistik(int min, int max, int size) {
+//        // todo: min, max, size muss noch übergeben werden an outStatitikN
+//
+//        outStatistikN("test",min,max,10,2,5);
+//
+//    }
 
    
     MyArrayList getArrayAbschnitt(MyArrayList list, int i, int j) {
