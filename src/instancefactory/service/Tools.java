@@ -195,7 +195,7 @@ public class Tools {
     public MyArrayList<MyInteger> getDeterministicMyIntArray() {
 //        int[] deterministicIntMyArrayList = {2, 4, 1, 3, 5, 2};;
 
-        int[] deterministicIntMyArrayList = {15, 28, 60, 38, 49, 49, 16, 49, 16, 40, 19, 25};;
+        int[] deterministicIntMyArrayList = {15, 28, 60, 38, 49, 49, 16, 49, 16, 40, 19, 25};
 
         MyArrayList<MyInteger> deterministicMyIntMyArrayList = new MyArrayList<>();
 
@@ -582,7 +582,7 @@ public class Tools {
 
 /////////////////////////////////////////////
             if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
-    System.out.println("zuerst die 1. Partition" );
+                System.out.println("zuerst die 1. Partition");
                 MyArrayList<MyInteger> test = new MyArrayList<>();
                 for (int i = 0; i < currentWerteP1.size(); i++) {
                     test.add(currentWerteP1.get(i).node);
@@ -607,7 +607,7 @@ public class Tools {
                 currentWerteP1 = getArrayAbschnitt(currentWerteP1, maxIndexP1 + 1, currentWerteP1.size() - 1);
             } ///////////////////////////////////////////////////////////
             else {
-                                System.out.println("zuerst die 2. Partition" );
+                System.out.println("zuerst die 2. Partition");
 
                 System.out.println("currentWerteP2" + currentWerteP2);
                 //ASSERTION
@@ -625,15 +625,15 @@ public class Tools {
                 s2Rest.removeAll(anfangsAbschnittS2);
                 budget = Integer.min(balance + minWertP2, budget);
                 balance = balance + maxWertP2;
-               
+
                 currentWerteP2 = getArrayAbschnitt(currentWerteP2, maxIndexP2 + 1, currentWerteP2.size() - 1);
- currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");
- 
+                currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");
+
             }
         }
 /////////////////////////////////////////////////////////////////////
         while (!(s1Rest.isEmpty())) {
-                                System.out.println("Jetzt noch der Rest non S 1 " );
+            System.out.println("Jetzt noch der Rest non S 1 ");
 
             int minIndexP1 = getIndexOfMin(currentWerteP1);
             Integer minWertP1 = currentWerteP1.get(minIndexP1).value;
@@ -645,7 +645,7 @@ public class Tools {
         }
 //////////////////////////////////////////////////////////////////////////
         while (!(s2Rest.isEmpty())) {
-             System.out.println("Jetzt noch der Rest non S 2 " );
+            System.out.println("Jetzt noch der Rest non S 2 ");
             int minIndexP2 = getIndexOfMin(currentWerteP2);
             Integer minWertP2 = currentWerteP2.get(minIndexP2).value;
             Integer endWertP2 = currentWerteP2.get(currentWerteP2.size() - 1).value;
@@ -830,7 +830,7 @@ public class Tools {
         return newList;
     }
 
-    public void outStatistikN(String dateiname,int min, int max,Integer maxKnotenAnzahl,Integer schrittlaenge,Integer pool) {
+    public void outStatistikN(String dateiname, int min, int max, Integer maxKnotenAnzahl, Integer schrittlaenge, Integer pool) {
 
         File fileX = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "DatenX.txt");
         File fileY = new File("C:\\Users\\Soyo\\Desktop\\Bachelorarbeit\\Daten\\" + dateiname + "DatenY.txt");
@@ -854,7 +854,7 @@ public class Tools {
             PrintWriter prY = new PrintWriter(fileY);
             prX.println(0);
             prY.println(0);
-           
+
             for (int i = 2; i < maxKnotenAnzahl; i += schrittlaenge) {// todo: kein +10 ??????
                 double mittelwertSwap = 0;
                 double mittelwertSortedSells = 0;
@@ -1048,8 +1048,6 @@ public class Tools {
 //        outStatistikN("test",min,max,10,2,5);
 //
 //    }
-
-   
     MyArrayList getArrayAbschnitt(MyArrayList list, int i, int j) {
         System.out.println("list vor Abschnitt " + list);
 
@@ -1191,6 +1189,15 @@ public class Tools {
         System.out.println(id + "Rest : " + sRest.toString());
 
     }
+
     //ASSERTION
 
+    public MyArrayList<MyInteger> makeMyArrayList(int[] integerList) {
+        MyArrayList<MyInteger> returnList = new MyArrayList<>();
+        for (int i = 0; i < integerList.length; i++) {
+            MyInteger newMyInteger = new MyInteger(integerList[i]);
+            returnList.add(newMyInteger);
+        }
+        return returnList;
+    }
 }
