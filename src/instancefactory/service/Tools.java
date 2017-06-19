@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.AbstractList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1191,7 +1192,6 @@ public class Tools {
     }
 
     //ASSERTION
-
     public MyArrayList<MyInteger> makeMyArrayList(int[] integerList) {
         MyArrayList<MyInteger> returnList = new MyArrayList<>();
         for (int i = 0; i < integerList.length; i++) {
@@ -1199,5 +1199,52 @@ public class Tools {
             returnList.add(newMyInteger);
         }
         return returnList;
+    }
+
+    public Partition getBspPartition() {
+        
+                Partition instance = new Partition();
+
+        MyInteger myInt5nr1 = new MyInteger(5);
+        MyInteger myInt46 = new MyInteger(46);
+        MyInteger myInt21nr1 = new MyInteger(21);
+        MyInteger myInt29 = new MyInteger(29);
+        MyInteger myInt21nr2 = new MyInteger(21);
+        MyInteger myInt47 = new MyInteger(47);
+
+        MyInteger myInt19 = new MyInteger(19);
+        MyInteger myInt40 = new MyInteger(40);
+        MyInteger myInt5nr2 = new MyInteger(5);
+        MyInteger myInt5nr3 = new MyInteger(5);
+        MyInteger myInt33 = new MyInteger(33);
+        MyInteger myInt7 = new MyInteger(7);
+
+        MyArrayList<MyInteger> nextList1 = new MyArrayList<>();
+        nextList1.addAll(Arrays.asList(myInt19, myInt5nr1));
+        instance.adjacencyList.add(nextList1);
+
+        MyArrayList<MyInteger> nextList2 = new MyArrayList<>();
+        nextList2.addAll(Arrays.asList(myInt40, myInt5nr1, myInt46));
+        instance.adjacencyList.add(nextList2);
+
+        MyArrayList<MyInteger> nextList3 = new MyArrayList<>();
+        nextList3.addAll(Arrays.asList(myInt5nr2, myInt5nr1, myInt21nr1));
+        instance.adjacencyList.add(nextList3);
+
+        MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
+        nextList4.addAll(Arrays.asList(myInt5nr3, myInt5nr1, myInt29));
+        instance.adjacencyList.add(nextList4);
+
+        MyArrayList<MyInteger> nextList5 = new MyArrayList<>();
+        nextList5.addAll(Arrays.asList(myInt33, myInt5nr1, myInt29, myInt21nr2));
+        instance.adjacencyList.add(nextList5);
+
+        MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
+        nextList6.addAll(Arrays.asList(myInt7, myInt5nr1, myInt29, myInt21nr2, myInt47));
+        instance.adjacencyList.add(nextList6);
+        
+        instance.sortedSells.addAll(Arrays.asList(myInt19, myInt40, myInt5nr2, myInt5nr3, myInt33, myInt7));
+        System.err.println("BspPertition: "+ instance.toString());
+        return instance;
     }
 }

@@ -17,53 +17,21 @@ import static org.junit.Assert.*;
  */
 public class PartitionTest {
 
+    private Partition instance;
+
     public PartitionTest() {
+        Tools tool = new Tools();
+        instance = tool.getBspPartition();
     }
 
     @BeforeClass
+
     public static void setUpClass() {
 
-        Tools tool = new Tools();
-
-        Partition instance = new Partition();
-
-        MyInteger myInt5nr1 = new MyInteger(5);
-        MyInteger myInt46 = new MyInteger(46);
-        MyInteger myInt21nr1 = new MyInteger(21);
-        MyInteger myInt29 = new MyInteger(29);
-        MyInteger myInt21nr2 = new MyInteger(21);
-        MyInteger myInt47 = new MyInteger(47);
-
-        MyInteger myInt19 = new MyInteger(19);
-        MyInteger myInt40 = new MyInteger(40);
-        MyInteger myInt5nr2 = new MyInteger(5);
-        MyInteger myInt5nr3 = new MyInteger(5);
-        MyInteger myInt33 = new MyInteger(33);
-        MyInteger myInt7 = new MyInteger(7);
-
-        MyArrayList<MyInteger> nextList1 = new MyArrayList<>();
-        nextList1.addAll(Arrays.asList(myInt19, myInt5nr1));
-        instance.adjacencyList.add(nextList1);
-
-        MyArrayList<MyInteger> nextList2 = new MyArrayList<>();
-        nextList2.addAll(Arrays.asList(myInt40, myInt5nr1, myInt46));
-        instance.adjacencyList.add(nextList2);
-
-        MyArrayList<MyInteger> nextList3 = new MyArrayList<>();
-        nextList3.addAll(Arrays.asList(myInt5nr2, myInt5nr1, myInt21nr1));
-        instance.adjacencyList.add(nextList3);
-
-        MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
-        nextList4.addAll(Arrays.asList(myInt5nr3, myInt5nr1, myInt29));
-        instance.adjacencyList.add(nextList4);
-
-        MyArrayList<MyInteger> nextList5 = new MyArrayList<>();
-        nextList5.addAll(Arrays.asList(myInt33, myInt5nr1, myInt29, myInt21nr2));
-        instance.adjacencyList.add(nextList5);
-
-        MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
-        nextList6.addAll(Arrays.asList(myInt7, myInt5nr1, myInt29, myInt21nr2, myInt47));
-        instance.adjacencyList.add(nextList6);
+//        Tools tool = new Tools();
+//
+//        Partition instance = new Partition();
+//        instance = tool.getBspPartition();
     }
 
     @AfterClass
@@ -74,13 +42,11 @@ public class PartitionTest {
     public void testGetPositionOfSellInAdjazenslist() {
 
         System.out.println("getPositionOfSellInAdjazenslist");
-        MyInteger sell = null;
-        Partition instance = new Partition();
-        Integer expResult = null;
+        MyInteger sell = (instance.adjacencyList.get(5)).get(0);
+
+        Integer expResult = 5;
         Integer result = instance.getPositionOfSellInAdjazenslist(sell);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -89,13 +55,11 @@ public class PartitionTest {
     @Test
     public void testGetPositionOfSellInSortedSells() {
         System.out.println("getPositionOfSellInSortedSells");
-        MyInteger sell = null;
-        Partition instance = new Partition();
-        Integer expResult = null;
+        MyInteger sell = (instance.adjacencyList.get(5)).get(0);
+
+        Integer expResult = 5;
         Integer result = instance.getPositionOfSellInSortedSells(sell);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
