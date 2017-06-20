@@ -1247,4 +1247,64 @@ public class Tools {
         System.err.println("BspPertition: "+ instance.toString());
         return instance;
     }
+     public Partition getBspA() {
+        
+                Partition instance = new Partition();
+
+
+        MyInteger myInt46 = new MyInteger(46);
+        MyInteger myInt21nr1 = new MyInteger(21);
+       
+
+        MyInteger myInt40 = new MyInteger(40);
+        MyInteger myInt5nr2 = new MyInteger(5);
+      
+
+       
+
+        MyArrayList<MyInteger> nextList2 = new MyArrayList<>();
+        nextList2.addAll(Arrays.asList(myInt40,  myInt46));
+        instance.adjacencyList.add(nextList2);
+
+        MyArrayList<MyInteger> nextList3 = new MyArrayList<>();
+        nextList3.addAll(Arrays.asList(myInt5nr2, myInt21nr1));
+        instance.adjacencyList.add(nextList3);
+
+       
+        instance.sortedSells.addAll(Arrays.asList( myInt40, myInt5nr2));
+        System.err.println("BspPertition: "+ instance.toString());
+        return instance;
+     }
+      public Partition getBspB() {
+        
+                Partition instance = new Partition();
+
+       
+        MyInteger myInt29 = new MyInteger(29);
+        MyInteger myInt21nr2 = new MyInteger(21);
+        MyInteger myInt47 = new MyInteger(47);
+
+   
+        MyInteger myInt5nr3 = new MyInteger(5);
+        MyInteger myInt33 = new MyInteger(33);
+        MyInteger myInt7 = new MyInteger(7);
+
+      
+
+        MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
+        nextList4.addAll(Arrays.asList(myInt5nr3,myInt29));
+        instance.adjacencyList.add(nextList4);
+
+        MyArrayList<MyInteger> nextList5 = new MyArrayList<>();
+        nextList5.addAll(Arrays.asList(myInt33, myInt29, myInt21nr2));
+        instance.adjacencyList.add(nextList5);
+
+        MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
+        nextList6.addAll(Arrays.asList(myInt7, myInt29, myInt21nr2, myInt47));
+        instance.adjacencyList.add(nextList6);
+        
+        instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
+        System.err.println("BspPertition: "+ instance.toString());
+        return instance;
+    }
 }

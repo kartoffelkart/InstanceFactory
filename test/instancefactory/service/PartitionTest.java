@@ -68,13 +68,16 @@ public class PartitionTest {
     @Test
     public void testGetBoughtsOfSell() {
         System.out.println("getBoughtsOfSell");
-        MyInteger sell = null;
-        Partition instance = new Partition();
-        MyArrayList<MyInteger> expResult = null;
+        MyInteger sell = (instance.adjacencyList.get(5)).get(0);
+
+        MyArrayList<MyInteger> expResult = new MyArrayList<>();
+
+        for (int i = 1; i < 5; i++) {
+            expResult.add((instance.adjacencyList.get(5)).get(i));
+        }
+
         MyArrayList<MyInteger> result = instance.getBoughtsOfSell(sell);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -84,37 +87,12 @@ public class PartitionTest {
     public void testSetValueOfBalanceBoughtsBudgetOfSet() {
         System.out.println("setValueOfBalanceBoughtsBudgetOfSet");
         int index = 0;
-        Partition instance = new Partition();
+
         instance.setValueOfBalanceBoughtsBudgetOfSet(index);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        BalanceBoughtsBudget expResult = new BalanceBoughtsBudget(14, 5, -5);
+        BalanceBoughtsBudget result = instance.balanceBoughtsBudgetOfSetUpToIndex.get(index);
 
-    /**
-     * Test of getBalanceBoughtsBudgetOfSetUpToIndex method, of class Partition.
-     */
-    @Test
-    public void testGetBalanceBoughtsBudgetOfSetUpToIndex() {
-        System.out.println("getBalanceBoughtsBudgetOfSetUpToIndex");
-        Partition instance = new Partition();
-        MyArrayList<BalanceBoughtsBudget> expResult = null;
-        MyArrayList<BalanceBoughtsBudget> result = instance.getBalanceBoughtsBudgetOfSetUpToIndex();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setBalanceBoughtsBudgetOfSetUpToIndex method, of class Partition.
-     */
-    @Test
-    public void testSetBalanceBoughtsBudgetOfSetUpToIndex() {
-        System.out.println("setBalanceBoughtsBudgetOfSetUpToIndex");
-        MyArrayList<BalanceBoughtsBudget> balanceBoughtsBudgetOfSetUpToIndex = null;
-        Partition instance = new Partition();
-        instance.setBalanceBoughtsBudgetOfSetUpToIndex(balanceBoughtsBudgetOfSetUpToIndex);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.toString(), result.toString());
     }
 
     /**
