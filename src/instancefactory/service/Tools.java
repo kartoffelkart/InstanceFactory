@@ -61,7 +61,7 @@ public class Tools {
             Partition currentPartition = partitions.get(partitions.size() - 1);
             currentPartition.adjacencyList.get(0).add(currentRandom);
             currentPartition.balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
-            currentPartition.budget = partitions.get(partitions.size() - 1).budget - currentRandom.i;
+            currentPartition.setBudget(  partitions.get(partitions.size() - 1).getBudget() - currentRandom.i);;
 
 // kann das weg?
             Graph calculatedGraphOfSortedSells = new Graph(currentPartition, currentPartition.sortedSells);
@@ -359,7 +359,7 @@ public class Tools {
     }
 
     public Integer makeBudgetJoin(Partition b1, Partition b2) {
-        Integer budget = Integer.min(b2.budget, b2.balance + b1.budget);
+        Integer budget = Integer.min(b2.getBudget(), b2.balance + b1.getBudget());
 
         return budget;
 
@@ -663,7 +663,7 @@ public class Tools {
         p.balance = balance;
 
         System.out.println("budget: " + budget);
-        p.budget = budget;
+        p.setBudget(budget);
 
     }
 
@@ -787,7 +787,7 @@ public class Tools {
         Integer newBudget = makeBudgetJoin(p1, p2);
         Integer newBalance = makeBalanceJoin(p1, p2);
         partition = new Partition(newMyArrayList, newSortedSells);
-        partition.budget = newBudget;
+        partition.setBudget(newBudget); 
         partition.balance = newBalance;
 //        System.out.println(p.toString());
 // todo:  Fehler hier?
@@ -869,7 +869,7 @@ public class Tools {
                     newGraph = getGraphHeuristik(newGraph, "swap");
 
 //                prY.println(sumOfBoughts/instance.minBudgetSwap);
-                    mittelwertSortedSells = mittelwertSortedSells + instance.budget;
+                    mittelwertSortedSells = mittelwertSortedSells + instance.getBudget();
                     mittelwertSwap = mittelwertSwap + instance.minBudgetSwap;
 //                    System.out.println("test" + instance.minBudgetSwap);
                 }
@@ -924,7 +924,7 @@ public class Tools {
 
         MyArrayList<MyInteger> ordering = new MyArrayList<>();
         ordering.addAll(currentGraph.getOrdering());
-        System.out.println("Graph mit SortedSells : Budget " + currentGraph.getPartition().budget);
+        System.out.println("Graph mit SortedSells : Budget " + currentGraph.getPartition().getBudget());
         for (int i = 0; i < ordering.size(); i++) {
             for (int j = i + 1; j < ordering.size(); j++) {
                 MyArrayList<MyInteger> newOrdering = new MyArrayList<>();
@@ -1243,7 +1243,7 @@ public class Tools {
         nextList6.addAll(Arrays.asList(myInt7, myInt5nr1, myInt29, myInt21nr2, myInt47));
         instance.adjacencyList.add(nextList6);
         
-        instance.sortedSells.addAll(Arrays.asList(myInt19, myInt40, myInt5nr2, myInt5nr3, myInt33, myInt7));
+        instance.sortedSells.addAll(Arrays.asList(myInt19, myInt40,  myInt5nr3,  myInt33, myInt7,myInt5nr2));
         System.err.println("BspPertition: "+ instance.toString());
         return instance;
     }

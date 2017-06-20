@@ -6,7 +6,7 @@
 package instancefactory.service;
 
 import static instancefactory.service.Tools.permute;
-import  instancefactory.service.MyArrayList;
+import instancefactory.service.MyArrayList;
 import java.util.Iterator;
 
 /**
@@ -38,7 +38,7 @@ public class Partition {
     public MyArrayList<BalanceBoughtsBudget> balanceBoughtsBudgetOfSetUpToIndex = new MyArrayList();
 
     public int probability;
-    public int budget;
+    private Integer budget;
     public int balance = 0;
 //    private Graph calculatedGraphOfSortedSells;
     public MyArrayList<Eintrag> werte;
@@ -242,8 +242,8 @@ public class Partition {
             return true;
         } else {
             System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
-            System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget()+"budget" + budget);
-            System.err.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget()+"budget" + budget+"Fehler ! Budget von Partition passt nicht zu den SortedSells");
+            System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget() + "budget" + budget);
+            System.err.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget() + "budget" + budget + "Fehler ! Budget von Partition passt nicht zu den SortedSells");
             return false;
         }
 
@@ -387,4 +387,17 @@ public class Partition {
 //}
 //        
 //    }
+    public int getBudget() {
+        if (this.budget == null) {
+
+            Graph calculatedGraphOfSortedSells = new Graph(this, sortedSells);
+            budget = calculatedGraphOfSortedSells.getMinBudget();
+        }
+
+        return budget;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
 }

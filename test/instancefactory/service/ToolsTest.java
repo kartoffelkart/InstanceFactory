@@ -44,32 +44,22 @@ public class ToolsTest {
     @Test
     public void testMakeSortedSellsUnionAndBudgetAndBalance() {
         System.out.println("makeSortedSellsUnionAndBudgetAndBalance");
-        Partition p = null;
-        Partition p1 = null;
-        Partition p2 = null;
-        Tools instance = new Tools();
-        instance.makeSortedSellsUnionAndBudgetAndBalance(p, p1, p2);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-//   
-    /**
-     * Test of makePartitionUnion method, of class Tools.
-     */
-    @Test
-    public void testMakePartitionUnion() {
-        System.out.println("makePartitionUnion");
+        Partition p = new Partition();
         Partition p1 = instA;
         Partition p2 = instB;
 
-        Partition expResult = null;
-        Partition result = .makePartitionUnion(p1, p2);
+        tool.makeSortedSellsUnionAndBudgetAndBalance(p, p1, p2);
+
+//        MyArrayList<MyInteger> expResult = instance.sortedSells;
+//        MyArrayList<MyInteger> result = p.sortedSells;
+        Integer expResult = instance.getBudget();
+        Integer result = p.getBudget();
+
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
+//   
     /**
      * Test of makeMyArrayListUnion method, of class Tools.
      */
