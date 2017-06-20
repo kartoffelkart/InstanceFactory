@@ -51,7 +51,7 @@ public class Tools {
             partition1.adjacencyList.add(l);
             partition1.sortedSells.add(currentRandom);
 
-            partition1.balance = currentRandom.i;
+            partition1.setBalance( currentRandom.i); 
 
             partitions.add(partition1);
 // todo: testen
@@ -60,7 +60,7 @@ public class Tools {
             System.out.println("Aktueller Bought : " + currentRandom);
             Partition currentPartition = partitions.get(partitions.size() - 1);
             currentPartition.adjacencyList.get(0).add(currentRandom);
-            currentPartition.balance = partitions.get(partitions.size() - 1).balance - currentRandom.i;
+            currentPartition.setBalance(partitions.get(partitions.size() - 1).getBalance() - currentRandom.i);
             currentPartition.setBudget(  partitions.get(partitions.size() - 1).getBudget() - currentRandom.i);;
 
 // kann das weg?
@@ -359,14 +359,14 @@ public class Tools {
     }
 
     public Integer makeBudgetJoin(Partition b1, Partition b2) {
-        Integer budget = Integer.min(b2.getBudget(), b2.balance + b1.getBudget());
+        Integer budget = Integer.min(b2.getBudget(), b2.getBalance() + b1.getBudget());
 
         return budget;
 
     }
 
     public Integer makeBalanceJoin(Partition b1, Partition b2) {
-        Integer balance = b1.balance + b2.balance;
+        Integer balance = b1.getBalance() + b2.getBalance();
 
         return balance;
 
@@ -660,7 +660,7 @@ public class Tools {
         p.sortedSells = newSortedSells;
 
         System.out.println("balance: " + balance);
-        p.balance = balance;
+        p.setBalance(balance); 
 
         System.out.println("budget: " + budget);
         p.setBudget(budget);
@@ -788,7 +788,7 @@ public class Tools {
         Integer newBalance = makeBalanceJoin(p1, p2);
         partition = new Partition(newMyArrayList, newSortedSells);
         partition.setBudget(newBudget); 
-        partition.balance = newBalance;
+        partition.setBalance(newBalance);
 //        System.out.println(p.toString());
 // todo:  Fehler hier?
         //        partition.getCalculatedGraphOfSortedSells().addWerte(p2.getCalculatedGraphOfSortedSells().getWerte());
@@ -797,7 +797,7 @@ public class Tools {
 
         partition.werte = new MyArrayList<>();
         partition.werte.addAll(p2.getWerte());
-        MyArrayList<Eintrag> shiftList = shift(p1.getWerte(), p2.balance, " p1 ");
+        MyArrayList<Eintrag> shiftList = shift(p1.getWerte(), p2.getBalance(), " p1 ");
         partition.werte.addAll(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
@@ -1205,45 +1205,42 @@ public class Tools {
         
                 Partition instance = new Partition();
 
-        MyInteger myInt5nr1 = new MyInteger(5);
+     
         MyInteger myInt46 = new MyInteger(46);
         MyInteger myInt21nr1 = new MyInteger(21);
         MyInteger myInt29 = new MyInteger(29);
         MyInteger myInt21nr2 = new MyInteger(21);
         MyInteger myInt47 = new MyInteger(47);
 
-        MyInteger myInt19 = new MyInteger(19);
+      
         MyInteger myInt40 = new MyInteger(40);
         MyInteger myInt5nr2 = new MyInteger(5);
         MyInteger myInt5nr3 = new MyInteger(5);
         MyInteger myInt33 = new MyInteger(33);
         MyInteger myInt7 = new MyInteger(7);
 
-        MyArrayList<MyInteger> nextList1 = new MyArrayList<>();
-        nextList1.addAll(Arrays.asList(myInt19, myInt5nr1));
-        instance.adjacencyList.add(nextList1);
-
+       
         MyArrayList<MyInteger> nextList2 = new MyArrayList<>();
-        nextList2.addAll(Arrays.asList(myInt40, myInt5nr1, myInt46));
+        nextList2.addAll(Arrays.asList(myInt40,  myInt46));
         instance.adjacencyList.add(nextList2);
 
         MyArrayList<MyInteger> nextList3 = new MyArrayList<>();
-        nextList3.addAll(Arrays.asList(myInt5nr2, myInt5nr1, myInt21nr1));
+        nextList3.addAll(Arrays.asList(myInt5nr2,  myInt21nr1));
         instance.adjacencyList.add(nextList3);
 
         MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
-        nextList4.addAll(Arrays.asList(myInt5nr3, myInt5nr1, myInt29));
+        nextList4.addAll(Arrays.asList(myInt5nr3, myInt29));
         instance.adjacencyList.add(nextList4);
 
         MyArrayList<MyInteger> nextList5 = new MyArrayList<>();
-        nextList5.addAll(Arrays.asList(myInt33, myInt5nr1, myInt29, myInt21nr2));
+        nextList5.addAll(Arrays.asList(myInt33, myInt29, myInt21nr2));
         instance.adjacencyList.add(nextList5);
 
         MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
-        nextList6.addAll(Arrays.asList(myInt7, myInt5nr1, myInt29, myInt21nr2, myInt47));
+        nextList6.addAll(Arrays.asList(myInt7, myInt29, myInt21nr2, myInt47));
         instance.adjacencyList.add(nextList6);
         
-        instance.sortedSells.addAll(Arrays.asList(myInt19, myInt40,  myInt5nr3,  myInt33, myInt7,myInt5nr2));
+        instance.sortedSells.addAll(Arrays.asList( myInt40,  myInt5nr3,  myInt33, myInt7,myInt5nr2));
         System.err.println("BspPertition: "+ instance.toString());
         return instance;
     }

@@ -52,8 +52,12 @@ public class ToolsTest {
 
 //        MyArrayList<MyInteger> expResult = instance.sortedSells;
 //        MyArrayList<MyInteger> result = p.sortedSells;
-        Integer expResult = instance.getBudget();
-        Integer result = p.getBudget();
+        
+//        Integer expResult = instance.getBudget();
+//        Integer result = p.getBudget();
+        
+        Integer expResult = instance.getBalance();
+        Integer result = p.getBalance();
 
         assertEquals(expResult, result);
 

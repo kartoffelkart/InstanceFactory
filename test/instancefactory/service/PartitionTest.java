@@ -42,9 +42,9 @@ public class PartitionTest {
     public void testGetPositionOfSellInAdjazenslist() {
 
         System.out.println("getPositionOfSellInAdjazenslist");
-        MyInteger sell = (instance.adjacencyList.get(5)).get(0);
+        MyInteger sell = (instance.adjacencyList.get(4)).get(0);
 
-        Integer expResult = 5;
+        Integer expResult = 4;
         Integer result = instance.getPositionOfSellInAdjazenslist(sell);
         assertEquals(expResult, result);
     }
@@ -55,9 +55,9 @@ public class PartitionTest {
     @Test
     public void testGetPositionOfSellInSortedSells() {
         System.out.println("getPositionOfSellInSortedSells");
-        MyInteger sell = (instance.adjacencyList.get(5)).get(0);
+        MyInteger sell = (instance.adjacencyList.get(4)).get(0);
 
-        Integer expResult = 5;
+        Integer expResult = 4;
         Integer result = instance.getPositionOfSellInSortedSells(sell);
         assertEquals(expResult, result);
     }
@@ -68,12 +68,12 @@ public class PartitionTest {
     @Test
     public void testGetBoughtsOfSell() {
         System.out.println("getBoughtsOfSell");
-        MyInteger sell = (instance.adjacencyList.get(5)).get(0);
+        MyInteger sell = (instance.adjacencyList.get(4)).get(0);
 
         MyArrayList<MyInteger> expResult = new MyArrayList<>();
 
-        for (int i = 1; i < 5; i++) {
-            expResult.add((instance.adjacencyList.get(5)).get(i));
+        for (int i = 1; i < 4; i++) {
+            expResult.add((instance.adjacencyList.get(4)).get(i));
         }
 
         MyArrayList<MyInteger> result = instance.getBoughtsOfSell(sell);
@@ -89,7 +89,7 @@ public class PartitionTest {
         int index = 0;
 
         instance.setValueOfBalanceBoughtsBudgetOfSet(index);
-        BalanceBoughtsBudget expResult = new BalanceBoughtsBudget(14, 5, -5);
+        BalanceBoughtsBudget expResult = new BalanceBoughtsBudget(-6, 46, -46);
         BalanceBoughtsBudget result = instance.balanceBoughtsBudgetOfSetUpToIndex.get(index);
 
         assertEquals(expResult.toString(), result.toString());

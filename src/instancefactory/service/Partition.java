@@ -8,7 +8,7 @@ package instancefactory.service;
 import static instancefactory.service.Tools.permute;
 import instancefactory.service.MyArrayList;
 import java.util.Iterator;
-
+import java.util.Arrays;
 /**
  *
  * @author Sonja Schäfer sonja_schaefer@gmx.de
@@ -39,7 +39,7 @@ public class Partition {
 
     public int probability;
     private Integer budget;
-    public int balance = 0;
+    private Integer balance = 0;
 //    private Graph calculatedGraphOfSortedSells;
     public MyArrayList<Eintrag> werte;
     public MyArrayList<Integer> sumBoughts;
@@ -400,4 +400,19 @@ public class Partition {
     public void setBudget(int budget) {
         this.budget = budget;
     }
+
+    public Integer getBalance() {
+        if (this.balance == null) {
+
+            Graph calculatedGraphOfSortedSells = new Graph(this, sortedSells);
+            balance = calculatedGraphOfSortedSells.getWerte().get(calculatedGraphOfSortedSells.getWerte().size()-1).value;
+        }
+
+        return balance;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+    
 }

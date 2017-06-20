@@ -18,8 +18,8 @@ public class Graph {
     private List<MyInteger> ordering;
     public MyArrayList<Eintrag> werte;
     
-    private Integer minBudget;
-    
+    private Integer minBudget;    
+
     public Graph(Partition partition, List<MyInteger> ordering) {
         this.partition = partition;
         this.ordering = ordering;
