@@ -39,7 +39,7 @@ public class Partition {
 
     public int probability;
     private Integer budget;
-    private Integer balance = 0;
+    private Integer balance ;
 //    private Graph calculatedGraphOfSortedSells;
     public MyArrayList<Eintrag> werte;
     public MyArrayList<Integer> sumBoughts;

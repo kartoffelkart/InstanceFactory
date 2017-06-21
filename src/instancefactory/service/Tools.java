@@ -1269,6 +1269,8 @@ public class Tools {
 
        
         instance.sortedSells.addAll(Arrays.asList( myInt40, myInt5nr2));
+//        instance.setBudget(-46);
+//        instance.setBalance(-22);
         System.err.println("BspPertition: "+ instance.toString());
         return instance;
      }
@@ -1301,6 +1303,8 @@ public class Tools {
         instance.adjacencyList.add(nextList6);
         
         instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
+//        instance.setBudget(-49);
+//        instance.setBalance(-42);
         System.err.println("BspPertition: "+ instance.toString());
         return instance;
     }
