@@ -28,9 +28,9 @@ public class InstanceFactory {
 
     public static void main(String[] args) {
         
-        
-         Partition instance = new Partition();
-        instance = tool.getBspPartition();
+//        
+//         Partition instance = new Partition();
+//        instance = tool.getBspPartition();
 //        tool.superFunctionStatistik(1, 100, 32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
         int min = 1;
         int max = 100;

@@ -819,7 +819,7 @@ public class Tools {
     }
 
     MyArrayList<Eintrag> shift(MyArrayList<Eintrag> list, Integer shiftValue, String id) {
-        System.out.println("list " + id + " vor shift um" + shiftValue + "ist" + list);
+        System.out.println("list " + id + " vor shift um minus " + shiftValue + "ist" + list);
 
         MyArrayList<Eintrag> newList = (MyArrayList<Eintrag>) list.clone();
 
