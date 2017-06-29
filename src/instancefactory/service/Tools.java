@@ -1308,4 +1308,39 @@ public class Tools {
         System.err.println("BspPertition: "+ instance.toString());
         return instance;
     }
+      
+       public Partition getBspC() {
+        
+                Partition instance = new Partition();
+
+       
+        MyInteger myInt29 = new MyInteger(3);
+        MyInteger myInt21nr2 = new MyInteger(21);
+        MyInteger myInt47 = new MyInteger(1);
+
+   
+        MyInteger myInt5nr3 = new MyInteger(5);
+        MyInteger myInt33 = new MyInteger(33);
+        MyInteger myInt7 = new MyInteger(7);
+
+      
+
+        MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
+        nextList4.addAll(Arrays.asList(myInt5nr3,myInt29));
+        instance.adjacencyList.add(nextList4);
+
+        MyArrayList<MyInteger> nextList5 = new MyArrayList<>();
+        nextList5.addAll(Arrays.asList(myInt33, myInt29, myInt21nr2));
+        instance.adjacencyList.add(nextList5);
+
+        MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
+        nextList6.addAll(Arrays.asList(myInt7, myInt29, myInt21nr2, myInt47));
+        instance.adjacencyList.add(nextList6);
+        
+        instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
+//        instance.setBudget(-49);
+//        instance.setBalance(-42);
+        System.err.println("BspPertition: "+ instance.toString());
+        return instance;
+    }
 }

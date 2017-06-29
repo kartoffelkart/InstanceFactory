@@ -18,6 +18,7 @@ public class ToolsTest {
      private Partition instance;
     private Partition instA;
     private Partition instB;
+     private Partition instC;
     private Tools tool;
 
     public ToolsTest() {
@@ -27,6 +28,7 @@ public class ToolsTest {
 
         instA = tool.getBspA();
         instB = tool.getBspB();
+        instC = tool.getBspC();
     }
     
     @BeforeClass
@@ -233,19 +235,21 @@ public class ToolsTest {
 //        fail("The test case is a prototype.");
 //    }
 //
-//    /**
-//     * Test of fillPositiveSets method, of class Tools.
-//     */
-//    @Test
-//    public void testFillPositiveSets() {
-//        System.out.println("fillPositiveSets");
-//        Partition p = null;
-//        Tools instance = new Tools();
-//        instance.fillPositiveSets(p);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+    /**
+     * Test of fillPositiveSets method, of class Tools.
+     */
+    @Test
+    public void testFillPositiveSets() {
+        System.out.println("fillPositiveSets");
+        Partition p = instC;
+       
+        tool.fillPositiveSets(p);
+         Integer expResult = 3;
+        Integer result = p.positiveSets.size();
+
+        assertEquals(expResult, result);
+    }
+
    /**
      * Test of makeSortedSellsUnionAndBudgetAndBalance method, of class Tools.
      */
