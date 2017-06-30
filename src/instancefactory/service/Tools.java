@@ -604,8 +604,8 @@ System.err.println("Balance : "+balanceHelp.toString());
                 balance = balance + maxWertP1;
 System.err.println("Balance : "+balance);
                 System.out.println("currentWerteP1" + currentWerteP1);
-                currentWerteP1 = shift(currentWerteP1, maxWertP1, " p1 ");
-                System.out.println("currentWerteP1 nach Shift um " + maxWertP1 + "ist" + currentWerteP1);
+                currentWerteP1 = shift(currentWerteP1, maxWertP1, " p1 ");//Ausgleichsshift
+                System.out.println("currentWerteP1 nach Ausgleichsshift um " + maxWertP1 + "ist" + currentWerteP1);
 
                 currentWerteP1 = getArrayAbschnitt(currentWerteP1, maxIndexP1 + 1, currentWerteP1.size() - 1);
             } ///////////////////////////////////////////////////////////
@@ -631,7 +631,7 @@ System.err.println("Balance : "+balance);
 System.err.println("Balance : "+balance);
 
                 currentWerteP2 = getArrayAbschnitt(currentWerteP2, maxIndexP2 + 1, currentWerteP2.size() - 1);
-                currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");
+                currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");//Ausgleichsshift
 
             }
         }
@@ -804,7 +804,7 @@ System.err.println("Balance : "+balance);
 
         partition.werte = new MyArrayList<>();
         partition.werte.addAll(p2.getWerte());
-        MyArrayList<Eintrag> shiftList = shift(p1.getWerte(), p2.getBalance(), " p1 ");
+        MyArrayList<Eintrag> shiftList = shift(p1.getWerte(), -p2.getBalance(), " p1 ");//Addiershift
         partition.werte.addAll(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
@@ -1169,8 +1169,8 @@ System.err.println("Balance : "+balance);
         }
 
         // Macht das das was es soll?
-        currentWertePx = shift(currentWertePx, currentPositiveSet.getBalance(), " p ");
-        System.out.println("currentWerte " + id + " nach shift um" + currentPositiveSet.getBalance() + "ist" + currentWertePx);
+        currentWertePx = shift(currentWertePx, currentPositiveSet.getBalance(), " p ");//Ausgleichsshift
+        System.out.println("currentWerte " + id + " nach Ausgleichsshift um" + currentPositiveSet.getBalance() + "ist" + currentWertePx);
         // Macht das das was es soll?
         //ASSERTION
 //        test = new adjacencyList<>();
@@ -1348,6 +1348,66 @@ System.err.println("Balance : "+balance);
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
         System.err.println("BspPertition C: "+ instance.toString());
+        return instance;
+    }
+        public Partition getBspD() {
+        
+                Partition instance = new Partition();
+
+
+        MyInteger myInt5und1 = new MyInteger(5);
+       
+
+        MyInteger myInt19= new MyInteger(19);
+      
+
+       
+
+        MyArrayList<MyInteger> nextList2 = new MyArrayList<>();
+        nextList2.addAll(Arrays.asList(myInt19,  myInt5und1));
+        instance.adjacencyList.add(nextList2);
+
+       
+
+       
+        instance.sortedSells.addAll(Arrays.asList( myInt19));
+//        instance.setBudget(-46);
+//        instance.setBalance(-22);
+        System.err.println("BspPertition D: "+ instance.toString());
+        return instance;
+     }
+         public Partition getBspE() {
+        
+                Partition instance = new Partition();
+
+       
+        MyInteger myInt29 = new MyInteger(29);
+        MyInteger myInt21nr2 = new MyInteger(21);
+        MyInteger myInt47 = new MyInteger(18);
+
+   
+        MyInteger myInt5nr3 = new MyInteger(5);
+        MyInteger myInt33 = new MyInteger(33);
+        MyInteger myInt7 = new MyInteger(7);
+
+      
+
+        MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
+        nextList4.addAll(Arrays.asList(myInt5nr3,myInt29));
+        instance.adjacencyList.add(nextList4);
+
+        MyArrayList<MyInteger> nextList5 = new MyArrayList<>();
+        nextList5.addAll(Arrays.asList(myInt33, myInt29, myInt21nr2));
+        instance.adjacencyList.add(nextList5);
+
+        MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
+        nextList6.addAll(Arrays.asList(myInt7, myInt29, myInt21nr2, myInt47));
+        instance.adjacencyList.add(nextList6);
+        
+        instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
+//        instance.setBudget(-49);
+//        instance.setBalance(-42);
+        System.err.println("BspPertition B: "+ instance.toString());
         return instance;
     }
 }

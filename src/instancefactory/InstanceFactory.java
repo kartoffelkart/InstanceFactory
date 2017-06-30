@@ -27,21 +27,22 @@ public class InstanceFactory {
     private static Tools tool = new Tools();
 
     public static void main(String[] args) {
-        
-         Partition instance;
-     Partition instA;
-     Partition instB;
-      Partition instC;
-     
 
-   
-        
+        Partition inst0;
+        Partition instA;
+        Partition instB;
+        Partition instC;
+        Partition instD;
+        Partition instE;
 
-//        instance = tool.getBspPartition();
+        inst0 = tool.getBspPartition();
 
         instA = tool.getBspA();
         instB = tool.getBspB();
         instC = tool.getBspC();
+        instD = tool.getBspD();
+        instE = tool.getBspE();
+
 //        
 //         Partition instance = new Partition();
 //        instance = tool.getBspPartition();
@@ -49,27 +50,22 @@ public class InstanceFactory {
         System.out.println("makeSortedSellsUnionAndBudgetAndBalance");
         Partition p = new Partition();
         Partition p1 = instA;
-        Partition p2 = instB;
+        Partition p2 = instE;
 
         tool.makeSortedSellsUnionAndBudgetAndBalance(p, p1, p2);
 
 //        MyArrayList<MyInteger> expResult = instance.sortedSells;
 //        MyArrayList<MyInteger> result = p.sortedSells;
-        
 //        Integer expResult = instance.getBudget();
 //        Integer result = p.getBudget();
-        
         Integer expResult = -74;
         Integer result = p.getBalance();
 
-        System.err.println("expResult : "+expResult);
-        System.err.println("result : "+result);
+        System.err.println("expResult : " + expResult);
+        System.err.println("result : " + result);
 
-        
-        
-        
-        
-        
+        System.out.println("FERTIG               !!!!!!!!!!!!!!!!!");
+
         int min = 1;
         int max = 100;
         int size = 10;
