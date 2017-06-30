@@ -23,5 +23,8 @@ public class IntegerOut {
     public void setNumber(Integer number) {
         this.number = number;
     }
-    
+    @Override
+    public String toString() {
+        return number.toString();
+    }
 }

@@ -38,6 +38,65 @@ public class ToolsTest {
     @AfterClass
     public static void tearDownClass() {
     }
+    
+      /**
+     * Test of fillPositiveSets method, of class Tools.
+     */
+    @Test
+    public void testFillPositiveSets() {
+        System.out.println("fillPositiveSets");
+        Partition p = instC;
+       
+        tool.fillPositiveSets(p);
+         Integer expResult = 3;
+        Integer result = p.positiveSets.size();
+
+        assertEquals(expResult, result);
+    }
+
+   /**
+     * Test of makeSortedSellsUnionAndBudgetAndBalance method, of class Tools.
+     */
+    @Test
+    public void testMakeSortedSellsUnionAndBudgetAndBalance() {
+        System.out.println("makeSortedSellsUnionAndBudgetAndBalance");
+        Partition p = new Partition();
+        Partition p1 = instA;
+        Partition p2 = instB;
+
+        tool.makeSortedSellsUnionAndBudgetAndBalance(p, p1, p2);
+
+//        MyArrayList<MyInteger> expResult = instance.sortedSells;
+//        MyArrayList<MyInteger> result = p.sortedSells;
+        
+//        Integer expResult = instance.getBudget();
+//        Integer result = p.getBudget();
+        
+        Integer expResult = instance.getBalance();
+        Integer result = p.getBalance();
+
+        assertEquals(expResult, result);
+
+    }
+//  /**
+//     * Test of positiveSetAbarbeiten method, of class Tools.
+//     */
+//    @Test
+//    public void testPositiveSetAbarbeiten() {
+//        System.out.println("positiveSetAbarbeiten");
+//        MyArrayList<Eintrag> currentWertePx = null;
+//        MyArrayList<MyInteger> newSortedSells = null;
+//        Partition p = instC ;
+//         tool.fillPositiveSets(p);
+//        MyArrayList<MyInteger> sRest = null;
+//        IntegerOut budget = null;
+//        IntegerOut balance = null;
+//        String id = "";
+//        Tools instance = new Tools();
+//        instance.positiveSetAbarbeiten(currentWertePx, newSortedSells, p, sRest, budget, balance, id);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
 //    /**
 //     * Test of makeBasicPartitions method, of class Tools.
@@ -235,45 +294,7 @@ public class ToolsTest {
 //        fail("The test case is a prototype.");
 //    }
 //
-    /**
-     * Test of fillPositiveSets method, of class Tools.
-     */
-    @Test
-    public void testFillPositiveSets() {
-        System.out.println("fillPositiveSets");
-        Partition p = instC;
-       
-        tool.fillPositiveSets(p);
-         Integer expResult = 3;
-        Integer result = p.positiveSets.size();
-
-        assertEquals(expResult, result);
-    }
-
-   /**
-     * Test of makeSortedSellsUnionAndBudgetAndBalance method, of class Tools.
-     */
-    @Test
-    public void testMakeSortedSellsUnionAndBudgetAndBalance() {
-        System.out.println("makeSortedSellsUnionAndBudgetAndBalance");
-        Partition p = new Partition();
-        Partition p1 = instA;
-        Partition p2 = instB;
-
-        tool.makeSortedSellsUnionAndBudgetAndBalance(p, p1, p2);
-
-//        MyArrayList<MyInteger> expResult = instance.sortedSells;
-//        MyArrayList<MyInteger> result = p.sortedSells;
-        
-//        Integer expResult = instance.getBudget();
-//        Integer result = p.getBudget();
-        
-        Integer expResult = instance.getBalance();
-        Integer result = p.getBalance();
-
-        assertEquals(expResult, result);
-
-    }
+  
 //
 //    /**
 //     * Test of permute method, of class Tools.
@@ -625,25 +646,7 @@ public class ToolsTest {
 //        fail("The test case is a prototype.");
 //    }
 //
-//    /**
-//     * Test of positiveSetAbarbeiten method, of class Tools.
-//     */
-//    @Test
-//    public void testPositiveSetAbarbeiten() {
-//        System.out.println("positiveSetAbarbeiten");
-//        MyArrayList<Eintrag> currentWertePx = null;
-//        MyArrayList<MyInteger> newSortedSells = null;
-//        Partition p = null;
-//        MyArrayList<MyInteger> sRest = null;
-//        IntegerOut budget = null;
-//        IntegerOut balance = null;
-//        String id = "";
-//        Tools instance = new Tools();
-//        instance.positiveSetAbarbeiten(currentWertePx, newSortedSells, p, sRest, budget, balance, id);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+  
 //    /**
 //     * Test of makeMyArrayList method, of class Tools.
 //     */

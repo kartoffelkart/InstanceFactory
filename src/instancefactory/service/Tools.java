@@ -30,7 +30,7 @@ public class Tools {
      * @return adjacencyList of Partition
      */
     public MyArrayList<MyInteger> randomOrdering;
-    public MyArrayList<MyInteger> s1Rest;
+//    public MyArrayList<MyInteger> s1Rest;
 
     public MyArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
 //        adjacencyList<MyInteger> randomMyIntMyArrayList = this.getDeterministicMyIntArray();
@@ -462,8 +462,8 @@ public class Tools {
         currentWerteP2 = (MyArrayList<Eintrag>) p2.getWerte().clone();
         System.out.println("currentWerteP2 nach clone" + currentWerteP2);
 
-        //MyArrayList<MyInteger> s1Rest = new adjacencyList<>();
-        s1Rest = new MyArrayList<>();
+        MyArrayList<MyInteger> s1Rest = new MyArrayList<>();
+//        s1Rest = new MyArrayList<>();
         s1Rest.addAll(p1.sortedSells);
 
         MyArrayList<MyInteger> s2Rest = new MyArrayList<>();
@@ -503,11 +503,11 @@ public class Tools {
             if (p1.positiveSets.get(0).getBudget() < p2.positiveSets.get(0).getBudget()) {
 
                 positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
-
+                System.err.println("Balance : "+balanceHelp.toString());
             } else ////////////////////////////////////////////////////////////////////////////////
             {
                 positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
-
+System.err.println("Balance : "+balanceHelp.toString());
             }
 //----------test
             System.out.println("Nach positiveSets abarbeiten beide nicht leer:");
@@ -522,6 +522,7 @@ public class Tools {
 
             positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
 //----------test
+            System.err.println("Balance : "+balanceHelp.toString());
             System.out.println("Nach positiveSets abarbeiten p1 nicht leer:");
             System.out.println("currentWerteP1:" + currentWerteP1);
             System.out.println("currentWerteP2:" + currentWerteP2);
@@ -533,6 +534,7 @@ public class Tools {
         while (!(p2.positiveSets.isEmpty())) {
             positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
 //----------test
+            System.err.println("Balance : "+balanceHelp.toString());
             System.out.println("Nach positiveSets abarbeiten p2 nicht leer:");
             System.out.println("currentWerteP1:" + currentWerteP1);
             System.out.println("currentWerteP2:" + currentWerteP2);
@@ -600,7 +602,7 @@ public class Tools {
 
                 budget = Integer.min(balance + minWertP1, budget);
                 balance = balance + maxWertP1;
-
+System.err.println("Balance : "+balance);
                 System.out.println("currentWerteP1" + currentWerteP1);
                 currentWerteP1 = shift(currentWerteP1, maxWertP1, " p1 ");
                 System.out.println("currentWerteP1 nach Shift um " + maxWertP1 + "ist" + currentWerteP1);
@@ -626,6 +628,7 @@ public class Tools {
                 s2Rest.removeAll(anfangsAbschnittS2);
                 budget = Integer.min(balance + minWertP2, budget);
                 balance = balance + maxWertP2;
+System.err.println("Balance : "+balance);
 
                 currentWerteP2 = getArrayAbschnitt(currentWerteP2, maxIndexP2 + 1, currentWerteP2.size() - 1);
                 currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");
@@ -641,6 +644,8 @@ public class Tools {
             Integer endWertP1 = currentWerteP1.get(currentWerteP1.size() - 1).value;
             budget = Integer.min(balance + minWertP1, budget);
             balance = balance + endWertP1;
+            System.err.println("Balance : "+balance);
+
             newSortedSells.addAll(s1Rest);
             s1Rest.removeAll(s1Rest);
         }
@@ -652,6 +657,8 @@ public class Tools {
             Integer endWertP2 = currentWerteP2.get(currentWerteP2.size() - 1).value;
             budget = Integer.min(balance + minWertP2, budget);
             balance = balance + endWertP2;
+            System.err.println("Balance : "+balance);
+
             newSortedSells.addAll(s2Rest);
             s2Rest.removeAll(s2Rest);
         }
@@ -819,14 +826,14 @@ public class Tools {
     }
 
     MyArrayList<Eintrag> shift(MyArrayList<Eintrag> list, Integer shiftValue, String id) {
-        System.out.println("list " + id + " vor shift um minus " + shiftValue + "ist" + list);
+        System.out.println("list " + id + " vor shift um minus negativen" + shiftValue + "ist" + list);
 
         MyArrayList<Eintrag> newList = (MyArrayList<Eintrag>) list.clone();
 
         for (int i = 0; i < newList.size(); i++) {
-            newList.get(i).value = newList.get(i).value + shiftValue;
+            newList.get(i).value = newList.get(i).value - shiftValue;
         }
-        System.out.println("list " + id + " nach shift um" + shiftValue + "ist" + list);
+        System.out.println("list " + id + " nach shift um minus negativen" + shiftValue + "ist" + list);
 
         return newList;
     }
@@ -1180,10 +1187,10 @@ public class Tools {
 
         int help = Integer.min(budgetHelp, balanceHelp + currentPositiveSet.getBudget());
         budget.setNumber(help);//balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(2));
-        System.out.println("budget " + budget);
+        System.out.println("budget  " + budget);
 
         balance.setNumber(balanceHelp + currentPositiveSet.getBalance()); //p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
-        System.out.println("balance " + balance);
+        System.err.println("balance in Positive Set abarbeiten:" + balance.toString());
 
         (p.positiveSets).remove(0);
 
@@ -1271,7 +1278,7 @@ public class Tools {
         instance.sortedSells.addAll(Arrays.asList( myInt40, myInt5nr2));
 //        instance.setBudget(-46);
 //        instance.setBalance(-22);
-        System.err.println("BspPertition: "+ instance.toString());
+        System.err.println("BspPertition A: "+ instance.toString());
         return instance;
      }
       public Partition getBspB() {
@@ -1305,7 +1312,7 @@ public class Tools {
         instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
-        System.err.println("BspPertition: "+ instance.toString());
+        System.err.println("BspPertition B: "+ instance.toString());
         return instance;
     }
       
@@ -1340,7 +1347,7 @@ public class Tools {
         instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
-        System.err.println("BspPertition: "+ instance.toString());
+        System.err.println("BspPertition C: "+ instance.toString());
         return instance;
     }
 }

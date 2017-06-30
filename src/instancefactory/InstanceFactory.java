@@ -28,10 +28,48 @@ public class InstanceFactory {
 
     public static void main(String[] args) {
         
+         Partition instance;
+     Partition instA;
+     Partition instB;
+      Partition instC;
+     
+
+   
+        
+
+//        instance = tool.getBspPartition();
+
+        instA = tool.getBspA();
+        instB = tool.getBspB();
+        instC = tool.getBspC();
 //        
 //         Partition instance = new Partition();
 //        instance = tool.getBspPartition();
 //        tool.superFunctionStatistik(1, 100, 32);/*(1, 100, 32);*/ // todo: hier kann ich Spektrum der Werte vergrößern
+        System.out.println("makeSortedSellsUnionAndBudgetAndBalance");
+        Partition p = new Partition();
+        Partition p1 = instA;
+        Partition p2 = instB;
+
+        tool.makeSortedSellsUnionAndBudgetAndBalance(p, p1, p2);
+
+//        MyArrayList<MyInteger> expResult = instance.sortedSells;
+//        MyArrayList<MyInteger> result = p.sortedSells;
+        
+//        Integer expResult = instance.getBudget();
+//        Integer result = p.getBudget();
+        
+        Integer expResult = -74;
+        Integer result = p.getBalance();
+
+        System.err.println("expResult : "+expResult);
+        System.err.println("result : "+result);
+
+        
+        
+        
+        
+        
         int min = 1;
         int max = 100;
         int size = 10;
