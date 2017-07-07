@@ -556,7 +556,7 @@ System.err.println("Balance : "+balanceHelp.toString());
             MyArrayList<Eintrag> abschnitt1 = getArrayAbschnitt(currentWerteP1, minIndexP1, currentWerteP1.size() - 1);
             int help = getIndexOfMax(abschnitt1);
             System.out.println("help : " + help);
-            int maxIndexP1 = help + minIndexP1;
+            int maxIndexP1 = help + minIndexP1;//Indizes werden addiert                                     
 
             MyArrayList<Eintrag> abschnitt2 = getArrayAbschnitt(currentWerteP2, minIndexP2, currentWerteP2.size() - 1);
             int maxIndexP2 = getIndexOfMax(abschnitt2) + minIndexP2;//warum hier 1 addiert werden muss ist schleierhaft, aber der wird ist immer ienen Index höher
@@ -584,7 +584,9 @@ System.err.println("Balance : "+balanceHelp.toString());
 //-------------------
 
 /////////////////////////////////////////////
-            if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
+//            if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
+                      if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
+
                 System.out.println("zuerst die 1. Partition");
                 MyArrayList<MyInteger> test = new MyArrayList<>();
                 for (int i = 0; i < currentWerteP1.size(); i++) {
@@ -605,7 +607,7 @@ System.err.println("Balance : "+balanceHelp.toString());
 System.err.println("Balance : "+balance);
                 System.out.println("currentWerteP1" + currentWerteP1);
                 currentWerteP1 = shift(currentWerteP1, maxWertP1, " p1 ");
-                System.out.println("currentWerteP1 nach Shift um " + maxWertP1 + "ist" + currentWerteP1);
+                System.out.println("currentWerteP1 nach Shift um " + maxWertP1 + "wegen Teil vom Rest verarbeitet ist" + currentWerteP1);
 
                 currentWerteP1 = getArrayAbschnitt(currentWerteP1, maxIndexP1 + 1, currentWerteP1.size() - 1);
             } ///////////////////////////////////////////////////////////
@@ -826,7 +828,7 @@ System.err.println("Balance : "+balance);
     }
 
     MyArrayList<Eintrag> shift(MyArrayList<Eintrag> list, Integer shiftValue, String id) {
-        System.out.println("list " + id + " vor shift um minus negativen" + shiftValue + "ist" + list);
+        System.out.println("list " + id + " vor shift um minus " + shiftValue + "ist" + list);
 
         MyArrayList<Eintrag> newList = (MyArrayList<Eintrag>) list.clone();
 
@@ -1170,7 +1172,7 @@ System.err.println("Balance : "+balance);
 
         // Macht das das was es soll?
         currentWertePx = shift(currentWertePx, currentPositiveSet.getBalance(), " p ");
-        System.out.println("currentWerte " + id + " nach shift um" + currentPositiveSet.getBalance() + "ist" + currentWertePx);
+        System.out.println("currentWerte " + id + " nach shift um" + currentPositiveSet.getBalance() + "wegen positive set abarbeiten ist" + currentWertePx);
         // Macht das das was es soll?
         //ASSERTION
 //        test = new adjacencyList<>();
@@ -1248,7 +1250,7 @@ System.err.println("Balance : "+balance);
         instance.adjacencyList.add(nextList6);
         
         instance.sortedSells.addAll(Arrays.asList( myInt40,  myInt5nr3,  myInt33, myInt7,myInt5nr2));
-        System.err.println("BspPertition: "+ instance.toString());
+        System.out.println("BspPertition: "+ instance.toString());
         return instance;
     }
      public Partition getBspA() {
@@ -1278,7 +1280,7 @@ System.err.println("Balance : "+balance);
         instance.sortedSells.addAll(Arrays.asList( myInt40, myInt5nr2));
 //        instance.setBudget(-46);
 //        instance.setBalance(-22);
-        System.err.println("BspPertition A: "+ instance.toString());
+        System.out.println("BspPertition A: "+ instance.toString());
         return instance;
      }
       public Partition getBspB() {
@@ -1312,7 +1314,7 @@ System.err.println("Balance : "+balance);
         instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
-        System.err.println("BspPertition B: "+ instance.toString());
+        System.out.println("BspPertition B: "+ instance.toString());
         return instance;
     }
       
@@ -1347,7 +1349,7 @@ System.err.println("Balance : "+balance);
         instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
-        System.err.println("BspPertition C: "+ instance.toString());
+        System.out.println("BspPertition C: "+ instance.toString());
         return instance;
     }
 }

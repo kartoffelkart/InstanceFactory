@@ -62,8 +62,8 @@ public class InstanceFactory {
         Integer expResult = -74;
         Integer result = p.getBalance();
 
-        System.err.println("expResult : "+expResult);
-        System.err.println("result : "+result);
+//        System.err.println("expResult : "+expResult);
+//        System.err.println("result : "+result);
 
         
         
