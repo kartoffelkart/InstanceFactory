@@ -636,7 +636,7 @@ System.err.println("Balance : "+balance);
 
                 currentWerteP2 = getArrayAbschnitt(currentWerteP2, maxIndexP2 + 1, currentWerteP2.size() - 1);
                 currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");//Ausgleichsshift
-
+   System.out.println("currentWerteP2 nach Ausgleichsshift um " + maxWertP2 + "ist" + currentWerteP2);
             }
         }
 /////////////////////////////////////////////////////////////////////
@@ -809,6 +809,8 @@ System.err.println("Balance : "+balance);
         partition.werte = new MyArrayList<>();
         partition.werte.addAll(p2.getWerte());
         MyArrayList<Eintrag> shiftList = shift(p1.getWerte(), -p2.getBalance(), " p1 ");//Addiershift
+                System.out.println("shiftList nach shift um - balance" + -p2.getBalance() + "wegen Join ist" + shiftList);
+
         partition.werte.addAll(shiftList);
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
@@ -830,14 +832,13 @@ System.err.println("Balance : "+balance);
     }
 
     MyArrayList<Eintrag> shift(MyArrayList<Eintrag> list, Integer shiftValue, String id) {
-        System.out.println("list " + id + " vor shift um minus " + shiftValue + "ist" + list);
-
+        System.out.println("Haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalo");
         MyArrayList<Eintrag> newList = (MyArrayList<Eintrag>) list.clone();
 
         for (int i = 0; i < newList.size(); i++) {
             newList.get(i).value = newList.get(i).value - shiftValue;
         }
-        System.out.println("list " + id + " nach shift um minus negativen" + shiftValue + "ist" + list);
+       
 
         return newList;
     }
