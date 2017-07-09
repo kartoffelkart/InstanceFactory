@@ -51,7 +51,7 @@ public class Tools {
             partition1.adjacencyList.add(l);
             partition1.sortedSells.add(currentRandom);
 
-            partition1.setBalance( currentRandom.i); 
+            partition1.setBalance( currentRandom.i); // also der Sell alleine macht aber nicht sie Balance!!!!!!!!!
 
             partitions.add(partition1);
 // todo: testen
@@ -61,7 +61,7 @@ public class Tools {
             Partition currentPartition = partitions.get(partitions.size() - 1);
             currentPartition.adjacencyList.get(0).add(currentRandom);
             currentPartition.setBalance(partitions.get(partitions.size() - 1).getBalance() - currentRandom.i);
-            currentPartition.setBudget(  partitions.get(partitions.size() - 1).getBudget() - currentRandom.i);;
+            currentPartition.setBudget( /* partitions.get(partitions.size() - 1).getBudget()*/ - currentRandom.i);;
 
 // kann das weg?
             Graph calculatedGraphOfSortedSells = new Graph(currentPartition, currentPartition.sortedSells);
@@ -360,7 +360,7 @@ public class Tools {
 
     public Integer makeBudgetJoin(Partition b1, Partition b2) {
         Integer budget = Integer.min(b2.getBudget(), b2.getBalance() + b1.getBudget());
-
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!! Hier "+ budget+"b2.getBudget() : "+b2.getBudget()+"b1.getBudget() : "+b1.getBudget());
         return budget;
 
     }
@@ -808,6 +808,7 @@ System.err.println("Balance : "+balance);
 
         partition.werte = new MyArrayList<>();
         partition.werte.addAll(p2.getWerte());
+        System.out.println("shiftList vor shift um - balance" + -p2.getBalance() + "wegen Join ist" + p1.getWerte());
         MyArrayList<Eintrag> shiftList = shift(p1.getWerte(), -p2.getBalance(), " p1 ");//Addiershift
                 System.out.println("shiftList nach shift um - balance" + -p2.getBalance() + "wegen Join ist" + shiftList);
 
