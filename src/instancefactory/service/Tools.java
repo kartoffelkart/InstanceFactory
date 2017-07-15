@@ -33,9 +33,10 @@ public class Tools {
 //    public MyArrayList<MyInteger> s1Rest;
 
     public MyArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
-//        adjacencyList<MyInteger> randomMyIntMyArrayList = this.getDeterministicMyIntArray();
-//        System.out.println("");
-        MyArrayList<MyInteger> randomMyIntMyArrayList = this.getRandomMyIntArray(min, max, size);
+       MyArrayList<MyInteger> randomMyIntMyArrayList = this.getDeterministicMyIntArray();
+//        MyArrayList<MyInteger> randomMyIntMyArrayList = this.getRandomMyIntArray(min, max, size);
+       
+       
         MyArrayList<Partition> partitions = new MyArrayList<>();
         MyInteger currentRandom;
         int k = 0;
@@ -54,7 +55,7 @@ public class Tools {
             partition1.setBalance( currentRandom.i); // also der Sell alleine macht aber nicht sie Balance!!!!!!!!!
 
             partitions.add(partition1);
-// todo: testen
+
             currentRandom = randomMyIntMyArrayList.get(k);
 
             System.out.println("Aktueller Bought : " + currentRandom);
@@ -194,9 +195,9 @@ public class Tools {
     }
 
     public MyArrayList<MyInteger> getDeterministicMyIntArray() {
-//        int[] deterministicIntMyArrayList = {2, 4, 1, 3, 5, 2};;
+        int[] deterministicIntMyArrayList = {77,16,89,5,34,27,7};
 
-        int[] deterministicIntMyArrayList = {15, 28, 60, 38, 49, 49, 16, 49, 16, 40, 19, 25};
+//        int[] deterministicIntMyArrayList = {15, 28, 60, 38, 49, 49, 16, 49, 16, 40, 19, 25};
 
         MyArrayList<MyInteger> deterministicMyIntMyArrayList = new MyArrayList<>();
 
@@ -402,7 +403,7 @@ public class Tools {
         MyArrayList<MyInteger> sellsForCurrentPositiveSet = new MyArrayList<>();
         for (int i = 0; i < sRest.size(); i++) {
 
-            // berechne balance bis i
+            // berechne balance bis laufindexBisMaxKnotenAnzahl
             //Eigentlich sollte man schon aufhören wenn es positiv ist oder?
             p.setValueOfBalanceBoughtsBudgetOfSet(i);
             count++;
@@ -447,7 +448,7 @@ public class Tools {
      */
     public void makeSortedSellsUnionAndBudgetAndBalance(Partition p, Partition p1, Partition p2) {
 
-        //hier musst du mit i Lists of PositiveSets und Resten arbeiten
+        //hier musst du mit laufindexBisMaxKnotenAnzahl Lists of PositiveSets und Resten arbeiten
         Integer budget = 0;
         Integer balance = 0;
 
@@ -500,7 +501,8 @@ public class Tools {
         while ((!p1.positiveSets.isEmpty()) && (!p2.positiveSets.isEmpty())) {
 //MyArrayList<MyInteger> testSortedSells= new adjacencyList<>();
             ///////////////////////////////////////////////////////////////////////
-            if (p1.positiveSets.get(0).getBudget() < p2.positiveSets.get(0).getBudget()) {
+            //wenn der negative Budgetwert größer ist, ist das Budget ja das Kleinere
+            if (p1.positiveSets.get(0).getBudget() > p2.positiveSets.get(0).getBudget()) {//
 
                 positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
                 System.err.println("Balance : "+balanceHelp.toString());
@@ -684,7 +686,7 @@ System.err.println("Balance : "+balance);
             java.util.Collections.swap(arr, i, k);
 
             permute(arr, k + 1, returnList);
-//            java.util.Collections.swap(arr, k, i);
+//            java.util.Collections.swap(arr, k, laufindexBisMaxKnotenAnzahl);
         }
         if (k == arr.size() - 1) {
             System.out.println("Permutation : " + arr);
@@ -869,14 +871,14 @@ System.err.println("Balance : "+balance);
             prX.println(0);
             prY.println(0);
 
-            for (int i = 2; i < maxKnotenAnzahl; i += schrittlaenge) {// todo: kein +10 ??????
+            for (int laufindexBisMaxKnotenAnzahl = 2; laufindexBisMaxKnotenAnzahl < maxKnotenAnzahl; laufindexBisMaxKnotenAnzahl += schrittlaenge) {// todo: kein +10 ??????
                 double mittelwertSwap = 0;
                 double mittelwertSortedSells = 0;
-                prX.println(i);
+                prX.println(laufindexBisMaxKnotenAnzahl);
 
                 for (int count = 0; count < pool; count++) {
 
-                    instance = buildInstance(min, max, i);
+                    instance = buildInstance(min, max, laufindexBisMaxKnotenAnzahl);
 
                     Graph newGraph = new Graph(instance, randomOrdering);
                     newGraph = getGraphHeuristik(newGraph, "swap");
@@ -884,7 +886,7 @@ System.err.println("Balance : "+balance);
 //                prY.println(sumOfBoughts/instance.minBudgetSwap);
                     mittelwertSortedSells = mittelwertSortedSells + instance.getBudget();
                     mittelwertSwap = mittelwertSwap + instance.minBudgetSwap;
-//                    System.out.println("test" + instance.minBudgetSwap);
+                    System.out.println("test" + instance.minBudgetSwap);
                 }
                 mittelwertSwap = mittelwertSwap / pool;
                 mittelwertSortedSells = mittelwertSortedSells / pool;
@@ -1155,8 +1157,8 @@ System.err.println("Balance : "+balance);
 
     public void positiveSetAbarbeiten(MyArrayList<Eintrag> currentWertePx, MyArrayList<MyInteger> newSortedSells, Partition p, MyArrayList<MyInteger> sRest, IntegerOut budget, IntegerOut balance, String id) {
 //        adjacencyList<MyInteger> test = new adjacencyList<>();
-//        for (int i = 0; i < currentWerte.size(); i++) {
-//            test.add(currentWerte.get(i).node);
+//        for (int laufindexBisMaxKnotenAnzahl = 0; laufindexBisMaxKnotenAnzahl < currentWerte.size(); laufindexBisMaxKnotenAnzahl++) {
+//            test.add(currentWerte.get(laufindexBisMaxKnotenAnzahl).node);
 //        }
 //        if (!(test.containsAll(sRest))) {
 //            System.out.println("da stimmts schon am Anfang nicht ");
@@ -1180,8 +1182,8 @@ System.err.println("Balance : "+balance);
         // Macht das das was es soll?
         //ASSERTION
 //        test = new adjacencyList<>();
-//        for (int i = 0; i < currentWerte.size(); i++) {
-//            test.add(currentWerte.get(i).node);
+//        for (int laufindexBisMaxKnotenAnzahl = 0; laufindexBisMaxKnotenAnzahl < currentWerte.size(); laufindexBisMaxKnotenAnzahl++) {
+//            test.add(currentWerte.get(laufindexBisMaxKnotenAnzahl).node);
 //        }
 //        if (!(test.containsAll(sRest))) {
 //            System.out.println("da stimmts nicht mehr. Manche ");

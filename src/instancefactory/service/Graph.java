@@ -16,7 +16,7 @@ public class Graph {
     
     private Partition partition;
     private List<MyInteger> ordering;
-    public MyArrayList<Eintrag> werte;
+   private MyArrayList<Eintrag> werte;
     
     private Integer minBudget;    
 
@@ -49,18 +49,19 @@ public class Graph {
     
     public MyArrayList<Eintrag> getWerte() {
         if (this.werte == null) {
-            werte = new MyArrayList<>();
+            this.werte = new MyArrayList<>();
             Eintrag eintrag = new Eintrag();
             eintrag.node = null;
             eintrag.value = 0;
-            werte.add(eintrag);
-            calculateValues(partition, ordering);
+            this.werte.add(eintrag);
+            calculateValues(this.partition, this.ordering);
            werte.remove(0);
         }
         return werte;
     }
 //todo: hier Partition rausnehmen, stattdessen globales Partition nehmen
 
+    
     private void calculateValues(Partition p, List<MyInteger> ordering) {
         
         MyArrayList<MyInteger> allready = new MyArrayList<>();
