@@ -33,10 +33,9 @@ public class Tools {
 //    public MyArrayList<MyInteger> s1Rest;
 
     public MyArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
-       MyArrayList<MyInteger> randomMyIntMyArrayList = this.getDeterministicMyIntArray();
+        MyArrayList<MyInteger> randomMyIntMyArrayList = this.getDeterministicMyIntArray();
 //        MyArrayList<MyInteger> randomMyIntMyArrayList = this.getRandomMyIntArray(min, max, size);
-       
-       
+
         MyArrayList<Partition> partitions = new MyArrayList<>();
         MyInteger currentRandom;
         int k = 0;
@@ -52,7 +51,7 @@ public class Tools {
             partition1.adjacencyList.add(l);
             partition1.sortedSells.add(currentRandom);
 
-            partition1.setBalance( currentRandom.i); // also der Sell alleine macht aber nicht sie Balance!!!!!!!!!
+            partition1.setBalance(currentRandom.i); // also der Sell alleine macht aber nicht sie Balance!!!!!!!!!
 
             partitions.add(partition1);
 
@@ -62,7 +61,7 @@ public class Tools {
             Partition currentPartition = partitions.get(partitions.size() - 1);
             currentPartition.adjacencyList.get(0).add(currentRandom);
             currentPartition.setBalance(partitions.get(partitions.size() - 1).getBalance() - currentRandom.i);
-            currentPartition.setBudget( /* partitions.get(partitions.size() - 1).getBudget()*/ - currentRandom.i);;
+            currentPartition.setBudget( /* partitions.get(partitions.size() - 1).getBudget()*/-currentRandom.i);;
 
 // kann das weg?
             Graph calculatedGraphOfSortedSells = new Graph(currentPartition, currentPartition.sortedSells);
@@ -195,9 +194,9 @@ public class Tools {
     }
 
     public MyArrayList<MyInteger> getDeterministicMyIntArray() {
-        int[] deterministicIntMyArrayList = {77,16,89,5,34,27,7};
+//        int[] deterministicIntMyArrayList = {77,16,89,5,34,27,7};
 
-//        int[] deterministicIntMyArrayList = {15, 28, 60, 38, 49, 49, 16, 49, 16, 40, 19, 25};
+        int[] deterministicIntMyArrayList = {15, 28, 60, 38, 49, 49, 16, 49, 16, 40, 19, 25};
 
         MyArrayList<MyInteger> deterministicMyIntMyArrayList = new MyArrayList<>();
 
@@ -361,7 +360,7 @@ public class Tools {
 
     public Integer makeBudgetJoin(Partition b1, Partition b2) {
         Integer budget = Integer.min(b2.getBudget(), b2.getBalance() + b1.getBudget());
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!! Hier "+ budget+"b2.getBudget() : "+b2.getBudget()+"b1.getBudget() : "+b1.getBudget());
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!! Hier " + budget + "b2.getBudget() : " + b2.getBudget() + "b1.getBudget() : " + b1.getBudget());
         return budget;
 
     }
@@ -505,11 +504,11 @@ public class Tools {
             if (p1.positiveSets.get(0).getBudget() > p2.positiveSets.get(0).getBudget()) {//
 
                 positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
-                System.err.println("Balance : "+balanceHelp.toString());
+                System.err.println("Balance : " + balanceHelp.toString());
             } else ////////////////////////////////////////////////////////////////////////////////
             {
                 positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
-System.err.println("Balance : "+balanceHelp.toString());
+                System.err.println("Balance : " + balanceHelp.toString());
             }
 //----------test
             System.out.println("Nach positiveSets abarbeiten beide nicht leer:");
@@ -524,7 +523,7 @@ System.err.println("Balance : "+balanceHelp.toString());
 
             positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
 //----------test
-            System.err.println("Balance : "+balanceHelp.toString());
+            System.err.println("Balance : " + balanceHelp.toString());
             System.out.println("Nach positiveSets abarbeiten p1 nicht leer:");
             System.out.println("currentWerteP1:" + currentWerteP1);
             System.out.println("currentWerteP2:" + currentWerteP2);
@@ -536,7 +535,7 @@ System.err.println("Balance : "+balanceHelp.toString());
         while (!(p2.positiveSets.isEmpty())) {
             positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
 //----------test
-            System.err.println("Balance : "+balanceHelp.toString());
+            System.err.println("Balance : " + balanceHelp.toString());
             System.out.println("Nach positiveSets abarbeiten p2 nicht leer:");
             System.out.println("currentWerteP1:" + currentWerteP1);
             System.out.println("currentWerteP2:" + currentWerteP2);
@@ -587,7 +586,7 @@ System.err.println("Balance : "+balanceHelp.toString());
 
 /////////////////////////////////////////////
 //            if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
-                      if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
+            if (Integer.min(minWertP2, maxWertP2 + minWertP1) < Integer.min(minWertP1, maxWertP1 + minWertP2)) {
 
                 System.out.println("zuerst die 1. Partition");
                 MyArrayList<MyInteger> test = new MyArrayList<>();
@@ -606,7 +605,7 @@ System.err.println("Balance : "+balanceHelp.toString());
 
                 budget = Integer.min(balance + minWertP1, budget);
                 balance = balance + maxWertP1;
-System.err.println("Balance : "+balance);
+                System.err.println("Balance : " + balance);
                 System.out.println("currentWerteP1" + currentWerteP1);
                 currentWerteP1 = shift(currentWerteP1, maxWertP1, " p1 ");
                 System.out.println("currentWerteP1 nach Shift um " + maxWertP1 + "wegen Teil vom Rest verarbeitet ist" + currentWerteP1);
@@ -633,12 +632,13 @@ System.err.println("Balance : "+balance);
                 newSortedSells.addAll(anfangsAbschnittS2);
                 s2Rest.removeAll(anfangsAbschnittS2);
                 budget = Integer.min(balance + minWertP2, budget);
+                System.err.println("Budget                          !!!!!!!!!!!!!!!                               : " + budget);
                 balance = balance + maxWertP2;
-System.err.println("Balance : "+balance);
+                System.err.println("Balance : " + balance);
 
                 currentWerteP2 = getArrayAbschnitt(currentWerteP2, maxIndexP2 + 1, currentWerteP2.size() - 1);
                 currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");//Ausgleichsshift
-   System.out.println("currentWerteP2 nach Ausgleichsshift um " + maxWertP2 + "ist" + currentWerteP2);
+                System.out.println("currentWerteP2 nach Ausgleichsshift um " + maxWertP2 + "ist" + currentWerteP2);
             }
         }
 /////////////////////////////////////////////////////////////////////
@@ -650,7 +650,7 @@ System.err.println("Balance : "+balance);
             Integer endWertP1 = currentWerteP1.get(currentWerteP1.size() - 1).value;
             budget = Integer.min(balance + minWertP1, budget);
             balance = balance + endWertP1;
-            System.err.println("Balance : "+balance);
+            System.err.println("Balance : " + balance);
 
             newSortedSells.addAll(s1Rest);
             s1Rest.removeAll(s1Rest);
@@ -663,7 +663,7 @@ System.err.println("Balance : "+balance);
             Integer endWertP2 = currentWerteP2.get(currentWerteP2.size() - 1).value;
             budget = Integer.min(balance + minWertP2, budget);
             balance = balance + endWertP2;
-            System.err.println("Balance : "+balance);
+            System.err.println("Balance : " + balance);
 
             newSortedSells.addAll(s2Rest);
             s2Rest.removeAll(s2Rest);
@@ -673,7 +673,7 @@ System.err.println("Balance : "+balance);
         p.sortedSells = newSortedSells;
 
         System.out.println("balance: " + balance);
-        p.setBalance(balance); 
+        p.setBalance(balance);
 
         System.out.println("budget: " + budget);
         p.setBudget(budget);
@@ -800,7 +800,7 @@ System.err.println("Balance : "+balance);
         Integer newBudget = makeBudgetJoin(p1, p2);
         Integer newBalance = makeBalanceJoin(p1, p2);
         partition = new Partition(newMyArrayList, newSortedSells);
-        partition.setBudget(newBudget); 
+        partition.setBudget(newBudget);
         partition.setBalance(newBalance);
 //        System.out.println(p.toString());
 // todo:  Fehler hier?
@@ -812,7 +812,7 @@ System.err.println("Balance : "+balance);
         partition.werte.addAll(p2.getWerte());
         System.out.println("shiftList vor shift um - balance" + -p2.getBalance() + "wegen Join ist" + p1.getWerte());
         MyArrayList<Eintrag> shiftList = shift(p1.getWerte(), -p2.getBalance(), " p1 ");//Addiershift
-                System.out.println("shiftList nach shift um - balance" + -p2.getBalance() + "wegen Join ist" + shiftList);
+        System.out.println("shiftList nach shift um - balance" + -p2.getBalance() + "wegen Join ist" + shiftList);
 
         partition.werte.addAll(shiftList);
         //ASSERTION
@@ -841,7 +841,6 @@ System.err.println("Balance : "+balance);
         for (int i = 0; i < newList.size(); i++) {
             newList.get(i).value = newList.get(i).value - shiftValue;
         }
-       
 
         return newList;
     }
@@ -1217,30 +1216,27 @@ System.err.println("Balance : "+balance);
     }
 
     public Partition getBspPartition() {
-        
-                Partition instance = new Partition();
 
-     
+        Partition instance = new Partition();
+
         MyInteger myInt46 = new MyInteger(46);
         MyInteger myInt21nr1 = new MyInteger(21);
         MyInteger myInt29 = new MyInteger(29);
         MyInteger myInt21nr2 = new MyInteger(21);
         MyInteger myInt47 = new MyInteger(47);
 
-      
         MyInteger myInt40 = new MyInteger(40);
         MyInteger myInt5nr2 = new MyInteger(5);
         MyInteger myInt5nr3 = new MyInteger(5);
         MyInteger myInt33 = new MyInteger(33);
         MyInteger myInt7 = new MyInteger(7);
 
-       
         MyArrayList<MyInteger> nextList2 = new MyArrayList<>();
-        nextList2.addAll(Arrays.asList(myInt40,  myInt46));
+        nextList2.addAll(Arrays.asList(myInt40, myInt46));
         instance.adjacencyList.add(nextList2);
 
         MyArrayList<MyInteger> nextList3 = new MyArrayList<>();
-        nextList3.addAll(Arrays.asList(myInt5nr2,  myInt21nr1));
+        nextList3.addAll(Arrays.asList(myInt5nr2, myInt21nr1));
         instance.adjacencyList.add(nextList3);
 
         MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
@@ -1254,59 +1250,51 @@ System.err.println("Balance : "+balance);
         MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
         nextList6.addAll(Arrays.asList(myInt7, myInt29, myInt21nr2, myInt47));
         instance.adjacencyList.add(nextList6);
-        
-        instance.sortedSells.addAll(Arrays.asList( myInt40,  myInt5nr3,  myInt33, myInt7,myInt5nr2));
-        System.out.println("BspPertition: "+ instance.toString());
+
+        instance.sortedSells.addAll(Arrays.asList(myInt40, myInt5nr3, myInt33, myInt7, myInt5nr2));
+        System.out.println("BspPertition: " + instance.toString());
         return instance;
     }
-     public Partition getBspA() {
-        
-                Partition instance = new Partition();
 
+    public Partition getBspA() {
+
+        Partition instance = new Partition();
 
         MyInteger myInt46 = new MyInteger(46);
         MyInteger myInt21nr1 = new MyInteger(21);
-       
 
         MyInteger myInt40 = new MyInteger(40);
         MyInteger myInt5nr2 = new MyInteger(5);
-      
-
-       
 
         MyArrayList<MyInteger> nextList2 = new MyArrayList<>();
-        nextList2.addAll(Arrays.asList(myInt40,  myInt46));
+        nextList2.addAll(Arrays.asList(myInt40, myInt46));
         instance.adjacencyList.add(nextList2);
 
         MyArrayList<MyInteger> nextList3 = new MyArrayList<>();
         nextList3.addAll(Arrays.asList(myInt5nr2, myInt21nr1));
         instance.adjacencyList.add(nextList3);
 
-       
-        instance.sortedSells.addAll(Arrays.asList( myInt40, myInt5nr2));
+        instance.sortedSells.addAll(Arrays.asList(myInt40, myInt5nr2));
 //        instance.setBudget(-46);
 //        instance.setBalance(-22);
-        System.out.println("BspPertition A: "+ instance.toString());
+        System.out.println("BspPertition A: " + instance.toString());
         return instance;
-     }
-      public Partition getBspB() {
-        
-                Partition instance = new Partition();
+    }
 
-       
+    public Partition getBspB() {
+
+        Partition instance = new Partition();
+
         MyInteger myInt29 = new MyInteger(29);
         MyInteger myInt21nr2 = new MyInteger(21);
         MyInteger myInt47 = new MyInteger(47);
 
-   
         MyInteger myInt5nr3 = new MyInteger(5);
         MyInteger myInt33 = new MyInteger(33);
         MyInteger myInt7 = new MyInteger(7);
 
-      
-
         MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
-        nextList4.addAll(Arrays.asList(myInt5nr3,myInt29));
+        nextList4.addAll(Arrays.asList(myInt5nr3, myInt29));
         instance.adjacencyList.add(nextList4);
 
         MyArrayList<MyInteger> nextList5 = new MyArrayList<>();
@@ -1316,32 +1304,28 @@ System.err.println("Balance : "+balance);
         MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
         nextList6.addAll(Arrays.asList(myInt7, myInt29, myInt21nr2, myInt47));
         instance.adjacencyList.add(nextList6);
-        
-        instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
+
+        instance.sortedSells.addAll(Arrays.asList(myInt5nr3, myInt33, myInt7));
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
-        System.out.println("BspPertition B: "+ instance.toString());
+        System.out.println("BspPertition B: " + instance.toString());
         return instance;
     }
-      
-       public Partition getBspC() {
-        
-                Partition instance = new Partition();
 
-       
+    public Partition getBspC() {
+
+        Partition instance = new Partition();
+
         MyInteger myInt29 = new MyInteger(3);
         MyInteger myInt21nr2 = new MyInteger(21);
         MyInteger myInt47 = new MyInteger(1);
 
-   
         MyInteger myInt5nr3 = new MyInteger(5);
         MyInteger myInt33 = new MyInteger(33);
         MyInteger myInt7 = new MyInteger(7);
 
-      
-
         MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
-        nextList4.addAll(Arrays.asList(myInt5nr3,myInt29));
+        nextList4.addAll(Arrays.asList(myInt5nr3, myInt29));
         instance.adjacencyList.add(nextList4);
 
         MyArrayList<MyInteger> nextList5 = new MyArrayList<>();
@@ -1351,57 +1335,47 @@ System.err.println("Balance : "+balance);
         MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
         nextList6.addAll(Arrays.asList(myInt7, myInt29, myInt21nr2, myInt47));
         instance.adjacencyList.add(nextList6);
-        
-        instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
+
+        instance.sortedSells.addAll(Arrays.asList(myInt5nr3, myInt33, myInt7));
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
-        System.out.println("BspPertition C: "+ instance.toString());
+        System.out.println("BspPertition C: " + instance.toString());
         return instance;
     }
-        public Partition getBspD() {
-        
-                Partition instance = new Partition();
 
+    public Partition getBspD() {
+
+        Partition instance = new Partition();
 
         MyInteger myInt5und1 = new MyInteger(5);
-       
 
-        MyInteger myInt19= new MyInteger(19);
-      
-
-       
+        MyInteger myInt19 = new MyInteger(19);
 
         MyArrayList<MyInteger> nextList2 = new MyArrayList<>();
-        nextList2.addAll(Arrays.asList(myInt19,  myInt5und1));
+        nextList2.addAll(Arrays.asList(myInt19, myInt5und1));
         instance.adjacencyList.add(nextList2);
 
-       
-
-       
-        instance.sortedSells.addAll(Arrays.asList( myInt19));
+        instance.sortedSells.addAll(Arrays.asList(myInt19));
 //        instance.setBudget(-46);
 //        instance.setBalance(-22);
-        System.err.println("BspPertition D: "+ instance.toString());
+        System.err.println("BspPertition D: " + instance.toString());
         return instance;
-     }
-         public Partition getBspE() {
-        
-                Partition instance = new Partition();
+    }
 
-       
+    public Partition getBspE() {
+
+        Partition instance = new Partition();
+
         MyInteger myInt29 = new MyInteger(29);
         MyInteger myInt21nr2 = new MyInteger(21);
         MyInteger myInt47 = new MyInteger(18);
 
-   
         MyInteger myInt5nr3 = new MyInteger(5);
         MyInteger myInt33 = new MyInteger(33);
         MyInteger myInt7 = new MyInteger(7);
 
-      
-
         MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
-        nextList4.addAll(Arrays.asList(myInt5nr3,myInt29));
+        nextList4.addAll(Arrays.asList(myInt5nr3, myInt29));
         instance.adjacencyList.add(nextList4);
 
         MyArrayList<MyInteger> nextList5 = new MyArrayList<>();
@@ -1411,11 +1385,61 @@ System.err.println("Balance : "+balance);
         MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
         nextList6.addAll(Arrays.asList(myInt7, myInt29, myInt21nr2, myInt47));
         instance.adjacencyList.add(nextList6);
-        
-        instance.sortedSells.addAll(Arrays.asList( myInt5nr3, myInt33, myInt7));
+
+        instance.sortedSells.addAll(Arrays.asList(myInt5nr3, myInt33, myInt7));
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
-        System.err.println("BspPertition B: "+ instance.toString());
+        System.err.println("BspPertition B: " + instance.toString());
         return instance;
     }
+
+    public Partition getBspF() {
+
+        Partition instance = new Partition();
+
+        MyInteger myInt40 = new MyInteger(40);
+        MyInteger myInt25 = new MyInteger(25);
+        MyInteger myInt38 = new MyInteger(38);
+
+        MyInteger myInt16 = new MyInteger(16);
+        MyInteger myInt60 = new MyInteger(60);
+        MyInteger myInt19 = new MyInteger(19);
+
+        MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
+        nextList4.addAll(Arrays.asList(myInt16, myInt40, myInt25));
+        instance.adjacencyList.add(nextList4);
+
+        MyArrayList<MyInteger> nextList5 = new MyArrayList<>();
+        nextList5.addAll(Arrays.asList(myInt60, myInt25, myInt38));
+        instance.adjacencyList.add(nextList5);
+
+        MyArrayList<MyInteger> nextList6 = new MyArrayList<>();
+        nextList6.addAll(Arrays.asList(myInt19, myInt25));
+        instance.adjacencyList.add(nextList6);
+
+        instance.sortedSells.addAll(Arrays.asList(myInt19, myInt60, myInt16));
+//        instance.setBudget(-49);
+//        instance.setBalance(-42);
+        System.err.println("BspPertition F: " + instance.toString());
+        return instance;
+    }
+
+    public Partition getBspG() {
+
+        Partition instance = new Partition();
+
+        MyInteger myInt49nr1 = new MyInteger(49);
+        MyInteger myInt49nr2 = new MyInteger(49);
+
+        MyArrayList<MyInteger> nextList4 = new MyArrayList<>();
+        nextList4.addAll(Arrays.asList(myInt49nr2, myInt49nr1));
+        instance.adjacencyList.add(nextList4);
+
+        instance.sortedSells.addAll(Arrays.asList(myInt49nr2));
+//        instance.setBudget(-49);
+//        instance.setBalance(-42);
+        System.err.println("BspPertition G: " + instance.toString());
+        return instance;
+    }
+
 }

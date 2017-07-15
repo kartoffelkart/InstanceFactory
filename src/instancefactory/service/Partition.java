@@ -243,8 +243,7 @@ public class Partition {
         } else {
             System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
             System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget() + "budget" + budget);
-            System.err.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget() + "budget" + budget + "Fehler ! Budget von Partition passt nicht zu den SortedSells");
-                        System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget() + "budget" + budget + "Fehler ! Budget von Partition passt nicht zu den SortedSells");
+            System.out.println("newTestGraph.getMinBudget()" + newTestGraph.getMinBudget() + "budget" + budget + "Fehler ! Budget von Partition passt nicht zu den SortedSells");
 
             return false;
         }
