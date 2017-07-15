@@ -81,9 +81,9 @@ public class Partition {
 //        Graph calculatedGraphOfSortedSells= new Graph(this, sortedSells);
 //        if (!(calculatedGraphOfSortedSells.getMinBudget().intValue() > budget)) {
 //            this.minBudgetCompare = minBudgetCompare;
-//             System.err.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
+//             System.out.println("Klaro budget" + budget + "ist größer oder gleich budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
 //        } else {
-//            System.err.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
+//            System.out.println("Ohje budget" + budget + " ist kleiner budget vom neuen HeuristikGraphen" + minBudgetCompare.intValue());
 //
 //        }
 
@@ -205,7 +205,7 @@ public class Partition {
 
             System.out.println("Balance, Bought, Budget: " + balanceBoughtsBudgetOfSetUpToIndex.get(index).toString());
         } else {
-            System.err.println("Error falscher Index");
+            System.out.println("Error falscher Index");
         }
 
     }
@@ -265,9 +265,9 @@ public class Partition {
         for (int i = 0; i < returnList.size(); i++) {
             newTestGraph = new Graph(this, returnList.get(i));
             if (probablyBest < newTestGraph.getMinBudget()) {
-                System.err.println("Fehler ! SortedSells ist in der Partition nicht die optimale Reihenfolge");
-                System.err.println("mit neuer Permutation newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
-                System.err.println("probablyBest" + probablyBest);
+                System.out.println("Fehler ! SortedSells ist in der Partition nicht die optimale Reihenfolge");
+                System.out.println("mit neuer Permutation newTestGraph.getMinBudget()" + newTestGraph.getMinBudget());
+                System.out.println("probablyBest" + probablyBest);
 
                 return false;
             }

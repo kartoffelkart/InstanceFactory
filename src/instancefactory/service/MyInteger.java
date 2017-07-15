@@ -19,7 +19,7 @@ public class MyInteger {
 
     public MyInteger() {
         this.i = null;
-        System.err.println("MyInteger wurde nicht gesetzt");
+        System.out.println("MyInteger wurde nicht gesetzt");
     }
 
     public MyInteger(Integer i) {

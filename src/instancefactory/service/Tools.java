@@ -504,11 +504,11 @@ public class Tools {
             if (p1.positiveSets.get(0).getBudget() > p2.positiveSets.get(0).getBudget()) {//
 
                 positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
-                System.err.println("Balance : " + balanceHelp.toString());
+                System.out.println("Balance : " + balanceHelp.toString());
             } else ////////////////////////////////////////////////////////////////////////////////
             {
                 positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
-                System.err.println("Balance : " + balanceHelp.toString());
+                System.out.println("Balance : " + balanceHelp.toString());
             }
 //----------test
             System.out.println("Nach positiveSets abarbeiten beide nicht leer:");
@@ -523,7 +523,7 @@ public class Tools {
 
             positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
 //----------test
-            System.err.println("Balance : " + balanceHelp.toString());
+            System.out.println("Balance : " + balanceHelp.toString());
             System.out.println("Nach positiveSets abarbeiten p1 nicht leer:");
             System.out.println("currentWerteP1:" + currentWerteP1);
             System.out.println("currentWerteP2:" + currentWerteP2);
@@ -535,7 +535,7 @@ public class Tools {
         while (!(p2.positiveSets.isEmpty())) {
             positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
 //----------test
-            System.err.println("Balance : " + balanceHelp.toString());
+            System.out.println("Balance : " + balanceHelp.toString());
             System.out.println("Nach positiveSets abarbeiten p2 nicht leer:");
             System.out.println("currentWerteP1:" + currentWerteP1);
             System.out.println("currentWerteP2:" + currentWerteP2);
@@ -595,7 +595,7 @@ public class Tools {
                 }
                 //TODO: ändern
                 if (!(test.containsAll(s1Rest))) {
-                    System.err.println("da stimmts nicht mehr");
+                    System.out.println("da stimmts nicht mehr");
                 }
                 System.out.println("currentWerteP1 : " + currentWerteP1);
                 //hier wird es nicht richtig berechnet, der node ist gar nicht drinin s1Rest
@@ -605,7 +605,7 @@ public class Tools {
 
                 budget = Integer.min(balance + minWertP1, budget);
                 balance = balance + maxWertP1;
-                System.err.println("Balance : " + balance);
+                System.out.println("Balance : " + balance);
                 System.out.println("currentWerteP1" + currentWerteP1);
                 currentWerteP1 = shift(currentWerteP1, maxWertP1, " p1 ");
                 System.out.println("currentWerteP1 nach Shift um " + maxWertP1 + "wegen Teil vom Rest verarbeitet ist" + currentWerteP1);
@@ -626,15 +626,15 @@ public class Tools {
                 }
                 //TODO: ändern
                 if (!(test.containsAll(s2Rest))) {
-                    System.err.println("da stimmts nicht mehr");
+                    System.out.println("da stimmts nicht mehr");
                 }
                 MyArrayList<MyInteger> anfangsAbschnittS2 = getAbschnittBisNode(s2Rest, currentWerteP2.get(maxIndexP2).node, "s2");
                 newSortedSells.addAll(anfangsAbschnittS2);
                 s2Rest.removeAll(anfangsAbschnittS2);
                 budget = Integer.min(balance + minWertP2, budget);
-                System.err.println("Budget                          !!!!!!!!!!!!!!!                               : " + budget);
+                System.out.println("Budget                          !!!!!!!!!!!!!!!                               : " + budget);
                 balance = balance + maxWertP2;
-                System.err.println("Balance : " + balance);
+                System.out.println("Balance : " + balance);
 
                 currentWerteP2 = getArrayAbschnitt(currentWerteP2, maxIndexP2 + 1, currentWerteP2.size() - 1);
                 currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");//Ausgleichsshift
@@ -650,7 +650,7 @@ public class Tools {
             Integer endWertP1 = currentWerteP1.get(currentWerteP1.size() - 1).value;
             budget = Integer.min(balance + minWertP1, budget);
             balance = balance + endWertP1;
-            System.err.println("Balance : " + balance);
+            System.out.println("Balance : " + balance);
 
             newSortedSells.addAll(s1Rest);
             s1Rest.removeAll(s1Rest);
@@ -663,7 +663,7 @@ public class Tools {
             Integer endWertP2 = currentWerteP2.get(currentWerteP2.size() - 1).value;
             budget = Integer.min(balance + minWertP2, budget);
             balance = balance + endWertP2;
-            System.err.println("Balance : " + balance);
+            System.out.println("Balance : " + balance);
 
             newSortedSells.addAll(s2Rest);
             s2Rest.removeAll(s2Rest);
@@ -897,7 +897,7 @@ public class Tools {
             prY.close();
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("No such file exists.");
+            System.out.println("No such file exists.");
         }
 
 //        tool.function(instance, randomOrdering, "swap")
@@ -991,7 +991,7 @@ public class Tools {
         buildInstanceOnBasicPartitions(partitions, 33, 33, 34);
 
         Partition instance = partitions.get(0);
-        System.err.println("Instance is build.");
+        System.out.println("Instance is build.");
         return instance;
     }
 
@@ -1197,7 +1197,7 @@ public class Tools {
         System.out.println("budget  " + budget);
 
         balance.setNumber(balanceHelp + currentPositiveSet.getBalance()); //p1.balanceBoughtsBudgetOfSetUpToIndex.get(p1.positiveSetsPLengths.get(0)).get(0);
-        System.err.println("balance in Positive Set abarbeiten:" + balance.toString());
+        System.out.println("balance in Positive Set abarbeiten:" + balance.toString());
 
         (p.positiveSets).remove(0);
 
@@ -1358,7 +1358,7 @@ public class Tools {
         instance.sortedSells.addAll(Arrays.asList(myInt19));
 //        instance.setBudget(-46);
 //        instance.setBalance(-22);
-        System.err.println("BspPertition D: " + instance.toString());
+        System.out.println("BspPertition D: " + instance.toString());
         return instance;
     }
 
@@ -1389,7 +1389,7 @@ public class Tools {
         instance.sortedSells.addAll(Arrays.asList(myInt5nr3, myInt33, myInt7));
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
-        System.err.println("BspPertition B: " + instance.toString());
+        System.out.println("BspPertition B: " + instance.toString());
         return instance;
     }
 
@@ -1420,7 +1420,7 @@ public class Tools {
         instance.sortedSells.addAll(Arrays.asList(myInt19, myInt60, myInt16));
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
-        System.err.println("BspPertition F: " + instance.toString());
+        System.out.println("BspPertition F: " + instance.toString());
         return instance;
     }
 
@@ -1438,7 +1438,7 @@ public class Tools {
         instance.sortedSells.addAll(Arrays.asList(myInt49nr2));
 //        instance.setBudget(-49);
 //        instance.setBalance(-42);
-        System.err.println("BspPertition G: " + instance.toString());
+        System.out.println("BspPertition G: " + instance.toString());
         return instance;
     }
 

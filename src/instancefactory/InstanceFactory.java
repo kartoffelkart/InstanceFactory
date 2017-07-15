@@ -28,22 +28,22 @@ public class InstanceFactory {
 
     public static void main(String[] args) {
 
-        Partition inst0;
-        Partition instA;
-        Partition instB;
-        Partition instC;
-        Partition instD;
-        Partition instE;
+//        Partition inst0;
+//        Partition instA;
+//        Partition instB;
+//        Partition instC;
+//        Partition instD;
+//        Partition instE;
          Partition instF;
           Partition instG;
 
-        inst0 = tool.getBspPartition();
-
-        instA = tool.getBspA();
-        instB = tool.getBspB();
-        instC = tool.getBspC();
-        instD = tool.getBspD();
-        instE = tool.getBspE();
+//        inst0 = tool.getBspPartition();
+//
+//        instA = tool.getBspA();
+//        instB = tool.getBspB();
+//        instC = tool.getBspC();
+//        instD = tool.getBspD();
+//        instE = tool.getBspE();
         instF = tool.getBspF();
         instG = tool.getBspG();
 
@@ -65,10 +65,10 @@ public class InstanceFactory {
         Integer expResult = -8;
         Integer result = p.getBalance();
 
-//        System.err.println("expResult : "+expResult);
-//        System.err.println("result : "+result);
-        System.err.println("expResult : " + expResult);
-        System.err.println("result : " + result);
+//        System.out.println("expResult : "+expResult);
+//        System.out.println("result : "+result);
+        System.out.println("expResult : " + expResult);
+        System.out.println("result : " + result);
 
         System.out.println("FERTIG               !!!!!!!!!!!!!!!!!");
 
