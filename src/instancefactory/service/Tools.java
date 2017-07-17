@@ -504,7 +504,7 @@ public class Tools {
             if (p1.positiveSets.get(0).getBudget() > p2.positiveSets.get(0).getBudget()) {//
 
                 positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
-                System.out.println("Balance : " + balanceHelp.toString());
+
             } else ////////////////////////////////////////////////////////////////////////////////
             {
                 positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
@@ -605,7 +605,10 @@ public class Tools {
 
                 budget = Integer.min(balance + minWertP1, budget);
                 balance = balance + maxWertP1;
-                System.out.println("Balance : " + balance);
+
+                System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
+                System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
+
                 System.out.println("currentWerteP1" + currentWerteP1);
                 currentWerteP1 = shift(currentWerteP1, maxWertP1, " p1 ");
                 System.out.println("currentWerteP1 nach Shift um " + maxWertP1 + "wegen Teil vom Rest verarbeitet ist" + currentWerteP1);
@@ -631,10 +634,12 @@ public class Tools {
                 MyArrayList<MyInteger> anfangsAbschnittS2 = getAbschnittBisNode(s2Rest, currentWerteP2.get(maxIndexP2).node, "s2");
                 newSortedSells.addAll(anfangsAbschnittS2);
                 s2Rest.removeAll(anfangsAbschnittS2);
+
                 budget = Integer.min(balance + minWertP2, budget);
-                System.out.println("Budget                          !!!!!!!!!!!!!!!                               : " + budget);
                 balance = balance + maxWertP2;
-                System.out.println("Balance : " + balance);
+
+                System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
+                System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
 
                 currentWerteP2 = getArrayAbschnitt(currentWerteP2, maxIndexP2 + 1, currentWerteP2.size() - 1);
                 currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");//Ausgleichsshift
@@ -650,7 +655,9 @@ public class Tools {
             Integer endWertP1 = currentWerteP1.get(currentWerteP1.size() - 1).value;
             budget = Integer.min(balance + minWertP1, budget);
             balance = balance + endWertP1;
-            System.out.println("Balance : " + balance);
+
+            System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
+            System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
 
             newSortedSells.addAll(s1Rest);
             s1Rest.removeAll(s1Rest);
@@ -663,7 +670,9 @@ public class Tools {
             Integer endWertP2 = currentWerteP2.get(currentWerteP2.size() - 1).value;
             budget = Integer.min(balance + minWertP2, budget);
             balance = balance + endWertP2;
-            System.out.println("Balance : " + balance);
+
+            System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
+            System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
 
             newSortedSells.addAll(s2Rest);
             s2Rest.removeAll(s2Rest);
@@ -672,11 +681,11 @@ public class Tools {
         System.out.println("newSortedSells: " + newSortedSells.toString());
         p.sortedSells = newSortedSells;
 
-        System.out.println("balance: " + balance);
         p.setBalance(balance);
-
-        System.out.println("budget: " + budget);
         p.setBudget(budget);
+
+        System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
+        System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
 
     }
 
@@ -1154,7 +1163,9 @@ public class Tools {
         return newList;
     }
 
-    public void positiveSetAbarbeiten(MyArrayList<Eintrag> currentWertePx, MyArrayList<MyInteger> newSortedSells, Partition p, MyArrayList<MyInteger> sRest, IntegerOut budget, IntegerOut balance, String id) {
+    public void positiveSetAbarbeiten(MyArrayList<Eintrag> currentWertePx,
+            MyArrayList<MyInteger> newSortedSells, Partition p, MyArrayList<MyInteger> sRest, IntegerOut budget,
+            IntegerOut balance, String id) {
 //        adjacencyList<MyInteger> test = new adjacencyList<>();
 //        for (int laufindexBisMaxKnotenAnzahl = 0; laufindexBisMaxKnotenAnzahl < currentWerte.size(); laufindexBisMaxKnotenAnzahl++) {
 //            test.add(currentWerte.get(laufindexBisMaxKnotenAnzahl).node);
@@ -1203,6 +1214,8 @@ public class Tools {
 
         System.out.println(id + "Rest : " + sRest.toString());
 
+        System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance.toString());
+        System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget.toString());
     }
 
     //ASSERTION
