@@ -203,7 +203,7 @@ public class Partition {
             balanceBoughtsBudgetOfSetUpToIndex.add(index, newEintrag);
             //drucken
 
-            System.out.println("Balance, Bought, Budget: " + balanceBoughtsBudgetOfSetUpToIndex.get(index).toString());
+            System.out.println("Balance, Bought, Budget of Set Up to Inde : " + balanceBoughtsBudgetOfSetUpToIndex.get(index).toString());
         } else {
             System.out.println("Error falscher Index");
         }

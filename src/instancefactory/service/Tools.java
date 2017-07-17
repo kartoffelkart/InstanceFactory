@@ -445,7 +445,7 @@ public class Tools {
      * @return SortedSells, die aus dem UNION Merge der SortedSells der Eingabe
      * Partitionen entstanden ist
      */
-    public void makeSortedSellsUnionAndBudgetAndBalance(Partition p, Partition p1, Partition p2) {
+    public void makeSortedSellsUnionAndBudgetAndBalance(Partition partitio, Partition p1, Partition p2) {
 
         //hier musst du mit laufindexBisMaxKnotenAnzahl Lists of PositiveSets und Resten arbeiten
         Integer budget = 0;
@@ -679,10 +679,10 @@ public class Tools {
         }
 
         System.out.println("newSortedSells: " + newSortedSells.toString());
-        p.sortedSells = newSortedSells;
+        partitio.sortedSells = newSortedSells;
 
-        p.setBalance(balance);
-        p.setBudget(budget);
+        partitio.setBalance(balance);
+        partitio.setBudget(budget);
 
         System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
         System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
