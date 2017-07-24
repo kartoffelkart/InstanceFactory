@@ -718,20 +718,17 @@ public class Tools {
     public MyArrayList<MyArrayList<MyInteger>> makeMyArrayListJoin(Partition p1, Partition p2) {
 
         MyArrayList<MyArrayList<MyInteger>> a = new MyArrayList<>();
-        a.addAll(p1.adjacencyList);
+        for (int m = 0; m < p1.adjacencyList.size(); m++) {
+
+            a.add((MyArrayList<MyInteger>) p1.adjacencyList.get(m).clone());
+
+        }
+
         MyArrayList<MyInteger> toLink = new MyArrayList<>();
         for (int k = 0; k < p2.adjacencyList.size(); k++) {
             toLink.addAll(p2.getBoughtsOfSell(p2.adjacencyList.get(k).get(0)));
         }
-//        Iterator ita2 = a2.iterator();
-//
-//        while (ita2.hasNext()) {
-////die Boughts vom nächsten Eintrag aus A2 die noch nicht verlinkt wurden
-//            adjacencyList<MyInteger> tempo = (adjacencyList<MyInteger>) ita2.next();
-//            MyInteger zero = tempo.remove(0);
-//
-//            toLink.addAll(tempo);
-//            tempo.add(0, zero);
+//        
         Set<MyInteger> hs = new HashSet<>();
         hs.addAll(toLink);
         toLink.clear();
@@ -741,8 +738,12 @@ public class Tools {
         for (int k = 0; k < a.size(); k++) {
             a.get(k).addAll(toLink);
         }
+        for (int m = 0; m < p2.adjacencyList.size(); m++) {
 
-        a.addAll(p2.adjacencyList);
+            a.add((MyArrayList<MyInteger>) p2.adjacencyList.get(m).clone());
+
+        }
+
         return a;
 
     }
@@ -806,6 +807,7 @@ public class Tools {
      */
     public Partition makePartitionJoin(Partition p1, Partition p2) {
         Partition partition;
+
         MyArrayList<MyArrayList<MyInteger>> newMyArrayList = makeMyArrayListJoin(p1, p2);
         MyArrayList<MyInteger> newSortedSells = makeSortedSellsJoin(p1.sortedSells, p2.sortedSells);//p2.sorted sells null
         Integer newBudget = makeBudgetJoin(p1, p2);
