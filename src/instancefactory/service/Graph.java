@@ -53,6 +53,7 @@ public class Graph {
             Eintrag eintrag = new Eintrag();
             eintrag.node = null;
             eintrag.value = 0;
+            //wird wieder entfernt
             this.werte.add(eintrag);
             calculateValues(this.partition, this.ordering);
            werte.remove(0);
@@ -69,14 +70,14 @@ public class Graph {
         
         for (int i = 0; i < ordering.size(); i++) {
             MyArrayList<MyInteger> newB = p.getBoughtsOfSell(ordering.get(i));
-//                System.out.println("newB    :   " + newB);
+                System.out.println("newB    :   " + newB);
             newB.removeAll(allready);//hier entfernen wir alle, die schon gekauft waren
             allready.addAll(newB);
-//                System.out.println("newB ohne Allready   :   " + newB);
+                System.out.println("newB ohne Allready   :   " + newB);
             
             for (int j = 0; j < newB.size(); j++) {
                 
-                newValue = werte.get(werte.size() - 1).value - (newB.get(j).i);
+                newValue = this.werte.get(werte.size() - 1).value - (newB.get(j).i);
                 
                 Eintrag eintrag = new Eintrag();
                 eintrag.node = newB.get(j);

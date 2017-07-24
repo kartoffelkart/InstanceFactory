@@ -66,7 +66,7 @@ public class Tools {
 // kann das weg?
             Graph calculatedGraphOfSortedSells = new Graph(currentPartition, currentPartition.sortedSells);
 
-            currentPartition.werte = calculatedGraphOfSortedSells.getWerte();
+            currentPartition.setWerte(calculatedGraphOfSortedSells.getWerte());
 
             //----------------  
             k++;
@@ -398,6 +398,7 @@ public class Tools {
         MyArrayList<MyInteger> sRest = new MyArrayList<>();
         sRest.addAll(p.sortedSells);
         System.out.println("SRest: " + sRest.toString());
+
         Integer count = 0;
         MyArrayList<MyInteger> sellsForCurrentPositiveSet = new MyArrayList<>();
         for (int i = 0; i < sRest.size(); i++) {
@@ -412,6 +413,7 @@ public class Tools {
             int balance = currentBalanceBoughtsBudget.getBalance();
             int sumBoughts = currentBalanceBoughtsBudget.getBoughts();
             int budget = currentBalanceBoughtsBudget.getBudget();
+
             //sobald es größer als Null ist wird der Index und dieSumme der Boughts in PositiveSetsPLengths und PositiveSetsPLengthsSumBoughts gespeichert
             if (balance > 0) {
                 MySet newPositiveSet = new MySet(sumBoughts, count, budget, balance);
@@ -817,13 +819,15 @@ public class Tools {
 //        adjacencyList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
 //        partition.getCalculatedGraphOfSortedSells().addWerte(shiftList);
 
-        partition.werte = new MyArrayList<>();
-        partition.werte.addAll(p2.getWerte());
+        MyArrayList neueWerte = new MyArrayList<>();
+        neueWerte.addAll(p2.getWerte());
         System.out.println("shiftList vor shift um - balance" + -p2.getBalance() + "wegen Join ist" + p1.getWerte());
         MyArrayList<Eintrag> shiftList = shift(p1.getWerte(), -p2.getBalance(), " p1 ");//Addiershift
         System.out.println("shiftList nach shift um - balance" + -p2.getBalance() + "wegen Join ist" + shiftList);
 
-        partition.werte.addAll(shiftList);
+        neueWerte.addAll(shiftList);
+        partition.setWerte(neueWerte);
+
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
             boolean test = partition.isBestOrdering();

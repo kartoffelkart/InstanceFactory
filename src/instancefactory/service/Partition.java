@@ -41,7 +41,9 @@ public class Partition {
     private Integer budget;
     private Integer balance ;
 //    private Graph calculatedGraphOfSortedSells;
-    public MyArrayList<Eintrag> werte;
+    private MyArrayList<Eintrag> werte;
+
+    
     public MyArrayList<Integer> sumBoughts;
 
     //_________________________________________________________________________
@@ -415,5 +417,7 @@ public class Partition {
     public void setBalance(Integer balance) {
         this.balance = balance;
     }
-    
+    public void setWerte(MyArrayList<Eintrag> werte) {
+        this.werte = werte;
+    }
 }
