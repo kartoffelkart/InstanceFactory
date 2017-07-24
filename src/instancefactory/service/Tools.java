@@ -786,8 +786,17 @@ public class Tools {
      */
     public MyArrayList<MyArrayList<MyInteger>> makeMyArrayListUnion(MyArrayList<MyArrayList<MyInteger>> a1, MyArrayList<MyArrayList<MyInteger>> a2) {
         MyArrayList<MyArrayList<MyInteger>> a = new MyArrayList<>();
-        a.addAll(a1);
-        a.addAll(a2);
+        for (int m = 0; m < a1.size(); m++) {
+
+            a.add((MyArrayList<MyInteger>) a1.get(m).clone());
+
+        }
+        for (int m = 0; m < a2.size(); m++) {
+
+            a.add((MyArrayList<MyInteger>) a2.get(m).clone());
+
+        }
+
         return a;
     }
 
