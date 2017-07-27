@@ -505,11 +505,11 @@ public class Tools {
             //wenn der negative Budgetwert größer ist, ist das Budget ja das Kleinere
             if (p1.positiveSets.get(0).getBudget() > p2.positiveSets.get(0).getBudget()) {//
 
-                positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
+                positiveSetAbarbeiten(partitio, currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
 
             } else ////////////////////////////////////////////////////////////////////////////////
             {
-                positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
+                positiveSetAbarbeiten(partitio, currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
                 System.out.println("Balance : " + balanceHelp.toString());
             }
 //----------test
@@ -523,7 +523,7 @@ public class Tools {
         //////////////////////////////////////////////////////////////////////////////
         while (!(p1.positiveSets.isEmpty())) {
 
-            positiveSetAbarbeiten(currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
+            positiveSetAbarbeiten(partitio, currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
 //----------test
             System.out.println("Balance : " + balanceHelp.toString());
             System.out.println("Nach positiveSets abarbeiten p1 nicht leer:");
@@ -535,7 +535,7 @@ public class Tools {
         }
         //////////////////////////////////////////////////////////////////////////
         while (!(p2.positiveSets.isEmpty())) {
-            positiveSetAbarbeiten(currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
+            positiveSetAbarbeiten(partitio, currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
 //----------test
             System.out.println("Balance : " + balanceHelp.toString());
             System.out.println("Nach positiveSets abarbeiten p2 nicht leer:");
@@ -555,7 +555,6 @@ public class Tools {
 
             Integer minWertP1 = currentWerteP1.get(minIndexP1).value;
             Integer minWertP2 = currentWerteP2.get(minIndexP2).value;
-
             MyArrayList<Eintrag> abschnitt1 = getArrayAbschnitt(currentWerteP1, minIndexP1, currentWerteP1.size() - 1);
             int help = getIndexOfMax(abschnitt1);
             System.out.println("help : " + help);
@@ -601,6 +600,15 @@ public class Tools {
                 }
                 System.out.println("currentWerteP1 : " + currentWerteP1);
                 //hier wird es nicht richtig berechnet, der node ist gar nicht drinin s1Rest
+                MyArrayList<Eintrag> abschnitt = getWerteBisNodeInclusive(currentWerteP1, currentWerteP1.get(maxIndexP1).node);
+                if (partitio.getWerte() == null) {
+                    partitio.setWerte(abschnitt);
+                } else {
+                    MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
+                    neuerabschnitt.addAll(abschnitt);
+                    partitio.setWerte(neuerabschnitt);
+
+                }
                 MyArrayList<MyInteger> anfangsAbschnittS1 = getAbschnittBisNode(s1Rest, currentWerteP1.get(maxIndexP1).node, "s1");
                 newSortedSells.addAll(anfangsAbschnittS1);
                 s1Rest.removeAll(anfangsAbschnittS1);
@@ -611,7 +619,6 @@ public class Tools {
                 System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
                 System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
 
-               
                 System.out.println("currentWerteP1 nach Shift um " + maxWertP1 + "wegen Teil vom Rest verarbeitet ist" + currentWerteP1);
                 currentWerteP1 = shift(currentWerteP1, maxWertP1, " p1 ");//Ausgleichsshift
                 System.out.println("currentWerteP1 nach Ausgleichsshift um " + maxWertP1 + "ist" + currentWerteP1);
@@ -632,6 +639,17 @@ public class Tools {
                 if (!(test.containsAll(s2Rest))) {
                     System.out.println("da stimmts nicht mehr");
                 }
+
+                MyArrayList<Eintrag> abschnitt = getWerteBisNodeInclusive(currentWerteP2, currentWerteP2.get(maxIndexP2).node);
+                if (partitio.getWerte() == null) {
+                    partitio.setWerte(abschnitt);
+                } else {
+                    MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
+                    neuerabschnitt.addAll(abschnitt);
+                    partitio.setWerte(neuerabschnitt);
+
+                }
+
                 MyArrayList<MyInteger> anfangsAbschnittS2 = getAbschnittBisNode(s2Rest, currentWerteP2.get(maxIndexP2).node, "s2");
                 newSortedSells.addAll(anfangsAbschnittS2);
                 s2Rest.removeAll(anfangsAbschnittS2);
@@ -658,9 +676,17 @@ public class Tools {
             balance = balance + endWertP1;
 
             System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
-            System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
-
+            System.out.println("Budget                           !!!!!!!!!!!!!!!         "
+                    + "                      :  " + budget);
+            if (partitio.getWerte() == null) {
+                partitio.setWerte(currentWerteP1);
+            } else {
+                MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
+                neuerabschnitt.addAll(currentWerteP1);
+                partitio.setWerte(neuerabschnitt);
+            }
             newSortedSells.addAll(s1Rest);
+
             s1Rest.removeAll(s1Rest);
         }
 //////////////////////////////////////////////////////////////////////////
@@ -674,7 +700,13 @@ public class Tools {
 
             System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
             System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
-
+            if (partitio.getWerte() == null) {
+                partitio.setWerte(currentWerteP2);
+            } else {
+                MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
+                neuerabschnitt.addAll(currentWerteP1);
+                partitio.setWerte(neuerabschnitt);
+            }
             newSortedSells.addAll(s2Rest);
             s2Rest.removeAll(s2Rest);
         }
@@ -1177,7 +1209,7 @@ public class Tools {
         return newList;
     }
 
-    public void positiveSetAbarbeiten(MyArrayList<Eintrag> currentWertePx,
+    public void positiveSetAbarbeiten(Partition partitio, MyArrayList<Eintrag> currentWertePx,
             MyArrayList<MyInteger> newSortedSells, Partition p, MyArrayList<MyInteger> sRest, IntegerOut budget,
             IntegerOut balance, String id) {
 //        adjacencyList<MyInteger> test = new adjacencyList<>();
@@ -1196,11 +1228,21 @@ public class Tools {
             newSortedSells.add(currentSell);//index 0 size 0
             sRest.remove(currentSell);
 //                    System.out.println("S1Rest: " + s1Rest.toString());
+
+            MyArrayList<Eintrag> abschnitt = getWerteBisNodeInclusive(currentWertePx, currentSell);
+            if (partitio.getWerte() == null) {
+                partitio.setWerte(abschnitt);
+            } else {
+                MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
+                neuerabschnitt.addAll(abschnitt);
+                partitio.setWerte(neuerabschnitt);
+
+            }
             currentWertePx.removeAll(getWerteBisNodeInclusive(currentWertePx, currentSell));
-//todo: hier die werte an die Werte der Partition anhängen, mit shift
+
         }
 
-        // Macht das das was es soll?
+        // Macht das das was es soll? JA
         currentWertePx = shift(currentWertePx, currentPositiveSet.getBalance(), " p ");
         System.out.println("currentWerte " + id + " nach shift um" + currentPositiveSet.getBalance() + "wegen positive set abarbeiten ist" + currentWertePx);
         // Macht das das was es soll?
