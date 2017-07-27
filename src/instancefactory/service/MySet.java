@@ -28,7 +28,7 @@ public class MySet {
      * Balance für das MySet
      */
     private Integer balance;
-    private MyArrayList<Eintrag> werte;
+    private MyArrayList<Eintrag> eintraege;
     private Graph graph;
 private MyArrayList<MyInteger> sortedSells;
 
@@ -79,12 +79,12 @@ private MyArrayList<MyInteger> sortedSells;
         this.balance = balance;
     }
 
-    public MyArrayList<Eintrag> getWerte() {
-        return werte;
+    public MyArrayList<Eintrag> getEintraege() {
+        return eintraege;
     }
 
-    public void setWerte(MyArrayList<Eintrag> werte) {
-        this.werte = werte;
+    public void setEintraege(MyArrayList<Eintrag> eintraege) {
+        this.eintraege = eintraege;
     }
 
     public Graph getGraph() {

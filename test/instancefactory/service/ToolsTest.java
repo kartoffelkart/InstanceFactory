@@ -84,7 +84,7 @@ public class ToolsTest {
 //    @Test
 //    public void testPositiveSetAbarbeiten() {
 //        System.out.println("positiveSetAbarbeiten");
-//        MyArrayList<Eintrag> currentWertePx = null;
+//        MyArrayList<Eintrag> currentEintraegePx = null;
 //        MyArrayList<MyInteger> newSortedSells = null;
 //        Partition p = instC ;
 //         tool.fillPositiveSets(p);
@@ -93,7 +93,7 @@ public class ToolsTest {
 //        IntegerOut balance = null;
 //        String id = "";
 //        Tools instance = new Tools();
-//        instance.positiveSetAbarbeiten(currentWertePx, newSortedSells, p, sRest, budget, balance, id);
+//        instance.positiveSetAbarbeiten(currentEintraegePx, newSortedSells, p, sRest, budget, balance, id);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
@@ -598,32 +598,32 @@ public class ToolsTest {
 //    }
 //
 //    /**
-//     * Test of getWerteBisNodeExclusive method, of class Tools.
+//     * Test of getEintraegeBisNodeExclusive method, of class Tools.
 //     */
 //    @Test
-//    public void testGetWerteBisNodeExclusive() {
-//        System.out.println("getWerteBisNodeExclusive");
+//    public void testGetEintraegeBisNodeExclusive() {
+//        System.out.println("getEintraegeBisNodeExclusive");
 //        MyArrayList<Eintrag> list = null;
 //        MyInteger node = null;
 //        Tools instance = new Tools();
 //        MyArrayList<Eintrag> expResult = null;
-//        MyArrayList<Eintrag> result = instance.getWerteBisNodeExclusive(list, node);
+//        MyArrayList<Eintrag> result = instance.getEintraegeBisNodeExclusive(list, node);
 //        assertEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
 //
 //    /**
-//     * Test of getWerteBisNodeInclusive method, of class Tools.
+//     * Test of getEintraegeBisNodeInclusive method, of class Tools.
 //     */
 //    @Test
-//    public void testGetWerteBisNodeInclusive() {
-//        System.out.println("getWerteBisNodeInclusive");
+//    public void testGetEintraegeBisNodeInclusive() {
+//        System.out.println("getEintraegeBisNodeInclusive");
 //        MyArrayList<Eintrag> list = null;
 //        MyInteger node = null;
 //        Tools instance = new Tools();
 //        MyArrayList<Eintrag> expResult = null;
-//        MyArrayList<Eintrag> result = instance.getWerteBisNodeInclusive(list, node);
+//        MyArrayList<Eintrag> result = instance.getEintraegeBisNodeInclusive(list, node);
 //        assertEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");

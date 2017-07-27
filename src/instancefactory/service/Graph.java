@@ -16,7 +16,7 @@ public class Graph {
     
     private Partition partition;
     private List<MyInteger> ordering;
-   private MyArrayList<Eintrag> werte;
+   private MyArrayList<Eintrag> eintraege;
     
     private Integer minBudget;    
 
@@ -38,27 +38,27 @@ public class Graph {
     public Integer getMinBudget() {
         if (this.minBudget == null) {
             MyArrayList<Integer> values = new MyArrayList<>();
-            for (int i = 0; i < this.getWerte().size(); i++) {
+            for (int i = 0; i < this.getEintraege().size(); i++) {
                 
-                values.add(werte.get(i).value);
+                values.add(eintraege.get(i).value);
             }
             this.minBudget = Collections.min(values);
         }
         return minBudget;
     }
     
-    public MyArrayList<Eintrag> getWerte() {
-        if (this.werte == null) {
-            this.werte = new MyArrayList<>();
+    public MyArrayList<Eintrag> getEintraege() {
+        if (this.eintraege == null) {
+            this.eintraege = new MyArrayList<>();
             Eintrag eintrag = new Eintrag();
             eintrag.node = null;
             eintrag.value = 0;
             //wird wieder entfernt
-            this.werte.add(eintrag);
+            this.eintraege.add(eintrag);
             calculateValues(this.partition, this.ordering);
-           werte.remove(0);
+           eintraege.remove(0);
         }
-        return werte;
+        return eintraege;
     }
 //todo: hier Partition rausnehmen, stattdessen globales Partition nehmen
 
@@ -77,24 +77,24 @@ public class Graph {
             
             for (int j = 0; j < newB.size(); j++) {
                 
-                newValue = this.werte.get(werte.size() - 1).value - (newB.get(j).i);
+                newValue = this.eintraege.get(eintraege.size() - 1).value - (newB.get(j).i);
                 
                 Eintrag eintrag = new Eintrag();
                 eintrag.node = newB.get(j);
                 
                 eintrag.value = newValue;
-                werte.add(eintrag);
+                eintraege.add(eintrag);
                 
             }
-            newValue = werte.get(werte.size() - 1).value + ordering.get(i).i;
+            newValue = eintraege.get(eintraege.size() - 1).value + ordering.get(i).i;
             Eintrag eintrag = new Eintrag();
             eintrag.node = ordering.get(i);
             
             eintrag.value = newValue;
-            werte.add(eintrag);
+            eintraege.add(eintrag);
             
         }
 
-//        Integer minBudget = Collections.min(werte);
+//        Integer minBudget = Collections.min(eintraege);
     }
 }

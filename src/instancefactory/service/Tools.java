@@ -66,7 +66,7 @@ public class Tools {
 // kann das weg?
             Graph calculatedGraphOfSortedSells = new Graph(currentPartition, currentPartition.sortedSells);
 
-            currentPartition.setWerte(calculatedGraphOfSortedSells.getWerte());
+            currentPartition.setEintraege(calculatedGraphOfSortedSells.getEintraege());
 
             //----------------  
             k++;
@@ -454,27 +454,27 @@ public class Tools {
         Integer balance = 0;
 
         MyArrayList<MyInteger> newSortedSells = new MyArrayList<>();
-        MyArrayList<Eintrag> currentWerteP1 = new MyArrayList<>();
-        System.out.println("p1.getWerte()" + p1.getWerte());
+        MyArrayList<Eintrag> currentEintraegeP1 = new MyArrayList<>();
+        System.out.println("p1.getEintraege()" + p1.getEintraege());
         Graph calculatedGraphOfSortedSells = new Graph(p1, p1.sortedSells);
-        currentWerteP1 = (MyArrayList<Eintrag>) calculatedGraphOfSortedSells.getWerte().clone();
-//        currentWerteP1 = (MyArrayList<Eintrag>) p1.getWerte().clone();// todo: getEinträge
-        if (currentWerteP1.size() < 1) {
-            System.out.println("currentWerteP1 nach clone" + currentWerteP1);
+        currentEintraegeP1 = (MyArrayList<Eintrag>) calculatedGraphOfSortedSells.getEintraege().clone();
+//        currentEintraegeP1 = (MyArrayList<Eintrag>) p1.getEintraege().clone();// todo: getEinträge
+        if (currentEintraegeP1.size() < 1) {
+            System.out.println("currentEintraegeP1 nach clone" + currentEintraegeP1);
 
         }
-        System.out.println("currentWerteP1 nach clone" + currentWerteP1);
+        System.out.println("currentEintraegeP1 nach clone" + currentEintraegeP1);
 
-        MyArrayList<Eintrag> currentWerteP2 = new MyArrayList<>();
-        System.out.println("p2.getWerte()" + p2.getWerte());
+        MyArrayList<Eintrag> currentEintraegeP2 = new MyArrayList<>();
+        System.out.println("p2.getEintraege()" + p2.getEintraege());
         calculatedGraphOfSortedSells = new Graph(p2, p2.sortedSells);
-        currentWerteP2 = (MyArrayList<Eintrag>) calculatedGraphOfSortedSells.getWerte().clone();
-//        currentWerteP2 = (MyArrayList<Eintrag>) p2.getWerte().clone();
-        if (currentWerteP2.size() < 1) {
-            System.out.println("currentWerteP2 nach clone" + currentWerteP1);
+        currentEintraegeP2 = (MyArrayList<Eintrag>) calculatedGraphOfSortedSells.getEintraege().clone();
+//        currentEintraegeP2 = (MyArrayList<Eintrag>) p2.getEintraege().clone();
+        if (currentEintraegeP2.size() < 1) {
+            System.out.println("currentEintraegeP2 nach clone" + currentEintraegeP1);
 
         }
-        System.out.println("currentWerteP2 nach clone" + currentWerteP2);
+        System.out.println("currentEintraegeP2 nach clone" + currentEintraegeP2);
 
         MyArrayList<MyInteger> s1Rest = new MyArrayList<>();
 //        s1Rest = new MyArrayList<>();
@@ -483,8 +483,8 @@ public class Tools {
         MyArrayList<MyInteger> s2Rest = new MyArrayList<>();
         s2Rest.addAll(p2.sortedSells);
 //----------test
-        System.out.println("currentWerteP1:" + currentWerteP1);
-        System.out.println("currentWerteP2:" + currentWerteP2);
+        System.out.println("currentEintraegeP1:" + currentEintraegeP1);
+        System.out.println("currentEintraegeP2:" + currentEintraegeP2);
         System.out.println("s1Rest:" + s1Rest);
         System.out.println("s2Rest:" + s2Rest);
 //-------------------
@@ -498,8 +498,8 @@ public class Tools {
 //----------test
         System.out.println("Nach fillPositiveSets:");
 
-        System.out.println("currentWerteP1:" + currentWerteP1);
-        System.out.println("currentWerteP2:" + currentWerteP2);
+        System.out.println("currentEintraegeP1:" + currentEintraegeP1);
+        System.out.println("currentEintraegeP2:" + currentEintraegeP2);
         System.out.println("s1Rest:" + s1Rest);
         System.out.println("s2Rest:" + s2Rest);
 //-------------------
@@ -517,17 +517,17 @@ public class Tools {
             //wenn der negative Budgetwert größer ist, ist das Budget ja das Kleinere
             if (p1.positiveSets.get(0).getBudget() > p2.positiveSets.get(0).getBudget()) {//
 
-                positiveSetAbarbeiten(partitio, currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
+                positiveSetAbarbeiten(partitio, currentEintraegeP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
 
             } else ////////////////////////////////////////////////////////////////////////////////
             {
-                positiveSetAbarbeiten(partitio, currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
+                positiveSetAbarbeiten(partitio, currentEintraegeP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
                 System.out.println("Balance : " + balanceHelp.toString());
             }
 //----------test
             System.out.println("Nach positiveSets abarbeiten beide nicht leer:");
-            System.out.println("currentWerteP1:" + currentWerteP1);
-            System.out.println("currentWerteP2:" + currentWerteP2);
+            System.out.println("currentEintraegeP1:" + currentEintraegeP1);
+            System.out.println("currentEintraegeP2:" + currentEintraegeP2);
             System.out.println("s1Rest:" + s1Rest);
             System.out.println("s2Rest:" + s2Rest);
 //-------------------
@@ -535,24 +535,24 @@ public class Tools {
         //////////////////////////////////////////////////////////////////////////////
         while (!(p1.positiveSets.isEmpty())) {
 
-            positiveSetAbarbeiten(partitio, currentWerteP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
+            positiveSetAbarbeiten(partitio, currentEintraegeP1, newSortedSells, p1, s1Rest, budgetHelp, balanceHelp, "s1");
 //----------test
             System.out.println("Balance : " + balanceHelp.toString());
             System.out.println("Nach positiveSets abarbeiten p1 nicht leer:");
-            System.out.println("currentWerteP1:" + currentWerteP1);
-            System.out.println("currentWerteP2:" + currentWerteP2);
+            System.out.println("currentEintraegeP1:" + currentEintraegeP1);
+            System.out.println("currentEintraegeP2:" + currentEintraegeP2);
             System.out.println("s1Rest:" + s1Rest);
             System.out.println("s2Rest:" + s2Rest);
 //-------------------
         }
         //////////////////////////////////////////////////////////////////////////
         while (!(p2.positiveSets.isEmpty())) {
-            positiveSetAbarbeiten(partitio, currentWerteP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
+            positiveSetAbarbeiten(partitio, currentEintraegeP2, newSortedSells, p2, s2Rest, budgetHelp, balanceHelp, "s2");
 //----------test
             System.out.println("Balance : " + balanceHelp.toString());
             System.out.println("Nach positiveSets abarbeiten p2 nicht leer:");
-            System.out.println("currentWerteP1:" + currentWerteP1);
-            System.out.println("currentWerteP2:" + currentWerteP2);
+            System.out.println("currentEintraegeP1:" + currentEintraegeP1);
+            System.out.println("currentEintraegeP2:" + currentEintraegeP2);
             System.out.println("s1Rest:" + s1Rest);
             System.out.println("s2Rest:" + s2Rest);
 //-------------------
@@ -562,37 +562,37 @@ public class Tools {
         /////////////////////////////////////////////////////////////////////////////////////////////////
         while ((!s1Rest.isEmpty()) && (!s2Rest.isEmpty())) {
             // TODO: Das muss jetzt noch in 3 Schleifen solange bis beide SortedSells aufgebraucht sind 
-            int minIndexP1 = getIndexOfMin(currentWerteP1);
-            int minIndexP2 = getIndexOfMin(currentWerteP2);
+            int minIndexP1 = getIndexOfMin(currentEintraegeP1);
+            int minIndexP2 = getIndexOfMin(currentEintraegeP2);
 
-            Integer minWertP1 = currentWerteP1.get(minIndexP1).value;
-            Integer minWertP2 = currentWerteP2.get(minIndexP2).value;
-            MyArrayList<Eintrag> abschnitt1 = getArrayAbschnitt(currentWerteP1, minIndexP1, currentWerteP1.size() - 1);
+            Integer minWertP1 = currentEintraegeP1.get(minIndexP1).value;
+            Integer minWertP2 = currentEintraegeP2.get(minIndexP2).value;
+            MyArrayList<Eintrag> abschnitt1 = getArrayAbschnitt(currentEintraegeP1, minIndexP1, currentEintraegeP1.size() - 1);
             int help = getIndexOfMax(abschnitt1);
             System.out.println("help : " + help);
             int maxIndexP1 = help + minIndexP1;//Indizes werden addiert                                     
 
-            MyArrayList<Eintrag> abschnitt2 = getArrayAbschnitt(currentWerteP2, minIndexP2, currentWerteP2.size() - 1);
+            MyArrayList<Eintrag> abschnitt2 = getArrayAbschnitt(currentEintraegeP2, minIndexP2, currentEintraegeP2.size() - 1);
             int maxIndexP2 = getIndexOfMax(abschnitt2) + minIndexP2;//warum hier 1 addiert werden muss ist schleierhaft, aber der wird ist immer ienen Index höher
 
-            if (!p2.sortedSells.contains(currentWerteP2.get(maxIndexP2).node)) {
+            if (!p2.sortedSells.contains(currentEintraegeP2.get(maxIndexP2).node)) {
                 System.out.println("p2.sortedSells" + p2.sortedSells);
-                System.out.println("node" + currentWerteP2.get(maxIndexP2).node);
+                System.out.println("node" + currentEintraegeP2.get(maxIndexP2).node);
                 System.out.println("index" + maxIndexP2);
 
                 System.out.println("nein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             }
-//            if (!s1Rest.contains(currentWerteP1.get(maxIndexP1).node)) {
+//            if (!s1Rest.contains(currentEintraegeP1.get(maxIndexP1).node)) {
 //
 //                System.out.println("nein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //            }
-            Integer maxWertP1 = currentWerteP1.get(maxIndexP1).value;
-            Integer maxWertP2 = currentWerteP2.get(maxIndexP2).value;
+            Integer maxWertP1 = currentEintraegeP1.get(maxIndexP1).value;
+            Integer maxWertP2 = currentEintraegeP2.get(maxIndexP2).value;
 
             //----------test
             System.out.println("Nach min und max:");
-            System.out.println("currentWerteP1:" + currentWerteP1);
-            System.out.println("currentWerteP2:" + currentWerteP2);
+            System.out.println("currentEintraegeP1:" + currentEintraegeP1);
+            System.out.println("currentEintraegeP2:" + currentEintraegeP2);
             System.out.println("s1Rest:" + s1Rest);
             System.out.println("s2Rest:" + s2Rest);
 //-------------------
@@ -603,27 +603,27 @@ public class Tools {
 
                 System.out.println("zuerst die 1. Partition");
                 MyArrayList<MyInteger> test = new MyArrayList<>();
-                for (int i = 0; i < currentWerteP1.size(); i++) {
-                    test.add(currentWerteP1.get(i).node);
+                for (int i = 0; i < currentEintraegeP1.size(); i++) {
+                    test.add(currentEintraegeP1.get(i).node);
                 }
                 //TODO: ändern
                 if (!(test.containsAll(s1Rest))) {
                     System.out.println("da stimmts nicht mehr");
                 }
-                System.out.println("currentWerteP1 : " + currentWerteP1);
+                System.out.println("currentEintraegeP1 : " + currentEintraegeP1);
                 //hier wird es nicht richtig berechnet, der node ist gar nicht drinin s1Rest
-                MyArrayList<Eintrag> abschnitt = getWerteBisNodeInclusive(currentWerteP1, currentWerteP1.get(maxIndexP1).node);
-                if (partitio.getWerte() == null) {
+                MyArrayList<Eintrag> abschnitt = getEintraegeBisNodeInclusive(currentEintraegeP1, currentEintraegeP1.get(maxIndexP1).node);
+                if (partitio.getEintraege() == null) {
                     MyArrayList<Eintrag> neuerabschnitt = new MyArrayList<>();
                     neuerabschnitt.addAll(abschnitt);
-                    partitio.setWerte(neuerabschnitt);
+                    partitio.setEintraege(neuerabschnitt);
                 } else {
-                    MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
+                    MyArrayList<Eintrag> neuerabschnitt = partitio.getEintraege();
                     neuerabschnitt.addAll(abschnitt);
-                    partitio.setWerte(neuerabschnitt);
+                    partitio.setEintraege(neuerabschnitt);
 
                 }
-                MyArrayList<MyInteger> anfangsAbschnittS1 = getAbschnittBisNode(s1Rest, currentWerteP1.get(maxIndexP1).node, "s1");
+                MyArrayList<MyInteger> anfangsAbschnittS1 = getAbschnittBisNode(s1Rest, currentEintraegeP1.get(maxIndexP1).node, "s1");
                 newSortedSells.addAll(anfangsAbschnittS1);
                 s1Rest.removeAll(anfangsAbschnittS1);
 
@@ -633,40 +633,40 @@ public class Tools {
                 System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
                 System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
 
-                System.out.println("currentWerteP1 nach Shift um " + maxWertP1 + "wegen Teil vom Rest verarbeitet ist" + currentWerteP1);
-                currentWerteP1 = shift(currentWerteP1, maxWertP1, " p1 ");//Ausgleichsshift
-                System.out.println("currentWerteP1 nach Ausgleichsshift um " + maxWertP1 + "ist" + currentWerteP1);
+                System.out.println("currentEintraegeP1 nach Shift um " + maxWertP1 + "wegen Teil vom Rest verarbeitet ist" + currentEintraegeP1);
+                currentEintraegeP1 = shift(currentEintraegeP1, maxWertP1, " p1 ");//Ausgleichsshift
+                System.out.println("currentEintraegeP1 nach Ausgleichsshift um " + maxWertP1 + "ist" + currentEintraegeP1);
 
-                currentWerteP1 = getArrayAbschnitt(currentWerteP1, maxIndexP1 + 1, currentWerteP1.size() - 1);
+                currentEintraegeP1 = getArrayAbschnitt(currentEintraegeP1, maxIndexP1 + 1, currentEintraegeP1.size() - 1);
             } ///////////////////////////////////////////////////////////
             else {
                 System.out.println("zuerst die 2. Partition");
 
-                System.out.println("currentWerteP2" + currentWerteP2);
+                System.out.println("currentEintraegeP2" + currentEintraegeP2);
                 //ASSERTION
 
                 MyArrayList<MyInteger> test = new MyArrayList<>();
-                for (int i = 0; i < currentWerteP2.size(); i++) {
-                    test.add(currentWerteP2.get(i).node);
+                for (int i = 0; i < currentEintraegeP2.size(); i++) {
+                    test.add(currentEintraegeP2.get(i).node);
                 }
                 //TODO: ändern
                 if (!(test.containsAll(s2Rest))) {
                     System.out.println("da stimmts nicht mehr");
                 }
 
-                MyArrayList<Eintrag> abschnitt = getWerteBisNodeInclusive(currentWerteP2, currentWerteP2.get(maxIndexP2).node);
-                if (partitio.getWerte() == null) {
+                MyArrayList<Eintrag> abschnitt = getEintraegeBisNodeInclusive(currentEintraegeP2, currentEintraegeP2.get(maxIndexP2).node);
+                if (partitio.getEintraege() == null) {
                     MyArrayList<Eintrag> neuerabschnitt = new MyArrayList<>();
                     neuerabschnitt.addAll(abschnitt);
-                    partitio.setWerte(neuerabschnitt);
+                    partitio.setEintraege(neuerabschnitt);
                 } else {
-                    MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
+                    MyArrayList<Eintrag> neuerabschnitt = partitio.getEintraege();
                     neuerabschnitt.addAll(abschnitt);
-                    partitio.setWerte(neuerabschnitt);
+                    partitio.setEintraege(neuerabschnitt);
 
                 }
 
-                MyArrayList<MyInteger> anfangsAbschnittS2 = getAbschnittBisNode(s2Rest, currentWerteP2.get(maxIndexP2).node, "s2");
+                MyArrayList<MyInteger> anfangsAbschnittS2 = getAbschnittBisNode(s2Rest, currentEintraegeP2.get(maxIndexP2).node, "s2");
                 newSortedSells.addAll(anfangsAbschnittS2);
                 s2Rest.removeAll(anfangsAbschnittS2);
 
@@ -676,33 +676,33 @@ public class Tools {
                 System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
                 System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
 
-                currentWerteP2 = getArrayAbschnitt(currentWerteP2, maxIndexP2 + 1, currentWerteP2.size() - 1);
-                currentWerteP2 = shift(currentWerteP2, maxWertP2, " p2 ");//Ausgleichsshift
-                System.out.println("currentWerteP2 nach Ausgleichsshift um " + maxWertP2 + "ist" + currentWerteP2);
+                currentEintraegeP2 = getArrayAbschnitt(currentEintraegeP2, maxIndexP2 + 1, currentEintraegeP2.size() - 1);
+                currentEintraegeP2 = shift(currentEintraegeP2, maxWertP2, " p2 ");//Ausgleichsshift
+                System.out.println("currentEintraegeP2 nach Ausgleichsshift um " + maxWertP2 + "ist" + currentEintraegeP2);
             }
         }
 /////////////////////////////////////////////////////////////////////
         while (!(s1Rest.isEmpty())) {
             System.out.println("Jetzt noch der Rest non S 1 ");
 
-            int minIndexP1 = getIndexOfMin(currentWerteP1);
-            Integer minWertP1 = currentWerteP1.get(minIndexP1).value;
-            Integer endWertP1 = currentWerteP1.get(currentWerteP1.size() - 1).value;
+            int minIndexP1 = getIndexOfMin(currentEintraegeP1);
+            Integer minWertP1 = currentEintraegeP1.get(minIndexP1).value;
+            Integer endWertP1 = currentEintraegeP1.get(currentEintraegeP1.size() - 1).value;
             budget = Integer.min(balance + minWertP1, budget);
             balance = balance + endWertP1;
 
             System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
             System.out.println("Budget                           !!!!!!!!!!!!!!!         "
                     + "                      :  " + budget);
-            if (partitio.getWerte() == null) {
+            if (partitio.getEintraege() == null) {
                 MyArrayList<Eintrag> neuerabschnitt = new MyArrayList<>();
-                neuerabschnitt.addAll(currentWerteP1);
-                partitio.setWerte(neuerabschnitt);
+                neuerabschnitt.addAll(currentEintraegeP1);
+                partitio.setEintraege(neuerabschnitt);
 
             } else {
-                MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
-                neuerabschnitt.addAll(currentWerteP1);
-                partitio.setWerte(neuerabschnitt);
+                MyArrayList<Eintrag> neuerabschnitt = partitio.getEintraege();
+                neuerabschnitt.addAll(currentEintraegeP1);
+                partitio.setEintraege(neuerabschnitt);
             }
             newSortedSells.addAll(s1Rest);
 
@@ -711,23 +711,23 @@ public class Tools {
 //////////////////////////////////////////////////////////////////////////
         while (!(s2Rest.isEmpty())) {
             System.out.println("Jetzt noch der Rest non S 2 ");
-            int minIndexP2 = getIndexOfMin(currentWerteP2);
-            Integer minWertP2 = currentWerteP2.get(minIndexP2).value;
-            Integer endWertP2 = currentWerteP2.get(currentWerteP2.size() - 1).value;
+            int minIndexP2 = getIndexOfMin(currentEintraegeP2);
+            Integer minWertP2 = currentEintraegeP2.get(minIndexP2).value;
+            Integer endWertP2 = currentEintraegeP2.get(currentEintraegeP2.size() - 1).value;
             budget = Integer.min(balance + minWertP2, budget);
             balance = balance + endWertP2;
 
             System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
             System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
-            if (partitio.getWerte() == null) {
+            if (partitio.getEintraege() == null) {
 
                 MyArrayList<Eintrag> neuerabschnitt = new MyArrayList<>();
-                neuerabschnitt.addAll(currentWerteP2);
-                partitio.setWerte(neuerabschnitt);
+                neuerabschnitt.addAll(currentEintraegeP2);
+                partitio.setEintraege(neuerabschnitt);
             } else {
-                MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
-                neuerabschnitt.addAll(currentWerteP1);
-                partitio.setWerte(neuerabschnitt);
+                MyArrayList<Eintrag> neuerabschnitt = partitio.getEintraege();
+                neuerabschnitt.addAll(currentEintraegeP1);
+                partitio.setEintraege(neuerabschnitt);
             }
             newSortedSells.addAll(s2Rest);
             s2Rest.removeAll(s2Rest);
@@ -879,18 +879,18 @@ public class Tools {
         partition.setBalance(newBalance);
 //        System.out.println(p.toString());
 // todo:  Fehler hier?
-        //        partition.getCalculatedGraphOfSortedSells().addWerte(p2.getCalculatedGraphOfSortedSells().getWerte());
-//        adjacencyList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getWerte(),p2.balance);
-//        partition.getCalculatedGraphOfSortedSells().addWerte(shiftList);
+        //        partition.getCalculatedGraphOfSortedSells().addEintraege(p2.getCalculatedGraphOfSortedSells().getEintraege());
+//        adjacencyList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getEintraege(),p2.balance);
+//        partition.getCalculatedGraphOfSortedSells().addEintraege(shiftList);
 
-        MyArrayList neueWerte = new MyArrayList<>();
-        neueWerte.addAll(p2.getWerte());
-        System.out.println("shiftList vor shift um - balance" + -p2.getBalance() + "wegen Join ist" + p1.getWerte());
-        MyArrayList<Eintrag> shiftList = shift(p1.getWerte(), -p2.getBalance(), " p1 ");//Addiershift
+        MyArrayList neueEintraege = new MyArrayList<>();
+        neueEintraege.addAll(p2.getEintraege());
+        System.out.println("shiftList vor shift um - balance" + -p2.getBalance() + "wegen Join ist" + p1.getEintraege());
+        MyArrayList<Eintrag> shiftList = shift(p1.getEintraege(), -p2.getBalance(), " p1 ");//Addiershift
         System.out.println("shiftList nach shift um - balance" + -p2.getBalance() + "wegen Join ist" + shiftList);
 
-        neueWerte.addAll(shiftList);
-        partition.setWerte(neueWerte);
+        neueEintraege.addAll(shiftList);
+        partition.setEintraege(neueEintraege);
 
         //ASSERTION
         if (!partition.orderingFitsBudget()) {
@@ -997,9 +997,9 @@ public class Tools {
             PrintWriter pr = new PrintWriter(file2);
             pr.println(0);
 
-            for (int j = 0; j < currentGraph.getWerte().size(); j++) {
+            for (int j = 0; j < currentGraph.getEintraege().size(); j++) {
 
-                pr.println(currentGraph.getWerte().get(j).value);
+                pr.println(currentGraph.getEintraege().get(j).value);
             }
 
             pr.close();
@@ -1184,7 +1184,7 @@ public class Tools {
 
     }
 
-    MyArrayList<Eintrag> getWerteBisNodeExclusive(MyArrayList<Eintrag> list, MyInteger node) {
+    MyArrayList<Eintrag> getEintraegeBisNodeExclusive(MyArrayList<Eintrag> list, MyInteger node) {
 
         MyArrayList<Eintrag> newList = new MyArrayList<>();
         int k = 0;
@@ -1198,7 +1198,7 @@ public class Tools {
         return newList;
     }
 
-    MyArrayList<Eintrag> getWerteBisNodeInclusive(MyArrayList<Eintrag> list, MyInteger node) {
+    MyArrayList<Eintrag> getEintraegeBisNodeInclusive(MyArrayList<Eintrag> list, MyInteger node) {
 
         MyArrayList<Eintrag> newList = new MyArrayList<>();
         int k = 0;
@@ -1231,12 +1231,12 @@ public class Tools {
         return newList;
     }
 
-    public void positiveSetAbarbeiten(Partition partitio, MyArrayList<Eintrag> currentWertePx,
+    public void positiveSetAbarbeiten(Partition partitio, MyArrayList<Eintrag> currentEintraegePx,
             MyArrayList<MyInteger> newSortedSells, Partition p, MyArrayList<MyInteger> sRest, IntegerOut budget,
             IntegerOut balance, String id) {
 //        adjacencyList<MyInteger> test = new adjacencyList<>();
-//        for (int laufindexBisMaxKnotenAnzahl = 0; laufindexBisMaxKnotenAnzahl < currentWerte.size(); laufindexBisMaxKnotenAnzahl++) {
-//            test.add(currentWerte.get(laufindexBisMaxKnotenAnzahl).node);
+//        for (int laufindexBisMaxKnotenAnzahl = 0; laufindexBisMaxKnotenAnzahl < currentEintraege.size(); laufindexBisMaxKnotenAnzahl++) {
+//            test.add(currentEintraege.get(laufindexBisMaxKnotenAnzahl).node);
 //        }
 //        if (!(test.containsAll(sRest))) {
 //            System.out.println("da stimmts schon am Anfang nicht ");
@@ -1251,29 +1251,29 @@ public class Tools {
             sRest.remove(currentSell);
 //                    System.out.println("S1Rest: " + s1Rest.toString());
 
-            MyArrayList<Eintrag> abschnitt = getWerteBisNodeInclusive(currentWertePx, currentSell);
-            if (partitio.getWerte() == null) {
+            MyArrayList<Eintrag> abschnitt = getEintraegeBisNodeInclusive(currentEintraegePx, currentSell);
+            if (partitio.getEintraege() == null) {
                 MyArrayList<Eintrag> neuerabschnitt = new MyArrayList<>();
                 neuerabschnitt.addAll(abschnitt);
-                partitio.setWerte(neuerabschnitt);
+                partitio.setEintraege(neuerabschnitt);
             } else {
-                MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
+                MyArrayList<Eintrag> neuerabschnitt = partitio.getEintraege();
                 neuerabschnitt.addAll(abschnitt);
-                partitio.setWerte(neuerabschnitt);
+                partitio.setEintraege(neuerabschnitt);
 
             }
-            currentWertePx.removeAll(getWerteBisNodeInclusive(currentWertePx, currentSell));
+            currentEintraegePx.removeAll(getEintraegeBisNodeInclusive(currentEintraegePx, currentSell));
 
         }
 
         // Macht das das was es soll? JA
-        currentWertePx = shift(currentWertePx, currentPositiveSet.getBalance(), " p ");
-        System.out.println("currentWerte " + id + " nach shift um" + currentPositiveSet.getBalance() + "wegen positive set abarbeiten ist" + currentWertePx);
+        currentEintraegePx = shift(currentEintraegePx, currentPositiveSet.getBalance(), " p ");
+        System.out.println("currentEintraege " + id + " nach shift um" + currentPositiveSet.getBalance() + "wegen positive set abarbeiten ist" + currentEintraegePx);
         // Macht das das was es soll?
         //ASSERTION
 //        test = new adjacencyList<>();
-//        for (int laufindexBisMaxKnotenAnzahl = 0; laufindexBisMaxKnotenAnzahl < currentWerte.size(); laufindexBisMaxKnotenAnzahl++) {
-//            test.add(currentWerte.get(laufindexBisMaxKnotenAnzahl).node);
+//        for (int laufindexBisMaxKnotenAnzahl = 0; laufindexBisMaxKnotenAnzahl < currentEintraege.size(); laufindexBisMaxKnotenAnzahl++) {
+//            test.add(currentEintraege.get(laufindexBisMaxKnotenAnzahl).node);
 //        }
 //        if (!(test.containsAll(sRest))) {
 //            System.out.println("da stimmts nicht mehr. Manche ");

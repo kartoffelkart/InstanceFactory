@@ -41,7 +41,7 @@ public class Partition {
     private Integer budget;
     private Integer balance ;
 //    private Graph calculatedGraphOfSortedSells;
-    private MyArrayList<Eintrag> werte;
+    private MyArrayList<Eintrag> eintraege;
 
     
     public MyArrayList<Integer> sumBoughts;
@@ -150,10 +150,10 @@ public class Partition {
 //}
     /**
      * füllt die lange Liste dert balanceBoughtsBudgetOfSetUpToIndex rekursiv
-     * aus den Werten von Index-1
+     * aus den Eintraegen von Index-1
      *
      *
-     * @param index Index für den die Werte gerade dynamisch in die Tabelle
+     * @param index Index für den die Eintraege gerade dynamisch in die Tabelle
      * eingetragen werden
      */
     public void setValueOfBalanceBoughtsBudgetOfSet(int index) {
@@ -183,11 +183,11 @@ public class Partition {
             int lastBalance = (balanceBoughtsBudgetOfSetUpToIndex.get(index - 1)).getBalance();
             int lastBoughts = (balanceBoughtsBudgetOfSetUpToIndex.get(index - 1)).getBoughts();
             int lastBudget = (balanceBoughtsBudgetOfSetUpToIndex.get(index - 1)).getBudget();
-            //-----------------------------------------------------hier wird balance rekursiv aus den Werten von Index-1 berechnet
+            //-----------------------------------------------------hier wird balance rekursiv aus den Eintraegen von Index-1 berechnet
 
             balance = lastBalance
                     - sumNewBoughts + sortedSells.get(index).i;
-            //-----------------------------------------------------hier wird budget  rekursiv aus den Werten von Index-1 berechnet
+            //-----------------------------------------------------hier wird budget  rekursiv aus den Eintraegen von Index-1 berechnet
 
             budget = Integer.min(lastBudget, lastBalance - sumNewBoughts);
 
@@ -302,12 +302,12 @@ public class Partition {
 //    public void setCalculatedGraphOfSortedSells() {
 //        this.calculatedGraphOfSortedSells = new Graph(this, sortedSells);
 //}
-    public MyArrayList<Eintrag> getWerte() {
-        if (this.werte == null) {
+    public MyArrayList<Eintrag> getEintraege() {
+        if (this.eintraege == null) {
             Graph calculatedGraphOfSortedSells = new Graph(this, sortedSells);
-            werte = calculatedGraphOfSortedSells.getWerte();
+            eintraege = calculatedGraphOfSortedSells.getEintraege();
         }
-        return werte;
+        return eintraege;
     }
 
     public MyArrayList<Integer> getSumBoughts() {
@@ -359,14 +359,14 @@ public class Partition {
 //
 //    private adjacencyList<Partition> calculatePositiveSetsList() {
 //        adjacencyList<Partition> newPositiveSetsList = new adjacencyList<>();
-//for(int i = 0;i<werte.size();i++){
-//if(werte.get(i).value >0){
+//for(int i = 0;i<eintraege.size();i++){
+//if(eintraege.get(i).value >0){
 // 
 //Partition positiveMinimalSet = new Partition();
 //// todo: die AllreadyBought müssen entfernt werden
 // adjacencyList<MyInteger> newBoughts = new adjacencyList<>();
 //int m = 0; m++) {
-//      while( ! werte.get(i).node==sortedSells.get(m-1)){
+//      while( ! eintraege.get(i).node==sortedSells.get(m-1)){
 //     newBoughts.addAll(sortedSells.get(m).g)
 //      m++;    
 // }
@@ -382,7 +382,7 @@ public class Partition {
 //
 ////-----------
 //positiveMinimalSet.adjacencyList= (adjacencyList<MyArrayList<MyInteger>>)getArrayAbschnitt(adjacencyList, 0, i);
-//positiveMinimalSet.werte=getArrayAbschnitt(werte, i, j)
+//positiveMinimalSet.eintraege=getArrayAbschnitt(eintraege, i, j)
 //}
 //
 //
@@ -408,7 +408,7 @@ public class Partition {
         if (this.balance == null) {
 
             Graph calculatedGraphOfSortedSells = new Graph(this, sortedSells);
-            balance = calculatedGraphOfSortedSells.getWerte().get(calculatedGraphOfSortedSells.getWerte().size()-1).value;
+            balance = calculatedGraphOfSortedSells.getEintraege().get(calculatedGraphOfSortedSells.getEintraege().size()-1).value;
         }
 
         return balance;
@@ -417,7 +417,7 @@ public class Partition {
     public void setBalance(Integer balance) {
         this.balance = balance;
     }
-    public void setWerte(MyArrayList<Eintrag> werte) {
-        this.werte = werte;
+    public void setEintraege(MyArrayList<Eintrag> eintraege) {
+        this.eintraege = eintraege;
     }
 }

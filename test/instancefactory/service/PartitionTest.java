@@ -124,14 +124,14 @@ public class PartitionTest {
     }
 
     /**
-     * Test of getWerte method, of class Partition.
+     * Test of getEintraege method, of class Partition.
      */
     @Test
-    public void testGetWerte() {
-        System.out.println("getWerte");
+    public void testGetEintraege() {
+        System.out.println("getEintraege");
         Partition instance = new Partition();
         MyArrayList<Eintrag> expResult = null;
-        MyArrayList<Eintrag> result = instance.getWerte();
+        MyArrayList<Eintrag> result = instance.getEintraege();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
