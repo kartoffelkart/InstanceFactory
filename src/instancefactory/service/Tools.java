@@ -456,12 +456,24 @@ public class Tools {
         MyArrayList<MyInteger> newSortedSells = new MyArrayList<>();
         MyArrayList<Eintrag> currentWerteP1 = new MyArrayList<>();
         System.out.println("p1.getWerte()" + p1.getWerte());
-        currentWerteP1 = (MyArrayList<Eintrag>) p1.getWerte().clone();// todo: getEinträge
+        Graph calculatedGraphOfSortedSells = new Graph(p1, p1.sortedSells);
+        currentWerteP1 = (MyArrayList<Eintrag>) calculatedGraphOfSortedSells.getWerte().clone();
+//        currentWerteP1 = (MyArrayList<Eintrag>) p1.getWerte().clone();// todo: getEinträge
+        if (currentWerteP1.size() < 1) {
+            System.out.println("currentWerteP1 nach clone" + currentWerteP1);
+
+        }
         System.out.println("currentWerteP1 nach clone" + currentWerteP1);
 
         MyArrayList<Eintrag> currentWerteP2 = new MyArrayList<>();
         System.out.println("p2.getWerte()" + p2.getWerte());
-        currentWerteP2 = (MyArrayList<Eintrag>) p2.getWerte().clone();
+        calculatedGraphOfSortedSells = new Graph(p2, p2.sortedSells);
+        currentWerteP2 = (MyArrayList<Eintrag>) calculatedGraphOfSortedSells.getWerte().clone();
+//        currentWerteP2 = (MyArrayList<Eintrag>) p2.getWerte().clone();
+        if (currentWerteP2.size() < 1) {
+            System.out.println("currentWerteP2 nach clone" + currentWerteP1);
+
+        }
         System.out.println("currentWerteP2 nach clone" + currentWerteP2);
 
         MyArrayList<MyInteger> s1Rest = new MyArrayList<>();
