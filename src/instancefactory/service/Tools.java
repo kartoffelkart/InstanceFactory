@@ -602,7 +602,9 @@ public class Tools {
                 //hier wird es nicht richtig berechnet, der node ist gar nicht drinin s1Rest
                 MyArrayList<Eintrag> abschnitt = getWerteBisNodeInclusive(currentWerteP1, currentWerteP1.get(maxIndexP1).node);
                 if (partitio.getWerte() == null) {
-                    partitio.setWerte(abschnitt);
+                    MyArrayList<Eintrag> neuerabschnitt = new MyArrayList<>();
+                    neuerabschnitt.addAll(abschnitt);
+                    partitio.setWerte(neuerabschnitt);
                 } else {
                     MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
                     neuerabschnitt.addAll(abschnitt);
@@ -642,7 +644,9 @@ public class Tools {
 
                 MyArrayList<Eintrag> abschnitt = getWerteBisNodeInclusive(currentWerteP2, currentWerteP2.get(maxIndexP2).node);
                 if (partitio.getWerte() == null) {
-                    partitio.setWerte(abschnitt);
+                    MyArrayList<Eintrag> neuerabschnitt = new MyArrayList<>();
+                    neuerabschnitt.addAll(abschnitt);
+                    partitio.setWerte(neuerabschnitt);
                 } else {
                     MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
                     neuerabschnitt.addAll(abschnitt);
@@ -679,7 +683,10 @@ public class Tools {
             System.out.println("Budget                           !!!!!!!!!!!!!!!         "
                     + "                      :  " + budget);
             if (partitio.getWerte() == null) {
-                partitio.setWerte(currentWerteP1);
+                MyArrayList<Eintrag> neuerabschnitt = new MyArrayList<>();
+                neuerabschnitt.addAll(currentWerteP1);
+                partitio.setWerte(neuerabschnitt);
+
             } else {
                 MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
                 neuerabschnitt.addAll(currentWerteP1);
@@ -701,7 +708,10 @@ public class Tools {
             System.out.println("Balance                           !!!!!!!!!!!!!!!                               :  " + balance);
             System.out.println("Budget                           !!!!!!!!!!!!!!!                               :  " + budget);
             if (partitio.getWerte() == null) {
-                partitio.setWerte(currentWerteP2);
+
+                MyArrayList<Eintrag> neuerabschnitt = new MyArrayList<>();
+                neuerabschnitt.addAll(currentWerteP2);
+                partitio.setWerte(neuerabschnitt);
             } else {
                 MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
                 neuerabschnitt.addAll(currentWerteP1);
@@ -1231,7 +1241,9 @@ public class Tools {
 
             MyArrayList<Eintrag> abschnitt = getWerteBisNodeInclusive(currentWertePx, currentSell);
             if (partitio.getWerte() == null) {
-                partitio.setWerte(abschnitt);
+                MyArrayList<Eintrag> neuerabschnitt = new MyArrayList<>();
+                neuerabschnitt.addAll(abschnitt);
+                partitio.setWerte(neuerabschnitt);
             } else {
                 MyArrayList<Eintrag> neuerabschnitt = partitio.getWerte();
                 neuerabschnitt.addAll(abschnitt);
