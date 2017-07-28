@@ -80,8 +80,8 @@ public class InstanceFactory {
 
         String dateiname = "test";
         min = 1;
-        max = 20;
-        Integer maxKnotenAnzahl = 10;
+        max = 30;
+        Integer maxKnotenAnzahl = 15;
         Integer schrittlaenge = 2;
         Integer pool = 5;
 

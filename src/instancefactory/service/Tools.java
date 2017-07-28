@@ -100,7 +100,7 @@ public class Tools {
 
             Partition partitionB = partitions.get(indi);
 //-----------------------------------------------------------------------------------------
-        //   BUILD RANDOM INSTANCE ----------------------------------------------------       
+            //   BUILD RANDOM INSTANCE ----------------------------------------------------       
 //        while (partitions.size() > 1) {
 //            Partition partition = new Partition();
 //            Partition partitionA = new Partition();
@@ -950,23 +950,35 @@ public class Tools {
             for (int laufindexBisMaxKnotenAnzahl = 2; laufindexBisMaxKnotenAnzahl < maxKnotenAnzahl; laufindexBisMaxKnotenAnzahl += schrittlaenge) {// todo: kein +10 ??????
                 double mittelwertSwap = 0;
                 double mittelwertSortedSells = 0;
+                double out = 0;
                 prX.println(laufindexBisMaxKnotenAnzahl);
 
+//                for (int count = 0; count < pool; count++) {
+//
+//                    instance = buildInstance(min, max, laufindexBisMaxKnotenAnzahl);
+//
+//                    Graph newGraph = new Graph(instance, randomOrdering);
+//                    newGraph = getGraphHeuristik(newGraph, "swap");
+//
+////                prY.println(sumOfBoughts/instance.minBudgetSwap);
+//                    mittelwertSortedSells = mittelwertSortedSells + instance.getBudget();
+//                    mittelwertSwap = mittelwertSwap + instance.minBudgetSwap;
+//                    System.out.println("test" + instance.minBudgetSwap);
+//                }
+//                mittelwertSwap = mittelwertSwap / pool;
+//                mittelwertSortedSells = mittelwertSortedSells / pool;
+//                prY.println(mittelwertSortedSells / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
                 for (int count = 0; count < pool; count++) {
-
                     instance = buildInstance(min, max, laufindexBisMaxKnotenAnzahl);
-
                     Graph newGraph = new Graph(instance, randomOrdering);
                     newGraph = getGraphHeuristik(newGraph, "swap");
-
-//                prY.println(sumOfBoughts/instance.minBudgetSwap);
-                    mittelwertSortedSells = mittelwertSortedSells + instance.getBudget();
-                    mittelwertSwap = mittelwertSwap + instance.minBudgetSwap;
-                    System.out.println("test" + instance.minBudgetSwap);
+                    double currentOut = instance.getBudget() / instance.minBudgetSwap;
+                    if (currentOut > 1) {
+                        System.err.println("falsch berechnet: sorted sells schlechter als swap");
+                    }
+                    out = out + currentOut;
                 }
-                mittelwertSwap = mittelwertSwap / pool;
-                mittelwertSortedSells = mittelwertSortedSells / pool;
-                prY.println(mittelwertSortedSells / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
+                prY.println(out / pool);// todo: hier können wir Wert für Statistik ändern
 //                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
             }
