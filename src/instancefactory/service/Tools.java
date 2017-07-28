@@ -459,10 +459,10 @@ public class Tools {
         Graph calculatedGraphOfSortedSells = new Graph(p1, p1.sortedSells);
         currentEintraegeP1 = (MyArrayList<Eintrag>) calculatedGraphOfSortedSells.getEintraege().clone();
 //        currentEintraegeP1 = (MyArrayList<Eintrag>) p1.getEintraege().clone();// todo: getEinträge
-        if (currentEintraegeP1.size() < 1) {
-            System.out.println("currentEintraegeP1 nach clone" + currentEintraegeP1);
-
-        }
+//        if (currentEintraegeP1.size() < 1) {
+//            System.out.println("currentEintraegeP1 nach clone" + currentEintraegeP1);
+//
+//        }
         System.out.println("currentEintraegeP1 nach clone" + currentEintraegeP1);
 
         MyArrayList<Eintrag> currentEintraegeP2 = new MyArrayList<>();
@@ -470,10 +470,10 @@ public class Tools {
         calculatedGraphOfSortedSells = new Graph(p2, p2.sortedSells);
         currentEintraegeP2 = (MyArrayList<Eintrag>) calculatedGraphOfSortedSells.getEintraege().clone();
 //        currentEintraegeP2 = (MyArrayList<Eintrag>) p2.getEintraege().clone();
-        if (currentEintraegeP2.size() < 1) {
-            System.out.println("currentEintraegeP2 nach clone" + currentEintraegeP1);
-
-        }
+//        if (currentEintraegeP2.size() < 1) {
+//            System.out.println("currentEintraegeP2 nach clone" + currentEintraegeP1);
+//
+//        }
         System.out.println("currentEintraegeP2 nach clone" + currentEintraegeP2);
 
         MyArrayList<MyInteger> s1Rest = new MyArrayList<>();
