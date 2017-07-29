@@ -33,8 +33,8 @@ public class Tools {
 //    public MyArrayList<MyInteger> s1Rest;
 
     public MyArrayList<Partition> makeBasicPartitions(int min, int max, int size) {
-        MyArrayList<MyInteger> randomMyIntMyArrayList = this.getDeterministicMyIntArray();
-//        MyArrayList<MyInteger> randomMyIntMyArrayList = this.getRandomMyIntArray(min, max, size);
+//        MyArrayList<MyInteger> randomMyIntMyArrayList = this.getDeterministicMyIntArray();
+       MyArrayList<MyInteger> randomMyIntMyArrayList = this.getRandomMyIntArray(min, max, size);
 
         MyArrayList<Partition> partitions = new MyArrayList<>();
         MyInteger currentRandom;
@@ -90,32 +90,32 @@ public class Tools {
     public void buildInstanceOnBasicPartitions(MyArrayList<Partition> partitions, int unionProbability, int leftJoinProbability, int rightJoinProbability) {
 
 // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
-        while ((partitions.size()) > 1) {
-            Integer indi = 0;//das muss hier rein wir betrachten immer die Partitions an Indize 0 und 1 in Partitions
-
-            Partition partition = new Partition();
-
-            Partition partitionA = partitions.get(indi);
-            indi++;
-
-            Partition partitionB = partitions.get(indi);
+//        while ((partitions.size()) > 1) {
+//            Integer indi = 0;//das muss hier rein wir betrachten immer die Partitions an Indize 0 und 1 in Partitions
+//
+//            Partition partition = new Partition();
+//
+//            Partition partitionA = partitions.get(indi);
+//            indi++;
+//
+//            Partition partitionB = partitions.get(indi);
 //-----------------------------------------------------------------------------------------
             //   BUILD RANDOM INSTANCE ----------------------------------------------------       
-//        while (partitions.size() > 1) {
-//            Partition partition = new Partition();
-//            Partition partitionA = new Partition();
-//            partitionA = this.getRandomPartitionDueToProbality(partitions);
-//            System.out.println("partitionA: " + partitionA.toString() + "\n");
-//
-//            Partition partitionB = new Partition();
-//            partitionB = this.getRandomPartitionDueToProbality(partitions);
-//            System.out.println("partitionB: " + partitionB.toString() + "\n");
-//
-//            while (partitionA == partitionB) {
-//                partitionB = this.getRandomPartitionDueToProbality(partitions);
-//                System.out.println("partitionB: " + partitionB.toString() + "\n");
-//
-//            }
+        while (partitions.size() > 1) {
+            Partition partition = new Partition();
+            Partition partitionA = new Partition();
+            partitionA = this.getRandomPartitionDueToProbality(partitions);
+            System.out.println("partitionA: " + partitionA.toString() + "\n");
+
+            Partition partitionB = new Partition();
+            partitionB = this.getRandomPartitionDueToProbality(partitions);
+            System.out.println("partitionB: " + partitionB.toString() + "\n");
+
+            while (partitionA == partitionB) {
+                partitionB = this.getRandomPartitionDueToProbality(partitions);
+                System.out.println("partitionB: " + partitionB.toString() + "\n");
+
+            }
             //---------------------------------------------------------------------------------
             partition = this.makePartition(partitionA, partitionB, unionProbability, leftJoinProbability, rightJoinProbability);//size 0 ???
             System.out.println("MergedPartition: " + partition.toString() + "\n");
@@ -299,25 +299,25 @@ public class Tools {
 
 // // //        partition.probability=p1.probability+p2.probability;
         // BUILD DETERMINISTIC INSTANCE ----------------------------------------------------
-        String choice = new String("");
-        Integer toogle = 0;
-        if (toogle.equals(0)) {
-            choice = "rightJoin";
-            toogle++;
-        } else {
-            if (toogle.equals(1)) {
-                choice = "union";
-                toogle++;
-            } else {
-                if (toogle.equals(2)) {
-                    choice = "union";
-                    toogle = toogle - 2;
-                }
-            }
-        }
+//        String choice = new String("");
+//        Integer toogle = 0;
+//        if (toogle.equals(0)) {
+//            choice = "rightJoin";
+//            toogle++;
+//        } else {
+//            if (toogle.equals(1)) {
+//                choice = "union";
+//                toogle++;
+//            } else {
+//                if (toogle.equals(2)) {
+//                    choice = "union";
+//                    toogle = toogle - 2;
+//                }
+//            }
+//        }
         //-------------------------------------------------------------------------------
         //   BUILD RANDOM INSTANCE ----------------------------------------------------       
-//        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
+        String choice = this.getChoice(unionProbability, leftJoinProbability, rightJoinProbability);
 
 //---------------------------------------------------------------------------------------------
         System.out.println(choice);
@@ -424,7 +424,7 @@ public class Tools {
                 count = 0;
                 sellsForCurrentPositiveSet = new MyArrayList<>();
                 System.out.println("PositiveSetsPLengths: " + "PositiveSetsPLengthsSumBoughts: " + p.balanceBoughtsBudgetOfSetUpToIndex.toString());//[] ist richtig
-//                System.out.println("PositiveSetsPLengthsSumBoughts: " + p.positiveSetsPLengthsSumBoughts.toString());//[0]ist richtig
+//                System.sumQuotuienten.println("PositiveSetsPLengthsSumBoughts: " + p.positiveSetsPLengthsSumBoughts.toString());//[0]ist richtig
 
                 //hier will ich alle vorher zurücksetzten balance aber eigentlich auch bought
                 for (int k = 0; k < i + 1; k++) {
@@ -460,7 +460,7 @@ public class Tools {
         currentEintraegeP1 = (MyArrayList<Eintrag>) calculatedGraphOfSortedSells.getEintraege().clone();
 //        currentEintraegeP1 = (MyArrayList<Eintrag>) p1.getEintraege().clone();// todo: getEinträge
 //        if (currentEintraegeP1.size() < 1) {
-//            System.out.println("currentEintraegeP1 nach clone" + currentEintraegeP1);
+//            System.sumQuotuienten.println("currentEintraegeP1 nach clone" + currentEintraegeP1);
 //
 //        }
         System.out.println("currentEintraegeP1 nach clone" + currentEintraegeP1);
@@ -471,7 +471,7 @@ public class Tools {
         currentEintraegeP2 = (MyArrayList<Eintrag>) calculatedGraphOfSortedSells.getEintraege().clone();
 //        currentEintraegeP2 = (MyArrayList<Eintrag>) p2.getEintraege().clone();
 //        if (currentEintraegeP2.size() < 1) {
-//            System.out.println("currentEintraegeP2 nach clone" + currentEintraegeP1);
+//            System.sumQuotuienten.println("currentEintraegeP2 nach clone" + currentEintraegeP1);
 //
 //        }
         System.out.println("currentEintraegeP2 nach clone" + currentEintraegeP2);
@@ -584,7 +584,7 @@ public class Tools {
             }
 //            if (!s1Rest.contains(currentEintraegeP1.get(maxIndexP1).node)) {
 //
-//                System.out.println("nein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//                System.sumQuotuienten.println("nein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //            }
             Integer maxWertP1 = currentEintraegeP1.get(maxIndexP1).value;
             Integer maxWertP2 = currentEintraegeP2.get(maxIndexP2).value;
@@ -877,7 +877,7 @@ public class Tools {
         partition = new Partition(newMyArrayList, newSortedSells);
         partition.setBudget(newBudget);
         partition.setBalance(newBalance);
-//        System.out.println(p.toString());
+//        System.sumQuotuienten.println(p.toString());
 // todo:  Fehler hier?
         //        partition.getCalculatedGraphOfSortedSells().addEintraege(p2.getCalculatedGraphOfSortedSells().getEintraege());
 //        adjacencyList<Eintrag> shiftList = shift(p1.getCalculatedGraphOfSortedSells().getEintraege(),p2.balance);
@@ -947,12 +947,13 @@ public class Tools {
             prX.println(0);
             prY.println(0);
 
-            for (int laufindexBisMaxKnotenAnzahl = 2; laufindexBisMaxKnotenAnzahl < maxKnotenAnzahl; laufindexBisMaxKnotenAnzahl += schrittlaenge) {// todo: kein +10 ??????
+            for (int laufindexBisMaxKnotenAnzahl = 2;
+                    laufindexBisMaxKnotenAnzahl < maxKnotenAnzahl; laufindexBisMaxKnotenAnzahl += schrittlaenge) {// todo: kein +10 ??????
                 double mittelwertSwap = 0;
                 double mittelwertSortedSells = 0;
-                double out = 0;
+                double sumQuotuienten = 0;
                 prX.println(laufindexBisMaxKnotenAnzahl);
-
+//-----------------------------------------------------------------------------
 //                for (int count = 0; count < pool; count++) {
 //
 //                    instance = buildInstance(min, max, laufindexBisMaxKnotenAnzahl);
@@ -968,18 +969,25 @@ public class Tools {
 //                mittelwertSwap = mittelwertSwap / pool;
 //                mittelwertSortedSells = mittelwertSortedSells / pool;
 //                prY.println(mittelwertSortedSells / mittelwertSwap);// todo: hier können wir Wert für Statistik ändern
+//               
+
+    //-------------------------------------------------------------------------------------            
                 for (int count = 0; count < pool; count++) {
                     instance = buildInstance(min, max, laufindexBisMaxKnotenAnzahl);
                     Graph newGraph = new Graph(instance, randomOrdering);
                     newGraph = getGraphHeuristik(newGraph, "swap");
-                    double currentOut = instance.getBudget() / instance.minBudgetSwap;
+                    System.out.println("instance.getBudget() : //////////////////////////////////////////////////////!!!                      " + instance.getBudget());
+                    System.out.println("instance.minBudgetSwap: //////////////////////////////////////////////////////!!!                      " + instance.minBudgetSwap);
+
+                    double currentOut = (double)instance.getBudget() / instance.minBudgetSwap;
+                    System.out.println("currentOut : //////////////////////////////////////////////////////!!!                      " + currentOut);
                     if (currentOut > 1) {
                         System.err.println("falsch berechnet: sorted sells schlechter als swap");
                     }
-                    out = out + currentOut;
+                    sumQuotuienten = sumQuotuienten + currentOut;
                 }
-                prY.println(out / pool);// todo: hier können wir Wert für Statistik ändern
-//                System.out.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
+                prY.println(sumQuotuienten / pool);// todo: hier können wir Wert für Statistik ändern
+//                System.sumQuotuienten.println("yEintrag : " + sumOfBoughts/instance.minBudgetSwap);
 
             }
             prX.close();
@@ -1251,7 +1259,7 @@ public class Tools {
 //            test.add(currentEintraege.get(laufindexBisMaxKnotenAnzahl).node);
 //        }
 //        if (!(test.containsAll(sRest))) {
-//            System.out.println("da stimmts schon am Anfang nicht ");
+//            System.sumQuotuienten.println("da stimmts schon am Anfang nicht ");
 //        }
         MyInteger currentSell;
         MySet currentPositiveSet = p.positiveSets.get(0);
@@ -1261,7 +1269,7 @@ public class Tools {
 
             newSortedSells.add(currentSell);//index 0 size 0
             sRest.remove(currentSell);
-//                    System.out.println("S1Rest: " + s1Rest.toString());
+//                    System.sumQuotuienten.println("S1Rest: " + s1Rest.toString());
 
             MyArrayList<Eintrag> abschnitt = getEintraegeBisNodeInclusive(currentEintraegePx, currentSell);
             if (partitio.getEintraege() == null) {
@@ -1288,7 +1296,7 @@ public class Tools {
 //            test.add(currentEintraege.get(laufindexBisMaxKnotenAnzahl).node);
 //        }
 //        if (!(test.containsAll(sRest))) {
-//            System.out.println("da stimmts nicht mehr. Manche ");
+//            System.sumQuotuienten.println("da stimmts nicht mehr. Manche ");
 //        }
         //ASSERTION
         //------------------------------------
